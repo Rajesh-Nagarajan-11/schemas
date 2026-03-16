@@ -1,8 +1,15 @@
 openapi: 3.0.0
 info:
   title: Relationship Core Schema
-  description: Core schema definitions for Relationship and Selector
-  version: 1.0.0
+  description: Core schema definitions for Relationship and Selector in Meshery.
+  version: v1alpha3
+  contact:
+    name: Meshery Maintainers
+    email: maintainers@meshery.io
+    url: https://meshery.io
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
 paths: {}
 components:
   schemas:

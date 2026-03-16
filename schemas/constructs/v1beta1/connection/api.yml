@@ -1,13 +1,19 @@
 openapi: 3.0.0
 info:
   title: Connection API
+  description: API for managing Meshery connections - managed and unmanaged resources tracked by Meshery.
   version: v1beta1
-  description: API for managing Meshery connections - managed and unmanaged resources tracked by Meshery
+  contact:
+    name: Meshery Maintainers
+    email: maintainers@meshery.io
+    url: https://meshery.io
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
 
 paths:
   /api/integrations/connections:
     get:
-      x-internal: ["cloud"]
       tags:
         - Connections
       operationId: GetConnections
@@ -65,7 +71,6 @@ paths:
           description: Server error
 
     post:
-      x-internal: ["cloud"]
       tags:
         - Connections
       operationId: RegisterConnection
@@ -91,7 +96,6 @@ paths:
 
   /api/integrations/connections/{connectionId}:
     get:
-      x-internal: ["cloud"]
       tags:
         - Connections
       operationId: GetConnectionById
@@ -112,7 +116,6 @@ paths:
           description: Server error
 
     put:
-      x-internal: ["cloud"]
       tags:
         - Connections
       operationId: UpdateConnection
@@ -139,7 +142,6 @@ paths:
           description: Server error
 
     delete:
-      x-internal: ["cloud"]
       tags:
         - Connections
       operationId: DeleteConnection
@@ -157,7 +159,6 @@ paths:
 
   /api/integrations/connections/meshery/{mesheryServerId}:
     delete:
-      x-internal: ["cloud"]
       tags:
         - Connections
       operationId: DeleteMesheryConnection
@@ -181,7 +182,6 @@ paths:
 
   /api/integrations/connections/kubernetes/{connectionId}/context:
     get:
-      x-internal: ["cloud"]
       tags:
         - Connections
       operationId: GetKubernetesContext
@@ -203,7 +203,6 @@ paths:
 
   /api/environments/{environmentId}/connections/{connectionId}:
     post:
-      x-internal: ["cloud"]
       tags:
         - Connections
       operationId: AddConnectionToEnvironment
@@ -221,7 +220,6 @@ paths:
           description: Server error
 
     delete:
-      x-internal: ["cloud"]
       tags:
         - Connections
       operationId: RemoveConnectionFromEnvironment

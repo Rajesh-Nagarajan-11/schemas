@@ -1,8 +1,15 @@
 openapi: 3.0.0
 info:
     title: Core Schema Elements
-    description: Reusable core schema elements
-    version: 1.0.0
+    description: Reusable core schema elements for Meshery OpenAPI specifications.
+    version: v1alpha1
+    contact:
+        name: Meshery Maintainers
+        email: maintainers@meshery.io
+        url: https://meshery.io
+    license:
+        name: Apache 2.0
+        url: https://www.apache.org/licenses/LICENSE-2.0.html
 paths: {}
 
 components:
