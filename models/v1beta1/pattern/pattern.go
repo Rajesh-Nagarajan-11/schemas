@@ -114,6 +114,21 @@ type PatternFile_Metadata struct {
 	AdditionalProperties map[string]interface{}                 `json:"-" yaml:"-"`
 }
 
+// Id A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.
+type Id = uuid.UUID
+
+// Order defines model for order.
+type Order = string
+
+// Page defines model for page.
+type Page = string
+
+// Pagesize defines model for pagesize.
+type Pagesize = string
+
+// Search defines model for search.
+type Search = string
+
 // Getter for additional properties for PatternFile_Metadata. Returns the specified
 // element and whether it was found
 func (a PatternFile_Metadata) Get(fieldName string) (value interface{}, found bool) {

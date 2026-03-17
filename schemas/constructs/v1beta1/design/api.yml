@@ -1,8 +1,288 @@
 openapi: 3.0.0
 info:
   title: design
-  version: 1.0.0
+  description: Documentation for Meshery Cloud REST APIs for Designs (Patterns)
+  contact:
+    email: maintainers@meshery.io
+  version: v1beta1
+servers:
+  - url: https://cloud.layer5.io
+    description: Meshery Cloud production server URL
+  - url: https://staging-cloud.layer5.io
+    description: Meshery Cloud staging server URL
+  - url: http://localhost:9876
+    description: Meshery Cloud development server URL
+
+tags:
+  - name: designs
+    description: Operations related to infrastructure designs (patterns)
+
 paths:
+  /api/content/patterns:
+    get:
+      x-internal: ["cloud"]
+      tags:
+        - designs
+      summary: Get designs
+      operationId: getPatterns
+      description: Returns a paginated list of infrastructure designs accessible to the user.
+      parameters:
+        - $ref: "#/components/parameters/page"
+        - $ref: "#/components/parameters/pagesize"
+        - $ref: "#/components/parameters/search"
+        - $ref: "#/components/parameters/order"
+        - name: visibility
+          in: query
+          description: Filter by visibility (public, private, published)
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Designs fetched successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MesheryPatternPage"
+        "401":
+          $ref: "#/components/responses/401"
+        "500":
+          $ref: "#/components/responses/500"
+    post:
+      x-internal: ["cloud"]
+      tags:
+        - designs
+      summary: Save design
+      operationId: upsertPattern
+      description: Creates or updates an infrastructure design.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MesheryPatternRequestBody"
+      responses:
+        "200":
+          description: Design saved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MesheryPattern"
+        "400":
+          $ref: "#/components/responses/400"
+        "401":
+          $ref: "#/components/responses/401"
+        "500":
+          $ref: "#/components/responses/500"
+    delete:
+      x-internal: ["cloud"]
+      tags:
+        - designs
+      summary: Bulk delete designs
+      operationId: deletePatterns
+      description: Deletes multiple designs by ID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MesheryPatternDeleteRequestBody"
+      responses:
+        "200":
+          description: Designs deleted successfully
+        "400":
+          $ref: "#/components/responses/400"
+        "401":
+          $ref: "#/components/responses/401"
+        "500":
+          $ref: "#/components/responses/500"
+
+  /api/content/patterns/resource:
+    get:
+      x-internal: ["cloud"]
+      tags:
+        - designs
+      summary: Get pattern resources
+      operationId: getPatternResources
+      description: Returns pattern resource definitions.
+      parameters:
+        - $ref: "#/components/parameters/page"
+        - $ref: "#/components/parameters/pagesize"
+        - $ref: "#/components/parameters/search"
+        - $ref: "#/components/parameters/order"
+      responses:
+        "200":
+          description: Pattern resources fetched successfully
+        "401":
+          $ref: "#/components/responses/401"
+        "500":
+          $ref: "#/components/responses/500"
+    post:
+      x-internal: ["cloud"]
+      tags:
+        - designs
+      summary: Save pattern resource
+      operationId: upsertPatternResource
+      description: Creates or updates a pattern resource definition.
+      responses:
+        "200":
+          description: Pattern resource saved successfully
+        "400":
+          $ref: "#/components/responses/400"
+        "401":
+          $ref: "#/components/responses/401"
+        "500":
+          $ref: "#/components/responses/500"
+
+  /api/content/patterns/resource/{id}:
+    get:
+      x-internal: ["cloud"]
+      tags:
+        - designs
+      summary: Get pattern resource by ID
+      operationId: getPatternResource
+      parameters:
+        - $ref: "#/components/parameters/id"
+      responses:
+        "200":
+          description: Pattern resource fetched successfully
+        "401":
+          $ref: "#/components/responses/401"
+        "404":
+          $ref: "#/components/responses/404"
+        "500":
+          $ref: "#/components/responses/500"
+    delete:
+      x-internal: ["cloud"]
+      tags:
+        - designs
+      summary: Delete pattern resource
+      operationId: deletePatternResource
+      parameters:
+        - $ref: "#/components/parameters/id"
+      responses:
+        "204":
+          description: Pattern resource deleted successfully
+        "401":
+          $ref: "#/components/responses/401"
+        "404":
+          $ref: "#/components/responses/404"
+        "500":
+          $ref: "#/components/responses/500"
+
+  /api/content/patterns/{id}:
+    get:
+      x-internal: ["cloud"]
+      tags:
+        - designs
+      summary: Get design by ID
+      operationId: getPattern
+      parameters:
+        - $ref: "#/components/parameters/id"
+      responses:
+        "200":
+          description: Design fetched successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MesheryPattern"
+        "401":
+          $ref: "#/components/responses/401"
+        "404":
+          $ref: "#/components/responses/404"
+        "500":
+          $ref: "#/components/responses/500"
+    delete:
+      x-internal: ["cloud"]
+      tags:
+        - designs
+      summary: Delete design by ID
+      operationId: deletePattern
+      parameters:
+        - $ref: "#/components/parameters/id"
+      responses:
+        "204":
+          description: Design deleted successfully
+        "401":
+          $ref: "#/components/responses/401"
+        "404":
+          $ref: "#/components/responses/404"
+        "500":
+          $ref: "#/components/responses/500"
+
+  /api/content/patterns/clone/{id}:
+    post:
+      x-internal: ["cloud"]
+      tags:
+        - designs
+      summary: Clone design
+      operationId: clonePattern
+      description: Creates a copy of an existing design.
+      parameters:
+        - $ref: "#/components/parameters/id"
+      responses:
+        "200":
+          description: Design cloned successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MesheryPattern"
+        "401":
+          $ref: "#/components/responses/401"
+        "404":
+          $ref: "#/components/responses/404"
+        "500":
+          $ref: "#/components/responses/500"
+
+  /api/content/patterns/download/{id}:
+    get:
+      x-internal: ["cloud"]
+      tags:
+        - designs
+      summary: Download design file
+      operationId: getDesignPatternFile
+      description: Downloads the raw design file for the specified design.
+      parameters:
+        - $ref: "#/components/parameters/id"
+      responses:
+        "200":
+          description: Design file content
+          content:
+            application/yaml:
+              schema:
+                type: string
+        "401":
+          $ref: "#/components/responses/401"
+        "404":
+          $ref: "#/components/responses/404"
+        "500":
+          $ref: "#/components/responses/500"
+
+  /api/content/patterns/upload/{id}:
+    post:
+      x-internal: ["cloud"]
+      tags:
+        - designs
+      summary: Upload design source content
+      operationId: upsertPatternSourceContent
+      description: Uploads or replaces the source content for a design.
+      parameters:
+        - $ref: "#/components/parameters/id"
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/MesheryPatternImportRequestBody"
+      responses:
+        "200":
+          description: Design source content uploaded successfully
+        "400":
+          $ref: "#/components/responses/400"
+        "401":
+          $ref: "#/components/responses/401"
+        "500":
+          $ref: "#/components/responses/500"
+
   /api/pattern/import:
     post:
       summary: Import Design
@@ -28,6 +308,39 @@ paths:
         "500":
           description: Internal server error
 components:
+  securitySchemes:
+    jwt:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  responses:
+    400:
+      $ref: "../../v1alpha1/core/api.yml#/components/responses/400"
+    401:
+      $ref: "../../v1alpha1/core/api.yml#/components/responses/401"
+    404:
+      $ref: "../../v1alpha1/core/api.yml#/components/responses/404"
+    500:
+      $ref: "../../v1alpha1/core/api.yml#/components/responses/500"
+
+  parameters:
+    id:
+      name: id
+      in: path
+      description: Design (Pattern) ID
+      required: true
+      schema:
+        $ref: "../../v1alpha1/core/api.yml#/components/schemas/uuid"
+    page:
+      $ref: "../../v1alpha1/core/api.yml#/components/parameters/page"
+    pagesize:
+      $ref: "../../v1alpha1/core/api.yml#/components/parameters/pagesize"
+    search:
+      $ref: "../../v1alpha1/core/api.yml#/components/parameters/search"
+    order:
+      $ref: "../../v1alpha1/core/api.yml#/components/parameters/order"
+
   schemas:
     DeletePatternModel:
       type: object
