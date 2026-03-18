@@ -17,15 +17,19 @@ Meshery defines its data model as OpenAPI 3.0 YAML schemas under `schemas/constr
 
 ```
 schemas/constructs/**/*.y{a,}ml  (you write these)
-  │
-  ├──▶ generate-golang.js    (stages source api.yml files + reachable refs)
-  │       └──▶ models/**/*.go
-  │
-  └──▶ bundle-openapi.js     (bundles + dereferences via swagger-cli)
-    └──▶ _openapi_build/**/*.json
-      ├──▶ generate-typescript.js → typescript/generated/
-      └──▶ generate-rtk.js        → typescript/rtk/
+        │
+        ▼
+  bundle-openapi.js           (bundles + dereferences via swagger-cli)
+        │
+        ▼
+  _openapi_build/**/*.json    (intermediate bundled JSON)
+        │
+        ├──▶ generate-golang.js    → models/**/*.go         (oapi-codegen)
+        ├──▶ generate-typescript.js → typescript/generated/  (openapi-typescript)
+        └──▶ generate-rtk.js       → typescript/rtk/        (RTK Query hooks)
 ```
+
+Note: `generate-golang.js` reads source `api.yml` files directly (not the bundled JSON), but the standard build (`make build`) still runs `bundle-openapi` first because Go generation depends on it in both the Makefile and `build/index.js`.
 
 Understanding this pipeline matters because schema design decisions directly affect the quality of generated code. A poorly structured schema produces awkward Go structs and confusing TypeScript types.
 
@@ -38,7 +42,7 @@ Understanding this pipeline matters because schema design decisions directly aff
 - Collects `x-oapi-codegen-extra-tags`, `x-go-name`, and `x-go-type` metadata across direct `$ref` and `allOf` composition
 - Builds import mappings from external `$ref` targets so cross-package types resolve correctly
 - Rewrites external import aliases using explicit `x-go-type-import.name` values when provided
-- Uses `oapi-codegen` v2.x (see the `tool github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen` directive in `go.mod`) under the hood
+- Uses `oapi-codegen` v2.x (pinned via `tool` directive in `go.mod`) under the hood
 
 **TypeScript generator** (`build/generate-typescript.js`):
 - Reads the same bundled JSON
@@ -74,7 +78,7 @@ The `api.yml` is the entry point. It references subschemas via `$ref` and define
 
 ## Naming conventions
 
-These conventions apply to all new additions (fields, paths, operationIds, etc.) for consistency across APIs. Some legacy and DB-mirrored elements are explicit exceptions, as noted below:
+These conventions apply to all new additions (properties, paths, operationIds, etc.) for consistency across APIs. Some legacy and DB-mirrored fields are explicit exceptions, as noted below:
 
 | Element | Convention | Examples |
 |---------|-----------|----------|
