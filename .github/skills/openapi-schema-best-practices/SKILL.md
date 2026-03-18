@@ -38,7 +38,7 @@ Understanding this pipeline matters because schema design decisions directly aff
 - Generates Go structs with JSON + YAML struct tags
 - Collects `x-oapi-codegen-extra-tags` to add custom struct tags (GORM, db, etc.)
 - Builds import mappings from external `$ref` targets so cross-package types resolve correctly
-- Uses `oapi-codegen` v2.5.1 under the hood
+- Uses `oapi-codegen` v2.x (see go.mod/tools) under the hood
 
 **TypeScript generator** (`build/generate-typescript.js`):
 - Reads the same bundled JSON
