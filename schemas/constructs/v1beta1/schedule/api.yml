@@ -3,7 +3,12 @@ info:
   title: schedule
   description: Documentation for Meshery Cloud REST APIs for Schedules
   contact:
+    name: Meshery Maintainers
     email: maintainers@meshery.io
+    url: https://meshery.io
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
   version: v1beta1
 servers:
   - url: https://cloud.layer5.io
@@ -155,12 +160,9 @@ components:
         A schedule defines a recurring cron-based trigger for performance tests
         or other automated tasks.
       required:
-        - id
         - name
         - user_id
         - cron_expression
-        - created_at
-        - updated_at
       properties:
         id:
           $ref: "../../v1alpha1/core/api.yml#/components/schemas/uuid"
