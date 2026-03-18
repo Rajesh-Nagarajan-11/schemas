@@ -128,7 +128,7 @@ Note: The property name in `["schemas"]["..."]` matches the schema component nam
 
 - Endpoints tagged `x-internal: ["cloud"]` go into `cloud.ts` hooks
 - Endpoints tagged `x-internal: ["meshery"]` go into `meshery.ts` hooks
-- Endpoints with no `x-internal` tag appear in the general merged spec but won't generate RTK hooks
+- Endpoints with no `x-internal` tag are included by `filterOpenapiByTag.js` (when unset in both `cloud_openapi.yml` and `meshery_openapi.yml`) and can generate RTK hooks, potentially in both `cloud.ts` and `meshery.ts`
 
 ## Package Discovery
 
