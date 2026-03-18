@@ -194,49 +194,59 @@ function setOrReplaceStructTag(rawTags, tagName, tagValue) {
   return `${nextTag} ${rawTags}`;
 }
 
+function resolveSchemaRef(ref, options) {
+  const {
+    document,
+    inputDir,
+    inputPath,
+    resolvedSchemaCache,
+    seenRefs = new Set(),
+    missingFile = "null",
+  } = options;
+
+  if (seenRefs.has(ref)) {
+    return null;
+  }
+
+  if (resolvedSchemaCache.has(ref)) {
+    return resolvedSchemaCache.get(ref);
+  }
+
+  const { refPath, fragment } = splitRef(ref);
+  let targetDocument = document;
+
+  if (refPath) {
+    if (/^https?:\/\//.test(refPath)) {
+      return null;
+    }
+
+    const resolvedRefPath = path.resolve(inputDir, refPath);
+    if (!fs.existsSync(resolvedRefPath)) {
+      if (missingFile === "throw") {
+        throw new Error(`Unable to resolve referenced schema file '${refPath}' from ${inputPath}`);
+      }
+      return null;
+    }
+
+    targetDocument = loadYamlFile(resolvedRefPath);
+  }
+
+  let resolvedNode;
+  try {
+    resolvedNode = getNodeByFragment(targetDocument, fragment, ref);
+  } catch (_err) {
+    return null;
+  }
+
+  resolvedSchemaCache.set(ref, resolvedNode);
+  return resolvedNode;
+}
+
 function collectSchemaExtraTags(inputPath) {
   const extraTagsByStruct = new Map();
   const document = loadYamlFile(inputPath) || {};
   const inputDir = path.dirname(inputPath);
   const resolvedSchemaCache = new Map();
-
-  function resolveSchemaRef(ref, seenRefs = new Set()) {
-    if (seenRefs.has(ref)) {
-      return null;
-    }
-
-    if (resolvedSchemaCache.has(ref)) {
-      return resolvedSchemaCache.get(ref);
-    }
-
-    const nextSeenRefs = new Set(seenRefs);
-    nextSeenRefs.add(ref);
-
-    const { refPath, fragment } = splitRef(ref);
-    let targetDocument = document;
-
-    if (refPath) {
-      if (/^https?:\/\//.test(refPath)) {
-        return null;
-      }
-
-      const resolvedRefPath = path.resolve(inputDir, refPath);
-      if (!fs.existsSync(resolvedRefPath)) {
-        throw new Error(`Unable to resolve referenced schema file '${refPath}' from ${inputPath}`);
-      }
-
-      targetDocument = loadYamlFile(resolvedRefPath);
-    }
-
-    let resolvedNode;
-    try {
-      resolvedNode = getNodeByFragment(targetDocument, fragment, ref);
-    } catch (_err) {
-      return null;
-    }
-    resolvedSchemaCache.set(ref, resolvedNode);
-    return resolvedNode;
-  }
 
   function createPropertyTagEntry(propertyName, propertyDefinition) {
     if (!propertyDefinition || typeof propertyDefinition !== "object") {
@@ -299,7 +309,14 @@ function collectSchemaExtraTags(inputPath) {
     const propertyTags = new Map();
 
     if (typeof schemaDefinition.$ref === "string") {
-      const resolvedSchema = resolveSchemaRef(schemaDefinition.$ref, seenRefs);
+      const resolvedSchema = resolveSchemaRef(schemaDefinition.$ref, {
+        document,
+        inputDir,
+        inputPath,
+        resolvedSchemaCache,
+        seenRefs,
+        missingFile: "throw",
+      });
       for (const entry of collectPropertyTags(resolvedSchema, new Set([...seenRefs, schemaDefinition.$ref]))) {
         propertyTags.set(entry.propertyName, entry);
       }
@@ -560,17 +577,26 @@ function addCompatibilityParameterAliases(filePath, inputPath) {
 
   for (const parameterName of parameterNames) {
     const exportedName = exportGoIdentifier(parameterName);
-    if (new RegExp(`^type ${exportedName} = `, "m").test(content)) {
-      continue;
-    }
     const aliasPattern = new RegExp(`(^// .*\\n)?^type (\\w+${exportedName}) = (.+)$`, "m");
     const aliasMatch = content.match(aliasPattern);
     if (!aliasMatch || aliasMatch[2] === exportedName) {
       continue;
     }
 
-    const insertion = `${aliasMatch[0]}\n\n// ${exportedName} defines model for ${parameterName}.\ntype ${exportedName} = ${aliasMatch[2]}`;
-    content = content.replace(aliasPattern, insertion);
+    const typeExpression = aliasMatch[3];
+    const directAliasPattern = new RegExp(
+      `(^// ${exportedName} defines model for ${parameterName}\\.\\n)?^type ${exportedName} = .+$`,
+      "m",
+    );
+    const directAlias = `// ${exportedName} defines model for ${parameterName}.\ntype ${exportedName} = ${typeExpression}`;
+
+    if (directAliasPattern.test(content)) {
+      content = content.replace(directAliasPattern, directAlias);
+      content = content.replace(new RegExp(`${aliasMatch[0]}\\n+`, "m"), "");
+      continue;
+    }
+
+    content = content.replace(aliasPattern, directAlias);
   }
 
   fs.writeFileSync(filePath, content, "utf-8");
@@ -684,41 +710,6 @@ function collectPreferredImportAliases(inputPath) {
   const inputDir = path.dirname(inputPath);
   const resolvedSchemaCache = new Map();
 
-  function resolveSchemaRef(ref, seenRefs = new Set()) {
-    if (seenRefs.has(ref)) {
-      return null;
-    }
-
-    if (resolvedSchemaCache.has(ref)) {
-      return resolvedSchemaCache.get(ref);
-    }
-
-    const { refPath, fragment } = splitRef(ref);
-    let targetDocument = document;
-
-    if (refPath) {
-      if (/^https?:\/\//.test(refPath)) {
-        return null;
-      }
-
-      const resolvedRefPath = path.resolve(inputDir, refPath);
-      if (!fs.existsSync(resolvedRefPath)) {
-        return null;
-      }
-
-      targetDocument = loadYamlFile(resolvedRefPath);
-    }
-
-    let resolvedNode;
-    try {
-      resolvedNode = getNodeByFragment(targetDocument, fragment, ref);
-    } catch (_err) {
-      return null;
-    }
-    resolvedSchemaCache.set(ref, resolvedNode);
-    return resolvedNode;
-  }
-
   function visitNode(node, seenRefs = new Set()) {
     if (Array.isArray(node)) {
       for (const item of node) {
@@ -742,7 +733,14 @@ function collectPreferredImportAliases(inputPath) {
     }
 
     if (typeof node.$ref === "string") {
-      const resolved = resolveSchemaRef(node.$ref, seenRefs);
+      const resolved = resolveSchemaRef(node.$ref, {
+        document,
+        inputDir,
+        inputPath,
+        resolvedSchemaCache,
+        seenRefs,
+        missingFile: "null",
+      });
       if (resolved) {
         visitNode(resolved, new Set([...seenRefs, node.$ref]));
       }
