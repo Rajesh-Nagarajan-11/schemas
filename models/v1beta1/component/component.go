@@ -42,7 +42,7 @@ type Component struct {
 // ComponentDefinition Components are reusable building blocks for depicting capabilities defined within models. Learn more at https://docs.meshery.io/concepts/components
 type ComponentDefinition struct {
 	// Id A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.
-	Id corev1alpha1.Uuid `json:"id" yaml:"id"`
+	ID corev1alpha1.Uuid `json:"id" yaml:"id"`
 
 	// SchemaVersion API version of the object, optionally prefixed with an API group (e.g. "group.example.io/v1beta1" or bare "v1beta1").
 	SchemaVersion corev1alpha1.VersionString `json:"schemaVersion" yaml:"schemaVersion"`
@@ -60,7 +60,7 @@ type ComponentDefinition struct {
 	Format ComponentDefinitionFormat `json:"format" yaml:"format"`
 
 	// Model Meshery Models serve as a portable unit of packaging to define managed entities, their relationships, and capabilities.
-	Model modelv1beta1.ModelDefinition `gorm:"foreignKey:ModelId;references:Id" json:"model,omitempty" yaml:"model,omitempty"`
+	Model *modelv1beta1.ModelDefinition `gorm:"foreignKey:ModelId;references:ID" json:"model" yaml:"model"`
 
 	// ModelReference Reference to the specific registered model to which the component belongs and from which model version, category, and other properties may be referenced. Learn more at https://docs.meshery.io/concepts/models
 	ModelReference modelv1beta1.ModelReference `gorm:"-" json:"modelReference" yaml:"modelReference"`
