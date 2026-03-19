@@ -22,47 +22,6 @@ const AcademySchema: Record<string, unknown> = {
   "paths": {
     "/api/academy/Curricula/registered": {
       "get": {
-        "x-internal": [
-          "cloud"
-        ],
-        "tags": [
-          "Academy"
-        ],
-        "operationId": "getMyAcademyCurricula",
-        "summary": "Get academy content",
-        "description": "Returns a list of academy content registered by the user with optional filtering.",
-        "parameters": [
-          {
-            "name": "contentType",
-            "in": "query",
-            "description": "Filter content by content types",
-            "required": false,
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
-              "style": "form",
-              "explode": true
-            }
-          },
-          {
-            "name": "orgId",
-            "in": "query",
-            "description": "Filter content by organization IDs",
-            "required": false,
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
-              "style": "form",
-              "explode": true
-            }
-          }
-        ]
-      },
-      "responses": {
         "200": {
           "description": "A list of content with total count",
           "content": {
@@ -524,7 +483,47 @@ const AcademySchema: Record<string, unknown> = {
         },
         "500": {
           "description": "Server error"
-        }
+        },
+        "x-internal": [
+          "cloud"
+        ],
+        "tags": [
+          "Academy"
+        ],
+        "operationId": "getMyAcademyCurricula",
+        "summary": "Get academy content",
+        "description": "Returns a list of academy content registered by the user with optional filtering.",
+        "parameters": [
+          {
+            "name": "contentType",
+            "in": "query",
+            "description": "Filter content by content types",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "orgId",
+            "in": "query",
+            "description": "Filter content by organization IDs",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": null
       }
     },
     "/api/academy/curricula": {
@@ -1350,152 +1349,6 @@ const AcademySchema: Record<string, unknown> = {
     },
     "/api/academy/Curricula": {
       "get": {
-        "x-internal": [
-          "cloud"
-        ],
-        "tags": [
-          "Academy"
-        ],
-        "operationId": "getAcademyCurricula",
-        "summary": "Get academy content",
-        "description": "Returns a list of academy content with optional filtering.",
-        "parameters": [
-          {
-            "name": "contentType",
-            "in": "query",
-            "description": "Filter content by content types",
-            "required": false,
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
-              "style": "form",
-              "explode": true
-            }
-          },
-          {
-            "name": "visibility",
-            "in": "query",
-            "description": "Filter content by visibility (public/private)",
-            "required": false,
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
-              "style": "form",
-              "explode": true
-            }
-          },
-          {
-            "name": "level",
-            "in": "query",
-            "description": "Filter content by difficulty level",
-            "required": false,
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
-              "style": "form",
-              "explode": true
-            }
-          },
-          {
-            "name": "orgId",
-            "in": "query",
-            "description": "Filter content by organization IDs",
-            "required": false,
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
-              "style": "form",
-              "explode": true
-            }
-          },
-          {
-            "name": "category",
-            "in": "query",
-            "description": "Filter content by categories",
-            "required": false,
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
-              "style": "form",
-              "explode": true
-            }
-          },
-          {
-            "name": "status",
-            "in": "query",
-            "description": "Filter by registration status",
-            "required": false,
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
-              "style": "form",
-              "explode": true
-            }
-          },
-          {
-            "name": "search",
-            "in": "query",
-            "description": "Search content by title",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "sort",
-            "in": "query",
-            "description": "Sort results by a specific field (e.g., title, createdAt)",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "order",
-            "in": "query",
-            "description": "Order of sorting (asc or desc)",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "enum": [
-                "asc",
-                "desc"
-              ]
-            }
-          },
-          {
-            "name": "pagesize",
-            "in": "query",
-            "description": "Number of results per page",
-            "required": false,
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "name": "page",
-            "in": "query",
-            "description": "Page number",
-            "required": false,
-            "schema": {
-              "type": "integer"
-            }
-          }
-        ]
-      },
-      "responses": {
         "200": {
           "description": "A list of content with total count",
           "content": {
@@ -1978,7 +1831,152 @@ const AcademySchema: Record<string, unknown> = {
         },
         "500": {
           "description": "Server error"
-        }
+        },
+        "x-internal": [
+          "cloud"
+        ],
+        "tags": [
+          "Academy"
+        ],
+        "operationId": "getAcademyCurricula",
+        "summary": "Get academy content",
+        "description": "Returns a list of academy content with optional filtering.",
+        "parameters": [
+          {
+            "name": "contentType",
+            "in": "query",
+            "description": "Filter content by content types",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "visibility",
+            "in": "query",
+            "description": "Filter content by visibility (public/private)",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "level",
+            "in": "query",
+            "description": "Filter content by difficulty level",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "orgId",
+            "in": "query",
+            "description": "Filter content by organization IDs",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "description": "Filter content by categories",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Filter by registration status",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "Search content by title",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sort results by a specific field (e.g., title, createdAt)",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "description": "Order of sorting (asc or desc)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          },
+          {
+            "name": "pagesize",
+            "in": "query",
+            "description": "Number of results per page",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": null
       }
     },
     "/api/academy/{type}/{orgId}/{slug}": {
@@ -7043,13 +7041,13 @@ const AcademySchema: Record<string, unknown> = {
             "in": "query",
             "required": false,
             "description": "Filter by content types",
+            "style": "form",
+            "explode": true,
             "schema": {
               "type": "array",
               "items": {
                 "type": "string"
-              },
-              "style": "form",
-              "explode": true
+              }
             }
           },
           {
@@ -7057,13 +7055,13 @@ const AcademySchema: Record<string, unknown> = {
             "in": "query",
             "required": false,
             "description": "Filter by registration status",
+            "style": "form",
+            "explode": true,
             "schema": {
               "type": "array",
               "items": {
                 "type": "string"
-              },
-              "style": "form",
-              "explode": true
+              }
             }
           }
         ],

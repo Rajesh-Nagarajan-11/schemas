@@ -102,7 +102,7 @@ components:
   securitySchemes:
     jwt:
       type: http
-      scheme: Bearer
+      scheme: bearer
       bearerFormat: JWT
   schemas:
     workspace:
