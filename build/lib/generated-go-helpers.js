@@ -103,10 +103,135 @@ function collectExistingHelperMethods(outputDir) {
   return helperMethods;
 }
 
+function collectDeclaredIdentifiers(outputDir) {
+  const identifiers = new Set();
+  const goFiles = fs
+    .readdirSync(outputDir)
+    .filter((name) => name.endsWith(".go") && name !== "zz_generated.helpers.go");
+
+  for (const fileName of goFiles) {
+    const filePath = path.join(outputDir, fileName);
+    const lines = fs.readFileSync(filePath, "utf-8").split(/\r?\n/);
+    let constOrVarBlock = false;
+
+    for (const line of lines) {
+      const typeMatch = line.match(/^type\s+(\w+)\b/);
+      if (typeMatch) {
+        identifiers.add(typeMatch[1]);
+      }
+
+      const funcMatch = line.match(/^func(?:\s*\([^)]*\))?\s+(\w+)\b/);
+      if (funcMatch) {
+        identifiers.add(funcMatch[1]);
+      }
+
+      const singleValueMatch = line.match(/^(?:const|var)\s+(\w+)\b(?!\s*\()/);
+      if (singleValueMatch) {
+        identifiers.add(singleValueMatch[1]);
+      }
+
+      if (/^(?:const|var)\s*\($/.test(line)) {
+        constOrVarBlock = true;
+        continue;
+      }
+
+      if (constOrVarBlock) {
+        if (/^\s*\)/.test(line)) {
+          constOrVarBlock = false;
+          continue;
+        }
+
+        const blockEntryMatch = line.match(/^\s*(\w+)\b/);
+        if (blockEntryMatch) {
+          identifiers.add(blockEntryMatch[1]);
+        }
+      }
+    }
+  }
+
+  return identifiers;
+}
+
+function collectCompatibilityEnumAliases(outputPath, outputDir) {
+  const lines = fs.readFileSync(outputPath, "utf-8").split(/\r?\n/);
+  const declaredIdentifiers = collectDeclaredIdentifiers(outputDir);
+  const enumAliases = {};
+  let currentConstEntries = [];
+
+  function flushConstEntries() {
+    const entriesByType = new Map();
+
+    for (const entry of currentConstEntries) {
+      const typedEntries = entriesByType.get(entry.typeName) || [];
+      typedEntries.push(entry);
+      entriesByType.set(entry.typeName, typedEntries);
+    }
+
+    for (const [typeName, entries] of entriesByType.entries()) {
+      if (!typeName.endsWith("Value")) {
+        continue;
+      }
+
+      const aliases = [];
+      for (const entry of entries) {
+        if (!entry.name.startsWith(typeName)) {
+          continue;
+        }
+
+        const shortName = entry.name.slice(typeName.length);
+        if (!shortName || declaredIdentifiers.has(shortName)) {
+          continue;
+        }
+
+        aliases.push({
+          shortName,
+          canonicalName: entry.name,
+        });
+        declaredIdentifiers.add(shortName);
+      }
+
+      if (aliases.length > 0) {
+        enumAliases[typeName] = aliases;
+      }
+    }
+
+    currentConstEntries = [];
+  }
+
+  for (const line of lines) {
+    if (/^const\s*\($/.test(line)) {
+      currentConstEntries = [];
+      continue;
+    }
+
+    if (currentConstEntries.length > 0 || /^\s*\w+\s+\w+\s+=\s+/.test(line)) {
+      if (/^\s*\)/.test(line)) {
+        flushConstEntries();
+        continue;
+      }
+
+      const constMatch = line.match(/^\s*(\w+)\s+(\w+)\s+=\s+/);
+      if (constMatch) {
+        currentConstEntries.push({
+          name: constMatch[1],
+          typeName: constMatch[2],
+        });
+      }
+    }
+  }
+
+  if (currentConstEntries.length > 0) {
+    flushConstEntries();
+  }
+
+  return enumAliases;
+}
+
 function inferHelperSpec(pkg, outputPath, outputDir) {
   const { localStructTypes, dbReferencedLocalStructs } = collectGeneratedStructInfo(outputPath);
   const existingHelperMethods = collectExistingHelperMethods(outputDir);
   const primaryType = toPascalCase(pkg.name);
+  const enumAliases = collectCompatibilityEnumAliases(outputPath, outputDir);
   const mapStructTypes = [...dbReferencedLocalStructs].filter(
     (typeName) => !existingHelperMethods.get(typeName)?.has("Scan") && !existingHelperMethods.get(typeName)?.has("Value"),
   );
@@ -120,6 +245,7 @@ function inferHelperSpec(pkg, outputPath, outputDir) {
   }
 
   return {
+    enumAliases,
     eventCategories,
     mapStructTypes,
   };
@@ -160,9 +286,32 @@ func (value ${typeName}) Value() (driver.Value, error) {
 }`;
 }
 
+function renderCompatibilityEnumAliases(enumAliases) {
+  return Object.entries(enumAliases)
+    .map(([typeName, aliases]) => {
+      const lines = [
+        `// Deprecated aliases for ${typeName} constants.`,
+        `const (`,
+      ];
+
+      for (const { shortName, canonicalName } of aliases) {
+        lines.push(`\t// Deprecated: Use ${canonicalName} instead.`);
+        lines.push(`\t${shortName} = ${canonicalName}`);
+      }
+
+      lines.push(`)`);
+      return lines.join("\n");
+    })
+    .join("\n\n");
+}
+
 function renderGeneratedHelperFile(pkg, spec) {
   const imports = new Map();
   const sections = [];
+
+  if (spec.enumAliases && Object.keys(spec.enumAliases).length > 0) {
+    sections.push(renderCompatibilityEnumAliases(spec.enumAliases));
+  }
 
   if (spec.mapStructTypes?.length) {
     imports.set("database/sql/driver", null);
