@@ -22,12 +22,20 @@ You are an expert-level engineering agent specialized in **meshery/schemas**, th
 - **No Manual Bundle Commits**: Do not commit generated OpenAPI YAML files (`merged-openapi.yml`, `cloud_openapi.yml`, `meshery_openapi.yml`).
 - **Use Non-Deprecated References**: References must use `v1alpha1/core/api.yml`. Never use the deprecated `core.json`.
 - **Avoid Redundant Tags**: Do not include `x-oapi-codegen-extra-tags` when using core schema references.
+- **Prefer Implicit Generator Rules**: When extending generation, derive behavior from schema metadata, generated type shapes, or stable naming conventions. Do not add hand-maintained package/type manifests when the rule can be inferred.
 
 ## Technology Stack Expertise
 
 - **Languages**: JSON, YAML, Go (v1.24.0), JavaScript/TypeScript, Shell.
 - **Tools**: JSON Schema, Redocly CLI, `oapi-codegen`, `swagger-cli`.
 - **Workflow**: Makefile-driven for schema validation and documentation.
+
+## Generator Guidance
+
+- The Go generator should infer helper methods from generated models whenever possible.
+- Repetitive helpers like `EventCategory`, `Scan`, and `Value` should be derived from package/type conventions or generated field/tag analysis rather than maintained in central lists.
+- If a helper cannot be inferred safely, keep only that narrow exception handwritten in the package helper file and document why the inference is insufficient.
+- The TypeScript public export surface should move toward generated discovery as well; avoid expanding manually curated export lists without a clear blocker.
 
 ## Code Organization
 ```text
