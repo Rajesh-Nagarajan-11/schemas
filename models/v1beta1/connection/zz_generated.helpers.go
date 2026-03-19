@@ -4,7 +4,3 @@ package connection
 func (*Connection) EventCategory() string {
 	return "connection"
 }
-
-func (*MesheryInstance) EventCategory() string {
-	return "connection"
-}

@@ -16,17 +16,15 @@ Meshery defines its data model as OpenAPI 3.0 YAML schemas under `schemas/constr
 ### Build pipeline overview
 
 ```
-schemas/constructs/**/*.yaml  (you write these)
-        │
-        ▼
-  bundle-openapi.js           (bundles + dereferences via swagger-cli)
-        │
-        ▼
-  _openapi_build/**/*.json    (intermediate bundled JSON)
-        │
-        ├──▶ generate-golang.js    → models/**/*.go         (oapi-codegen)
-        ├──▶ generate-typescript.js → typescript/generated/  (openapi-typescript)
-        └──▶ generate-rtk.js       → typescript/rtk/        (RTK Query hooks)
+schemas/constructs/**/*.y{a,}ml  (you write these)
+  │
+  ├──▶ generate-golang.js    (stages source api.yml files + reachable refs)
+  │       └──▶ models/**/*.go
+  │
+  └──▶ bundle-openapi.js     (bundles + dereferences via swagger-cli)
+    └──▶ _openapi_build/**/*.json
+      ├──▶ generate-typescript.js → typescript/generated/
+      └──▶ generate-rtk.js        → typescript/rtk/
 ```
 
 Understanding this pipeline matters because schema design decisions directly affect the quality of generated code. A poorly structured schema produces awkward Go structs and confusing TypeScript types.
@@ -34,11 +32,14 @@ Understanding this pipeline matters because schema design decisions directly aff
 ### How code generators consume schemas
 
 **Go generator** (`build/generate-golang.js`):
-- Reads bundled JSON from `_openapi_build/constructs/`
+- Reads source `schemas/constructs/**/api.yml` packages directly
+- Stages temporary package-local specs and rewrites reachable cross-package refs
 - Generates Go structs with JSON + YAML struct tags
-- Collects `x-oapi-codegen-extra-tags` to add custom struct tags (GORM, db, etc.)
+- Collects `x-oapi-codegen-extra-tags`, `x-go-name`, and `x-go-type` metadata across direct `$ref` and `allOf` composition
 - Builds import mappings from external `$ref` targets so cross-package types resolve correctly
-- Uses `oapi-codegen` v2.5.1 under the hood
+- Rewrites external import aliases using explicit `x-go-type-import.name` values when provided
+- Derives repetitive Go helper methods from generated package/type structure instead of relying on a hand-maintained package manifest
+- Uses `oapi-codegen` v2.x (see go.mod/tools) under the hood
 
 **TypeScript generator** (`build/generate-typescript.js`):
 - Reads the same bundled JSON
@@ -74,7 +75,7 @@ The `api.yml` is the entry point. It references subschemas via `$ref` and define
 
 ## Naming conventions
 
-These conventions are non-negotiable for consistency across all APIs:
+These conventions apply to all new fields for consistency across APIs. Some legacy and DB-mirrored fields are explicit exceptions, as noted below:
 
 | Element | Convention | Examples |
 |---------|-----------|----------|
@@ -85,9 +86,13 @@ These conventions are non-negotiable for consistency across all APIs:
 | File/folder names | lowercase, underscores OK | `model.yaml`, `model_core.yml`, `api.yml` |
 | API paths | `/api` prefix, kebab-case, plural nouns | `/api/workspaces`, `/api/environments` |
 | Path parameters | camelCase | `{subscriptionId}`, `{connectionId}` |
-| operationId | camelCase VerbNoun | `registerMeshmodels`, `GetAllRoles` |
+| operationId | camelCase VerbNoun | `registerMeshmodels`, `getAllRoles` |
 | Version strings | k8s-style | `v1alpha1`, `v1beta1` |
 | schemaVersion | group/version | `models.meshery.io/v1beta1` |
+
+**Exceptions for DB-mirrored/system fields**
+
+Some fields intentionally remain `snake_case` to mirror existing database columns and historical schemas. Common examples are `created_at`, `updated_at`, and `user_id`. Do **not** rename these to camelCase in existing schemas; instead, ensure that any new, non-DB-mirrored fields you add follow the camelCase rules above.
 
 ## Common schema references
 
@@ -111,7 +116,7 @@ version:
   $ref: ../../v1alpha1/core/api.yml#/components/schemas/versionString
 
 # Semver
-version:
+semver:
   $ref: ../../v1alpha1/core/api.yml#/components/schemas/semverString
 ```
 
@@ -120,6 +125,42 @@ When using a `$ref` to a core schema that already defines `x-oapi-codegen-extra-
 For schemas in `v1alpha3`, the relative path is shorter: `../v1alpha1/core/api.yml#/...`
 
 ## Schema design patterns
+
+### `allOf` decision rule
+
+Use `allOf` only when one of these is true:
+
+1. You are composing or extending an object schema with additional properties or requirements.
+2. You are defining a reusable named schema component that wraps a referenced schema and the wrapper itself must carry its own description or `x-*` vendor extensions.
+3. You are preserving an established generator-compatibility case where PR `#629` proved that array item refs must stay wrapped to preserve generated cross-package types. Today that exception is limited to the design schema's `components.items` and `relationships.items` entries.
+
+Do not add a single-entry `allOf` around ordinary object properties just to reference another schema. For normal properties, keep the direct `$ref` and put `description`, `x-go-type`, `x-go-name`, and `x-oapi-codegen-extra-tags` on the property itself.
+
+Use this direct property pattern by default:
+
+```yaml
+plan:
+  $ref: "../plan/api.yml#/components/schemas/Plan"
+  x-go-type: "planv1beta1.Plan"
+  x-go-type-import:
+    path: "github.com/meshery/schemas/models/v1beta1/plan"
+    name: planv1beta1
+  x-oapi-codegen-extra-tags:
+    json: "plan,omitempty"
+```
+
+Use a single-entry wrapper only for reusable alias components that need local metadata:
+
+```yaml
+AcademyCirriculaBadgeId:
+  allOf:
+    - $ref: "../../v1alpha1/core/api.yml#/components/schemas/uuid"
+  description: ID of the badge to be awarded on completion of this curricula
+  x-oapi-codegen-extra-tags:
+    db: "badge_id"
+    json: "badge_id"
+    yaml: "badge_id"
+```
 
 ### Pagination response
 
@@ -158,10 +199,13 @@ When referencing types from another construct, use both `$ref` and Go type hints
 ```yaml
 Invitation:
   $ref: "../invitation/api.yml#/components/schemas/Invitation"
-  x-go-type: "invitation.Invitation"
+  x-go-type: "invitationv1beta1.Invitation"
   x-go-type-import:
     path: "github.com/meshery/schemas/models/v1beta1/invitation"
+    name: invitationv1beta1
 ```
+
+Always set `x-go-type-import.name` when `x-go-type` uses an alias prefix. PR `#629` updated the Go generator to preserve explicit aliases, so the alias in `x-go-type` and the alias in `x-go-type-import.name` must match.
 
 ### Custom Go types for complex fields
 
@@ -174,6 +218,15 @@ metadata:
   x-oapi-codegen-extra-tags:
     db: "metadata"
 ```
+
+### Generated helper policy
+
+Keep helper generation implicit whenever possible.
+
+- `EventCategory` helpers should come from package/type conventions, not from a central handwritten package list.
+- `Scan` and `Value` helpers should be inferred from generated Go structs and DB-tagged local struct usage.
+- If a helper is not safely inferable, keep only that narrow exception handwritten in the package helper file and explain the exception in code or docs.
+- Do not introduce new hand-maintained generator manifests for package/type-level helper behavior unless the schema and generated type information genuinely cannot express the rule.
 
 ### String arrays (pq.StringArray for PostgreSQL)
 
@@ -244,10 +297,10 @@ info:
 paths:
   /api/<constructs>:
     get:
-      operationId: GetAll<Constructs>
+      operationId: getAll<Constructs>
       # ... parameters, responses
     post:
-      operationId: Create<Construct>
+      operationId: create<Construct>
       # ... requestBody, responses
 
 components:
@@ -302,6 +355,7 @@ When reviewing or auditing schemas, check every item on this list:
 - [ ] UUIDs use `$ref` to core `uuid` schema
 - [ ] No redundant `x-oapi-codegen-extra-tags` on fields that already have them in the referenced schema
 - [ ] Cross-construct refs include `x-go-type` and `x-go-type-import` for proper Go imports
+- [ ] Alias-prefixed `x-go-type` values have a matching `x-go-type-import.name`
 
 ### Structure audit
 
@@ -310,6 +364,7 @@ When reviewing or auditing schemas, check every item on this list:
 - [ ] Template files exist in `templates/` subdirectory with sensible defaults
 - [ ] `openapi: 3.0.0` version is declared (not 3.1.0 — `oapi-codegen` requires 3.0.x)
 - [ ] Each construct defines `info.title` and `info.version`
+- [ ] Single-entry `allOf` wrappers are limited to reusable alias schemas or documented compatibility exceptions; ordinary property refs stay direct
 
 ### Consistency across constructs
 
@@ -324,6 +379,7 @@ When reviewing or auditing schemas, check every item on this list:
 - [ ] Fields that store JSON blobs in the database use `x-go-type: "core.Map"` with `x-go-type-skip-optional-pointer: true`
 - [ ] Array fields backed by PostgreSQL use `x-go-type: "pq.StringArray"` where appropriate
 - [ ] Nullable database fields use proper nullable markers
+- [ ] New generator behavior is inferred from schema/type conventions rather than a hand-maintained package manifest unless there is a documented exception
 
 ## What NOT to do
 

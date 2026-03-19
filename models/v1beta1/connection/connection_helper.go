@@ -116,3 +116,10 @@ func MeshsyncDeploymentModeFromMetadata(metadata core.Map) MeshsyncDeploymentMod
 func SetMeshsyncDeploymentModeToMetadata(metadata core.Map, value MeshsyncDeploymentMode) {
 	metadata[MeshsyncDeploymentModeMetadataKey] = value
 }
+
+// MesheryInstance shares the connection event stream but is not the package's
+// primary model type, so this remains handwritten until that relationship is
+// represented declaratively in schema metadata.
+func (*MesheryInstance) EventCategory() string {
+	return "connection"
+}
