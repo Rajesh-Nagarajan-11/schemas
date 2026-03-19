@@ -251,7 +251,7 @@ const AcademySchema: Record<string, unknown> = {
                             "allOf": [
                               {
                                 "description": "Timestamp when the resource was deleted.",
-                                "x-go-type": "time.Time",
+                                "x-go-type": "NullTime",
                                 "type": "string",
                                 "format": "date-time",
                                 "x-go-name": "DeletedAt",
@@ -1079,7 +1079,7 @@ const AcademySchema: Record<string, unknown> = {
                       "allOf": [
                         {
                           "description": "Timestamp when the resource was deleted.",
-                          "x-go-type": "time.Time",
+                          "x-go-type": "NullTime",
                           "type": "string",
                           "format": "date-time",
                           "x-go-name": "DeletedAt",
@@ -1687,7 +1687,7 @@ const AcademySchema: Record<string, unknown> = {
                                 "allOf": [
                                   {
                                     "description": "Timestamp when the resource was deleted.",
-                                    "x-go-type": "time.Time",
+                                    "x-go-type": "NullTime",
                                     "type": "string",
                                     "format": "date-time",
                                     "x-go-name": "DeletedAt",
@@ -2193,7 +2193,7 @@ const AcademySchema: Record<string, unknown> = {
                       "allOf": [
                         {
                           "description": "Timestamp when the resource was deleted.",
-                          "x-go-type": "time.Time",
+                          "x-go-type": "NullTime",
                           "type": "string",
                           "format": "date-time",
                           "x-go-name": "DeletedAt",
@@ -2600,7 +2600,7 @@ const AcademySchema: Record<string, unknown> = {
                     },
                     "deleted_at": {
                       "description": "Timestamp when the resource was deleted.",
-                      "x-go-type": "time.Time",
+                      "x-go-type": "NullTime",
                       "type": "string",
                       "format": "date-time",
                       "x-go-name": "DeletedAt",
@@ -2857,7 +2857,7 @@ const AcademySchema: Record<string, unknown> = {
                     },
                     "deleted_at": {
                       "description": "Timestamp when the resource was deleted.",
-                      "x-go-type": "time.Time",
+                      "x-go-type": "NullTime",
                       "type": "string",
                       "format": "date-time",
                       "x-go-name": "DeletedAt",
@@ -3559,7 +3559,7 @@ const AcademySchema: Record<string, unknown> = {
                           "allOf": [
                             {
                               "description": "Timestamp when the resource was deleted.",
-                              "x-go-type": "time.Time",
+                              "x-go-type": "NullTime",
                               "type": "string",
                               "format": "date-time",
                               "x-go-name": "DeletedAt",
@@ -4259,7 +4259,7 @@ const AcademySchema: Record<string, unknown> = {
                           "allOf": [
                             {
                               "description": "Timestamp when the resource was deleted.",
-                              "x-go-type": "time.Time",
+                              "x-go-type": "NullTime",
                               "type": "string",
                               "format": "date-time",
                               "x-go-name": "DeletedAt",
@@ -4851,7 +4851,7 @@ const AcademySchema: Record<string, unknown> = {
                     },
                     "deleted_at": {
                       "description": "Timestamp when the resource was deleted.",
-                      "x-go-type": "time.Time",
+                      "x-go-type": "NullTime",
                       "type": "string",
                       "format": "date-time",
                       "x-go-name": "DeletedAt",
@@ -5156,6 +5156,7 @@ const AcademySchema: Record<string, unknown> = {
                               },
                               "quiz": {
                                 "x-go-type": "Quiz",
+                                "x-generate-db-helpers": true,
                                 "type": "object",
                                 "required": [
                                   "id",
@@ -5590,6 +5591,7 @@ const AcademySchema: Record<string, unknown> = {
             "content": {
               "application/json": {
                 "schema": {
+                  "x-generate-db-helpers": true,
                   "type": "object",
                   "required": [
                     "id",
@@ -5905,6 +5907,7 @@ const AcademySchema: Record<string, unknown> = {
             "content": {
               "application/json": {
                 "schema": {
+                  "x-generate-db-helpers": true,
                   "type": "object",
                   "required": [
                     "id",
@@ -6261,6 +6264,7 @@ const AcademySchema: Record<string, unknown> = {
                         },
                         "quiz": {
                           "x-go-type": "Quiz",
+                          "x-generate-db-helpers": true,
                           "type": "object",
                           "required": [
                             "id",
@@ -6665,6 +6669,7 @@ const AcademySchema: Record<string, unknown> = {
                     },
                     "quiz": {
                       "x-go-type": "Quiz",
+                      "x-generate-db-helpers": true,
                       "type": "object",
                       "required": [
                         "id",
@@ -7485,7 +7490,7 @@ const AcademySchema: Record<string, unknown> = {
         "allOf": [
           {
             "description": "Timestamp when the resource was deleted.",
-            "x-go-type": "time.Time",
+            "x-go-type": "NullTime",
             "type": "string",
             "format": "date-time",
             "x-go-name": "DeletedAt",
@@ -7969,7 +7974,7 @@ const AcademySchema: Record<string, unknown> = {
             "allOf": [
               {
                 "description": "Timestamp when the resource was deleted.",
-                "x-go-type": "time.Time",
+                "x-go-type": "NullTime",
                 "type": "string",
                 "format": "date-time",
                 "x-go-name": "DeletedAt",
@@ -8403,7 +8408,7 @@ const AcademySchema: Record<string, unknown> = {
                 "allOf": [
                   {
                     "description": "Timestamp when the resource was deleted.",
-                    "x-go-type": "time.Time",
+                    "x-go-type": "NullTime",
                     "type": "string",
                     "format": "date-time",
                     "x-go-name": "DeletedAt",
@@ -9381,7 +9386,7 @@ const AcademySchema: Record<string, unknown> = {
                 "allOf": [
                   {
                     "description": "Timestamp when the resource was deleted.",
-                    "x-go-type": "time.Time",
+                    "x-go-type": "NullTime",
                     "type": "string",
                     "format": "date-time",
                     "x-go-name": "DeletedAt",
@@ -9841,7 +9846,7 @@ const AcademySchema: Record<string, unknown> = {
                   "allOf": [
                     {
                       "description": "Timestamp when the resource was deleted.",
-                      "x-go-type": "time.Time",
+                      "x-go-type": "NullTime",
                       "type": "string",
                       "format": "date-time",
                       "x-go-name": "DeletedAt",
@@ -10293,7 +10298,7 @@ const AcademySchema: Record<string, unknown> = {
                       "allOf": [
                         {
                           "description": "Timestamp when the resource was deleted.",
-                          "x-go-type": "time.Time",
+                          "x-go-type": "NullTime",
                           "type": "string",
                           "format": "date-time",
                           "x-go-name": "DeletedAt",
@@ -11434,7 +11439,7 @@ const AcademySchema: Record<string, unknown> = {
           },
           "deleted_at": {
             "description": "Timestamp when the resource was deleted.",
-            "x-go-type": "time.Time",
+            "x-go-type": "NullTime",
             "type": "string",
             "format": "date-time",
             "x-go-name": "DeletedAt",
@@ -11603,6 +11608,7 @@ const AcademySchema: Record<string, unknown> = {
               },
               "quiz": {
                 "x-go-type": "Quiz",
+                "x-generate-db-helpers": true,
                 "type": "object",
                 "required": [
                   "id",
@@ -11918,6 +11924,7 @@ const AcademySchema: Record<string, unknown> = {
             },
             "quiz": {
               "x-go-type": "Quiz",
+              "x-generate-db-helpers": true,
               "type": "object",
               "required": [
                 "id",
@@ -12362,7 +12369,7 @@ const AcademySchema: Record<string, unknown> = {
                 },
                 "deleted_at": {
                   "description": "Timestamp when the resource was deleted.",
-                  "x-go-type": "time.Time",
+                  "x-go-type": "NullTime",
                   "type": "string",
                   "format": "date-time",
                   "x-go-name": "DeletedAt",
@@ -12602,6 +12609,7 @@ const AcademySchema: Record<string, unknown> = {
                 },
                 "quiz": {
                   "x-go-type": "Quiz",
+                  "x-generate-db-helpers": true,
                   "type": "object",
                   "required": [
                     "id",
@@ -13022,6 +13030,7 @@ const AcademySchema: Record<string, unknown> = {
         }
       },
       "Quiz": {
+        "x-generate-db-helpers": true,
         "type": "object",
         "required": [
           "id",
@@ -13590,7 +13599,7 @@ const AcademySchema: Record<string, unknown> = {
           },
           "deleted_at": {
             "description": "Timestamp when the resource was deleted.",
-            "x-go-type": "time.Time",
+            "x-go-type": "NullTime",
             "type": "string",
             "format": "date-time",
             "x-go-name": "DeletedAt",
@@ -13728,6 +13737,7 @@ const AcademySchema: Record<string, unknown> = {
               },
               "quiz": {
                 "x-go-type": "Quiz",
+                "x-generate-db-helpers": true,
                 "type": "object",
                 "required": [
                   "id",
@@ -14003,6 +14013,7 @@ const AcademySchema: Record<string, unknown> = {
             }
           },
           "test": {
+            "x-generate-db-helpers": true,
             "type": "object",
             "required": [
               "id",
@@ -14306,6 +14317,7 @@ const AcademySchema: Record<string, unknown> = {
           },
           "quiz": {
             "x-go-type": "Quiz",
+            "x-generate-db-helpers": true,
             "type": "object",
             "required": [
               "id",

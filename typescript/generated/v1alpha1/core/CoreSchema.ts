@@ -450,7 +450,7 @@ const CoreSchema: Record<string, unknown> = {
       },
       "deleted_at": {
         "description": "Timestamp when the resource was deleted.",
-        "x-go-type": "time.Time",
+        "x-go-type": "NullTime",
         "type": "string",
         "format": "date-time",
         "x-go-name": "DeletedAt",

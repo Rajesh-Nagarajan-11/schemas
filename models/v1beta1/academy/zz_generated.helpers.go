@@ -3,7 +3,6 @@ package academy
 
 import (
 	"database/sql/driver"
-
 	core "github.com/meshery/schemas/models/core"
 )
 
