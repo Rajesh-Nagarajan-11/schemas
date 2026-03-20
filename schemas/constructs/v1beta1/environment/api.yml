@@ -65,8 +65,9 @@ components:
       $ref: "./environment.yaml"
     environmentConnectionMapping:
       properties:
-        ID:
+        id:
           $ref: ../../v1alpha1/core/api.yml#/components/schemas/general_id
+          x-go-name: ID
         environment_id:
           type: string
           format: uuid
