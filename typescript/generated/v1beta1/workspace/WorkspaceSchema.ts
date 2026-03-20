@@ -99,18 +99,20 @@ const WorkspaceSchema: Record<string, unknown> = {
                             "x-go-type-skip-optional-pointer": true
                           },
                           "organization_id": {
+                            "x-go-name": "OrganizationID",
+                            "x-go-type-skip-optional-pointer": true,
+                            "x-oapi-codegen-extra-tags": {
+                              "db": "organization_id",
+                              "yaml": "organization_id",
+                              "json": "organization_id"
+                            },
+                            "description": "Workspace organization ID",
                             "type": "string",
                             "format": "uuid",
                             "x-go-type": "uuid.UUID",
                             "x-go-type-import": {
                               "path": "github.com/gofrs/uuid"
-                            },
-                            "x-oapi-codegen-extra-tags": {
-                              "db": "org_id",
-                              "json": "org_id"
-                            },
-                            "x-go-type-name": "OrganizationId",
-                            "x-go-type-skip-optional-pointer": true
+                            }
                           },
                           "owner": {
                             "type": "string",
@@ -165,12 +167,17 @@ const WorkspaceSchema: Record<string, unknown> = {
                     "description": "Workspaces serve as a virtual space for your team-based work, allows you to control access and more, Provide a detailed description to clarify the purpose of this workspace. Remember you can changes description of workspace after it's creations too. Learn more about workspaces [here](https://docs.meshery.io/concepts/logical/workspaces)"
                   },
                   "organization_id": {
-                    "type": "string",
                     "description": "Select an organization in which you want to create this new workspace. Keep in mind that the organization cannot be changed after creation.",
                     "x-go-type-skip-optional-pointer": true,
                     "x-go-name": "OrganizationID",
                     "x-oapi-codegen-extra-tags": {
                       "json": "organization_id"
+                    },
+                    "type": "string",
+                    "format": "uuid",
+                    "x-go-type": "uuid.UUID",
+                    "x-go-type-import": {
+                      "path": "github.com/gofrs/uuid"
                     }
                   }
                 },
@@ -212,18 +219,20 @@ const WorkspaceSchema: Record<string, unknown> = {
                       "x-go-type-skip-optional-pointer": true
                     },
                     "organization_id": {
+                      "x-go-name": "OrganizationID",
+                      "x-go-type-skip-optional-pointer": true,
+                      "x-oapi-codegen-extra-tags": {
+                        "db": "organization_id",
+                        "yaml": "organization_id",
+                        "json": "organization_id"
+                      },
+                      "description": "Workspace organization ID",
                       "type": "string",
                       "format": "uuid",
                       "x-go-type": "uuid.UUID",
                       "x-go-type-import": {
                         "path": "github.com/gofrs/uuid"
-                      },
-                      "x-oapi-codegen-extra-tags": {
-                        "db": "org_id",
-                        "json": "org_id"
-                      },
-                      "x-go-type-name": "OrganizationId",
-                      "x-go-type-skip-optional-pointer": true
+                      }
                     },
                     "owner": {
                       "type": "string",
@@ -299,18 +308,20 @@ const WorkspaceSchema: Record<string, unknown> = {
                       "x-go-type-skip-optional-pointer": true
                     },
                     "organization_id": {
+                      "x-go-name": "OrganizationID",
+                      "x-go-type-skip-optional-pointer": true,
+                      "x-oapi-codegen-extra-tags": {
+                        "db": "organization_id",
+                        "yaml": "organization_id",
+                        "json": "organization_id"
+                      },
+                      "description": "Workspace organization ID",
                       "type": "string",
                       "format": "uuid",
                       "x-go-type": "uuid.UUID",
                       "x-go-type-import": {
                         "path": "github.com/gofrs/uuid"
-                      },
-                      "x-oapi-codegen-extra-tags": {
-                        "db": "org_id",
-                        "json": "org_id"
-                      },
-                      "x-go-type-name": "OrganizationId",
-                      "x-go-type-skip-optional-pointer": true
+                      }
                     },
                     "owner": {
                       "type": "string",
@@ -372,12 +383,17 @@ const WorkspaceSchema: Record<string, unknown> = {
                     "description": "Environment description"
                   },
                   "organization_id": {
-                    "type": "string",
                     "description": "Organization ID",
                     "x-go-type-skip-optional-pointer": true,
                     "x-go-name": "OrganizationID",
                     "x-oapi-codegen-extra-tags": {
                       "json": "organization_id"
+                    },
+                    "type": "string",
+                    "format": "uuid",
+                    "x-go-type": "uuid.UUID",
+                    "x-go-type-import": {
+                      "path": "github.com/gofrs/uuid"
                     }
                   }
                 },
@@ -418,18 +434,20 @@ const WorkspaceSchema: Record<string, unknown> = {
                       "x-go-type-skip-optional-pointer": true
                     },
                     "organization_id": {
+                      "x-go-name": "OrganizationID",
+                      "x-go-type-skip-optional-pointer": true,
+                      "x-oapi-codegen-extra-tags": {
+                        "db": "organization_id",
+                        "yaml": "organization_id",
+                        "json": "organization_id"
+                      },
+                      "description": "Workspace organization ID",
                       "type": "string",
                       "format": "uuid",
                       "x-go-type": "uuid.UUID",
                       "x-go-type-import": {
                         "path": "github.com/gofrs/uuid"
-                      },
-                      "x-oapi-codegen-extra-tags": {
-                        "db": "org_id",
-                        "json": "org_id"
-                      },
-                      "x-go-type-name": "OrganizationId",
-                      "x-go-type-skip-optional-pointer": true
+                      }
                     },
                     "owner": {
                       "type": "string",
@@ -515,18 +533,20 @@ const WorkspaceSchema: Record<string, unknown> = {
             "x-go-type-skip-optional-pointer": true
           },
           "organization_id": {
+            "x-go-name": "OrganizationID",
+            "x-go-type-skip-optional-pointer": true,
+            "x-oapi-codegen-extra-tags": {
+              "db": "organization_id",
+              "yaml": "organization_id",
+              "json": "organization_id"
+            },
+            "description": "Workspace organization ID",
             "type": "string",
             "format": "uuid",
             "x-go-type": "uuid.UUID",
             "x-go-type-import": {
               "path": "github.com/gofrs/uuid"
-            },
-            "x-oapi-codegen-extra-tags": {
-              "db": "org_id",
-              "json": "org_id"
-            },
-            "x-go-type-name": "OrganizationId",
-            "x-go-type-skip-optional-pointer": true
+            }
           },
           "owner": {
             "type": "string",
@@ -811,12 +831,17 @@ const WorkspaceSchema: Record<string, unknown> = {
             "description": "Environment description"
           },
           "organization_id": {
-            "type": "string",
             "description": "Organization ID",
             "x-go-type-skip-optional-pointer": true,
             "x-go-name": "OrganizationID",
             "x-oapi-codegen-extra-tags": {
               "json": "organization_id"
+            },
+            "type": "string",
+            "format": "uuid",
+            "x-go-type": "uuid.UUID",
+            "x-go-type-import": {
+              "path": "github.com/gofrs/uuid"
             }
           }
         },
@@ -837,12 +862,17 @@ const WorkspaceSchema: Record<string, unknown> = {
             "description": "Workspaces serve as a virtual space for your team-based work, allows you to control access and more, Provide a detailed description to clarify the purpose of this workspace. Remember you can changes description of workspace after it's creations too. Learn more about workspaces [here](https://docs.meshery.io/concepts/logical/workspaces)"
           },
           "organization_id": {
-            "type": "string",
             "description": "Select an organization in which you want to create this new workspace. Keep in mind that the organization cannot be changed after creation.",
             "x-go-type-skip-optional-pointer": true,
             "x-go-name": "OrganizationID",
             "x-oapi-codegen-extra-tags": {
               "json": "organization_id"
+            },
+            "type": "string",
+            "format": "uuid",
+            "x-go-type": "uuid.UUID",
+            "x-go-type-import": {
+              "path": "github.com/gofrs/uuid"
             }
           }
         },
@@ -894,18 +924,20 @@ const WorkspaceSchema: Record<string, unknown> = {
                   "x-go-type-skip-optional-pointer": true
                 },
                 "organization_id": {
+                  "x-go-name": "OrganizationID",
+                  "x-go-type-skip-optional-pointer": true,
+                  "x-oapi-codegen-extra-tags": {
+                    "db": "organization_id",
+                    "yaml": "organization_id",
+                    "json": "organization_id"
+                  },
+                  "description": "Workspace organization ID",
                   "type": "string",
                   "format": "uuid",
                   "x-go-type": "uuid.UUID",
                   "x-go-type-import": {
                     "path": "github.com/gofrs/uuid"
-                  },
-                  "x-oapi-codegen-extra-tags": {
-                    "db": "org_id",
-                    "json": "org_id"
-                  },
-                  "x-go-type-name": "OrganizationId",
-                  "x-go-type-skip-optional-pointer": true
+                  }
                 },
                 "owner": {
                   "type": "string",
@@ -952,12 +984,17 @@ const WorkspaceSchema: Record<string, unknown> = {
                   "description": "Workspaces serve as a virtual space for your team-based work, allows you to control access and more, Provide a detailed description to clarify the purpose of this workspace. Remember you can changes description of workspace after it's creations too. Learn more about workspaces [here](https://docs.meshery.io/concepts/logical/workspaces)"
                 },
                 "organization_id": {
-                  "type": "string",
                   "description": "Select an organization in which you want to create this new workspace. Keep in mind that the organization cannot be changed after creation.",
                   "x-go-type-skip-optional-pointer": true,
                   "x-go-name": "OrganizationID",
                   "x-oapi-codegen-extra-tags": {
                     "json": "organization_id"
+                  },
+                  "type": "string",
+                  "format": "uuid",
+                  "x-go-type": "uuid.UUID",
+                  "x-go-type-import": {
+                    "path": "github.com/gofrs/uuid"
                   }
                 }
               },
@@ -987,12 +1024,17 @@ const WorkspaceSchema: Record<string, unknown> = {
                   "description": "Environment description"
                 },
                 "organization_id": {
-                  "type": "string",
                   "description": "Organization ID",
                   "x-go-type-skip-optional-pointer": true,
                   "x-go-name": "OrganizationID",
                   "x-oapi-codegen-extra-tags": {
                     "json": "organization_id"
+                  },
+                  "type": "string",
+                  "format": "uuid",
+                  "x-go-type": "uuid.UUID",
+                  "x-go-type-import": {
+                    "path": "github.com/gofrs/uuid"
                   }
                 }
               },

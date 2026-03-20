@@ -3019,6 +3019,7 @@ export type GetApiWorkspacesApiResponse = /** status 200 List of workspaces */ {
     ID?: string;
     name?: string;
     description?: string;
+    /** Workspace organization ID */
     organization_id?: string;
     owner?: string;
     created_at?: string;
@@ -3032,6 +3033,7 @@ export type PostApiWorkspacesApiResponse = /** status 201 Workspace created succ
   ID?: string;
   name?: string;
   description?: string;
+  /** Workspace organization ID */
   organization_id?: string;
   owner?: string;
   created_at?: string;
@@ -3054,6 +3056,7 @@ export type GetApiWorkspacesByIdApiResponse = /** status 200 Workspace details *
   ID?: string;
   name?: string;
   description?: string;
+  /** Workspace organization ID */
   organization_id?: string;
   owner?: string;
   created_at?: string;
@@ -3068,6 +3071,7 @@ export type PutApiWorkspacesByIdApiResponse = /** status 200 Workspace updated s
   ID?: string;
   name?: string;
   description?: string;
+  /** Workspace organization ID */
   organization_id?: string;
   owner?: string;
   created_at?: string;

@@ -19,7 +19,10 @@ export interface paths {
                 ID?: string;
                 name?: string;
                 description?: string;
-                /** Format: uuid */
+                /**
+                 * Format: uuid
+                 * @description Workspace organization ID
+                 */
                 organization_id?: string;
                 owner?: string;
                 /** Format: date-time */
@@ -44,7 +47,10 @@ export interface paths {
               ID?: string;
               name?: string;
               description?: string;
-              /** Format: uuid */
+              /**
+               * Format: uuid
+               * @description Workspace organization ID
+               */
               organization_id?: string;
               owner?: string;
               /** Format: date-time */
@@ -65,7 +71,10 @@ export interface paths {
             name: string;
             /** @description Workspaces serve as a virtual space for your team-based work, allows you to control access and more, Provide a detailed description to clarify the purpose of this workspace. Remember you can changes description of workspace after it's creations too. Learn more about workspaces [here](https://docs.meshery.io/concepts/logical/workspaces) */
             description?: string;
-            /** @description Select an organization in which you want to create this new workspace. Keep in mind that the organization cannot be changed after creation. */
+            /**
+             * Format: uuid
+             * @description Select an organization in which you want to create this new workspace. Keep in mind that the organization cannot be changed after creation.
+             */
             organization_id: string;
           };
         };
@@ -88,7 +97,10 @@ export interface paths {
               ID?: string;
               name?: string;
               description?: string;
-              /** Format: uuid */
+              /**
+               * Format: uuid
+               * @description Workspace organization ID
+               */
               organization_id?: string;
               owner?: string;
               /** Format: date-time */
@@ -117,7 +129,10 @@ export interface paths {
               ID?: string;
               name?: string;
               description?: string;
-              /** Format: uuid */
+              /**
+               * Format: uuid
+               * @description Workspace organization ID
+               */
               organization_id?: string;
               owner?: string;
               /** Format: date-time */
@@ -138,7 +153,10 @@ export interface paths {
             name?: string;
             /** @description Environment description */
             description?: string;
-            /** @description Organization ID */
+            /**
+             * Format: uuid
+             * @description Organization ID
+             */
             organization_id: string;
           };
         };
@@ -165,7 +183,10 @@ export interface components {
       ID?: string;
       name?: string;
       description?: string;
-      /** Format: uuid */
+      /**
+       * Format: uuid
+       * @description Workspace organization ID
+       */
       organization_id?: string;
       owner?: string;
       /** Format: date-time */
@@ -236,7 +257,10 @@ export interface components {
       name?: string;
       /** @description Environment description */
       description?: string;
-      /** @description Organization ID */
+      /**
+       * Format: uuid
+       * @description Organization ID
+       */
       organization_id: string;
     };
     workspacePayload: {
@@ -244,7 +268,10 @@ export interface components {
       name: string;
       /** @description Workspaces serve as a virtual space for your team-based work, allows you to control access and more, Provide a detailed description to clarify the purpose of this workspace. Remember you can changes description of workspace after it's creations too. Learn more about workspaces [here](https://docs.meshery.io/concepts/logical/workspaces) */
       description?: string;
-      /** @description Select an organization in which you want to create this new workspace. Keep in mind that the organization cannot be changed after creation. */
+      /**
+       * Format: uuid
+       * @description Select an organization in which you want to create this new workspace. Keep in mind that the organization cannot be changed after creation.
+       */
       organization_id: string;
     };
     workspacePage: {
@@ -256,7 +283,10 @@ export interface components {
         ID?: string;
         name?: string;
         description?: string;
-        /** Format: uuid */
+        /**
+         * Format: uuid
+         * @description Workspace organization ID
+         */
         organization_id?: string;
         owner?: string;
         /** Format: date-time */
@@ -277,7 +307,10 @@ export interface components {
           name: string;
           /** @description Workspaces serve as a virtual space for your team-based work, allows you to control access and more, Provide a detailed description to clarify the purpose of this workspace. Remember you can changes description of workspace after it's creations too. Learn more about workspaces [here](https://docs.meshery.io/concepts/logical/workspaces) */
           description?: string;
-          /** @description Select an organization in which you want to create this new workspace. Keep in mind that the organization cannot be changed after creation. */
+          /**
+           * Format: uuid
+           * @description Select an organization in which you want to create this new workspace. Keep in mind that the organization cannot be changed after creation.
+           */
           organization_id: string;
         };
       };
@@ -290,7 +323,10 @@ export interface components {
           name?: string;
           /** @description Environment description */
           description?: string;
-          /** @description Organization ID */
+          /**
+           * Format: uuid
+           * @description Organization ID
+           */
           organization_id: string;
         };
       };

@@ -13,12 +13,14 @@ type Workspace struct {
 	CreatedAt corev1alpha1.Time      `json:"created_at,omitempty" yaml:"created_at,omitempty"`
 
 	// DeletedAt SQL null Timestamp to handle null values of time.
-	DeletedAt      corev1alpha1.NullTime       `json:"deleted_at,omitempty" yaml:"deleted_at,omitempty"`
-	Description    corev1alpha1.Text           `json:"description,omitempty" yaml:"description,omitempty"`
-	Name           corev1alpha1.Text           `json:"name,omitempty" yaml:"name,omitempty"`
-	OrganizationId corev1alpha1.OrganizationId `db:"org_id" json:"org_id" yaml:"org_id"`
-	Owner          corev1alpha1.Text           `json:"owner,omitempty" yaml:"owner,omitempty"`
-	UpdatedAt      corev1alpha1.Time           `json:"updated_at,omitempty" yaml:"updated_at,omitempty"`
+	DeletedAt   corev1alpha1.NullTime `json:"deleted_at,omitempty" yaml:"deleted_at,omitempty"`
+	Description corev1alpha1.Text     `json:"description,omitempty" yaml:"description,omitempty"`
+	Name        corev1alpha1.Text     `json:"name,omitempty" yaml:"name,omitempty"`
+
+	// OrganizationId A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.
+	OrganizationID *corev1alpha1.Uuid `db:"organization_id" json:"organization_id" yaml:"organization_id"`
+	Owner          corev1alpha1.Text  `json:"owner,omitempty" yaml:"owner,omitempty"`
+	UpdatedAt      corev1alpha1.Time  `json:"updated_at,omitempty" yaml:"updated_at,omitempty"`
 }
 
 // WorkspacePage defines model for workspacePage.
@@ -34,8 +36,8 @@ type WorkspacePayload struct {
 	Description corev1alpha1.Text `json:"description,omitempty" yaml:"description,omitempty"`
 	Name        corev1alpha1.Text `json:"name" yaml:"name"`
 
-	// OrganizationID Select an organization in which you want to create this new workspace. Keep in mind that the organization cannot be changed after creation.
-	OrganizationID string `json:"organization_id" yaml:"organization_id"`
+	// OrganizationId A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.
+	OrganizationID corev1alpha1.Uuid `json:"organization_id" yaml:"organization_id"`
 }
 
 // WorkspaceUpdatePayload defines model for workspaceUpdatePayload.
@@ -43,8 +45,8 @@ type WorkspaceUpdatePayload struct {
 	Description corev1alpha1.Text `json:"description,omitempty" yaml:"description,omitempty"`
 	Name        corev1alpha1.Text `json:"name,omitempty" yaml:"name,omitempty"`
 
-	// OrganizationID Organization ID
-	OrganizationID string `json:"organization_id" yaml:"organization_id"`
+	// OrganizationId A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.
+	OrganizationID corev1alpha1.Uuid `json:"organization_id" yaml:"organization_id"`
 }
 
 // WorkspacesDesignsMapping defines model for workspacesDesignsMapping.
