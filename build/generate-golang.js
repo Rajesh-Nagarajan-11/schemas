@@ -733,6 +733,31 @@ function addCompatibilityParameterAliases(filePath, inputPath) {
 
   let content = fs.readFileSync(filePath, "utf-8");
 
+  function extractTypeQualifier(typeExpression) {
+    if (typeof typeExpression !== "string") {
+      return null;
+    }
+
+    const normalizedType = typeExpression.replace(/^\*+/, "").replace(/^\[\]/, "");
+    const qualifierMatch = normalizedType.match(/^([A-Za-z_][A-Za-z0-9_]*)\./);
+    return qualifierMatch ? qualifierMatch[1] : null;
+  }
+
+  function hasImportAlias(typeQualifier) {
+    if (!typeQualifier) {
+      return true;
+    }
+
+    const importBlockMatch = content.match(/import \(([^]*?)\n\)/m);
+    if (!importBlockMatch) {
+      return false;
+    }
+
+    return importBlockMatch[1]
+      .split("\n")
+      .some((line) => line.trim().startsWith(`${typeQualifier} `));
+  }
+
   for (const parameterName of parameterNames) {
     const exportedName = exportGoIdentifier(parameterName);
     const aliasPattern = new RegExp(`(^// .*\\n)?^type (\\w+${exportedName}) = (.+)$`, "m");
@@ -749,7 +774,13 @@ function addCompatibilityParameterAliases(filePath, inputPath) {
       seenRefs: new Set(),
       missingFile: "throw",
     });
-    const typeExpression = schemaTypeExpression || aliasMatch[3];
+    const currentTypeExpression = aliasMatch[3].trim();
+    const nextTypeExpression = schemaTypeExpression || currentTypeExpression;
+    const currentQualifier = extractTypeQualifier(currentTypeExpression);
+    const nextQualifier = extractTypeQualifier(nextTypeExpression);
+    const typeExpression = !hasImportAlias(nextQualifier) && hasImportAlias(currentQualifier)
+      ? currentTypeExpression
+      : nextTypeExpression;
     const directAliasPattern = new RegExp(
       `(^// ${exportedName} defines model for ${parameterName}\\.\\n)?^type ${exportedName} = .+$`,
       "m",
