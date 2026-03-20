@@ -17,6 +17,8 @@ paths:
       summary: Read organizations
       description: Returns organizations for the current user.
       operationId: getOrgs
+      security:
+        - jwt: []
       parameters:
         - $ref: "#/components/parameters/page"
         - $ref: "#/components/parameters/pagesize"
@@ -40,6 +42,8 @@ paths:
       summary: Create an organization
       description: Creates a new organization.
       operationId: createOrg
+      security:
+        - jwt: []
       requestBody:
         $ref: "#/components/requestBodies/organizationPayload"
       responses:
@@ -83,6 +87,8 @@ paths:
       summary: Read an organization
       description: Returns the organization in the single-item page wrapper currently emitted by meshery-cloud.
       operationId: getOrg
+      security:
+        - jwt: []
       parameters:
         - $ref: "#/components/parameters/orgID"
       responses:
@@ -100,6 +106,8 @@ paths:
       summary: Delete an organization
       description: Deletes the organization.
       operationId: deleteOrg
+      security:
+        - jwt: []
       parameters:
         - $ref: "#/components/parameters/orgID"
       responses:
@@ -121,6 +129,8 @@ paths:
       summary: Update an organization
       description: Updates the organization.
       operationId: handleUpdateOrg
+      security:
+        - jwt: []
       parameters:
         - $ref: "#/components/parameters/orgID"
       requestBody:
@@ -144,6 +154,8 @@ paths:
       summary: Get organization preferences
       description: Returns preferences for the specified organization.
       operationId: getOrgPreferences
+      security:
+        - jwt: []
       parameters:
         - $ref: "#/components/parameters/orgID"
       responses:
@@ -163,6 +175,8 @@ paths:
       summary: Add team to organization or soft delete team
       description: Adds a team to an organization. If request body contains action=delete, tombstones a team by setting its deleted_at timestamp. The team's organization mapping remains intact.
       operationId: AddTeamToOrg
+      security:
+        - jwt: []
       parameters:
         - $ref: "#/components/parameters/orgID"
         - $ref: "#/components/parameters/teamId"
@@ -194,6 +208,8 @@ paths:
       summary: Remove team from organization
       description: Removes (unassigns) a team from an organization.
       operationId: RemoveTeamFromOrg
+      security:
+        - jwt: []
       parameters:
         - $ref: "#/components/parameters/orgID"
         - $ref: "#/components/parameters/teamId"
@@ -253,6 +269,12 @@ components:
       required: true
       schema:
         $ref: "../../v1alpha1/core/api.yml#/components/schemas/team_id"
+
+  securitySchemes:
+    jwt:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
 
   requestBodies:
     organizationPayload:
