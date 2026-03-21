@@ -10,6 +10,8 @@ import (
 
 	"database/sql"
 
+	meshcore "github.com/meshery/schemas/models/core"
+
 	"github.com/gofrs/uuid"
 	"github.com/oapi-codegen/runtime"
 	openapi_types "github.com/oapi-codegen/runtime/types"
@@ -613,7 +615,7 @@ type KubernetesServerID = uuid.UUID
 type MesheryInstanceID = uuid.UUID
 
 // NullTime SQL null Timestamp to handle null values of time.
-type NullTime = sql.NullTime
+type NullTime = meshcore.NullTime
 
 // Number defines model for number.
 type Number = int

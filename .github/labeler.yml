@@ -17,7 +17,7 @@ component/extensions:
 area/lifecycle:
   - "install/*"
 kubernetes:
-  - "install/deployment_yamls/*"  
+  - "install/deployment_yamls/*"
 framework/helm:
   - "install/kubernetes/helm/**/*"
 framework/graphql:
