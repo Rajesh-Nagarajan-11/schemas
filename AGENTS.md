@@ -9,7 +9,7 @@ make build       # generate Go structs + TypeScript types + RTK clients
 npm run build    # build TypeScript distribution (dist/)
 ```
 
-Generated files (`models/`, `typescript/generated/`, `dist/`) are NOT committed. Only source schemas and manually written helper files are committed.
+Generated artifacts (`models/`, `typescript/generated/`, `dist/`) are committed by automation on `master`. Do not edit them by hand, and do not manually commit regenerated output in normal PRs unless the change explicitly requires it.
 
 ## The Dual-Schema Pattern (REQUIRED)
 
@@ -232,7 +232,7 @@ schemas/constructs/v1beta1/<construct>/
 
 ## Go helper files
 
-Auto-generated Go structs (`models/<version>/<construct>/<construct>.go`) are NOT committed. Manually written helpers ARE committed:
+Auto-generated Go structs (`models/<version>/<construct>/<construct>.go`) are committed by the artifact-generation workflow on `master`. Do not edit them by hand; the manually written helpers below are the files contributors should maintain directly:
 
 ```shell
 models/v1beta1/<construct>/
@@ -248,66 +248,11 @@ Use `x-generate-db-helpers: true` on a schema component to auto-generate `Scan`/
 
 Control which bundled output includes an API path:
 
-- `x-internal: ["cloud"]` — cloud-only (`cloud_schema.yml`)
-- `x-internal: ["meshery"]` — Meshery-only (`meshery_schema.yml`)
-- Omit `x-internal` — included in all bundles
+- `x-internal: ["cloud"]` — cloud-only (`_openapi_build/cloud_openapi.yml`)
+- `x-internal: ["meshery"]` — Meshery-only (`_openapi_build/meshery_openapi.yml`)
+- Omit `x-internal` — included in both bundled outputs
 
-## The Dual-Schema Pattern (REQUIRED for all entity schemas)
-
-This is the most critical API design rule in this repo. Violations produce incorrect generated Go structs and API clients downstream in `meshery/meshery` and `layer5io/meshery-cloud`.
-
-### Rule 1 — `<construct>.yaml` is a response schema only
-
-The YAML file for an entity represents the **full server-side object** returned in API responses. It is **not** a request body schema.
-
-Every entity `<construct>.yaml` must have:
-
-- `additionalProperties: false` at the top level
-- All server-generated fields defined in `properties`: `id`, `created_at`, `updated_at`, `deleted_at`
-- Server-generated fields that are always present in responses listed in `required`
-
-### Rule 2 — Every writable entity needs a `*Payload` schema in `api.yml`
-
-For any entity that supports `POST` or `PUT`, define a `{Construct}Payload` schema in `api.yml`:
-
-- Contains **only client-settable fields** — never `created_at`, `updated_at`, `deleted_at`
-- `id` is optional with `json:"id,omitempty"` for upsert patterns, or omitted entirely for create-only
-- Referenced by all `requestBody` entries for `POST`/`PUT`
-
-### Rule 3 — `POST`/`PUT` requestBody must reference `*Payload`, never the entity schema
-
-```yaml
-# WRONG — forces clients to supply server-generated fields
-post:
-  requestBody:
-    content:
-      application/json:
-        schema:
-          $ref: "#/components/schemas/Keychain"
-
-# CORRECT
-post:
-  requestBody:
-    content:
-      application/json:
-        schema:
-          $ref: "#/components/schemas/KeychainPayload"
-  responses:
-    "200":
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/Keychain"   # full entity in response
-```
-
-### Canonical reference implementations for downstream generation
-
-Model new schemas on these:
-
-- `schemas/constructs/v1beta1/connection/` — `connection.yaml` + `ConnectionPayload`
-- `schemas/constructs/v1beta1/key/` — `key.yaml` + `KeyPayload`
-- `schemas/constructs/v1beta1/team/` — `team.yaml` + `teamPayload`/`teamUpdatePayload`
-- `schemas/constructs/v1beta1/environment/` — `environment.yaml` + `environmentPayload`
+See [The Dual-Schema Pattern](#the-dual-schema-pattern-required) above for the canonical entity/payload rules and reference examples used throughout this repo.
 
 ---
 
@@ -315,9 +260,9 @@ Model new schemas on these:
 
 When manually implementing `sql.Scanner` and `driver.Valuer` for map-like types:
 
-### Rule: Always serialize — never return SQL NULL from `Value()`
+### Preferred rule: serialize instead of returning SQL NULL from `Value()`
 
-The established pattern in this repo (`core.Map`) always marshals to a JSON string. A nil map marshals to the JSON string `"null"`, **not** SQL NULL. New implementations must match this unless the column is explicitly nullable and nil-vs-empty distinction is required and documented.
+`core.Map` marshals nil maps to the JSON string `"null"` instead of SQL NULL. Prefer the same behavior for new or updated helpers unless the column is explicitly nullable and the nil-vs-empty distinction is required and documented.
 
 ```go
 // CORRECT — matches core.Map pattern
@@ -338,9 +283,9 @@ func (m MapObject) Value() (driver.Value, error) {
 }
 ```
 
-### Rule: `Scan` must zero the receiver on nil src
+### Preferred rule: zero the receiver on nil src in `Scan()`
 
-When `src` is nil (SQL NULL), explicitly zero the receiver. Returning without modifying it leaves stale data if the same struct is reused across rows.
+When `src` is nil (SQL NULL), new or updated `Scan` implementations should explicitly zero the receiver. Some legacy helpers return early, but clearing the receiver avoids stale data if the same struct is reused across rows.
 
 ```go
 // CORRECT
@@ -357,9 +302,9 @@ case nil:
 
 ## Common Mistakes to Avoid
 
-1. ❌ Committing generated Go code in `models/` directory
-2. ❌ Committing generated TypeScript code in `typescript/generated/` directory
-3. ❌ Committing built files in `dist/` directory
+1. ❌ Hand-editing generated Go code in `models/` directory
+2. ❌ Hand-editing generated TypeScript code in `typescript/generated/` directory
+3. ❌ Hand-editing built files in `dist/` directory
 4. ❌ Using deprecated `core.json` references
 5. ❌ Adding redundant `x-oapi-codegen-extra-tags` when using schema references
 6. ❌ Forgetting to update template files in the `templates/` subdirectory with default values
@@ -371,8 +316,8 @@ case nil:
 12. ❌ Using `x-generate-db-helpers` on amorphous types without a fixed schema — use `x-go-type: "core.Map"` instead
 13. ❌ Using the full entity schema as a `POST`/`PUT` `requestBody` — always use a separate `*Payload` schema
 14. ❌ Omitting `additionalProperties: false` from entity `<construct>.yaml` files
-15. ❌ Returning `(nil, nil)` from `Value()` in SQL driver implementations — always marshal, even for nil maps
-16. ❌ Returning without zeroing the receiver in `Scan()` when `src` is nil — set `*m = nil` first
+15. ❌ Adding new `Value()` implementations that return `(nil, nil)` unless SQL NULL behavior is explicitly required and documented
+16. ❌ In new `Scan()` implementations, returning without zeroing the receiver when `src` is nil
 17. ❌ Using PascalCase for new `operationId` values — always lower camelCase (`getPatterns`, not `GetPatterns`)
 18. ❌ Using SCREAMING\_CASE path parameters (`{orgID}`, `{roleID}`) — always camelCase with `Id` suffix (`{orgId}`, `{roleId}`)
 19. ❌ Using `DELETE` with a request body for bulk operations — use `POST /api/{resources}/delete` instead
@@ -396,7 +341,7 @@ case nil:
 - [ ] (New entity with writes) `api.yml` defines a `{Construct}Payload` with only client-settable fields
 - [ ] (New entity with writes) All `POST`/`PUT` `requestBody` entries reference `{Construct}Payload`, not `{Construct}`
 - [ ] (New SQL driver) `Value()` always marshals — never returns `(nil, nil)`
-- [ ] (New SQL driver) `Scan()` sets `*m = nil` when `src` is nil
+- [ ] (New SQL driver) Prefer `Scan()` implementations that set `*m = nil` when `src` is nil; some legacy drivers may still return early
 - [ ] (New endpoint) `operationId` is lower camelCase verbNoun
 - [ ] (New endpoint) Path parameters are camelCase with `Id` suffix (e.g., `{workspaceId}`, not `{workspaceID}`)
 - [ ] (New endpoint) No `DELETE` operation has a `requestBody` — bulk deletes use `POST .../delete`
