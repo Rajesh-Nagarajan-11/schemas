@@ -312,7 +312,7 @@ const injectedRtkApi = api
             user_id: queryArg.userId,
             orgID: queryArg.orgId,
             metrics: queryArg.metrics,
-            workspaceid: queryArg.workspaceid,
+            workspaceid: queryArg.workspaceId,
             populate: queryArg.populate,
             shared: queryArg.shared,
           },
@@ -4119,12 +4119,12 @@ export type GetPatternsApiArg = {
   order?: string;
   /** Filter by visibility (public, private, published) */
   visibility?: string;
-  /** UUID of User. Pass user_id for fetching public and published designs. */
+  /** UUID of User. Use `userId` to fetch public and published designs (mapped to the `user_id` query parameter). */
   userId?: string;
   /** User's organization ID. */
   orgId?: string;
   metrics?: boolean;
-  workspaceid?: string;
+  workspaceId?: string;
   populate?: boolean;
   shared?: boolean;
 };
