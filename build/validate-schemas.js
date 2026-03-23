@@ -85,6 +85,7 @@ const DB_MIRRORED_FIELDS = new Set([
 
 const warnOnly = process.argv.includes("--warn");
 const violations = [];
+const refDocCache = new Map();
 
 function warn(file, message) {
   violations.push({ file: path.relative(ROOT, file), message });
@@ -117,15 +118,118 @@ function hasUnderscore(s) {
   return s.includes("_");
 }
 
+/** Returns true if the string contains a SCREAMING_CASE ID token that should be Id. */
+function hasScreamingIdToken(s) {
+  return /(?:^|[a-z0-9])ID(?:[A-Z0-9]|$)/.test(s);
+}
+
 /**
  * Convert a property name to its expected camelCase form with correct "Id" suffix.
  * Handles snake_case, PascalCase, and SCREAMING_CASE "ID" suffix all at once.
  */
 function toCamelCase(s) {
   return s
-    .replace(/[_-]+([a-zA-Z0-9])/g, (_, c) => c.toUpperCase())
+    .replace(/[^a-zA-Z0-9]+([a-zA-Z0-9])/g, (_, c) => c.toUpperCase())
     .replace(/^([A-Z])/, (m) => m.toLowerCase())
-    .replace(/ID$/, "Id");
+    .replace(/ID(?=[A-Z0-9]|$)/g, "Id");
+}
+
+function getCamelCaseSuggestion(name) {
+  const suggestion = toCamelCase(name)
+    .replace(/^[^a-zA-Z]+/, "")
+    .replace(/[^a-zA-Z0-9]/g, "");
+  return isCamelCase(suggestion) ? suggestion : null;
+}
+
+function getCamelCaseIssues(name, { allowDbMirrored = false } = {}) {
+  if (allowDbMirrored && DB_MIRRORED_FIELDS.has(name)) return [];
+
+  const issues = [];
+  if (hasUnderscore(name)) {
+    issues.push("uses snake_case (only DB-mirrored fields may use underscores)");
+  }
+  if (/^[A-Z]/.test(name)) {
+    issues.push("starts with uppercase (must be camelCase, not PascalCase)");
+  }
+  if (hasScreamingIdToken(name)) {
+    issues.push('uses "ID" token (must be "Id")');
+  }
+  if (/^[0-9]/.test(name)) {
+    issues.push("starts with a digit");
+  }
+  if (/[^a-zA-Z0-9_]/.test(name)) {
+    issues.push("contains punctuation not allowed in camelCase");
+  }
+  if (issues.length === 0 && !isCamelCase(name)) {
+    issues.push("is not valid camelCase");
+  }
+
+  return issues;
+}
+
+function loadYamlDoc(filePath) {
+  if (refDocCache.has(filePath)) {
+    return refDocCache.get(filePath);
+  }
+
+  let doc = null;
+  try {
+    doc = yaml.load(fs.readFileSync(filePath, "utf-8"));
+  } catch (e) {
+    doc = null;
+  }
+
+  refDocCache.set(filePath, doc);
+  return doc;
+}
+
+function decodeJsonPointerToken(token) {
+  return token.replace(/~1/g, "/").replace(/~0/g, "~");
+}
+
+function resolveJsonPointer(doc, pointer) {
+  if (!doc || !pointer) return null;
+
+  const normalizedPointer = pointer.startsWith("#") ? pointer.slice(1) : pointer;
+  if (!normalizedPointer) return doc;
+  if (!normalizedPointer.startsWith("/")) return null;
+
+  let current = doc;
+  for (const token of normalizedPointer.slice(1).split("/")) {
+    current = current?.[decodeJsonPointerToken(token)];
+    if (current === undefined) return null;
+  }
+
+  return current ?? null;
+}
+
+function resolveRefObject(ref, baseFilePath, localDoc) {
+  if (!ref || typeof ref !== "string") return null;
+
+  if (ref.startsWith("#/")) {
+    return resolveJsonPointer(localDoc, ref);
+  }
+
+  const [relativePath, pointer] = ref.split("#");
+  if (!relativePath || !pointer) return null;
+
+  const targetPath = path.resolve(path.dirname(baseFilePath), relativePath);
+  const targetDoc = loadYamlDoc(targetPath);
+  if (!targetDoc) return null;
+
+  return resolveJsonPointer(targetDoc, `#${pointer}`);
+}
+
+function resolveParameterName(parameter, filePath, doc) {
+  if (parameter?.name) return parameter.name;
+  if (!parameter?.$ref) return null;
+
+  const resolvedParameter = resolveRefObject(parameter.$ref, filePath, doc);
+  if (resolvedParameter?.name) {
+    return resolvedParameter.name;
+  }
+
+  return parameter.$ref.split("/").pop() ?? null;
 }
 
 // ─── Rule 1: entity schemas must have additionalProperties: false ─────────────
@@ -329,30 +433,13 @@ function validatePropertyNames(filePath, schemaName, properties) {
     // Skip $ref-only properties (no name to validate)
     if (propName.startsWith("$")) continue;
 
-    // DB-mirrored fields are allowed in snake_case
-    if (DB_MIRRORED_FIELDS.has(propName)) continue;
-
-    // Compute the correct camelCase form (handles snake_case, PascalCase, and ID→Id all at once)
-    const suggestion = toCamelCase(propName);
-
-    // Collect all issues for this property
-    const issues = [];
-
-    if (hasUnderscore(propName)) {
-      issues.push("uses snake_case (only DB-mirrored fields may use underscores)");
-    }
-    if (/^[A-Z]/.test(propName)) {
-      issues.push("starts with uppercase (must be camelCase, not PascalCase)");
-    }
-    if (/ID$/.test(propName) && propName.length > 2 && !propName.endsWith("_id")) {
-      issues.push('uses "ID" suffix (must be "Id")');
-    }
-
-    if (issues.length > 0 && suggestion !== propName) {
+    const issues = getCamelCaseIssues(propName, { allowDbMirrored: true });
+    if (issues.length > 0) {
+      const suggestion = getCamelCaseSuggestion(propName);
       warn(
         filePath,
         `Schema "${schemaName}" — property "${propName}" ${issues.join("; ")}. ` +
-          `Use: "${suggestion}". ` +
+          (suggestion ? `Use: "${suggestion}". ` : "") +
           `See AGENTS.md § "Casing rules at a glance".`,
       );
     }
@@ -477,38 +564,13 @@ function validateQueryParamNames(filePath, doc) {
       if (param.in !== "query" && param.in !== "header") continue;
 
       const name = param.name;
-
-      // Check for SCREAMING_CASE ID suffix
-      if (name.endsWith("ID") && name.length > 2) {
-        const suggestion = name.replace(/ID$/, "Id");
+      const issues = getCamelCaseIssues(name);
+      if (issues.length > 0) {
+        const suggestion = getCamelCaseSuggestion(name);
         warn(
           filePath,
-          `${routePath} — ${param.in} parameter "${name}" uses SCREAMING_CASE "ID" suffix. ` +
-            `Use "Id" suffix instead: "${suggestion}". ` +
-            `See AGENTS.md § "Casing rules at a glance".`,
-        );
-        continue;
-      }
-
-      // Check for snake_case
-      if (hasUnderscore(name) && !DB_MIRRORED_FIELDS.has(name)) {
-        const suggestion = toCamelCase(name);
-        warn(
-          filePath,
-          `${routePath} — ${param.in} parameter "${name}" uses snake_case. ` +
-            `Use camelCase instead: "${suggestion}". ` +
-            `See AGENTS.md § "Casing rules at a glance".`,
-        );
-        continue;
-      }
-
-      // Check for PascalCase
-      if (/^[A-Z]/.test(name)) {
-        const suggestion = toCamelCase(name);
-        warn(
-          filePath,
-          `${routePath} — ${param.in} parameter "${name}" uses PascalCase. ` +
-            `Use camelCase instead: "${suggestion}". ` +
+          `${routePath} — ${param.in} parameter "${name}" ${issues.join("; ")}. ` +
+            (suggestion ? `Use camelCase instead: "${suggestion}". ` : "") +
             `See AGENTS.md § "Casing rules at a glance".`,
         );
       }
@@ -523,26 +585,13 @@ function validateQueryParamNames(filePath, doc) {
 
       const name = param.name;
 
-      if (name.endsWith("ID") && name.length > 2) {
-        const suggestion = name.replace(/ID$/, "Id");
+      const issues = getCamelCaseIssues(name);
+      if (issues.length > 0) {
+        const suggestion = getCamelCaseSuggestion(name);
         warn(
           filePath,
-          `Parameter definition "${paramKey}" — name "${name}" uses SCREAMING_CASE "ID" suffix. ` +
-            `Use "Id" suffix instead: "${suggestion}".`,
-        );
-      } else if (hasUnderscore(name) && !DB_MIRRORED_FIELDS.has(name)) {
-        const suggestion = toCamelCase(name);
-        warn(
-          filePath,
-          `Parameter definition "${paramKey}" — name "${name}" uses snake_case. ` +
-            `Use camelCase instead: "${suggestion}".`,
-        );
-      } else if (/^[A-Z]/.test(name)) {
-        const suggestion = toCamelCase(name);
-        warn(
-          filePath,
-          `Parameter definition "${paramKey}" — name "${name}" uses PascalCase. ` +
-            `Use camelCase instead: "${suggestion}".`,
+          `Parameter definition "${paramKey}" — name "${name}" ${issues.join("; ")}. ` +
+            (suggestion ? `Use camelCase instead: "${suggestion}".` : ""),
         );
       }
     }
@@ -1066,28 +1115,93 @@ function validateErrorResponses(filePath, doc) {
 
 function validateSecurityScheme(filePath, doc) {
   if (!doc?.paths) return;
-  // If there are no operations, skip
-  const hasOperations = Object.values(doc.paths).some((pathItem) =>
-    ["get", "post", "put", "patch", "delete"].some((m) => pathItem[m]),
-  );
-  if (!hasOperations) return;
+  const operations = [];
+  for (const [routePath, pathItem] of Object.entries(doc.paths)) {
+    for (const method of ["get", "post", "put", "patch", "delete"]) {
+      if (pathItem?.[method]) {
+        operations.push({ routePath, method, operation: pathItem[method] });
+      }
+    }
+  }
+  if (operations.length === 0) return;
 
-  const hasSecuritySchemes = doc.components?.securitySchemes &&
-    Object.keys(doc.components.securitySchemes).length > 0;
+  const securitySchemes = doc.components?.securitySchemes ?? {};
+  const declaredSchemeKeys = Object.keys(securitySchemes);
+  const validSchemeKeys = new Set(declaredSchemeKeys);
 
-  // Top-level security must be non-empty (security: [] means explicitly public, not secured)
-  const hasTopLevelSecurity = Array.isArray(doc.security) &&
-    doc.security.length > 0 &&
-    doc.security.some((entry) => Object.keys(entry || {}).length > 0);
-
-  if (!hasSecuritySchemes && !hasTopLevelSecurity) {
+  if (declaredSchemeKeys.length === 0) {
     warn(
       filePath,
-      `No security scheme declared. api.yml files with operations must define ` +
-        `\`components.securitySchemes\` with a non-empty scheme declaration, and either ` +
-        `a top-level \`security\` array (e.g. \`security: [{ jwt: [] }]\`) or ` +
-        `per-operation \`security\` on each endpoint. ` +
-        `Without this, endpoints ship unauthenticated by default.`,
+      `No security schemes declared. api.yml files with path operations must define ` +
+        `at least one entry under \`components.securitySchemes\` (e.g. \`jwt\`, \`apiKey\`).`,
+    );
+  }
+
+  let hasAnySecurityRequirement = false;
+
+  function validateSecurityArray(securityArray, locationLabel) {
+    if (!Array.isArray(securityArray)) {
+      warn(
+        filePath,
+        `${locationLabel} must be an array of security requirement objects.`,
+      );
+      return;
+    }
+
+    for (let index = 0; index < securityArray.length; index += 1) {
+      const requirement = securityArray[index];
+      const label = `${locationLabel}[${index}]`;
+
+      if (!requirement || typeof requirement !== "object" || Array.isArray(requirement)) {
+        warn(
+          filePath,
+          `${label} must be an object mapping security scheme names to scope arrays.`,
+        );
+        continue;
+      }
+
+      const keys = Object.keys(requirement);
+      if (keys.length === 0) {
+        warn(
+          filePath,
+          `${label} must not be an empty object. Omit the entry entirely to make an endpoint public.`,
+        );
+        continue;
+      }
+
+      hasAnySecurityRequirement = true;
+      for (const key of keys) {
+        if (!validSchemeKeys.has(key)) {
+          warn(
+            filePath,
+            `${label} references undeclared security scheme "${key}". Declare it under ` +
+              `\`components.securitySchemes\` or fix the scheme name.`,
+          );
+        }
+      }
+    }
+  }
+
+  if (doc.security !== undefined) {
+    validateSecurityArray(doc.security, "Top-level security");
+  }
+
+  for (const { routePath, method, operation } of operations) {
+    if (operation.security !== undefined) {
+      validateSecurityArray(
+        operation.security,
+        `Operation ${method.toUpperCase()} ${routePath} security`,
+      );
+    }
+  }
+
+  if (!hasAnySecurityRequirement) {
+    warn(
+      filePath,
+      `No security requirements applied. api.yml files with operations should apply security ` +
+        `either via a top-level \`security\` array (e.g. \`security: [{ jwt: [] }]\`) ` +
+        `or via per-operation \`security\` entries. Without this, endpoints are effectively ` +
+        `unauthenticated by default.`,
     );
   }
 }
@@ -1158,11 +1272,9 @@ function validatePaginationParams(filePath, doc) {
       ...(Array.isArray(op.parameters) ? op.parameters : []),
     ];
     for (const p of allParams) {
-      if (p?.name) paramNames.add(p.name);
-      // Also check $ref parameter names
-      if (p?.$ref) {
-        const refName = p.$ref.split("/").pop();
-        paramNames.add(refName);
+      const paramName = resolveParameterName(p, filePath, doc);
+      if (paramName) {
+        paramNames.add(paramName);
       }
     }
 
@@ -1270,7 +1382,7 @@ function checkExtraTagsInProps(filePath, schemaName, properties) {
     // Check db: tag uses snake_case
     if (extraTags.db !== undefined) {
       const dbVal = String(extraTags.db).replace(/,.*$/, ""); // strip options like ,omitempty
-      if (/[A-Z]/.test(dbVal)) {
+      if (!/^(?:-|[a-z][a-z0-9]*(?:_[a-z0-9]+)*)$/.test(dbVal)) {
         warn(
           filePath,
           `Schema "${schemaName}" — property "${propName}" has \`db: "${extraTags.db}"\` ` +

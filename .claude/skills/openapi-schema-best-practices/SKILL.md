@@ -744,7 +744,7 @@ The validator (`build/validate-schemas.js`) checks 30 rules covering every namin
 
 **API design rules (23-30):**
 - Every operation defines standard error responses (`401`, `500`; `400` for writes; `404` for parameterized paths)
-- `api.yml` with operations declares a security scheme (top-level `security` or `components/securitySchemes`)
+- `api.yml` with operations declares `components/securitySchemes` and applies valid security requirements
 - List endpoints (`GET` returning arrays/paged responses) reference standard pagination parameters (`page`, `pagesize`)
 - Inline schemas with 4+ properties should be extracted to `components/schemas`
 - `x-oapi-codegen-extra-tags`: `db:` values are snake_case; `json:` matches property name; no manual `yaml:` tags
