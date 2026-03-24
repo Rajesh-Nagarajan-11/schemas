@@ -87,7 +87,8 @@ function collectExistingHelperMethods(outputDir) {
   const helperMethods = new Map();
   const goFiles = fs
     .readdirSync(outputDir)
-    .filter((name) => name.endsWith(".go") && name !== "zz_generated.helpers.go");
+    .filter((name) => name.endsWith(".go") && name !== "zz_generated.helpers.go")
+    .sort();
 
   for (const fileName of goFiles) {
     const filePath = path.join(outputDir, fileName);
@@ -108,7 +109,8 @@ function collectDeclaredIdentifiers(outputDir) {
   const identifiers = new Set();
   const goFiles = fs
     .readdirSync(outputDir)
-    .filter((name) => name.endsWith(".go") && name !== "zz_generated.helpers.go");
+    .filter((name) => name.endsWith(".go") && name !== "zz_generated.helpers.go")
+    .sort();
 
   for (const fileName of goFiles) {
     const filePath = path.join(outputDir, fileName);
@@ -288,6 +290,7 @@ function inferHelperSpec(pkg, outputPath, outputDir) {
 
 function renderEventCategoryMethods(eventCategories) {
   return Object.entries(eventCategories)
+    .sort(([a], [b]) => a.localeCompare(b))
     .map(
       ([typeName, eventCategory]) => `func (*${typeName}) EventCategory() string {
 \treturn ${JSON.stringify(eventCategory)}
@@ -323,6 +326,7 @@ func (value ${typeName}) Value() (driver.Value, error) {
 
 function renderCompatibilityEnumAliases(enumAliases) {
   return Object.entries(enumAliases)
+    .sort(([a], [b]) => a.localeCompare(b))
     .map(([typeName, aliases]) => {
       const lines = [
         `// Deprecated aliases for ${typeName} constants.`,

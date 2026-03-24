@@ -96,18 +96,18 @@ function discoverSchemaPackages() {
     return packages;
   }
 
-  // Get all version directories
+  // Get all version directories (sorted for deterministic discovery order)
   const versionDirs = fs.readdirSync(schemasRoot).filter((item) => {
     const itemPath = path.join(schemasRoot, item);
     return fs.statSync(itemPath).isDirectory();
-  });
+  }).sort();
 
   for (const version of versionDirs) {
     const versionPath = path.join(schemasRoot, version);
     const packageDirs = fs.readdirSync(versionPath).filter((item) => {
       const itemPath = path.join(versionPath, item);
       return fs.statSync(itemPath).isDirectory();
-    });
+    }).sort();
 
     for (const dirName of packageDirs) {
       const openapiPath = path.join(versionPath, dirName, "api.yml");

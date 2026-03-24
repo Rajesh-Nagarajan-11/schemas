@@ -1087,7 +1087,7 @@ function stagePackageSources(currentPkg, sourceInputPath) {
   const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), `meshery-oapi-src-${currentPkg.name}-`));
   const tempConstructsRoot = path.join(tempDir, "schemas", "constructs");
   const realConstructsRoot = paths.fromRoot(config.paths.schemasDir);
-  const versionDirs = fs.readdirSync(realConstructsRoot, { withFileTypes: true });
+  const versionDirs = fs.readdirSync(realConstructsRoot, { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name));
 
   for (const versionEntry of versionDirs) {
     if (!versionEntry.isDirectory()) {
@@ -1099,7 +1099,7 @@ function stagePackageSources(currentPkg, sourceInputPath) {
     const tempVersionPath = path.join(tempConstructsRoot, versionName);
     fs.mkdirSync(tempVersionPath, { recursive: true });
 
-    for (const entry of fs.readdirSync(realVersionPath, { withFileTypes: true })) {
+    for (const entry of fs.readdirSync(realVersionPath, { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name))) {
       const realEntryPath = path.join(realVersionPath, entry.name);
       const tempEntryPath = path.join(tempVersionPath, entry.name);
       const isCurrentPackage =
