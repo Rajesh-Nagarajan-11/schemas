@@ -261,6 +261,7 @@ components:
           description: User's country information stored as JSONB
           additionalProperties: true
           x-go-type: "core.Map"
+          x-go-type-skip-optional-pointer: true
           x-oapi-codegen-extra-tags:
             db: "country"
             json: "country"
@@ -270,6 +271,7 @@ components:
           description: User's region information stored as JSONB
           additionalProperties: true
           x-go-type: "core.Map"
+          x-go-type-skip-optional-pointer: true
           x-oapi-codegen-extra-tags:
             db: "region"
             json: "region"

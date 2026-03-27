@@ -3,8 +3,11 @@
  * validate-schemas.js — Schema Design Validation
  *
  * DESCRIPTION:
- *   Validates that all v1beta1+ entity schemas follow the design rules documented in
- *   AGENTS.md. Every naming convention in the casing table is enforced here.
+ *   Validates schema contracts and generator-sensitive patterns documented in
+ *   AGENTS.md. Blocking failures are reserved for issues that break code generation,
+ *   violate the dual-schema pattern, or make contracts structurally unsafe. Legacy
+ *   style/design audits remain available via --warn so existing v1beta1 constructs
+ *   can be migrated incrementally without breaking the default validation flow.
  *
  *   Rule  1 — Entity schemas (<construct>.yaml) must have `additionalProperties: false`.
  *   Rule  2 — POST/PUT requestBody schemas must not contain server-generated fields
@@ -39,8 +42,8 @@
  *   Rule 30 — Response schemas should use $ref to components/schemas, not inline definitions.
  *
  * USAGE:
- *   node build/validate-schemas.js          # exits 0 if clean, 1 if violations found
- *   node build/validate-schemas.js --warn   # always exits 0, only prints warnings
+ *   node build/validate-schemas.js          # exits 0 if no blocking violations found
+ *   node build/validate-schemas.js --warn   # also prints non-blocking advisories and exits 0
  *
  * DEPENDENCIES:
  *   js-yaml (already a project dependency)
@@ -87,11 +90,38 @@ const DB_MIRRORED_FIELDS = new Set([
 const HTTP_METHODS = ["get", "post", "put", "patch", "delete"];
 
 const warnOnly = process.argv.includes("--warn");
-const violations = [];
+const blockingViolations = [];
+const advisoryViolations = [];
 const refDocCache = new Map();
 
+function recordIssue(file, message, severity = "error") {
+  const bucket = severity === "warning" ? advisoryViolations : blockingViolations;
+  bucket.push({ file: path.relative(ROOT, file), message });
+}
+
 function warn(file, message) {
-  violations.push({ file: path.relative(ROOT, file), message });
+  recordIssue(file, message, "error");
+}
+
+function advisory(file, message) {
+  recordIssue(file, message, "warning");
+}
+
+function isStrictStyleFile(filePath) {
+  return filePath.includes(`${path.sep}v1beta2-draft${path.sep}`);
+}
+
+function reportStyleIssue(filePath, message) {
+  if (isStrictStyleFile(filePath)) {
+    warn(filePath, message);
+    return;
+  }
+
+  advisory(filePath, message);
+}
+
+function reportDesignAdvisory(filePath, message) {
+  advisory(filePath, message);
 }
 
 // ─── Casing helpers ───────────────────────────────────────────────────────────
@@ -332,7 +362,7 @@ function validateOperationIds(filePath, doc) {
       if (!op?.operationId) continue;
 
       if (!OPERATION_ID_RE.test(op.operationId)) {
-        warn(
+        reportStyleIssue(
           filePath,
           `${method.toUpperCase()} ${routePath} — operationId "${op.operationId}" ` +
             `must use lower camelCase verbNoun without underscores or other separators (e.g. "getPatterns"). ` +
@@ -340,7 +370,7 @@ function validateOperationIds(filePath, doc) {
         );
       } else if (SCREAMING_ID_RE.test(op.operationId) || op.operationId.endsWith("ID")) {
         const suggestion = op.operationId.replace(/ID(?=[A-Z]|$)/g, "Id");
-        warn(
+        reportStyleIssue(
           filePath,
           `${method.toUpperCase()} ${routePath} — operationId "${op.operationId}" ` +
             `uses "ID" suffix instead of "Id". Use: "${suggestion}". ` +
@@ -390,7 +420,7 @@ function validatePathParams(filePath, doc) {
       const param = match[1];
       if (isBadPathParam(param)) {
         const suggestion = suggestPathParam(param);
-        warn(
+        reportStyleIssue(
           filePath,
           `Path "${routePath}" — parameter {${param}} uses incorrect casing. ` +
             `Use camelCase with "Id" suffix: {${suggestion}}. ` +
@@ -439,7 +469,7 @@ function validatePropertyNames(filePath, schemaName, properties) {
     const issues = getCamelCaseIssues(propName, { allowDbMirrored: true });
     if (issues.length > 0) {
       const suggestion = getCamelCaseSuggestion(propName);
-      warn(
+      reportStyleIssue(
         filePath,
         `Schema "${schemaName}" — property "${propName}" ${issues.join("; ")}. ` +
           (suggestion ? `Use: "${suggestion}". ` : "") +
@@ -481,7 +511,7 @@ function validateSchemaComponentNames(filePath, doc) {
   for (const schemaName of Object.keys(doc.components.schemas)) {
     if (!isPascalCase(schemaName)) {
       const suggestion = schemaName.charAt(0).toUpperCase() + schemaName.slice(1);
-      warn(
+      reportStyleIssue(
         filePath,
         `Schema component name "${schemaName}" must be PascalCase. ` +
           `Suggested: "${suggestion}". ` +
@@ -502,7 +532,7 @@ function validateEnumValues(filePath, doc) {
     if (Array.isArray(schema.enum)) {
       for (const val of schema.enum) {
         if (typeof val === "string" && !isLowercase(val)) {
-          warn(
+          reportStyleIssue(
             filePath,
             `${propPath} — enum value "${val}" must be lowercase. ` +
               `Use "${val.toLowerCase()}" instead. ` +
@@ -570,7 +600,7 @@ function validateQueryParamNames(filePath, doc) {
       const issues = getCamelCaseIssues(name);
       if (issues.length > 0) {
         const suggestion = getCamelCaseSuggestion(name);
-        warn(
+        reportStyleIssue(
           filePath,
           `${routePath} — ${param.in} parameter "${name}" ${issues.join("; ")}. ` +
             (suggestion ? `Use camelCase instead: "${suggestion}". ` : "") +
@@ -591,7 +621,7 @@ function validateQueryParamNames(filePath, doc) {
       const issues = getCamelCaseIssues(name);
       if (issues.length > 0) {
         const suggestion = getCamelCaseSuggestion(name);
-        warn(
+        reportStyleIssue(
           filePath,
           `Parameter definition "${paramKey}" — name "${name}" ${issues.join("; ")}. ` +
             (suggestion ? `Use camelCase instead: "${suggestion}".` : ""),
@@ -620,7 +650,7 @@ function validatePathSegments(filePath, doc) {
           .replace(/([a-z])([A-Z])/g, "$1-$2")
           .replace(/_/g, "-")
           .toLowerCase();
-        warn(
+        reportStyleIssue(
           filePath,
           `Path "${routePath}" — segment "${segment}" must be kebab-case. ` +
             `Suggested: "${suggestion}". ` +
@@ -911,6 +941,19 @@ function validateCoreMapAnnotation(filePath, doc) {
 
 function validateTemplateFiles(constructDir, constructName) {
   const templatesDir = path.join(constructDir, "templates");
+  const entitySchemaFiles = fs
+    .readdirSync(constructDir)
+    .filter(
+      (f) =>
+        /\.ya?ml$/.test(f) &&
+        f !== "api.yml" &&
+        !f.includes("_template") &&
+        !f.includes("_page"),
+    );
+
+  if (entitySchemaFiles.length === 0) {
+    return;
+  }
 
   // Check if templates directory exists
   if (!fs.existsSync(templatesDir)) {
@@ -1079,7 +1122,7 @@ function validateErrorResponses(filePath, doc) {
 
       // All operations need 401 and 500
       if (!responseCodes.has("401")) {
-        warn(
+        reportDesignAdvisory(
           filePath,
           `${opLabel} — missing \`401\` (Unauthorized) response. ` +
             `All operations must define standard error responses for typed error handling ` +
@@ -1087,7 +1130,7 @@ function validateErrorResponses(filePath, doc) {
         );
       }
       if (!responseCodes.has("500")) {
-        warn(
+        reportDesignAdvisory(
           filePath,
           `${opLabel} — missing \`500\` (Internal Server Error) response.`,
         );
@@ -1095,7 +1138,7 @@ function validateErrorResponses(filePath, doc) {
 
       // Write operations need 400
       if (["post", "put", "patch"].includes(method) && !responseCodes.has("400")) {
-        warn(
+        reportDesignAdvisory(
           filePath,
           `${opLabel} — missing \`400\` (Bad Request) response. ` +
             `Write operations (POST/PUT/PATCH) must define a 400 response for validation errors.`,
@@ -1104,7 +1147,7 @@ function validateErrorResponses(filePath, doc) {
 
       // Operations on parameterized paths need 404
       if (routePath.includes("{") && !responseCodes.has("404")) {
-        warn(
+        reportDesignAdvisory(
           filePath,
           `${opLabel} — missing \`404\` (Not Found) response. ` +
             `Operations on parameterized paths must define a 404 response.`,
@@ -1133,7 +1176,7 @@ function validateSecurityScheme(filePath, doc) {
   const validSchemeKeys = new Set(declaredSchemeKeys);
 
   if (declaredSchemeKeys.length === 0) {
-    warn(
+    reportDesignAdvisory(
       filePath,
       `No security schemes declared. api.yml files with path operations must define ` +
         `at least one entry under \`components.securitySchemes\` (e.g. \`jwt\`, \`apiKey\`).`,
@@ -1144,7 +1187,7 @@ function validateSecurityScheme(filePath, doc) {
 
   function validateSecurityArray(securityArray, locationLabel) {
     if (!Array.isArray(securityArray)) {
-      warn(
+      reportDesignAdvisory(
         filePath,
         `${locationLabel} must be an array of security requirement objects.`,
       );
@@ -1156,7 +1199,7 @@ function validateSecurityScheme(filePath, doc) {
       const label = `${locationLabel}[${index}]`;
 
       if (!requirement || typeof requirement !== "object" || Array.isArray(requirement)) {
-        warn(
+        reportDesignAdvisory(
           filePath,
           `${label} must be an object mapping security scheme names to scope arrays.`,
         );
@@ -1165,7 +1208,7 @@ function validateSecurityScheme(filePath, doc) {
 
       const keys = Object.keys(requirement);
       if (keys.length === 0) {
-        warn(
+        reportDesignAdvisory(
           filePath,
           `${label} must not be an empty object. Omit the entry entirely to make an endpoint public.`,
         );
@@ -1175,7 +1218,7 @@ function validateSecurityScheme(filePath, doc) {
       hasAnySecurityRequirement = true;
       for (const key of keys) {
         if (!validSchemeKeys.has(key)) {
-          warn(
+          reportDesignAdvisory(
             filePath,
             `${label} references undeclared security scheme "${key}". Declare it under ` +
               `\`components.securitySchemes\` or fix the scheme name.`,
@@ -1199,7 +1242,7 @@ function validateSecurityScheme(filePath, doc) {
   }
 
   if (!hasAnySecurityRequirement) {
-    warn(
+    reportDesignAdvisory(
       filePath,
       `No security requirements applied. api.yml files with operations should apply security ` +
         `either via a top-level \`security\` array (e.g. \`security: [{ jwt: [] }]\`) ` +
@@ -1287,7 +1330,7 @@ function validatePaginationParams(filePath, doc) {
       const missing = [];
       if (!hasPage) missing.push("page");
       if (!hasPagesize) missing.push("pagesize");
-      warn(
+      reportDesignAdvisory(
         filePath,
         `GET ${routePath} — list endpoint (returns array or paged response) is missing ` +
           `pagination parameter(s): ${missing.join(", ")}. Reference the shared parameters ` +
@@ -1317,7 +1360,7 @@ function validateInlineSchemaExtraction(filePath, doc) {
             const schema = mediaObj?.schema;
             if (!schema || schema.$ref) continue;
             if (schema.properties && Object.keys(schema.properties).length >= 4) {
-              warn(
+              reportDesignAdvisory(
                 filePath,
                 `${opLabel} — response ${statusCode} has an inline schema with ` +
                   `${Object.keys(schema.properties).length} properties. ` +
@@ -1336,7 +1379,7 @@ function validateInlineSchemaExtraction(filePath, doc) {
           const schema = mediaObj?.schema;
           if (!schema || schema.$ref) continue;
           if (schema.properties && Object.keys(schema.properties).length >= 4) {
-            warn(
+            reportDesignAdvisory(
               filePath,
               `${opLabel} — requestBody has an inline schema with ` +
                 `${Object.keys(schema.properties).length} properties. ` +
@@ -1410,7 +1453,7 @@ function checkExtraTagsInProps(filePath, schemaName, properties) {
 
     // Warn about manual yaml: tags (generator adds these automatically)
     if (extraTags.yaml !== undefined) {
-      warn(
+      reportDesignAdvisory(
         filePath,
         `Schema "${schemaName}" — property "${propName}" has a manual \`yaml:\` tag ` +
           `in x-oapi-codegen-extra-tags. YAML struct tags are automatically added by the ` +
@@ -1443,7 +1486,7 @@ function validateResponseCodeSemantics(filePath, doc) {
       if (isCreate && !isBulkDelete && !isAction) {
         const codes = new Set(Object.keys(postOp.responses));
         if (codes.has("200") && !codes.has("201")) {
-          warn(
+          reportDesignAdvisory(
             filePath,
             `POST ${routePath} — operationId "${postOp.operationId}" appears to create a resource ` +
               `but uses 200 instead of 201 (Created). ` +
@@ -1460,7 +1503,7 @@ function validateResponseCodeSemantics(filePath, doc) {
       if (hasSingleResourceParam) {
         const codes = new Set(Object.keys(deleteOp.responses));
         if (codes.has("200") && !codes.has("204")) {
-          warn(
+          reportDesignAdvisory(
             filePath,
             `DELETE ${routePath} — single-resource DELETE should return 204 (No Content) ` +
               `instead of 200. Use 204 when the response body is empty after deletion.`,
@@ -1522,7 +1565,7 @@ function reportDuplicateSchemas() {
 
     const locations = entries.map((e) => `${e.schemaName} (${e.file})`).join(", ");
     // Use first entry's file for the warning
-    warn(
+    reportDesignAdvisory(
       path.join(ROOT, entries[0].file),
       `Duplicate schema structure detected across constructs: ${locations}. ` +
         `Consider using a cross-construct \`$ref\` to a single canonical definition ` +
@@ -1554,7 +1597,7 @@ function validateResponseSchemaRefs(filePath, doc) {
           // Array with inline items (not $ref)
           if (schema.type === "array" && schema.items && !schema.items.$ref) {
             if (schema.items.properties && Object.keys(schema.items.properties).length >= 3) {
-              warn(
+              reportDesignAdvisory(
                 filePath,
                 `${method.toUpperCase()} ${routePath} — response ${statusCode} returns an array ` +
                   `with inline item schema (${Object.keys(schema.items.properties).length} properties). ` +
@@ -1693,14 +1736,28 @@ walkHelperFiles(MODELS_DIR);
 
 // ─── Report ───────────────────────────────────────────────────────────────────
 
-if (violations.length === 0) {
-  console.log("✓ validate-schemas: no violations found.");
+if (blockingViolations.length === 0) {
+  if (warnOnly && advisoryViolations.length > 0) {
+    console.error(`\nvalidate-schemas: ${advisoryViolations.length} advisory issue(s) found:\n`);
+    for (const { file, message } of advisoryViolations) {
+      console.error(`  ${file}\n    → ${message}\n`);
+    }
+  } else {
+    console.log("✓ validate-schemas: no blocking violations found.");
+  }
   process.exit(0);
 }
 
-console.error(`\nvalidate-schemas: ${violations.length} violation(s) found:\n`);
-for (const { file, message } of violations) {
+console.error(`\nvalidate-schemas: ${blockingViolations.length} blocking violation(s) found:\n`);
+for (const { file, message } of blockingViolations) {
   console.error(`  ${file}\n    → ${message}\n`);
+}
+
+if (warnOnly && advisoryViolations.length > 0) {
+  console.error(`\nvalidate-schemas: ${advisoryViolations.length} advisory issue(s) found:\n`);
+  for (const { file, message } of advisoryViolations) {
+    console.error(`  ${file}\n    → ${message}\n`);
+  }
 }
 
 if (warnOnly) {

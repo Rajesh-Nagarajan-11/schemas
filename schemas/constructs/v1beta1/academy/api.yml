@@ -911,9 +911,9 @@ components:
         - $ref: "#/components/schemas/AcademyCurricula"
         - type: object
           required:
-            - RegistrationCount
+            - registration_count
           properties:
-            RegistrationCount:
+            registration_count:
               type: number
               x-oapi-codegen-extra-tags:
                 db: "registration_count,omitempty"
@@ -1006,9 +1006,9 @@ components:
         - $ref: "#/components/schemas/AcademyCurricula"
         - type: object
           required:
-            - RegistrationCount
+            - registration_count
           properties:
-            RegistrationCount:
+            registration_count:
               type: number
               x-oapi-codegen-extra-tags:
                 db: "registration_count,omitempty"
@@ -1270,6 +1270,7 @@ components:
         certificate:
           $ref: "#/components/schemas/Certificate"
           x-go-type: "core.Map"
+          x-go-type-skip-optional-pointer: true
           description: Issued certificate for completing the curricula under registration
           x-oapi-codegen-extra-tags:
             db: "certificate"
@@ -1457,7 +1458,7 @@ components:
       required:
         - id
         - title
-        - orgId
+        - org_id
         - description
         - slug
         - relPermalink
@@ -1487,7 +1488,7 @@ components:
           x-go-name: ID
           x-oapi-codegen-extra-tags:
             json: "id"
-        orgId:
+        org_id:
           type: string
           description: Organization ID that owns this quiz
           example: layer5
