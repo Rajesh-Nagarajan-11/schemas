@@ -303,7 +303,6 @@ components:
           x-oapi-codegen-extra-tags:
             belongs_to: "plans"
             fk_id: "PlanId"
-            yaml: "plan,omitempty"
             json: "plan,omitempty"
 
         quantity:

@@ -10,6 +10,10 @@ info:
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+security:
+  - jwt: []
+
 paths:
   /api/meshmodels/register:
     post:
@@ -33,6 +37,8 @@ paths:
                     type: string
         "400":
           description: Invalid request format
+        "401":
+          $ref: "#/components/responses/401"
         "500":
           description: Internal server error
 
@@ -69,9 +75,21 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/MeshModelModelsPage"
+        "401":
+          $ref: "#/components/responses/401"
         "500":
           description: Internal server error
 components:
+  responses:
+    401:
+      $ref: "../../v1alpha1/core/api.yml#/components/responses/401"
+
+  securitySchemes:
+    jwt:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
   schemas:
     Model:
       type: object
@@ -83,7 +101,6 @@ components:
           description: "Version of the model as defined by the registrant."
           $ref: "../../v1alpha1/core/api.yml#/components/schemas/semverString"
           x-oapi-codegen-extra-tags:
-            yaml: "version"
             json: "version"
           x-order: 1
 
@@ -128,7 +145,6 @@ components:
           "x-go-type": "RegistrantReference"
           "$ref": "#/components/schemas/RegistrantReference"
           x-oapi-codegen-extra-tags:
-            yaml: "registrant"
             json: "registrant"
 
       "description": "Reference to the specific registered model to which the component belongs and from which model version, category, and other properties may be referenced. Learn more at https://docs.meshery.io/concepts/models"

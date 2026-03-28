@@ -11,6 +11,9 @@ info:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
 
+security:
+  - jwt: []
+
 tags:
   - name: Badge
 
@@ -28,6 +31,12 @@ paths:
       responses:
         "204":
           description: Badge deleted successfully
+        "401":
+          $ref: "#/components/responses/401"
+        "404":
+          $ref: "#/components/responses/404"
+        "500":
+          $ref: "#/components/responses/500"
 
     get:
       x-internal: ["cloud"]
@@ -44,6 +53,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Badge"
+        "401":
+          $ref: "#/components/responses/401"
+        "404":
+          $ref: "#/components/responses/404"
+        "500":
+          $ref: "#/components/responses/500"
 
   /api/organizations/badges:
     post:
@@ -64,6 +79,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Badge"
+        "400":
+          $ref: "#/components/responses/400"
+        "401":
+          $ref: "#/components/responses/401"
+        "500":
+          $ref: "#/components/responses/500"
 
   /api/identity/badges:
     get:
@@ -120,8 +141,16 @@ components:
       $ref: "../../v1alpha1/core/api.yml#/components/responses/400"
     401:
       $ref: "../../v1alpha1/core/api.yml#/components/responses/401"
+    404:
+      $ref: "../../v1alpha1/core/api.yml#/components/responses/404"
     500:
       $ref: "../../v1alpha1/core/api.yml#/components/responses/500"
+
+  securitySchemes:
+    jwt:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
 
   schemas:
     BadgePayload:

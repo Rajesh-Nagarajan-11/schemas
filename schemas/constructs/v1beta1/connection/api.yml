@@ -10,6 +10,8 @@ info:
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
+security:
+  - jwt: []
 
 paths:
   /api/integrations/connections:
@@ -67,8 +69,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ConnectionPage"
+        "401":
+          $ref: "#/components/responses/401"
         "500":
-          description: Server error
+          $ref: "#/components/responses/500"
 
     post:
       tags:
@@ -90,9 +94,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/Connection"
         "400":
-          description: Invalid request parameters
+          $ref: "#/components/responses/400"
+        "401":
+          $ref: "#/components/responses/401"
         "500":
-          description: Server error
+          $ref: "#/components/responses/500"
 
   /api/integrations/connections/{connectionId}:
     get:
@@ -111,9 +117,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/Connection"
         "404":
-          description: Connection not found
+          $ref: "#/components/responses/404"
+        "401":
+          $ref: "#/components/responses/401"
         "500":
-          description: Server error
+          $ref: "#/components/responses/500"
 
     put:
       tags:
@@ -136,10 +144,14 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Connection"
+        "400":
+          $ref: "#/components/responses/400"
+        "401":
+          $ref: "#/components/responses/401"
         "404":
-          description: Connection not found
+          $ref: "#/components/responses/404"
         "500":
-          description: Server error
+          $ref: "#/components/responses/500"
 
     delete:
       tags:
@@ -152,10 +164,12 @@ paths:
       responses:
         "204":
           description: Connection deleted successfully
+        "401":
+          $ref: "#/components/responses/401"
         "404":
-          description: Connection not found
+          $ref: "#/components/responses/404"
         "500":
-          description: Server error
+          $ref: "#/components/responses/500"
 
   /api/integrations/connections/meshery/{mesheryServerId}:
     delete:
@@ -175,10 +189,12 @@ paths:
       responses:
         "204":
           description: Meshery connection deleted successfully
+        "401":
+          $ref: "#/components/responses/401"
         "404":
-          description: Connection not found
+          $ref: "#/components/responses/404"
         "500":
-          description: Server error
+          $ref: "#/components/responses/500"
 
   /api/integrations/connections/kubernetes/{connectionId}/context:
     get:
@@ -196,10 +212,12 @@ paths:
             application/json:
               schema:
                 type: object
+        "401":
+          $ref: "#/components/responses/401"
         "404":
-          description: Connection not found
+          $ref: "#/components/responses/404"
         "500":
-          description: Server error
+          $ref: "#/components/responses/500"
 
   /api/environments/{environmentId}/connections/{connectionId}:
     post:
@@ -214,10 +232,14 @@ paths:
       responses:
         "200":
           description: Connection added to environment successfully
+        "400":
+          $ref: "#/components/responses/400"
+        "401":
+          $ref: "#/components/responses/401"
         "404":
-          description: Connection or environment not found
+          $ref: "#/components/responses/404"
         "500":
-          description: Server error
+          $ref: "#/components/responses/500"
 
     delete:
       tags:
@@ -231,12 +253,30 @@ paths:
       responses:
         "204":
           description: Connection removed from environment successfully
+        "401":
+          $ref: "#/components/responses/401"
         "404":
-          description: Connection or environment not found
+          $ref: "#/components/responses/404"
         "500":
-          description: Server error
+          $ref: "#/components/responses/500"
 
 components:
+  responses:
+    400:
+      $ref: "../../v1alpha1/core/api.yml#/components/responses/400"
+    401:
+      $ref: "../../v1alpha1/core/api.yml#/components/responses/401"
+    404:
+      $ref: "../../v1alpha1/core/api.yml#/components/responses/404"
+    500:
+      $ref: "../../v1alpha1/core/api.yml#/components/responses/500"
+
+  securitySchemes:
+    jwt:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
   parameters:
     connectionId:
       name: connectionId

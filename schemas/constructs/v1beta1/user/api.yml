@@ -178,7 +178,6 @@ components:
           x-oapi-codegen-extra-tags:
             db: "id"
             json: "id"
-            yaml: "id"
         user_id:
           type: string
           maxLength: 200
@@ -186,7 +185,6 @@ components:
           x-oapi-codegen-extra-tags:
             db: "user_id"
             json: "user_id"
-            yaml: "user_id"
         provider:
           type: string
           maxLength: 100
@@ -199,7 +197,6 @@ components:
           x-oapi-codegen-extra-tags:
             db: "provider"
             json: "provider"
-            yaml: "provider"
         email:
           type: string
           format: email
@@ -208,7 +205,6 @@ components:
           x-oapi-codegen-extra-tags:
             db: "email"
             json: "email"
-            yaml: "email"
         first_name:
           type: string
           maxLength: 200
@@ -216,7 +212,6 @@ components:
           x-oapi-codegen-extra-tags:
             db: "first_name"
             json: "first_name"
-            yaml: "first_name"
         last_name:
           type: string
           maxLength: 300
@@ -224,7 +219,6 @@ components:
           x-oapi-codegen-extra-tags:
             db: "last_name"
             json: "last_name"
-            yaml: "last_name"
         avatar_url:
           type: string
           format: uri
@@ -233,7 +227,6 @@ components:
           x-oapi-codegen-extra-tags:
             db: "avatar_url"
             json: "avatar_url"
-            yaml: "avatar_url"
         status:
           type: string
           maxLength: 100
@@ -246,7 +239,6 @@ components:
           x-oapi-codegen-extra-tags:
             db: "status"
             json: "status"
-            yaml: "status"
         bio:
           type: string
           maxLength: 1000
@@ -255,7 +247,6 @@ components:
           x-oapi-codegen-extra-tags:
             db: "bio"
             json: "bio"
-            yaml: "bio"
         country:
           type: object
           description: User's country information stored as JSONB
@@ -265,7 +256,6 @@ components:
           x-oapi-codegen-extra-tags:
             db: "country"
             json: "country"
-            yaml: "country"
         region:
           type: object
           description: User's region information stored as JSONB
@@ -275,7 +265,6 @@ components:
           x-oapi-codegen-extra-tags:
             db: "region"
             json: "region"
-            yaml: "region"
         preferences:
           $ref: "#/components/schemas/Preference"
           x-go-type: "Preference"
@@ -283,42 +272,36 @@ components:
           x-oapi-codegen-extra-tags:
             db: "preferences"
             json: "preferences"
-            yaml: "preferences"
         accepted_terms_at:
           $ref: "../../v1alpha1/core/api.yml#/components/schemas/Time"
           description: Timestamp when user accepted terms and conditions
           x-oapi-codegen-extra-tags:
             db: "accepted_terms_at"
             json: "accepted_terms_at"
-            yaml: "accepted_terms_at"
         first_login_time:
           $ref: "../../v1alpha1/core/api.yml#/components/schemas/Time"
           description: Timestamp of user's first login
           x-oapi-codegen-extra-tags:
             db: "first_login_time"
             json: "first_login_time"
-            yaml: "first_login_time"
         last_login_time:
           $ref: "../../v1alpha1/core/api.yml#/components/schemas/Time"
           description: Timestamp of user's most recent login
           x-oapi-codegen-extra-tags:
             db: "last_login_time"
             json: "last_login_time"
-            yaml: "last_login_time"
         created_at:
           $ref: "../../v1alpha1/core/api.yml#/components/schemas/Time"
           description: Timestamp when the user record was created
           x-oapi-codegen-extra-tags:
             db: "created_at"
             json: "created_at"
-            yaml: "created_at"
         updated_at:
           $ref: "../../v1alpha1/core/api.yml#/components/schemas/Time"
           description: Timestamp when the user record was last updated
           x-oapi-codegen-extra-tags:
             db: "updated_at"
             json: "updated_at"
-            yaml: "updated_at"
         socials:
           type: array
           description: Various online profiles associated with the user account
@@ -331,7 +314,6 @@ components:
           x-oapi-codegen-extra-tags:
             db: "socials"
             json: "socials"
-            yaml: "socials"
         deleted_at:
           type: string
           format: date-time
@@ -341,7 +323,6 @@ components:
           x-oapi-codegen-extra-tags:
             db: "deleted_at"
             json: "deleted_at"
-            yaml: "deleted_at"
         role_names:
           type: array
           items:
@@ -360,14 +341,12 @@ components:
           x-oapi-codegen-extra-tags:
             db: "role_names"
             json: "role_names"
-            yaml: "role_names"
         teams:
           type: object
           description: Teams the user belongs to with role information
           x-oapi-codegen-extra-tags:
             db: "teams"
             json: "teams"
-            yaml: "teams"
           properties:
             teams_with_roles:
               type: array
@@ -376,20 +355,17 @@ components:
               x-oapi-codegen-extra-tags:
                 db: "teams_with_roles"
                 json: "teams_with_roles"
-                yaml: "teams_with_roles"
             total_count:
               type: integer
               x-oapi-codegen-extra-tags:
                 db: "total_count"
                 json: "total_count"
-                yaml: "total_count"
         organizations:
           type: object
           description: Organizations the user belongs to with role information
           x-oapi-codegen-extra-tags:
             db: "organizations"
             json: "organizations"
-            yaml: "organizations"
           properties:
             organizations_with_roles:
               type: array
@@ -398,13 +374,11 @@ components:
               x-oapi-codegen-extra-tags:
                 db: "organizations_with_roles"
                 json: "organizations_with_roles"
-                yaml: "organizations_with_roles"
             total_count:
               type: integer
               x-oapi-codegen-extra-tags:
                 db: "total_count"
                 json: "total_count"
-                yaml: "total_count"
       additionalProperties: false
 
     UsersPageForAdmin:

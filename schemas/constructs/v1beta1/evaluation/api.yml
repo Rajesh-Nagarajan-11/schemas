@@ -11,6 +11,9 @@ info:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
 
+security:
+  - jwt: []
+
 paths:
   /evaluate:
     post:
@@ -32,10 +35,22 @@ paths:
                 $ref: "#/components/schemas/EvaluationResponse"
         "400":
           description: Bad request
+        "401":
+          $ref: "#/components/responses/401"
         "500":
           description: Internal server error
 
 components:
+  responses:
+    401:
+      $ref: "../../v1alpha1/core/api.yml#/components/responses/401"
+
+  securitySchemes:
+    jwt:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
   schemas:
     EvaluationRequest:
       type: object

@@ -11,6 +11,9 @@ info:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
 
+security:
+  - jwt: []
+
 tags:
   - name: Features
     description: Operations related to features and entitlements
@@ -57,12 +60,20 @@ paths:
 
         "400":
           $ref: "../../v1alpha1/core/api.yml#/components/responses/400"
+        "404":
+          $ref: "../../v1alpha1/core/api.yml#/components/responses/404"
         "401":
           $ref: "../../v1alpha1/core/api.yml#/components/responses/401"
         "500":
           $ref: "../../v1alpha1/core/api.yml#/components/responses/500"
 
 components:
+  securitySchemes:
+    jwt:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
   parameters:
     organization_id:
       name: organizationId
@@ -120,7 +131,6 @@ components:
           x-oapi-codegen-extra-tags:
             belongs_to: "plans"
             fk_id: "PlanId"
-            yaml: "plan,omitempty"
             json: "plan,omitempty"
         name:
           $ref: "#/components/schemas/FeatureName"

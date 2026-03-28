@@ -692,7 +692,6 @@ components:
       x-oapi-codegen-extra-tags:
         db: "org_id"
         json: "org_id"
-        yaml: "org_id"
 
     AcademyCurriculaBadgeId:
       allOf:
@@ -701,7 +700,6 @@ components:
       x-oapi-codegen-extra-tags:
         db: "badge_id"
         json: "badge_id"
-        yaml: "badge_id"
 
     AcademyCurriculaInviteId:
       allOf:
@@ -710,7 +708,6 @@ components:
       x-oapi-codegen-extra-tags:
         db: "invite_id"
         json: "invite_id"
-        yaml: "invite_id"
 
     AcademyCurriculaWorkspaceId:
       allOf:
@@ -719,7 +716,6 @@ components:
       x-oapi-codegen-extra-tags:
         db: "workspace_id"
         json: "workspace_id"
-        yaml: "workspace_id"
 
     AcademyCurriculaCreatedAt:
       allOf:
@@ -728,7 +724,6 @@ components:
       x-oapi-codegen-extra-tags:
         db: "created_at"
         json: "created_at"
-        yaml: "created_at"
 
     AcademyCurriculaUpdatedAt:
       allOf:
@@ -738,7 +733,6 @@ components:
       x-oapi-codegen-extra-tags:
         db: "updated_at"
         json: "updated_at"
-        yaml: "updated_at"
 
     AcademyCurriculaDeletedAt:
       allOf:
@@ -747,7 +741,6 @@ components:
       x-oapi-codegen-extra-tags:
         db: "deleted_at"
         json: "deleted_at"
-        yaml: "deleted_at"
 
     AcademyCurriculaMetadata:
       type: object
@@ -758,7 +751,6 @@ components:
       x-oapi-codegen-extra-tags:
         db: "metadata"
         json: "metadata"
-        yaml: "metadata"
       oneOf:
         - $ref: "#/components/schemas/CurriculaMetadata"
           x-go-type: "CurriculaMetadata"
@@ -771,7 +763,6 @@ components:
       x-oapi-codegen-extra-tags:
         json: "access_expires_at"
         db: "access_expires_at"
-        yaml: "access_expires_at"
 
     RegisterToAcademyContentRequest:
       type: object
@@ -822,7 +813,6 @@ components:
           x-oapi-codegen-extra-tags:
             db: "id"
             json: "id"
-            yaml: "id"
 
         type:
           $ref: "#/components/schemas/ContentType"
@@ -838,7 +828,6 @@ components:
           x-oapi-codegen-extra-tags:
             db: "visibility"
             json: "visibility"
-            yaml: "visibility"
         status:
           $ref: "#/components/schemas/Status"
           example: ready
@@ -847,7 +836,6 @@ components:
           x-oapi-codegen-extra-tags:
             db: "status"
             json: "status"
-            yaml: "status"
 
         slug:
           type: string
@@ -861,7 +849,6 @@ components:
           x-oapi-codegen-extra-tags:
             db: "level"
             json: "level"
-            yaml: "level"
 
         badge_id:
           type: string
@@ -874,7 +861,6 @@ components:
           x-oapi-codegen-extra-tags:
             db: "badge_id"
             json: "badge_id"
-            yaml: "badge_id"
 
         invite_id:
           $ref: "#/components/schemas/AcademyCurriculaInviteId"
@@ -918,7 +904,6 @@ components:
               x-oapi-codegen-extra-tags:
                 db: "registration_count,omitempty"
                 json: "registration_count,omitempty"
-                yaml: "registration_count,omitempty"
             Invitation:
               $ref: "../invitation/api.yml#/components/schemas/Invitation"
               x-go-type: "invitationv1beta1.Invitation"
@@ -962,7 +947,6 @@ components:
           x-oapi-codegen-extra-tags:
             db: "badge_id"
             json: "badge_id"
-            yaml: "badge_id"
 
         team_id:
           $ref: "../../v1alpha1/core/api.yml#/components/schemas/uuid"
@@ -971,7 +955,6 @@ components:
           x-oapi-codegen-extra-tags:
             json: "team_id"
             db: "team_id"
-            yaml: "team_id"
 
         access_expires_at:
           $ref: "#/components/schemas/AcademyCurriculaAccessExpiresAt"
@@ -987,7 +970,6 @@ components:
           x-oapi-codegen-extra-tags:
             json: "access_status"
             db: "access_status"
-            yaml: "access_status"
 
         metadata:
           $ref: "#/components/schemas/AcademyCurriculaMetadata"
@@ -1013,7 +995,6 @@ components:
               x-oapi-codegen-extra-tags:
                 db: "registration_count,omitempty"
                 json: "registration_count,omitempty"
-                yaml: "registration_count,omitempty"
 
     AcademyCurriculaListResponse:
       type: object
@@ -1309,7 +1290,6 @@ components:
           x-oapi-codegen-extra-tags:
             db: "id"
             json: "id"
-            yaml: "id"
         title:
           type: string
           description: Title of the course
@@ -1495,7 +1475,6 @@ components:
           x-oapi-codegen-extra-tags:
             db: "org_id"
             json: "org_id"
-            yaml: "org_id"
         final:
           type: boolean
           description: Indicates if the quiz is final . i.e this quiz will used to evaluate the completion of parent section eg course , module , learning path
@@ -1716,14 +1695,12 @@ components:
           x-oapi-codegen-extra-tags:
             db: "id"
             json: "id"
-            yaml: "id"
 
         registration_id:
           $ref: "../../v1alpha1/core/api.yml#/components/schemas/uuid"
           x-oapi-codegen-extra-tags:
             db: "registration_id"
             json: "registration_id"
-            yaml: "registration_id"
 
         test_abs_path:
           type: string

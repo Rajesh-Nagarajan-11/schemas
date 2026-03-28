@@ -92,7 +92,7 @@ const DB_MIRRORED_FIELDS = new Set([
 const HTTP_METHODS = ["get", "post", "put", "patch", "delete"];
 
 const warnOnly = process.argv.includes("--warn");
-const noAdvisoryBaseline = process.argv.includes("--no-baseline") || process.argv.includes("--warn-all");
+const noAdvisoryBaseline = process.argv.includes("--no-baseline");
 const blockingViolations = [];
 const advisoryViolations = [];
 const refDocCache = new Map();
@@ -112,7 +112,7 @@ function loadAdvisoryBaseline() {
       .readFileSync(ADVISORY_BASELINE_FILE, "utf-8")
       .split("\n")
       .map((line) => line.trim())
-      .filter((line) => line.length > 0 && !line.startsWith("#")),
+      .filter((line) => line.length > 0 && !line.startsWith("#"))
   );
 }
 
