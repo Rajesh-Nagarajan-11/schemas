@@ -24,6 +24,9 @@ paths:
       tags:
         - Plans
       summary: Get all plans supported by the system
+      parameters:
+        - $ref: "#/components/parameters/page"
+        - $ref: "#/components/parameters/pagesize"
       responses:
         "200":
           description: Plans response
@@ -41,6 +44,12 @@ paths:
           $ref: "#/components/responses/500"
 
 components:
+  parameters:
+    page:
+      $ref: "../../v1alpha1/core/api.yml#/components/parameters/page"
+    pagesize:
+      $ref: "../../v1alpha1/core/api.yml#/components/parameters/pagesize"
+
   responses:
     400:
       $ref: "../../v1alpha1/core/api.yml#/components/responses/400"
