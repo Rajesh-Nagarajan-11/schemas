@@ -70,6 +70,7 @@ const {
   classifyStyleIssue,
 } = require("./lib/consistency-policy");
 const { findNewNonLowercaseEnumValues } = require("./lib/enum-validation");
+const { detectPostCreate, isSingleResourceDelete } = require("./lib/response-code-semantics");
 
 const ROOT = path.resolve(__dirname, "..");
 const CONSTRUCTS_DIR = path.join(ROOT, "schemas", "constructs");
@@ -1732,19 +1733,14 @@ function validateResponseCodeSemantics(filePath, doc) {
   for (const [routePath, pathItem] of Object.entries(doc.paths)) {
     // POST create → 201
     const postOp = pathItem["post"];
-    if (postOp?.operationId && postOp.responses) {
-      const opId = postOp.operationId.toLowerCase();
-      const isCreate = opId.startsWith("create") || opId.startsWith("add") || opId.startsWith("register");
-      // Exclude bulk-delete sub-resources and action paths
-      const isBulkDelete = routePath.endsWith("/delete");
-      const isAction = routePath.match(/\/(accept|reject|approve|deny|revoke|verify|start|stop)$/);
-
-      if (isCreate && !isBulkDelete && !isAction) {
+    if (postOp) {
+      const { isCreate, detector } = detectPostCreate(postOp, routePath);
+      if (isCreate) {
         const codes = new Set(Object.keys(postOp.responses));
         if (codes.has("200") && !codes.has("201")) {
           reportContractAdvisory(
             filePath,
-            `POST ${routePath} — operationId "${postOp.operationId}" appears to create a resource ` +
+            `POST ${routePath} — ${detector} appears to create a resource ` +
               `but uses 200 instead of 201 (Created). ` +
               `Use 201 for POST endpoints that exclusively create new resources.`,
           );
@@ -1754,17 +1750,14 @@ function validateResponseCodeSemantics(filePath, doc) {
 
     // DELETE single-resource → 204
     const deleteOp = pathItem["delete"];
-    if (deleteOp?.responses) {
-      const hasSingleResourceParam = routePath.match(/\{[^}]+\}$/);
-      if (hasSingleResourceParam) {
-        const codes = new Set(Object.keys(deleteOp.responses));
-        if (codes.has("200") && !codes.has("204")) {
-          reportContractAdvisory(
-            filePath,
-            `DELETE ${routePath} — single-resource DELETE should return 204 (No Content) ` +
-              `instead of 200. Use 204 when the response body is empty after deletion.`,
-          );
-        }
+    if (deleteOp?.responses && isSingleResourceDelete(routePath)) {
+      const codes = new Set(Object.keys(deleteOp.responses));
+      if (codes.has("200") && !codes.has("204")) {
+        reportContractAdvisory(
+          filePath,
+          `DELETE ${routePath} — single-resource DELETE should return 204 (No Content) ` +
+            `instead of 200. Use 204 when the response body is empty after deletion.`,
+        );
       }
     }
   }

@@ -16,16 +16,12 @@ function classifyDesignIssue({ strictConsistency }) {
   return strictConsistency ? "error" : "warning";
 }
 
-function classifyContractIssue({ strictConsistency, strictStyleFile, includeLegacyContractDebt }) {
+function classifyContractIssue({ strictConsistency, strictStyleFile }) {
   if (strictConsistency || strictStyleFile) {
     return "error";
   }
 
-  if (includeLegacyContractDebt) {
-    return "warning";
-  }
-
-  return null;
+  return "warning";
 }
 
 module.exports = {

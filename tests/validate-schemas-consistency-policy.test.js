@@ -52,3 +52,13 @@ test("legacy contract debt stays advisory outside strict consistency mode", () =
 
   assert.equal(severity, "warning");
 });
+
+test("contract issues are advisory by default with no flags", () => {
+  const severity = classifyContractIssue({
+    strictConsistency: false,
+    strictStyleFile: false,
+    includeLegacyContractDebt: false,
+  });
+
+  assert.equal(severity, "warning");
+});
