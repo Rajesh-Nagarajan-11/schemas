@@ -313,7 +313,7 @@ paths:
         - $ref: "#/components/parameters/id"
       responses:
         "204":
-          description: Successfully deleted the curricula
+          description: Curricula deleted
         "400":
           description: Invalid request parameters
         "404":
@@ -403,7 +403,7 @@ paths:
               $ref: "#/components/schemas/UpdateCurrentItemRequest"
       responses:
         "200":
-          description: Successfully updated the progress tracker
+          description: Progress tracker updated
           content:
             application/json:
               schema:
@@ -545,7 +545,7 @@ paths:
               $ref: "#/components/schemas/QuizSubmission"
       responses:
         "200":
-          description: Successfully updated the progress tracker
+          description: Progress tracker updated
           content:
             application/json:
               schema:

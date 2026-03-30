@@ -179,7 +179,7 @@ const TeamSchema: Record<string, unknown> = {
       }
     },
     "schemas": {
-      "team": {
+      "Team": {
         "$id": "https://schemas.meshery.io/team.yaml",
         "$schema": "http://json-schema.org/draft-07/schema#",
         "description": "A Team is a group of one or more users. Teams are often used as a grouping mechanism for assigning permissions, whether in the context of an organization, a workspace, or some other domain within Meshery. Learn more at https://docs.meshery.io/concepts/logical/teams",
@@ -286,7 +286,7 @@ const TeamSchema: Record<string, unknown> = {
           }
         }
       },
-      "teamPayload": {
+      "TeamPayload": {
         "type": "object",
         "description": "Payload for creating a new team",
         "required": [
@@ -305,7 +305,7 @@ const TeamSchema: Record<string, unknown> = {
           }
         }
       },
-      "teamUpdatePayload": {
+      "TeamUpdatePayload": {
         "type": "object",
         "description": "Payload for updating an existing team",
         "properties": {
@@ -321,7 +321,7 @@ const TeamSchema: Record<string, unknown> = {
           }
         }
       },
-      "teamPage": {
+      "TeamPage": {
         "type": "object",
         "description": "Paginated list of teams",
         "properties": {
@@ -451,7 +451,7 @@ const TeamSchema: Record<string, unknown> = {
           }
         }
       },
-      "teamsUsersMapping": {
+      "TeamsUsersMapping": {
         "type": "object",
         "description": "Mapping between teams and users",
         "properties": {
@@ -532,7 +532,7 @@ const TeamSchema: Record<string, unknown> = {
           }
         }
       },
-      "teamsUsersMappingPage": {
+      "TeamsUsersMappingPage": {
         "type": "object",
         "description": "Paginated list of team-user mappings",
         "properties": {
@@ -548,7 +548,7 @@ const TeamSchema: Record<string, unknown> = {
             "type": "integer",
             "x-go-type-skip-optional-pointer": true
           },
-          "teams_users_mapping": {
+          "teamsUsersMapping": {
             "type": "array",
             "x-go-type-skip-optional-pointer": true,
             "items": {
@@ -636,11 +636,11 @@ const TeamSchema: Record<string, unknown> = {
           }
         }
       },
-      "teamMember": {
+      "TeamMember": {
         "type": "object",
         "additionalProperties": true
       },
-      "teamMembersPage": {
+      "TeamMembersPage": {
         "type": "object",
         "properties": {
           "page": {
@@ -927,6 +927,16 @@ const TeamSchema: Record<string, unknown> = {
               }
             }
           },
+          "404": {
+            "description": "Result not found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Internal server error",
             "content": {
@@ -1112,6 +1122,26 @@ const TeamSchema: Record<string, unknown> = {
           },
           "400": {
             "description": "Invalid request body or request param",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Result not found",
             "content": {
               "text/plain": {
                 "schema": {
@@ -1621,7 +1651,7 @@ const TeamSchema: Record<string, unknown> = {
         ],
         "responses": {
           "204": {
-            "description": "Team deleted successfully"
+            "description": "Team deleted"
           },
           "400": {
             "description": "Invalid request body or request param",
@@ -1749,7 +1779,7 @@ const TeamSchema: Record<string, unknown> = {
                       "type": "integer",
                       "x-go-type-skip-optional-pointer": true
                     },
-                    "teams_users_mapping": {
+                    "teamsUsersMapping": {
                       "type": "array",
                       "x-go-type-skip-optional-pointer": true,
                       "items": {
@@ -1860,6 +1890,16 @@ const TeamSchema: Record<string, unknown> = {
               }
             }
           },
+          "404": {
+            "description": "Result not found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Internal server error",
             "content": {
@@ -1935,7 +1975,7 @@ const TeamSchema: Record<string, unknown> = {
           }
         ],
         "responses": {
-          "200": {
+          "201": {
             "description": "User added to team",
             "content": {
               "application/json": {
@@ -2043,6 +2083,16 @@ const TeamSchema: Record<string, unknown> = {
               }
             }
           },
+          "404": {
+            "description": "Result not found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Internal server error",
             "content": {
@@ -2116,93 +2166,8 @@ const TeamSchema: Record<string, unknown> = {
           }
         ],
         "responses": {
-          "200": {
-            "description": "User removed from team",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "description": "Mapping between teams and users",
-                  "properties": {
-                    "id": {
-                      "x-go-name": "ID",
-                      "type": "string",
-                      "format": "uuid",
-                      "x-go-type": "uuid.UUID",
-                      "x-go-type-import": {
-                        "path": "github.com/gofrs/uuid"
-                      },
-                      "x-oapi-codegen-extra-tags": {
-                        "db": "id",
-                        "json": "id"
-                      },
-                      "x-go-type-name": "GeneralId",
-                      "x-go-type-skip-optional-pointer": true
-                    },
-                    "team_id": {
-                      "type": "string",
-                      "format": "uuid",
-                      "x-go-type": "uuid.UUID",
-                      "x-go-type-import": {
-                        "path": "github.com/gofrs/uuid"
-                      },
-                      "x-oapi-codegen-extra-tags": {
-                        "db": "team_id",
-                        "json": "team_id"
-                      },
-                      "x-go-type-name": "TeamId",
-                      "x-go-type-skip-optional-pointer": true
-                    },
-                    "user_id": {
-                      "x-oapi-codegen-extra-tags": {
-                        "db": "user_id"
-                      },
-                      "type": "string",
-                      "description": "user's email or username",
-                      "x-go-type-skip-optional-pointer": true
-                    },
-                    "created_at": {
-                      "description": "Timestamp when the resource was created.",
-                      "x-go-type": "time.Time",
-                      "type": "string",
-                      "format": "date-time",
-                      "x-go-name": "CreatedAt",
-                      "x-oapi-codegen-extra-tags": {
-                        "db": "created_at",
-                        "yaml": "created_at"
-                      },
-                      "x-go-type-skip-optional-pointer": true
-                    },
-                    "updated_at": {
-                      "description": "Timestamp when the resource was updated.",
-                      "x-go-type": "time.Time",
-                      "type": "string",
-                      "format": "date-time",
-                      "x-go-name": "UpdatedAt",
-                      "x-oapi-codegen-extra-tags": {
-                        "db": "updated_at",
-                        "yaml": "updated_at"
-                      },
-                      "x-go-type-skip-optional-pointer": true
-                    },
-                    "deleted_at": {
-                      "x-oapi-codegen-extra-tags": {
-                        "db": "deleted_at"
-                      },
-                      "description": "SQL null Timestamp to handle null values of time.",
-                      "x-go-type": "meshcore.NullTime",
-                      "x-go-type-import": {
-                        "name": "meshcore",
-                        "path": "github.com/meshery/schemas/models/core"
-                      },
-                      "type": "string",
-                      "format": "date-time",
-                      "x-go-type-skip-optional-pointer": true
-                    }
-                  }
-                }
-              }
-            }
+          "204": {
+            "description": "User removed from team"
           },
           "400": {
             "description": "Invalid request body or request param",
@@ -2369,6 +2334,16 @@ const TeamSchema: Record<string, unknown> = {
           },
           "401": {
             "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Result not found",
             "content": {
               "text/plain": {
                 "schema": {

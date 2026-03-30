@@ -92,7 +92,7 @@ const ScheduleSchema: Record<string, unknown> = {
         ],
         "responses": {
           "200": {
-            "description": "Schedules fetched successfully",
+            "description": "Schedules response",
             "content": {
               "application/json": {
                 "schema": {
@@ -328,7 +328,7 @@ const ScheduleSchema: Record<string, unknown> = {
         },
         "responses": {
           "200": {
-            "description": "Schedule upserted successfully",
+            "description": "Schedule upserted",
             "content": {
               "application/json": {
                 "schema": {
@@ -476,7 +476,7 @@ const ScheduleSchema: Record<string, unknown> = {
         ],
         "responses": {
           "200": {
-            "description": "Schedule fetched successfully",
+            "description": "Schedule response",
             "content": {
               "application/json": {
                 "schema": {
@@ -622,7 +622,7 @@ const ScheduleSchema: Record<string, unknown> = {
         ],
         "responses": {
           "204": {
-            "description": "Schedule deleted successfully"
+            "description": "Schedule deleted"
           },
           "401": {
             "description": "Expired JWT token used or insufficient privilege",

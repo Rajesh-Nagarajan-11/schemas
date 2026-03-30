@@ -68,6 +68,16 @@ const EnvironmentSchema: Record<string, unknown> = {
           }
         }
       },
+      "404": {
+        "description": "Result not found",
+        "content": {
+          "text/plain": {
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
       "500": {
         "description": "Internal server error",
         "content": {
@@ -127,8 +137,8 @@ const EnvironmentSchema: Record<string, unknown> = {
           "type": "string"
         }
       },
-      "orgIDQuery": {
-        "name": "orgID",
+      "orgIdQuery": {
+        "name": "orgId",
         "in": "query",
         "description": "User's organization ID",
         "schema": {
@@ -140,12 +150,12 @@ const EnvironmentSchema: Record<string, unknown> = {
     "securitySchemes": {
       "jwt": {
         "type": "http",
-        "scheme": "Bearer",
+        "scheme": "bearer",
         "bearerFormat": "JWT"
       }
     },
     "schemas": {
-      "environment": {
+      "Environment": {
         "$id": "https://schemas.meshery.io/environment.yaml",
         "$schema": "http://json-schema.org/draft-07/schema#",
         "title": "Environment",
@@ -315,7 +325,7 @@ const EnvironmentSchema: Record<string, unknown> = {
           }
         }
       },
-      "environmentConnectionMapping": {
+      "EnvironmentConnectionMapping": {
         "properties": {
           "id": {
             "x-go-name": "ID",
@@ -381,7 +391,7 @@ const EnvironmentSchema: Record<string, unknown> = {
           }
         }
       },
-      "environmentPayload": {
+      "EnvironmentPayload": {
         "properties": {
           "name": {
             "description": "An environment is a collection of resources. Provide a name that meaningfully represents these resources. You can change the name of the environment even after its creation.",
@@ -408,7 +418,7 @@ const EnvironmentSchema: Record<string, unknown> = {
           "organization_id"
         ]
       },
-      "environmentPage": {
+      "EnvironmentPage": {
         "properties": {
           "page": {
             "type": "integer",
@@ -599,7 +609,7 @@ const EnvironmentSchema: Record<string, unknown> = {
           }
         }
       },
-      "environmentConnectionsPage": {
+      "EnvironmentConnectionsPage": {
         "type": "object",
         "properties": {
           "page": {
@@ -891,6 +901,16 @@ const EnvironmentSchema: Record<string, unknown> = {
               }
             }
           },
+          "401": {
+            "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Internal server error",
             "content": {
@@ -944,7 +964,7 @@ const EnvironmentSchema: Record<string, unknown> = {
             }
           },
           {
-            "name": "orgID",
+            "name": "orgId",
             "in": "query",
             "description": "User's organization ID",
             "schema": {
@@ -1199,7 +1219,7 @@ const EnvironmentSchema: Record<string, unknown> = {
             "required": true
           },
           {
-            "name": "orgID",
+            "name": "orgId",
             "in": "query",
             "description": "User's organization ID",
             "schema": {
@@ -1428,7 +1448,7 @@ const EnvironmentSchema: Record<string, unknown> = {
             }
           },
           "404": {
-            "description": "Expired JWT token used or insufficient privilege",
+            "description": "Result not found",
             "content": {
               "text/plain": {
                 "schema": {
@@ -1726,6 +1746,16 @@ const EnvironmentSchema: Record<string, unknown> = {
               }
             }
           },
+          "404": {
+            "description": "Result not found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Internal server error",
             "content": {
@@ -1762,203 +1792,8 @@ const EnvironmentSchema: Record<string, unknown> = {
           }
         ],
         "responses": {
-          "200": {
-            "description": "Environment page",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "page": {
-                      "type": "integer",
-                      "x-go-type-skip-optional-pointer": true
-                    },
-                    "page_size": {
-                      "type": "integer",
-                      "x-go-type-skip-optional-pointer": true
-                    },
-                    "total_count": {
-                      "type": "integer",
-                      "x-go-type-skip-optional-pointer": true
-                    },
-                    "environments": {
-                      "type": "array",
-                      "x-go-type-skip-optional-pointer": true,
-                      "items": {
-                        "x-go-type": "Environment",
-                        "$id": "https://schemas.meshery.io/environment.yaml",
-                        "$schema": "http://json-schema.org/draft-07/schema#",
-                        "title": "Environment",
-                        "description": "Environments allow you to logically group related Connections and their associated Credentials. Learn more at https://docs.meshery.io/concepts/logical/environments",
-                        "additionalProperties": false,
-                        "type": "object",
-                        "example": {
-                          "id": "00000000-0000-0000-0000-000000000000",
-                          "schemaVersion": "environments.meshery.io/v1beta1",
-                          "name": "Production Environment",
-                          "description": "Connections and credentials for the production cluster.",
-                          "organization_id": "00000000-0000-0000-0000-000000000000",
-                          "owner": "00000000-0000-0000-0000-000000000000",
-                          "created_at": "0001-01-01T00:00:00Z",
-                          "metadata": {},
-                          "updated_at": "0001-01-01T00:00:00Z",
-                          "deleted_at": null
-                        },
-                        "required": [
-                          "id",
-                          "schemaVersion",
-                          "name",
-                          "description",
-                          "organization_id"
-                        ],
-                        "properties": {
-                          "id": {
-                            "description": "ID",
-                            "x-order": 1,
-                            "x-go-name": "ID",
-                            "x-oapi-codegen-extra-tags": {
-                              "db": "id",
-                              "yaml": "id"
-                            },
-                            "type": "string",
-                            "format": "uuid",
-                            "x-go-type": "uuid.UUID",
-                            "x-go-type-import": {
-                              "path": "github.com/gofrs/uuid"
-                            }
-                          },
-                          "schemaVersion": {
-                            "description": "Specifies the version of the schema to which the environment conforms.",
-                            "x-order": 2,
-                            "x-oapi-codegen-extra-tags": {
-                              "yaml": "schemaVersion",
-                              "db": "-",
-                              "gorm": "-"
-                            },
-                            "default": "environments.meshery.io/v1beta1",
-                            "type": "string",
-                            "minLength": 2,
-                            "maxLength": 100,
-                            "pattern": "^([a-z][a-z0-9.-]*\\/)?v(alpha|beta|[0-9]+)([.-][a-z0-9]+)*$",
-                            "example": [
-                              "v1",
-                              "v1alpha1",
-                              "v2beta3",
-                              "v1.custom-suffix",
-                              "models.meshery.io/v1beta1",
-                              "capability.meshery.io/v1alpha1"
-                            ]
-                          },
-                          "name": {
-                            "x-oapi-codegen-extra-tags": {
-                              "db": "name",
-                              "yaml": "name"
-                            },
-                            "x-order": 3,
-                            "type": "string",
-                            "maxLength": 100,
-                            "description": "Environment name"
-                          },
-                          "description": {
-                            "x-oapi-codegen-extra-tags": {
-                              "db": "description",
-                              "yaml": "description"
-                            },
-                            "x-order": 4,
-                            "type": "string",
-                            "maxLength": 1000,
-                            "description": "Environment description"
-                          },
-                          "organization_id": {
-                            "x-go-name": "OrganizationID",
-                            "x-oapi-codegen-extra-tags": {
-                              "db": "organization_id",
-                              "yaml": "organization_id"
-                            },
-                            "x-order": 5,
-                            "description": "Environment organization ID",
-                            "type": "string",
-                            "format": "uuid",
-                            "x-go-type": "uuid.UUID",
-                            "x-go-type-import": {
-                              "path": "github.com/gofrs/uuid"
-                            }
-                          },
-                          "owner": {
-                            "x-oapi-codegen-extra-tags": {
-                              "db": "owner",
-                              "yaml": "owner"
-                            },
-                            "x-order": 6,
-                            "description": "Environment owner",
-                            "type": "string",
-                            "format": "uuid",
-                            "x-go-type": "uuid.UUID",
-                            "x-go-type-import": {
-                              "path": "github.com/gofrs/uuid"
-                            }
-                          },
-                          "created_at": {
-                            "x-order": 7,
-                            "description": "Timestamp when the resource was created.",
-                            "x-go-type": "time.Time",
-                            "type": "string",
-                            "format": "date-time",
-                            "x-go-name": "CreatedAt",
-                            "x-oapi-codegen-extra-tags": {
-                              "db": "created_at",
-                              "yaml": "created_at"
-                            },
-                            "x-go-type-skip-optional-pointer": true
-                          },
-                          "metadata": {
-                            "description": "Additional metadata associated with the environment.",
-                            "x-oapi-codegen-extra-tags": {
-                              "db": "metadata",
-                              "yaml": "metadata"
-                            },
-                            "x-order": 8,
-                            "x-go-type": "core.Map",
-                            "x-go-type-skip-optional-pointer": true,
-                            "type": "object"
-                          },
-                          "updated_at": {
-                            "x-order": 9,
-                            "description": "Timestamp when the resource was updated.",
-                            "x-go-type": "time.Time",
-                            "type": "string",
-                            "format": "date-time",
-                            "x-go-name": "UpdatedAt",
-                            "x-oapi-codegen-extra-tags": {
-                              "db": "updated_at",
-                              "yaml": "updated_at"
-                            },
-                            "x-go-type-skip-optional-pointer": true
-                          },
-                          "deleted_at": {
-                            "description": "Timestamp when the environment was soft deleted. Null while the environment remains active.",
-                            "nullable": true,
-                            "x-oapi-codegen-extra-tags": {
-                              "db": "deleted_at",
-                              "yaml": "deleted_at"
-                            },
-                            "x-go-type": "core.NullTime",
-                            "x-go-import": "database/sql",
-                            "x-order": 10,
-                            "x-go-type-import": {
-                              "name": "meshcore",
-                              "path": "github.com/meshery/schemas/models/core"
-                            },
-                            "type": "string",
-                            "format": "date-time",
-                            "x-go-type-skip-optional-pointer": true
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
+          "204": {
+            "description": "Environment deleted"
           },
           "400": {
             "description": "Invalid request body or request param",
@@ -1972,6 +1807,16 @@ const EnvironmentSchema: Record<string, unknown> = {
           },
           "401": {
             "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Result not found",
             "content": {
               "text/plain": {
                 "schema": {
@@ -2098,6 +1943,16 @@ const EnvironmentSchema: Record<string, unknown> = {
           },
           "401": {
             "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Result not found",
             "content": {
               "text/plain": {
                 "schema": {

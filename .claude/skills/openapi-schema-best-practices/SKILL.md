@@ -86,7 +86,7 @@ These conventions apply to all new additions (properties, paths, operationIds, e
 |---------|-----------|----------|
 | Non-DB-mirrored schema property names | camelCase | `schemaVersion`, `displayName`, `componentsCount` |
 | Identifier fields | camelCase + "Id" suffix | `modelId`, `registrantId`, `categoryId` |
-| Enum values | lowercase | `enabled`, `ignored`, `duplicate` |
+| New enum values | lowercase | `enabled`, `ignored`, `duplicate` |
 | Schema component names | PascalCase | `ModelDefinition`, `ComponentDefinition` |
 | File/folder names | lowercase, underscores OK | `model.yaml`, `model_core.yml`, `api.yml` |
 | API paths | `/api` prefix, kebab-case, plural nouns | `/api/workspaces`, `/api/environments` |
@@ -111,8 +111,8 @@ Every element has exactly one correct casing. Use this table for all decisions:
 |---|---|---|---|
 | Schema property names (non-DB) | camelCase | `schemaVersion`, `displayName` | ~~`schema_version`~~, ~~`SchemaVersion`~~ |
 | ID-suffix properties | camelCase + `Id` | `modelId`, `registrantId` | ~~`modelID`~~, ~~`model_id`~~ |
-| **DB-mirrored fields** | **snake\_case** | `created_at`, `updated_at`, `user_id` | ~~`createdAt`~~ |
-| Enum values | lowercase | `enabled`, `ignored` | ~~`Enabled`~~, ~~`ENABLED`~~ |
+| **DB-backed / DB-mirrored fields** | **exact snake\_case db column name** | `created_at`, `updated_at`, `user_id`, `first_name`, `plan_id` | ~~`createdAt`~~, ~~`firstName`~~, ~~`planId`~~ |
+| New enum values | lowercase | `enabled`, `ignored` | ~~`Enabled`~~, ~~`ENABLED`~~ |
 | `components/schemas` names | PascalCase | `ModelDefinition`, `KeychainPayload` | ~~`modelDefinition`~~ |
 | File and folder names | lowercase | `api.yml`, `keychain.yaml` | ~~`Keychain.yaml`~~ |
 | Path segments | kebab-case plural nouns | `/api/role-holders` | ~~`/api/roleHolders`~~ |
@@ -121,7 +121,13 @@ Every element has exactly one correct casing. Use this table for all decisions:
 | Go type names | PascalCase (generated) | `Connection`, `KeychainPayload` | — |
 | TypeScript type names | PascalCase (generated) | `Connection`, `KeychainPayload` | — |
 
-**snake\_case is reserved exclusively for DB-mirrored fields** — `created_at`, `updated_at`, `deleted_at`, `user_id`, and any other property that maps directly to an identically-named database column. Everything else follows camelCase or PascalCase as shown above.
+**The database naming is the compatibility boundary.** If a property has `x-oapi-codegen-extra-tags.db` and that `db` value is snake_case, then the schema property name and JSON tag must use that exact snake_case name. Do not camelize DB-backed fields in-place within an existing API version.
+
+**Partial casing migrations are forbidden.** Do not rename selected fields within the same resource from snake_case to camelCase while leaving other published fields unchanged. If the wire format must change, introduce a new API version and migrate the resource consistently there.
+
+**Existing enum wire values are compatibility-sensitive.** Use lowercase for newly introduced enum literals, but do not recase published enum values in-place within the same API version. The validator exempts legacy enum values that already exist on the baseline branch.
+
+**Pagination envelopes are fixed API contract fields** — use `page`, `page_size`, and `total_count`, not `pageSize` or `totalCount`.
 
 **Exceptions for DB-mirrored/system fields**
 
@@ -210,6 +216,8 @@ post:
 | 204 | No Content | Request succeeded; no response body (e.g., single-resource `DELETE`) |
 
 Use 201 (not 200) when a `POST` endpoint exclusively creates a new resource.
+
+Response descriptions and response message text must not include the word `successfully`. Use neutral wording such as `Connection deleted`, `Webhook processed`, or `Plans response`.
 
 ### Resource grouping
 
@@ -635,7 +643,7 @@ When reviewing or auditing schemas, check every item on this list:
 
 - [ ] All non-DB-mirrored property names are camelCase (DB-mirrored fields like `created_at`, `updated_at`, `user_id` are explicit exceptions)
 - [ ] Identifier fields end with "Id" suffix (e.g., `modelId` not `model_id` or `modelID`)
-- [ ] Enum values are lowercase
+- [ ] New enum values are lowercase; existing published enum values are left as-is unless you are versioning the API
 - [ ] Schema component names under `components/schemas` are PascalCase
 - [ ] API paths use kebab-case with plural nouns under `/api`
 - [ ] Path parameters are camelCase with `Id` suffix
@@ -724,7 +732,7 @@ The validator (`build/validate-schemas.js`) checks 30 rules covering every namin
 - No `DELETE` with requestBody
 - Schema property names camelCase (snake_case only for DB-mirrored allowlist); `Id` not `ID`
 - `components/schemas` names PascalCase
-- Enum values lowercase
+- New enum values lowercase; existing published enum values exempt
 - Query/header parameter names camelCase
 - Path segments kebab-case
 - `x-generate-db-helpers` at schema component level only

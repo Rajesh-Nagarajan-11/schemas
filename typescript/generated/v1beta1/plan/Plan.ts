@@ -76,12 +76,46 @@ export interface components {
     /** @enum {string} */
     Currency: "usd";
   };
+  responses: {
+    /** Invalid request body or request param */
+    400: {
+      content: {
+        "text/plain": string;
+      };
+    };
+    /** Expired JWT token used or insufficient privilege */
+    401: {
+      content: {
+        "text/plain": string;
+      };
+    };
+    /** Internal server error */
+    500: {
+      content: {
+        "text/plain": string;
+      };
+    };
+  };
+  parameters: {
+    /** @description Get responses by page */
+    page: string;
+    /** @description Get responses by pagesize */
+    pagesize: string;
+  };
 }
 
 export interface operations {
   getPlans: {
+    parameters: {
+      query: {
+        /** Get responses by page */
+        page?: string;
+        /** Get responses by pagesize */
+        pagesize?: string;
+      };
+    };
     responses: {
-      /** Plans fetched successfully */
+      /** Plans response */
       200: {
         content: {
           "application/json": ({
@@ -110,10 +144,24 @@ export interface operations {
           })[];
         };
       };
-      /** Invalid request */
-      400: unknown;
+      /** Invalid request body or request param */
+      400: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Expired JWT token used or insufficient privilege */
+      401: {
+        content: {
+          "text/plain": string;
+        };
+      };
       /** Internal server error */
-      500: unknown;
+      500: {
+        content: {
+          "text/plain": string;
+        };
+      };
     };
   };
 }

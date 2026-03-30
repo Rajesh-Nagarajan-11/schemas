@@ -45,42 +45,48 @@ const EventSchema: Record<string, unknown> = {
           }
         ],
         "responses": {
-          "200": {
-            "description": "Event deleted successfully",
+          "204": {
+            "description": "Event deleted"
+          },
+          "400": {
+            "description": "Invalid request body or request param",
             "content": {
-              "application/json": {
+              "text/plain": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string"
-                    },
-                    "event_id": {
-                      "type": "string",
-                      "format": "uuid"
-                    }
-                  }
+                  "type": "string"
                 }
               }
             }
           },
-          "400": {
-            "description": "Invalid event ID",
+          "401": {
+            "description": "Expired JWT token used or insufficient privilege",
             "content": {
-              "application/json": {
+              "text/plain": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "error": {
-                      "type": "string"
-                    }
-                  }
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Result not found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
                 }
               }
             }
           },
           "500": {
-            "description": "Server error"
+            "description": "Internal server error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       }
@@ -103,25 +109,37 @@ const EventSchema: Record<string, unknown> = {
         },
         "responses": {
           "200": {
-            "description": "Event created successfully"
+            "description": "Event created"
           },
           "400": {
-            "description": "Invalid request",
+            "description": "Invalid request body or request param",
             "content": {
-              "application/json": {
+              "text/plain": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "error": {
-                      "type": "string"
-                    }
-                  }
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
                 }
               }
             }
           },
           "500": {
-            "description": "Server error"
+            "description": "Internal server error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       }
@@ -180,22 +198,34 @@ const EventSchema: Record<string, unknown> = {
             }
           },
           "400": {
-            "description": "Invalid request",
+            "description": "Invalid request body or request param",
             "content": {
-              "application/json": {
+              "text/plain": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "error": {
-                      "type": "string"
-                    }
-                  }
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
                 }
               }
             }
           },
           "500": {
-            "description": "Server error"
+            "description": "Internal server error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       }
@@ -240,7 +270,7 @@ const EventSchema: Record<string, unknown> = {
         },
         "responses": {
           "200": {
-            "description": "Events updated successfully",
+            "description": "Events updated",
             "content": {
               "application/json": {
                 "schema": {
@@ -259,22 +289,34 @@ const EventSchema: Record<string, unknown> = {
             }
           },
           "400": {
-            "description": "Invalid request",
+            "description": "Invalid request body or request param",
             "content": {
-              "application/json": {
+              "text/plain": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "error": {
-                      "type": "string"
-                    }
-                  }
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
                 }
               }
             }
           },
           "500": {
-            "description": "Server error"
+            "description": "Internal server error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       }
@@ -318,7 +360,7 @@ const EventSchema: Record<string, unknown> = {
         },
         "responses": {
           "200": {
-            "description": "Event status updated successfully",
+            "description": "Event status updated",
             "content": {
               "application/json": {
                 "schema": {
@@ -340,22 +382,44 @@ const EventSchema: Record<string, unknown> = {
             }
           },
           "400": {
-            "description": "Invalid request or status",
+            "description": "Invalid request body or request param",
             "content": {
-              "application/json": {
+              "text/plain": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "error": {
-                      "type": "string"
-                    }
-                  }
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Result not found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
                 }
               }
             }
           },
           "500": {
-            "description": "Server error"
+            "description": "Internal server error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       }
@@ -491,10 +555,10 @@ const EventSchema: Record<string, unknown> = {
                           "description": {
                             "type": "string"
                           },
-                          "first_name": {
+                          "firstName": {
                             "type": "string"
                           },
-                          "last_name": {
+                          "lastName": {
                             "type": "string"
                           },
                           "email": {
@@ -717,10 +781,10 @@ const EventSchema: Record<string, unknown> = {
                           "description": {
                             "type": "string"
                           },
-                          "first_name": {
+                          "firstName": {
                             "type": "string"
                           },
-                          "last_name": {
+                          "lastName": {
                             "type": "string"
                           },
                           "email": {
@@ -869,6 +933,24 @@ const EventSchema: Record<string, unknown> = {
         ],
         "operationId": "getEventTypes",
         "summary": "Get event types",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Get responses by page",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pagesize",
+            "in": "query",
+            "description": "Get responses by pagesize",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Event types",
@@ -905,6 +987,48 @@ const EventSchema: Record<string, unknown> = {
     }
   },
   "components": {
+    "responses": {
+      "400": {
+        "description": "Invalid request body or request param",
+        "content": {
+          "text/plain": {
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "401": {
+        "description": "Expired JWT token used or insufficient privilege",
+        "content": {
+          "text/plain": {
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "Result not found",
+        "content": {
+          "text/plain": {
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "500": {
+        "description": "Internal server error",
+        "content": {
+          "text/plain": {
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
     "parameters": {
       "workspaceId": {
         "name": "workspaceId",
@@ -1048,7 +1172,7 @@ const EventSchema: Record<string, unknown> = {
           }
         }
       },
-      "eventResult": {
+      "EventResult": {
         "type": "object",
         "properties": {
           "user_id": {
@@ -1087,10 +1211,10 @@ const EventSchema: Record<string, unknown> = {
           "description": {
             "type": "string"
           },
-          "first_name": {
+          "firstName": {
             "type": "string"
           },
-          "last_name": {
+          "lastName": {
             "type": "string"
           },
           "email": {
@@ -1118,7 +1242,7 @@ const EventSchema: Record<string, unknown> = {
           }
         }
       },
-      "eventsPage": {
+      "EventsPage": {
         "type": "object",
         "properties": {
           "page": {
@@ -1174,10 +1298,10 @@ const EventSchema: Record<string, unknown> = {
                 "description": {
                   "type": "string"
                 },
-                "first_name": {
+                "firstName": {
                   "type": "string"
                 },
-                "last_name": {
+                "lastName": {
                   "type": "string"
                 },
                 "email": {
@@ -1208,7 +1332,7 @@ const EventSchema: Record<string, unknown> = {
           }
         }
       },
-      "eventsAggregate": {
+      "EventsAggregate": {
         "type": "object",
         "properties": {
           "audit": {
@@ -1217,11 +1341,11 @@ const EventSchema: Record<string, unknown> = {
         },
         "additionalProperties": true
       },
-      "eventSummary": {
+      "EventSummary": {
         "type": "object",
         "additionalProperties": true
       },
-      "eventSummaryPage": {
+      "EventSummaryPage": {
         "type": "object",
         "properties": {
           "page": {
@@ -1242,7 +1366,7 @@ const EventSchema: Record<string, unknown> = {
           }
         }
       },
-      "eventType": {
+      "EventType": {
         "type": "object",
         "properties": {
           "category": {

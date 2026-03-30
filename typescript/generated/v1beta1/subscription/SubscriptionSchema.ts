@@ -51,6 +51,11 @@ const SubscriptionSchema: Record<string, unknown> = {
         "description": "Returns all subscriptions for the organization",
         "operationId": "getSubscriptions",
         "summary": "Read subscriptions",
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
         "parameters": [
           {
             "name": "page",
@@ -119,7 +124,7 @@ const SubscriptionSchema: Record<string, unknown> = {
                         "x-go-type": "Subscription",
                         "type": "object",
                         "properties": {
-                          "ID": {
+                          "id": {
                             "x-oapi-codegen-extra-tags": {
                               "db": "id"
                             },
@@ -164,7 +169,6 @@ const SubscriptionSchema: Record<string, unknown> = {
                             "x-oapi-codegen-extra-tags": {
                               "belongs_to": "plans",
                               "fk_id": "PlanId",
-                              "yaml": "plan,omitempty",
                               "json": "plan,omitempty"
                             },
                             "type": "object",
@@ -353,7 +357,7 @@ const SubscriptionSchema: Record<string, unknown> = {
                           }
                         },
                         "required": [
-                          "ID",
+                          "id",
                           "org_id",
                           "plan_id",
                           "billing_id",
@@ -407,6 +411,11 @@ const SubscriptionSchema: Record<string, unknown> = {
           "cloud"
         ],
         "summary": "Cancel an existing subscription . The subscription will remain active until the end of the billing period and then it will be canceled.",
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
         "parameters": [
           {
             "name": "subscriptionId",
@@ -446,7 +455,7 @@ const SubscriptionSchema: Record<string, unknown> = {
                         "x-go-type": "Subscription",
                         "type": "object",
                         "properties": {
-                          "ID": {
+                          "id": {
                             "x-oapi-codegen-extra-tags": {
                               "db": "id"
                             },
@@ -491,7 +500,6 @@ const SubscriptionSchema: Record<string, unknown> = {
                             "x-oapi-codegen-extra-tags": {
                               "belongs_to": "plans",
                               "fk_id": "PlanId",
-                              "yaml": "plan,omitempty",
                               "json": "plan,omitempty"
                             },
                             "type": "object",
@@ -680,7 +688,7 @@ const SubscriptionSchema: Record<string, unknown> = {
                           }
                         },
                         "required": [
-                          "ID",
+                          "id",
                           "org_id",
                           "plan_id",
                           "billing_id",
@@ -695,10 +703,44 @@ const SubscriptionSchema: Record<string, unknown> = {
             }
           },
           "400": {
-            "description": "Invalid request"
+            "description": "Invalid request body or request param",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Result not found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           },
           "500": {
-            "description": "Internal server error"
+            "description": "Internal server error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       }
@@ -709,6 +751,11 @@ const SubscriptionSchema: Record<string, unknown> = {
           "cloud"
         ],
         "summary": "Create a new subscription for an organization",
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -716,19 +763,19 @@ const SubscriptionSchema: Record<string, unknown> = {
               "schema": {
                 "type": "object",
                 "properties": {
-                  "org_id": {
+                  "orgId": {
                     "type": "string",
                     "description": "Organization ID"
                   },
-                  "plan_id": {
+                  "planId": {
                     "type": "string",
                     "description": "Price ID from the payment processor"
                   },
-                  "coupon_id": {
+                  "couponId": {
                     "type": "string",
                     "description": "Coupon ID to apply"
                   },
-                  "user_count": {
+                  "userCount": {
                     "type": "integer",
                     "description": "Number of users in the organization"
                   },
@@ -737,7 +784,7 @@ const SubscriptionSchema: Record<string, unknown> = {
                     "format": "email",
                     "description": "Email of the customer"
                   },
-                  "payment_processor": {
+                  "paymentProcessor": {
                     "type": "string",
                     "enum": [
                       "stripe",
@@ -759,7 +806,7 @@ const SubscriptionSchema: Record<string, unknown> = {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "subscription_id": {
+                    "subscriptionId": {
                       "type": "string"
                     },
                     "clientSecret": {
@@ -771,10 +818,34 @@ const SubscriptionSchema: Record<string, unknown> = {
             }
           },
           "400": {
-            "description": "Invalid request"
+            "description": "Invalid request body or request param",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           },
           "500": {
-            "description": "Internal server error"
+            "description": "Internal server error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       }
@@ -785,6 +856,11 @@ const SubscriptionSchema: Record<string, unknown> = {
           "cloud"
         ],
         "summary": "Upgrade or downgrade an existing subscription by changing one of the plans in the subscription",
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
         "parameters": [
           {
             "name": "subscriptionId",
@@ -803,7 +879,7 @@ const SubscriptionSchema: Record<string, unknown> = {
               "schema": {
                 "type": "object",
                 "properties": {
-                  "old_plan_id": {
+                  "oldPlanId": {
                     "description": "Old Plan id that is being changed",
                     "type": "string",
                     "format": "uuid",
@@ -812,7 +888,7 @@ const SubscriptionSchema: Record<string, unknown> = {
                       "path": "github.com/gofrs/uuid"
                     }
                   },
-                  "new_plan_id": {
+                  "newPlanId": {
                     "description": "New Plan id that is being changed to",
                     "type": "string",
                     "format": "uuid",
@@ -833,7 +909,7 @@ const SubscriptionSchema: Record<string, unknown> = {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "ID": {
+                    "id": {
                       "x-oapi-codegen-extra-tags": {
                         "db": "id"
                       },
@@ -878,7 +954,6 @@ const SubscriptionSchema: Record<string, unknown> = {
                       "x-oapi-codegen-extra-tags": {
                         "belongs_to": "plans",
                         "fk_id": "PlanId",
-                        "yaml": "plan,omitempty",
                         "json": "plan,omitempty"
                       },
                       "type": "object",
@@ -1067,7 +1142,7 @@ const SubscriptionSchema: Record<string, unknown> = {
                     }
                   },
                   "required": [
-                    "ID",
+                    "id",
                     "org_id",
                     "plan_id",
                     "billing_id",
@@ -1079,20 +1154,59 @@ const SubscriptionSchema: Record<string, unknown> = {
             }
           },
           "400": {
-            "description": "Invalid request"
+            "description": "Invalid request body or request param",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Result not found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           },
           "500": {
-            "description": "Internal server error"
+            "description": "Internal server error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       }
     },
-    "/api/entitlement/subscriptions/{subscriptionId}/upgradePreview": {
+    "/api/entitlement/subscriptions/{subscriptionId}/upgrade-preview": {
       "post": {
         "x-internal": [
           "cloud"
         ],
         "summary": "Preview the invoice for upgrading or downgrading an existing subscription by changing one of the plans in the subscription",
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
         "parameters": [
           {
             "name": "subscriptionId",
@@ -1111,7 +1225,7 @@ const SubscriptionSchema: Record<string, unknown> = {
               "schema": {
                 "type": "object",
                 "properties": {
-                  "old_plan_id": {
+                  "oldPlanId": {
                     "description": "Old Plan id that is being changed",
                     "type": "string",
                     "format": "uuid",
@@ -1120,7 +1234,7 @@ const SubscriptionSchema: Record<string, unknown> = {
                       "path": "github.com/gofrs/uuid"
                     }
                   },
-                  "new_plan_id": {
+                  "newPlanId": {
                     "description": "New Plan id that is being changed to",
                     "type": "string",
                     "format": "uuid",
@@ -1146,10 +1260,44 @@ const SubscriptionSchema: Record<string, unknown> = {
             }
           },
           "400": {
-            "description": "Invalid request"
+            "description": "Invalid request body or request param",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Result not found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           },
           "500": {
-            "description": "Internal server error"
+            "description": "Internal server error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       }
@@ -1160,6 +1308,7 @@ const SubscriptionSchema: Record<string, unknown> = {
           "cloud"
         ],
         "summary": "Handle webhook events from payment processors",
+        "security": [],
         "requestBody": {
           "required": true,
           "content": {
@@ -1173,10 +1322,37 @@ const SubscriptionSchema: Record<string, unknown> = {
         },
         "responses": {
           "200": {
-            "description": "Webhook processed successfully"
+            "description": "Webhook processed"
           },
           "400": {
-            "description": "Invalid webhook event"
+            "description": "Invalid request body or request param",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       }
@@ -1204,6 +1380,16 @@ const SubscriptionSchema: Record<string, unknown> = {
           }
         }
       },
+      "404": {
+        "description": "Result not found",
+        "content": {
+          "text/plain": {
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
       "500": {
         "description": "Internal server error",
         "content": {
@@ -1213,6 +1399,13 @@ const SubscriptionSchema: Record<string, unknown> = {
             }
           }
         }
+      }
+    },
+    "securitySchemes": {
+      "jwt": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     },
     "parameters": {
@@ -1271,19 +1464,19 @@ const SubscriptionSchema: Record<string, unknown> = {
       "CreateSubscriptionRequest": {
         "type": "object",
         "properties": {
-          "org_id": {
+          "orgId": {
             "type": "string",
             "description": "Organization ID"
           },
-          "plan_id": {
+          "planId": {
             "type": "string",
             "description": "Price ID from the payment processor"
           },
-          "coupon_id": {
+          "couponId": {
             "type": "string",
             "description": "Coupon ID to apply"
           },
-          "user_count": {
+          "userCount": {
             "type": "integer",
             "description": "Number of users in the organization"
           },
@@ -1292,7 +1485,7 @@ const SubscriptionSchema: Record<string, unknown> = {
             "format": "email",
             "description": "Email of the customer"
           },
-          "payment_processor": {
+          "paymentProcessor": {
             "type": "string",
             "enum": [
               "stripe",
@@ -1306,7 +1499,7 @@ const SubscriptionSchema: Record<string, unknown> = {
       "UpgradeSubscriptionRequest": {
         "type": "object",
         "properties": {
-          "old_plan_id": {
+          "oldPlanId": {
             "description": "Old Plan id that is being changed",
             "type": "string",
             "format": "uuid",
@@ -1315,7 +1508,7 @@ const SubscriptionSchema: Record<string, unknown> = {
               "path": "github.com/gofrs/uuid"
             }
           },
-          "new_plan_id": {
+          "newPlanId": {
             "description": "New Plan id that is being changed to",
             "type": "string",
             "format": "uuid",
@@ -1329,7 +1522,7 @@ const SubscriptionSchema: Record<string, unknown> = {
       "CreateSubscriptionResponse": {
         "type": "object",
         "properties": {
-          "subscription_id": {
+          "subscriptionId": {
             "type": "string"
           },
           "clientSecret": {
@@ -1340,7 +1533,7 @@ const SubscriptionSchema: Record<string, unknown> = {
       "UpdateUsersRequest": {
         "type": "object",
         "properties": {
-          "payment_processor": {
+          "paymentProcessor": {
             "type": "string",
             "enum": [
               "stripe",
@@ -1354,11 +1547,11 @@ const SubscriptionSchema: Record<string, unknown> = {
       "CancelSubscriptionRequest": {
         "type": "object",
         "properties": {
-          "subscription_id": {
+          "subscriptionId": {
             "type": "string",
             "description": "Subscription ID from the payment processor"
           },
-          "payment_processor": {
+          "paymentProcessor": {
             "type": "string",
             "enum": [
               "stripe",
@@ -1397,7 +1590,7 @@ const SubscriptionSchema: Record<string, unknown> = {
               "x-go-type": "Subscription",
               "type": "object",
               "properties": {
-                "ID": {
+                "id": {
                   "x-oapi-codegen-extra-tags": {
                     "db": "id"
                   },
@@ -1442,7 +1635,6 @@ const SubscriptionSchema: Record<string, unknown> = {
                   "x-oapi-codegen-extra-tags": {
                     "belongs_to": "plans",
                     "fk_id": "PlanId",
-                    "yaml": "plan,omitempty",
                     "json": "plan,omitempty"
                   },
                   "type": "object",
@@ -1631,7 +1823,7 @@ const SubscriptionSchema: Record<string, unknown> = {
                 }
               },
               "required": [
-                "ID",
+                "id",
                 "org_id",
                 "plan_id",
                 "billing_id",
@@ -1645,7 +1837,7 @@ const SubscriptionSchema: Record<string, unknown> = {
       "Subscription": {
         "type": "object",
         "properties": {
-          "ID": {
+          "id": {
             "x-oapi-codegen-extra-tags": {
               "db": "id"
             },
@@ -1690,7 +1882,6 @@ const SubscriptionSchema: Record<string, unknown> = {
             "x-oapi-codegen-extra-tags": {
               "belongs_to": "plans",
               "fk_id": "PlanId",
-              "yaml": "plan,omitempty",
               "json": "plan,omitempty"
             },
             "type": "object",
@@ -1879,7 +2070,7 @@ const SubscriptionSchema: Record<string, unknown> = {
           }
         },
         "required": [
-          "ID",
+          "id",
           "org_id",
           "plan_id",
           "billing_id",

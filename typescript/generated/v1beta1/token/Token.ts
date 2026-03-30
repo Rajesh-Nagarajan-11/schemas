@@ -173,7 +173,7 @@ export interface operations {
       };
     };
     responses: {
-      /** Tokens fetched successfully */
+      /** Tokens response */
       200: {
         content: {
           "application/json": {
@@ -245,7 +245,7 @@ export interface operations {
       };
     };
     responses: {
-      /** Token generated successfully */
+      /** Token generated */
       200: {
         content: {
           "application/json": {
@@ -317,11 +317,11 @@ export interface operations {
     parameters: {
       query: {
         /** ID of the token. */
-        token_id: string;
+        tokenId: string;
       };
     };
     responses: {
-      /** Token deleted successfully */
+      /** Token deleted */
       200: {
         content: {
           "application/json": {
@@ -397,7 +397,7 @@ export interface operations {
       };
     };
     responses: {
-      /** Token fetched successfully */
+      /** Token response */
       200: {
         content: {
           "application/json": {
@@ -461,13 +461,13 @@ export interface operations {
     parameters: {
       query: {
         /** UUID of the user. */
-        user_id: string;
+        userId: string;
         /** Remote provider. */
         provider: string;
       };
     };
     responses: {
-      /** Token generated successfully */
+      /** Token generated */
       200: {
         content: {
           "application/json": {

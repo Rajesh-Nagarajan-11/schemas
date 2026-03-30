@@ -19,6 +19,11 @@ const FeatureSchema: Record<string, unknown> = {
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     }
   },
+  "security": [
+    {
+      "jwt": []
+    }
+  ],
   "tags": [
     {
       "name": "Features",
@@ -38,7 +43,7 @@ const FeatureSchema: Record<string, unknown> = {
         "summary": "Get all features associated with plans",
         "responses": {
           "200": {
-            "description": "Features fetched successfully",
+            "description": "Features response",
             "content": {
               "application/json": {
                 "schema": {
@@ -86,7 +91,6 @@ const FeatureSchema: Record<string, unknown> = {
                         "x-oapi-codegen-extra-tags": {
                           "belongs_to": "plans",
                           "fk_id": "PlanId",
-                          "yaml": "plan,omitempty",
                           "json": "plan,omitempty"
                         },
                         "type": "object",
@@ -296,7 +300,7 @@ const FeatureSchema: Record<string, unknown> = {
         ],
         "responses": {
           "200": {
-            "description": "Features fetched successfully",
+            "description": "Features response",
             "content": {
               "application/json": {
                 "schema": {
@@ -344,7 +348,6 @@ const FeatureSchema: Record<string, unknown> = {
                         "x-oapi-codegen-extra-tags": {
                           "belongs_to": "plans",
                           "fk_id": "PlanId",
-                          "yaml": "plan,omitempty",
                           "json": "plan,omitempty"
                         },
                         "type": "object",
@@ -513,6 +516,16 @@ const FeatureSchema: Record<string, unknown> = {
               }
             }
           },
+          "404": {
+            "description": "Result not found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Internal server error",
             "content": {
@@ -528,6 +541,13 @@ const FeatureSchema: Record<string, unknown> = {
     }
   },
   "components": {
+    "securitySchemes": {
+      "jwt": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
     "parameters": {
       "organization_id": {
         "name": "organizationId",
@@ -590,7 +610,6 @@ const FeatureSchema: Record<string, unknown> = {
               "x-oapi-codegen-extra-tags": {
                 "belongs_to": "plans",
                 "fk_id": "PlanId",
-                "yaml": "plan,omitempty",
                 "json": "plan,omitempty"
               },
               "type": "object",
@@ -790,7 +809,6 @@ const FeatureSchema: Record<string, unknown> = {
             "x-oapi-codegen-extra-tags": {
               "belongs_to": "plans",
               "fk_id": "PlanId",
-              "yaml": "plan,omitempty",
               "json": "plan,omitempty"
             },
             "type": "object",

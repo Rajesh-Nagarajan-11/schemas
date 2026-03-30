@@ -16,7 +16,7 @@ export interface paths {
   };
   "/api/integrations/credentials/{id}": {
     /** Retrieves a specific credential by its ID. */
-    get: operations["getCredentialByID"];
+    get: operations["getCredentialById"];
   };
 }
 
@@ -157,7 +157,7 @@ export interface operations {
       };
     };
     responses: {
-      /** Credentials fetched successfully */
+      /** Credentials response */
       200: {
         content: {
           "application/json": {
@@ -220,7 +220,7 @@ export interface operations {
   /** Updates an existing credential for the authenticated user. */
   updateUserCredential: {
     responses: {
-      /** Credential updated successfully */
+      /** Credential updated */
       200: {
         content: {
           "application/json": {
@@ -324,7 +324,7 @@ export interface operations {
   /** Saves a new credential for the authenticated user. */
   saveUserCredential: {
     responses: {
-      /** Credential saved successfully */
+      /** Credential saved */
       201: {
         content: {
           "application/json": {
@@ -424,11 +424,11 @@ export interface operations {
     parameters: {
       query: {
         /** Credential ID */
-        credential_id: string;
+        credentialId: string;
       };
     };
     responses: {
-      /** Credential deleted successfully */
+      /** Credential deleted */
       204: never;
       /** Invalid request body or request param */
       400: {
@@ -457,7 +457,7 @@ export interface operations {
     };
   };
   /** Retrieves a specific credential by its ID. */
-  getCredentialByID: {
+  getCredentialById: {
     parameters: {
       path: {
         /** Credential ID */
@@ -465,7 +465,7 @@ export interface operations {
       };
     };
     responses: {
-      /** Credential fetched successfully */
+      /** Credential response */
       200: {
         content: {
           "application/json": {

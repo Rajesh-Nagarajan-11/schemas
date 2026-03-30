@@ -36,7 +36,7 @@ export interface paths {
 export interface components {
   schemas: {
     /** @description A Team is a group of one or more users. Teams are often used as a grouping mechanism for assigning permissions, whether in the context of an organization, a workspace, or some other domain within Meshery. Learn more at https://docs.meshery.io/concepts/logical/teams */
-    team: {
+    Team: {
       /**
        * Format: uuid
        * @description Team ID
@@ -64,21 +64,21 @@ export interface components {
       deleted_at?: string;
     };
     /** @description Payload for creating a new team */
-    teamPayload: {
+    TeamPayload: {
       /** @description Team name. Provide a meaningful name that represents this team. */
       name: string;
       /** @description A detailed description of the team's purpose and responsibilities. */
       description?: string;
     };
     /** @description Payload for updating an existing team */
-    teamUpdatePayload: {
+    TeamUpdatePayload: {
       /** @description Updated team name */
       name?: string;
       /** @description Updated team description */
       description?: string;
     };
     /** @description Paginated list of teams */
-    teamPage: {
+    TeamPage: {
       page?: number;
       page_size?: number;
       total_count?: number;
@@ -111,7 +111,7 @@ export interface components {
       }[];
     };
     /** @description Mapping between teams and users */
-    teamsUsersMapping: {
+    TeamsUsersMapping: {
       /** Format: uuid */
       id?: string;
       /** Format: uuid */
@@ -135,11 +135,11 @@ export interface components {
       deleted_at?: string;
     };
     /** @description Paginated list of team-user mappings */
-    teamsUsersMappingPage: {
+    TeamsUsersMappingPage: {
       page?: number;
       page_size?: number;
       total_count?: number;
-      teams_users_mapping?: {
+      teamsUsersMapping?: {
         /** Format: uuid */
         id?: string;
         /** Format: uuid */
@@ -163,8 +163,8 @@ export interface components {
         deleted_at?: string;
       }[];
     };
-    teamMember: { [key: string]: unknown };
-    teamMembersPage: {
+    TeamMember: { [key: string]: unknown };
+    TeamMembersPage: {
       page?: number;
       page_size?: number;
       total_count?: number;
@@ -306,6 +306,12 @@ export interface operations {
           "text/plain": string;
         };
       };
+      /** Result not found */
+      404: {
+        content: {
+          "text/plain": string;
+        };
+      };
       /** Internal server error */
       500: {
         content: {
@@ -357,6 +363,18 @@ export interface operations {
       };
       /** Invalid request body or request param */
       400: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Expired JWT token used or insufficient privilege */
+      401: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Result not found */
+      404: {
         content: {
           "text/plain": string;
         };
@@ -540,7 +558,7 @@ export interface operations {
       };
     };
     responses: {
-      /** Team deleted successfully */
+      /** Team deleted */
       204: never;
       /** Invalid request body or request param */
       400: {
@@ -594,7 +612,7 @@ export interface operations {
             page?: number;
             page_size?: number;
             total_count?: number;
-            teams_users_mapping?: {
+            teamsUsersMapping?: {
               /** Format: uuid */
               id?: string;
               /** Format: uuid */
@@ -632,6 +650,12 @@ export interface operations {
           "text/plain": string;
         };
       };
+      /** Result not found */
+      404: {
+        content: {
+          "text/plain": string;
+        };
+      };
       /** Internal server error */
       500: {
         content: {
@@ -654,7 +678,7 @@ export interface operations {
     };
     responses: {
       /** User added to team */
-      200: {
+      201: {
         content: {
           "application/json": {
             /** Format: uuid */
@@ -693,6 +717,12 @@ export interface operations {
           "text/plain": string;
         };
       };
+      /** Result not found */
+      404: {
+        content: {
+          "text/plain": string;
+        };
+      };
       /** Internal server error */
       500: {
         content: {
@@ -715,33 +745,7 @@ export interface operations {
     };
     responses: {
       /** User removed from team */
-      200: {
-        content: {
-          "application/json": {
-            /** Format: uuid */
-            id?: string;
-            /** Format: uuid */
-            team_id?: string;
-            /** @description user's email or username */
-            user_id?: string;
-            /**
-             * Format: date-time
-             * @description Timestamp when the resource was created.
-             */
-            created_at?: string;
-            /**
-             * Format: date-time
-             * @description Timestamp when the resource was updated.
-             */
-            updated_at?: string;
-            /**
-             * Format: date-time
-             * @description SQL null Timestamp to handle null values of time.
-             */
-            deleted_at?: string;
-          };
-        };
-      };
+      204: never;
       /** Invalid request body or request param */
       400: {
         content: {
@@ -807,6 +811,12 @@ export interface operations {
       };
       /** Expired JWT token used or insufficient privilege */
       401: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Result not found */
+      404: {
         content: {
           "text/plain": string;
         };

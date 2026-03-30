@@ -19,6 +19,11 @@ const ConnectionSchema: Record<string, unknown> = {
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     }
   },
+  "security": [
+    {
+      "jwt": []
+    }
+  ],
   "paths": {
     "/api/integrations/connections": {
       "get": {
@@ -579,8 +584,25 @@ const ConnectionSchema: Record<string, unknown> = {
               }
             }
           },
+          "401": {
+            "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
           "500": {
-            "description": "Server error"
+            "description": "Internal server error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       },
@@ -629,14 +651,14 @@ const ConnectionSchema: Record<string, unknown> = {
                       "json": "type"
                     }
                   },
-                  "sub_type": {
+                  "subType": {
                     "type": "string",
                     "description": "Connection sub-type",
                     "x-oapi-codegen-extra-tags": {
-                      "json": "sub_type"
+                      "json": "subType"
                     }
                   },
-                  "credential_secret": {
+                  "credentialSecret": {
                     "type": "object",
                     "description": "Credential secret data",
                     "x-go-type": "core.Map",
@@ -645,7 +667,7 @@ const ConnectionSchema: Record<string, unknown> = {
                     },
                     "x-go-type-skip-optional-pointer": true,
                     "x-oapi-codegen-extra-tags": {
-                      "json": "credential_secret"
+                      "json": "credentialSecret"
                     }
                   },
                   "metadata": {
@@ -681,7 +703,7 @@ const ConnectionSchema: Record<string, unknown> = {
                   "name",
                   "kind",
                   "type",
-                  "sub_type",
+                  "subType",
                   "status"
                 ]
               }
@@ -690,7 +712,7 @@ const ConnectionSchema: Record<string, unknown> = {
         },
         "responses": {
           "201": {
-            "description": "Connection registered successfully",
+            "description": "Connection registered",
             "content": {
               "application/json": {
                 "schema": {
@@ -1073,10 +1095,34 @@ const ConnectionSchema: Record<string, unknown> = {
             }
           },
           "400": {
-            "description": "Invalid request parameters"
+            "description": "Invalid request body or request param",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           },
           "500": {
-            "description": "Server error"
+            "description": "Internal server error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       }
@@ -1485,11 +1531,35 @@ const ConnectionSchema: Record<string, unknown> = {
               }
             }
           },
+          "401": {
+            "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
           "404": {
-            "description": "Connection not found"
+            "description": "Result not found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           },
           "500": {
-            "description": "Server error"
+            "description": "Internal server error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       },
@@ -1550,14 +1620,14 @@ const ConnectionSchema: Record<string, unknown> = {
                       "json": "type"
                     }
                   },
-                  "sub_type": {
+                  "subType": {
                     "type": "string",
                     "description": "Connection sub-type",
                     "x-oapi-codegen-extra-tags": {
-                      "json": "sub_type"
+                      "json": "subType"
                     }
                   },
-                  "credential_secret": {
+                  "credentialSecret": {
                     "type": "object",
                     "description": "Credential secret data",
                     "x-go-type": "core.Map",
@@ -1566,7 +1636,7 @@ const ConnectionSchema: Record<string, unknown> = {
                     },
                     "x-go-type-skip-optional-pointer": true,
                     "x-oapi-codegen-extra-tags": {
-                      "json": "credential_secret"
+                      "json": "credentialSecret"
                     }
                   },
                   "metadata": {
@@ -1602,7 +1672,7 @@ const ConnectionSchema: Record<string, unknown> = {
                   "name",
                   "kind",
                   "type",
-                  "sub_type",
+                  "subType",
                   "status"
                 ]
               }
@@ -1611,7 +1681,7 @@ const ConnectionSchema: Record<string, unknown> = {
         },
         "responses": {
           "200": {
-            "description": "Connection updated successfully",
+            "description": "Connection updated",
             "content": {
               "application/json": {
                 "schema": {
@@ -1993,11 +2063,45 @@ const ConnectionSchema: Record<string, unknown> = {
               }
             }
           },
+          "400": {
+            "description": "Invalid request body or request param",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
           "404": {
-            "description": "Connection not found"
+            "description": "Result not found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           },
           "500": {
-            "description": "Server error"
+            "description": "Internal server error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       },
@@ -2022,13 +2126,37 @@ const ConnectionSchema: Record<string, unknown> = {
         ],
         "responses": {
           "204": {
-            "description": "Connection deleted successfully"
+            "description": "Connection deleted"
+          },
+          "401": {
+            "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           },
           "404": {
-            "description": "Connection not found"
+            "description": "Result not found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           },
           "500": {
-            "description": "Server error"
+            "description": "Internal server error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       }
@@ -2055,13 +2183,37 @@ const ConnectionSchema: Record<string, unknown> = {
         ],
         "responses": {
           "204": {
-            "description": "Meshery connection deleted successfully"
+            "description": "Meshery connection deleted"
+          },
+          "401": {
+            "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           },
           "404": {
-            "description": "Connection not found"
+            "description": "Result not found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           },
           "500": {
-            "description": "Server error"
+            "description": "Internal server error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       }
@@ -2097,11 +2249,35 @@ const ConnectionSchema: Record<string, unknown> = {
               }
             }
           },
+          "401": {
+            "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
           "404": {
-            "description": "Connection not found"
+            "description": "Result not found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           },
           "500": {
-            "description": "Server error"
+            "description": "Internal server error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       }
@@ -2137,14 +2313,48 @@ const ConnectionSchema: Record<string, unknown> = {
           }
         ],
         "responses": {
-          "200": {
-            "description": "Connection added to environment successfully"
+          "201": {
+            "description": "Connection added to environment"
+          },
+          "400": {
+            "description": "Invalid request body or request param",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           },
           "404": {
-            "description": "Connection or environment not found"
+            "description": "Result not found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           },
           "500": {
-            "description": "Server error"
+            "description": "Internal server error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       },
@@ -2179,19 +2389,92 @@ const ConnectionSchema: Record<string, unknown> = {
         ],
         "responses": {
           "204": {
-            "description": "Connection removed from environment successfully"
+            "description": "Connection removed from environment"
+          },
+          "401": {
+            "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           },
           "404": {
-            "description": "Connection or environment not found"
+            "description": "Result not found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           },
           "500": {
-            "description": "Server error"
+            "description": "Internal server error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       }
     }
   },
   "components": {
+    "responses": {
+      "400": {
+        "description": "Invalid request body or request param",
+        "content": {
+          "text/plain": {
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "401": {
+        "description": "Expired JWT token used or insufficient privilege",
+        "content": {
+          "text/plain": {
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "Result not found",
+        "content": {
+          "text/plain": {
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "500": {
+        "description": "Internal server error",
+        "content": {
+          "text/plain": {
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "jwt": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
     "parameters": {
       "connectionId": {
         "name": "connectionId",
@@ -3124,14 +3407,14 @@ const ConnectionSchema: Record<string, unknown> = {
               "json": "type"
             }
           },
-          "sub_type": {
+          "subType": {
             "type": "string",
             "description": "Connection sub-type",
             "x-oapi-codegen-extra-tags": {
-              "json": "sub_type"
+              "json": "subType"
             }
           },
-          "credential_secret": {
+          "credentialSecret": {
             "type": "object",
             "description": "Credential secret data",
             "x-go-type": "core.Map",
@@ -3140,7 +3423,7 @@ const ConnectionSchema: Record<string, unknown> = {
             },
             "x-go-type-skip-optional-pointer": true,
             "x-oapi-codegen-extra-tags": {
-              "json": "credential_secret"
+              "json": "credentialSecret"
             }
           },
           "metadata": {
@@ -3176,7 +3459,7 @@ const ConnectionSchema: Record<string, unknown> = {
           "name",
           "kind",
           "type",
-          "sub_type",
+          "subType",
           "status"
         ]
       },
@@ -3231,7 +3514,7 @@ const ConnectionSchema: Record<string, unknown> = {
               "json": "page_size"
             }
           },
-          "connections_status": {
+          "connectionsStatus": {
             "type": "array",
             "description": "List of status counts",
             "items": {
@@ -3261,7 +3544,7 @@ const ConnectionSchema: Record<string, unknown> = {
               ]
             },
             "x-oapi-codegen-extra-tags": {
-              "json": "connections_status"
+              "json": "connectionsStatus"
             }
           }
         },
@@ -3269,7 +3552,7 @@ const ConnectionSchema: Record<string, unknown> = {
           "total_count",
           "page",
           "page_size",
-          "connections_status"
+          "connectionsStatus"
         ]
       },
       "MesheryInstance": {
@@ -3356,7 +3639,7 @@ const ConnectionSchema: Record<string, unknown> = {
         "type": "object",
         "description": "Paginated list of Meshery instances",
         "properties": {
-          "meshery_instances": {
+          "mesheryInstances": {
             "type": "array",
             "description": "List of Meshery instances",
             "items": {
@@ -3440,7 +3723,7 @@ const ConnectionSchema: Record<string, unknown> = {
               }
             },
             "x-oapi-codegen-extra-tags": {
-              "json": "meshery_instances"
+              "json": "mesheryInstances"
             }
           },
           "page": {
@@ -3466,7 +3749,7 @@ const ConnectionSchema: Record<string, unknown> = {
           }
         },
         "required": [
-          "meshery_instances",
+          "mesheryInstances",
           "page",
           "page_size",
           "total_count"
@@ -3476,18 +3759,18 @@ const ConnectionSchema: Record<string, unknown> = {
         "type": "object",
         "description": "Meshery version compatibility check",
         "properties": {
-          "meshery_version": {
+          "mesheryVersion": {
             "type": "string",
             "description": "Meshery version string",
             "x-oapi-codegen-extra-tags": {
-              "json": "meshery_version,omitempty"
+              "json": "mesheryVersion,omitempty"
             }
           },
-          "check_compatibility": {
+          "checkCompatibility": {
             "type": "boolean",
             "description": "Whether to check compatibility",
             "x-oapi-codegen-extra-tags": {
-              "json": "check_compatibility,omitempty"
+              "json": "checkCompatibility,omitempty"
             }
           }
         }

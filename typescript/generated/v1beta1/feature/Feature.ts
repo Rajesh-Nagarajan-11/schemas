@@ -145,7 +145,7 @@ export interface components {
 export interface operations {
   getFeatures: {
     responses: {
-      /** Features fetched successfully */
+      /** Features response */
       200: {
         content: {
           "application/json": ({
@@ -233,7 +233,7 @@ export interface operations {
       };
     };
     responses: {
-      /** Features fetched successfully */
+      /** Features response */
       200: {
         content: {
           "application/json": ({
@@ -301,6 +301,12 @@ export interface operations {
       };
       /** Expired JWT token used or insufficient privilege */
       401: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Result not found */
+      404: {
         content: {
           "text/plain": string;
         };

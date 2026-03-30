@@ -8,10 +8,10 @@ collection:
     summary: List keychains
     operationId: getKeychains
     parameters:
-      - $ref: "../../v1alpha1/core/api.yml#/components/parameters/page"
-      - $ref: "../../v1alpha1/core/api.yml#/components/parameters/pagesize"
-      - $ref: "../../v1alpha1/core/api.yml#/components/parameters/search"
-      - $ref: "../../v1alpha1/core/api.yml#/components/parameters/order"
+      - $ref: "../core/api.yml#/components/parameters/page"
+      - $ref: "../core/api.yml#/components/parameters/pagesize"
+      - $ref: "../core/api.yml#/components/parameters/search"
+      - $ref: "../core/api.yml#/components/parameters/order"
     responses:
       "200":
         description: Keychain(s) fetched
@@ -20,11 +20,11 @@ collection:
             schema:
               $ref: "./api.yml#/components/schemas/KeychainPage"
       "400":
-        $ref: "../../v1alpha1/core/api.yml#/components/responses/400"
+        $ref: "../core/api.yml#/components/responses/400"
       "401":
-        $ref: "../../v1alpha1/core/api.yml#/components/responses/401"
+        $ref: "../core/api.yml#/components/responses/401"
       "500":
-        $ref: "../../v1alpha1/core/api.yml#/components/responses/500"
+        $ref: "../core/api.yml#/components/responses/500"
   post:
     x-internal: ["cloud"]
     tags:
@@ -45,11 +45,11 @@ collection:
             schema:
               $ref: "./keychain.yaml"
       "400":
-        $ref: "../../v1alpha1/core/api.yml#/components/responses/400"
+        $ref: "../core/api.yml#/components/responses/400"
       "401":
-        $ref: "../../v1alpha1/core/api.yml#/components/responses/401"
+        $ref: "../core/api.yml#/components/responses/401"
       "500":
-        $ref: "../../v1alpha1/core/api.yml#/components/responses/500"
+        $ref: "../core/api.yml#/components/responses/500"
 
 item:
   get:
@@ -64,7 +64,7 @@ item:
         description: Keychain ID
         required: true
         schema:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/uuid"
+          $ref: "../core/api.yml#/components/schemas/uuid"
     responses:
       "200":
         description: Keychain fetched
@@ -73,13 +73,13 @@ item:
             schema:
               $ref: "./keychain.yaml"
       "400":
-        $ref: "../../v1alpha1/core/api.yml#/components/responses/400"
+        $ref: "../core/api.yml#/components/responses/400"
       "401":
-        $ref: "../../v1alpha1/core/api.yml#/components/responses/401"
+        $ref: "../core/api.yml#/components/responses/401"
       "404":
-        $ref: "../../v1alpha1/core/api.yml#/components/responses/404"
+        $ref: "../core/api.yml#/components/responses/404"
       "500":
-        $ref: "../../v1alpha1/core/api.yml#/components/responses/500"
+        $ref: "../core/api.yml#/components/responses/500"
   put:
     x-internal: ["cloud"]
     tags:
@@ -92,7 +92,7 @@ item:
         description: Keychain ID
         required: true
         schema:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/uuid"
+          $ref: "../core/api.yml#/components/schemas/uuid"
     requestBody:
       required: true
       content:
@@ -107,13 +107,13 @@ item:
             schema:
               $ref: "./keychain.yaml"
       "400":
-        $ref: "../../v1alpha1/core/api.yml#/components/responses/400"
+        $ref: "../core/api.yml#/components/responses/400"
       "401":
-        $ref: "../../v1alpha1/core/api.yml#/components/responses/401"
+        $ref: "../core/api.yml#/components/responses/401"
       "404":
-        $ref: "../../v1alpha1/core/api.yml#/components/responses/404"
+        $ref: "../core/api.yml#/components/responses/404"
       "500":
-        $ref: "../../v1alpha1/core/api.yml#/components/responses/500"
+        $ref: "../core/api.yml#/components/responses/500"
   delete:
     x-internal: ["cloud"]
     tags:
@@ -126,18 +126,18 @@ item:
         description: Keychain ID
         required: true
         schema:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/uuid"
+          $ref: "../core/api.yml#/components/schemas/uuid"
     responses:
       "204":
         description: Keychain deleted
       "400":
-        $ref: "../../v1alpha1/core/api.yml#/components/responses/400"
+        $ref: "../core/api.yml#/components/responses/400"
       "401":
-        $ref: "../../v1alpha1/core/api.yml#/components/responses/401"
+        $ref: "../core/api.yml#/components/responses/401"
       "404":
-        $ref: "../../v1alpha1/core/api.yml#/components/responses/404"
+        $ref: "../core/api.yml#/components/responses/404"
       "500":
-        $ref: "../../v1alpha1/core/api.yml#/components/responses/500"
+        $ref: "../core/api.yml#/components/responses/500"
 
 itemKey:
   post:
@@ -152,24 +152,24 @@ itemKey:
         description: Keychain ID
         required: true
         schema:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/uuid"
+          $ref: "../core/api.yml#/components/schemas/uuid"
       - name: keyId
         in: path
         description: Key ID
         required: true
         schema:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/uuid"
+          $ref: "../core/api.yml#/components/schemas/uuid"
     responses:
       "204":
         description: Key added to keychain
       "400":
-        $ref: "../../v1alpha1/core/api.yml#/components/responses/400"
+        $ref: "../core/api.yml#/components/responses/400"
       "401":
-        $ref: "../../v1alpha1/core/api.yml#/components/responses/401"
+        $ref: "../core/api.yml#/components/responses/401"
       "404":
-        $ref: "../../v1alpha1/core/api.yml#/components/responses/404"
+        $ref: "../core/api.yml#/components/responses/404"
       "500":
-        $ref: "../../v1alpha1/core/api.yml#/components/responses/500"
+        $ref: "../core/api.yml#/components/responses/500"
   delete:
     x-internal: ["cloud"]
     tags:
@@ -182,24 +182,24 @@ itemKey:
         description: Keychain ID
         required: true
         schema:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/uuid"
+          $ref: "../core/api.yml#/components/schemas/uuid"
       - name: keyId
         in: path
         description: Key ID
         required: true
         schema:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/uuid"
+          $ref: "../core/api.yml#/components/schemas/uuid"
     responses:
       "204":
         description: Key removed from keychain
       "400":
-        $ref: "../../v1alpha1/core/api.yml#/components/responses/400"
+        $ref: "../core/api.yml#/components/responses/400"
       "401":
-        $ref: "../../v1alpha1/core/api.yml#/components/responses/401"
+        $ref: "../core/api.yml#/components/responses/401"
       "404":
-        $ref: "../../v1alpha1/core/api.yml#/components/responses/404"
+        $ref: "../core/api.yml#/components/responses/404"
       "500":
-        $ref: "../../v1alpha1/core/api.yml#/components/responses/500"
+        $ref: "../core/api.yml#/components/responses/500"
 
 itemKeys:
   get:
@@ -214,23 +214,23 @@ itemKeys:
         description: Keychain ID
         required: true
         schema:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/uuid"
-      - $ref: "../../v1alpha1/core/api.yml#/components/parameters/page"
-      - $ref: "../../v1alpha1/core/api.yml#/components/parameters/pagesize"
-      - $ref: "../../v1alpha1/core/api.yml#/components/parameters/search"
-      - $ref: "../../v1alpha1/core/api.yml#/components/parameters/order"
+          $ref: "../core/api.yml#/components/schemas/uuid"
+      - $ref: "../core/api.yml#/components/parameters/page"
+      - $ref: "../core/api.yml#/components/parameters/pagesize"
+      - $ref: "../core/api.yml#/components/parameters/search"
+      - $ref: "../core/api.yml#/components/parameters/order"
     responses:
       "200":
-        description: Keys fetched successfully
+        description: Keys response
         content:
           application/json:
             schema:
               $ref: "../key/api.yml#/components/schemas/KeyPage"
       "400":
-        $ref: "../../v1alpha1/core/api.yml#/components/responses/400"
+        $ref: "../core/api.yml#/components/responses/400"
       "401":
-        $ref: "../../v1alpha1/core/api.yml#/components/responses/401"
+        $ref: "../core/api.yml#/components/responses/401"
       "404":
-        $ref: "../../v1alpha1/core/api.yml#/components/responses/404"
+        $ref: "../core/api.yml#/components/responses/404"
       "500":
-        $ref: "../../v1alpha1/core/api.yml#/components/responses/500"
+        $ref: "../core/api.yml#/components/responses/500"

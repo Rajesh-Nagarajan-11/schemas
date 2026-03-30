@@ -14,6 +14,10 @@ info:
 tags:
   - name: Invitation
     description: Operations related to invitation
+
+security:
+  - jwt: []
+
 paths:
   /api/organizations/invitations/{invitationId}:
     get:
@@ -34,6 +38,8 @@ paths:
           $ref: "#/components/responses/400"
         "401":
           $ref: "#/components/responses/401"
+        "404":
+          $ref: "#/components/responses/404"
         "500":
           $ref: "#/components/responses/500"
 
@@ -47,11 +53,13 @@ paths:
         - $ref: "#/components/parameters/invitation_id"
       responses:
         "204":
-          description: Invitation deleted successfully
+          description: Invitation deleted
         "400":
           $ref: "#/components/responses/400"
         "401":
           $ref: "#/components/responses/401"
+        "404":
+          $ref: "#/components/responses/404"
         "500":
           $ref: "#/components/responses/500"
 
@@ -79,6 +87,8 @@ paths:
           $ref: "#/components/responses/400"
         "401":
           $ref: "#/components/responses/401"
+        "404":
+          $ref: "#/components/responses/404"
         "500":
           $ref: "#/components/responses/500"
 
@@ -145,6 +155,8 @@ paths:
           $ref: "#/components/responses/400"
         "401":
           $ref: "#/components/responses/401"
+        "404":
+          $ref: "#/components/responses/404"
         "500":
           $ref: "#/components/responses/500"
 
@@ -177,8 +189,12 @@ paths:
               schema:
                 type: object
                 additionalProperties: true
+        "400":
+          $ref: "#/components/responses/400"
         "401":
           $ref: "#/components/responses/401"
+        "404":
+          $ref: "#/components/responses/404"
         "500":
           $ref: "#/components/responses/500"
 
@@ -189,6 +205,7 @@ paths:
       tags:
         - Invitation
       summary: Create a signup request
+      security: []
       requestBody:
         required: true
         content:
@@ -204,6 +221,8 @@ paths:
               schema:
                 type: object
                 additionalProperties: true
+        "400":
+          $ref: "#/components/responses/400"
         "401":
           $ref: "#/components/responses/401"
         "500":
@@ -215,11 +234,11 @@ paths:
         - Invitation
       summary: Get signup requests
       parameters:
-        - $ref: "../../v1alpha1/core/api.yml#/components/parameters/page"
-        - $ref: "../../v1alpha1/core/api.yml#/components/parameters/pagesize"
-        - $ref: "../../v1alpha1/core/api.yml#/components/parameters/search"
-        - $ref: "../../v1alpha1/core/api.yml#/components/parameters/order"
-        - $ref: "../../v1alpha1/core/api.yml#/components/parameters/filter"
+        - $ref: "../core/api.yml#/components/parameters/page"
+        - $ref: "../core/api.yml#/components/parameters/pagesize"
+        - $ref: "../core/api.yml#/components/parameters/search"
+        - $ref: "../core/api.yml#/components/parameters/order"
+        - $ref: "../core/api.yml#/components/parameters/filter"
       responses:
         "200":
           description: Signup requests page
@@ -295,6 +314,8 @@ paths:
           description: No pending signup request notifications
         "401":
           $ref: "#/components/responses/401"
+        "500":
+          $ref: "#/components/responses/500"
 
 components:
   parameters:
@@ -315,15 +336,23 @@ components:
 
   responses:
     400:
-      description: Bad Request
+      $ref: "../core/api.yml#/components/responses/400"
     401:
-      description: Unauthorized
+      $ref: "../core/api.yml#/components/responses/401"
+    404:
+      $ref: "../core/api.yml#/components/responses/404"
     500:
-      description: Internal Server Error
+      $ref: "../core/api.yml#/components/responses/500"
+
+  securitySchemes:
+    jwt:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
 
   schemas:
-    uuid:
-      $ref: "../../v1alpha1/core/api.yml#/components/schemas/uuid"
+    Uuid:
+      $ref: "../core/api.yml#/components/schemas/uuid"
 
     InvitationsPage:
       type: object
@@ -378,14 +407,14 @@ components:
         - status
       properties:
         id:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/uuid"
+          $ref: "../core/api.yml#/components/schemas/uuid"
           x-go-name: ID
           description: Existing invitation ID for updates; omit on create.
           x-oapi-codegen-extra-tags:
             json: "id,omitempty"
 
         owner_id:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/uuid"
+          $ref: "../core/api.yml#/components/schemas/uuid"
           description: ID of the user who created the invitation.
           x-oapi-codegen-extra-tags:
             db: "owner_id"
@@ -483,12 +512,12 @@ components:
         - deleted_at
       properties:
         id:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/uuid"
+          $ref: "../core/api.yml#/components/schemas/uuid"
           x-go-name: ID
           description: Unique identifier for the invitation , is also used as the invitation code
 
         owner_id:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/uuid"
+          $ref: "../core/api.yml#/components/schemas/uuid"
           description: "ID of the user who created the invitation,
             this is used to track who created the invitation and can be used for auditing purposes"
 

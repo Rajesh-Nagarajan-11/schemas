@@ -67,9 +67,15 @@ const excludePackages = [
  * These will still be processed for Go generation but not included in the merge
  */
 const excludeFromMerge = [
+  // Promoted constructs (v1alpha* → v1beta1): original alpha directories
+  // still exist for backward compatibility but are excluded from merge.
   "v1alpha1/core",
   "v1alpha1/capability",
-  // Add any other packages that shouldn't be in the merged spec
+  // Promoted v1beta1 copies: core and capability are reusable base schemas,
+  // not standalone API surfaces — exclude from the merged spec.
+  "v1beta1/core",
+  "v1beta1/capability",
+  "v1beta1/selector",
 ];
 
 /**

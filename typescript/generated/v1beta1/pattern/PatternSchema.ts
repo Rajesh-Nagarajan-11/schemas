@@ -19,6 +19,11 @@ const PatternSchema: Record<string, unknown> = {
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     }
   },
+  "security": [
+    {
+      "jwt": []
+    }
+  ],
   "paths": {
     "/api/content/patterns": {
       "get": {
@@ -73,16 +78,16 @@ const PatternSchema: Record<string, unknown> = {
             }
           },
           {
-            "name": "user_id",
+            "name": "userId",
             "in": "query",
             "required": false,
-            "description": "UUID of User. Pass user_id for fetching public and published designs.",
+            "description": "UUID of User. Pass userId for fetching public and published designs.",
             "schema": {
               "type": "string"
             }
           },
           {
-            "name": "orgID",
+            "name": "orgId",
             "in": "query",
             "required": false,
             "description": "User's organization ID.",
@@ -125,7 +130,7 @@ const PatternSchema: Record<string, unknown> = {
         ],
         "responses": {
           "200": {
-            "description": "Designs fetched successfully",
+            "description": "Designs response",
             "content": {
               "application/json": {
                 "schema": {
@@ -143,7 +148,7 @@ const PatternSchema: Record<string, unknown> = {
                         "x-go-type": "MesheryPattern",
                         "type": "object",
                         "properties": {
-                          "catalog_data": {
+                          "catalogData": {
                             "x-go-type": "catalogv1alpha2.CatalogData",
                             "x-go-type-import": {
                               "path": "github.com/meshery/schemas/models/v1alpha2/catalog",
@@ -255,7 +260,7 @@ const PatternSchema: Record<string, unknown> = {
                             "type": "string",
                             "x-go-type-skip-optional-pointer": true
                           },
-                          "pattern_file": {
+                          "patternFile": {
                             "x-go-type": "PatternFile",
                             "$schema": "http://json-schema.org/draft-07/schema#",
                             "title": "Design Schema",
@@ -1494,7 +1499,6 @@ const PatternSchema: Record<string, unknown> = {
                                                 "version": {
                                                   "description": "Version of the model as defined by the registrant.",
                                                   "x-oapi-codegen-extra-tags": {
-                                                    "yaml": "version",
                                                     "json": "version"
                                                   },
                                                   "x-order": 1,
@@ -1657,7 +1661,6 @@ const PatternSchema: Record<string, unknown> = {
                                                 "version": {
                                                   "description": "Version of the model as defined by the registrant.",
                                                   "x-oapi-codegen-extra-tags": {
-                                                    "yaml": "version",
                                                     "json": "version"
                                                   },
                                                   "x-order": 1,
@@ -1671,7 +1674,6 @@ const PatternSchema: Record<string, unknown> = {
                                             "registrant": {
                                               "x-go-type": "RegistrantReference",
                                               "x-oapi-codegen-extra-tags": {
-                                                "yaml": "registrant",
                                                 "json": "registrant"
                                               },
                                               "type": "object",
@@ -3326,7 +3328,6 @@ const PatternSchema: Record<string, unknown> = {
                                                 "version": {
                                                   "description": "Version of the model as defined by the registrant.",
                                                   "x-oapi-codegen-extra-tags": {
-                                                    "yaml": "version",
                                                     "json": "version"
                                                   },
                                                   "x-order": 1,
@@ -3340,7 +3341,6 @@ const PatternSchema: Record<string, unknown> = {
                                             "registrant": {
                                               "x-go-type": "RegistrantReference",
                                               "x-oapi-codegen-extra-tags": {
-                                                "yaml": "registrant",
                                                 "json": "registrant"
                                               },
                                               "type": "object",
@@ -3674,7 +3674,6 @@ const PatternSchema: Record<string, unknown> = {
                                                                 "version": {
                                                                   "description": "Version of the model as defined by the registrant.",
                                                                   "x-oapi-codegen-extra-tags": {
-                                                                    "yaml": "version",
                                                                     "json": "version"
                                                                   },
                                                                   "x-order": 1,
@@ -3688,7 +3687,6 @@ const PatternSchema: Record<string, unknown> = {
                                                             "registrant": {
                                                               "x-go-type": "RegistrantReference",
                                                               "x-oapi-codegen-extra-tags": {
-                                                                "yaml": "registrant",
                                                                 "json": "registrant"
                                                               },
                                                               "type": "object",
@@ -4030,7 +4028,6 @@ const PatternSchema: Record<string, unknown> = {
                                                                 "version": {
                                                                   "description": "Version of the model as defined by the registrant.",
                                                                   "x-oapi-codegen-extra-tags": {
-                                                                    "yaml": "version",
                                                                     "json": "version"
                                                                   },
                                                                   "x-order": 1,
@@ -4044,7 +4041,6 @@ const PatternSchema: Record<string, unknown> = {
                                                             "registrant": {
                                                               "x-go-type": "RegistrantReference",
                                                               "x-oapi-codegen-extra-tags": {
-                                                                "yaml": "registrant",
                                                                 "json": "registrant"
                                                               },
                                                               "type": "object",
@@ -4401,7 +4397,6 @@ const PatternSchema: Record<string, unknown> = {
                                                                 "version": {
                                                                   "description": "Version of the model as defined by the registrant.",
                                                                   "x-oapi-codegen-extra-tags": {
-                                                                    "yaml": "version",
                                                                     "json": "version"
                                                                   },
                                                                   "x-order": 1,
@@ -4415,7 +4410,6 @@ const PatternSchema: Record<string, unknown> = {
                                                             "registrant": {
                                                               "x-go-type": "RegistrantReference",
                                                               "x-oapi-codegen-extra-tags": {
-                                                                "yaml": "registrant",
                                                                 "json": "registrant"
                                                               },
                                                               "type": "object",
@@ -4757,7 +4751,6 @@ const PatternSchema: Record<string, unknown> = {
                                                                 "version": {
                                                                   "description": "Version of the model as defined by the registrant.",
                                                                   "x-oapi-codegen-extra-tags": {
-                                                                    "yaml": "version",
                                                                     "json": "version"
                                                                   },
                                                                   "x-order": 1,
@@ -4771,7 +4764,6 @@ const PatternSchema: Record<string, unknown> = {
                                                             "registrant": {
                                                               "x-go-type": "RegistrantReference",
                                                               "x-oapi-codegen-extra-tags": {
-                                                                "yaml": "registrant",
                                                                 "json": "registrant"
                                                               },
                                                               "type": "object",
@@ -4945,11 +4937,11 @@ const PatternSchema: Record<string, unknown> = {
                     "type": "string",
                     "x-go-type-skip-optional-pointer": true
                   },
-                  "pattern_data": {
+                  "patternData": {
                     "x-go-type": "MesheryPattern",
                     "type": "object",
                     "properties": {
-                      "catalog_data": {
+                      "catalogData": {
                         "x-go-type": "catalogv1alpha2.CatalogData",
                         "x-go-type-import": {
                           "path": "github.com/meshery/schemas/models/v1alpha2/catalog",
@@ -5061,7 +5053,7 @@ const PatternSchema: Record<string, unknown> = {
                         "type": "string",
                         "x-go-type-skip-optional-pointer": true
                       },
-                      "pattern_file": {
+                      "patternFile": {
                         "x-go-type": "PatternFile",
                         "$schema": "http://json-schema.org/draft-07/schema#",
                         "title": "Design Schema",
@@ -6300,7 +6292,6 @@ const PatternSchema: Record<string, unknown> = {
                                             "version": {
                                               "description": "Version of the model as defined by the registrant.",
                                               "x-oapi-codegen-extra-tags": {
-                                                "yaml": "version",
                                                 "json": "version"
                                               },
                                               "x-order": 1,
@@ -6463,7 +6454,6 @@ const PatternSchema: Record<string, unknown> = {
                                             "version": {
                                               "description": "Version of the model as defined by the registrant.",
                                               "x-oapi-codegen-extra-tags": {
-                                                "yaml": "version",
                                                 "json": "version"
                                               },
                                               "x-order": 1,
@@ -6477,7 +6467,6 @@ const PatternSchema: Record<string, unknown> = {
                                         "registrant": {
                                           "x-go-type": "RegistrantReference",
                                           "x-oapi-codegen-extra-tags": {
-                                            "yaml": "registrant",
                                             "json": "registrant"
                                           },
                                           "type": "object",
@@ -8132,7 +8121,6 @@ const PatternSchema: Record<string, unknown> = {
                                             "version": {
                                               "description": "Version of the model as defined by the registrant.",
                                               "x-oapi-codegen-extra-tags": {
-                                                "yaml": "version",
                                                 "json": "version"
                                               },
                                               "x-order": 1,
@@ -8146,7 +8134,6 @@ const PatternSchema: Record<string, unknown> = {
                                         "registrant": {
                                           "x-go-type": "RegistrantReference",
                                           "x-oapi-codegen-extra-tags": {
-                                            "yaml": "registrant",
                                             "json": "registrant"
                                           },
                                           "type": "object",
@@ -8480,7 +8467,6 @@ const PatternSchema: Record<string, unknown> = {
                                                             "version": {
                                                               "description": "Version of the model as defined by the registrant.",
                                                               "x-oapi-codegen-extra-tags": {
-                                                                "yaml": "version",
                                                                 "json": "version"
                                                               },
                                                               "x-order": 1,
@@ -8494,7 +8480,6 @@ const PatternSchema: Record<string, unknown> = {
                                                         "registrant": {
                                                           "x-go-type": "RegistrantReference",
                                                           "x-oapi-codegen-extra-tags": {
-                                                            "yaml": "registrant",
                                                             "json": "registrant"
                                                           },
                                                           "type": "object",
@@ -8836,7 +8821,6 @@ const PatternSchema: Record<string, unknown> = {
                                                             "version": {
                                                               "description": "Version of the model as defined by the registrant.",
                                                               "x-oapi-codegen-extra-tags": {
-                                                                "yaml": "version",
                                                                 "json": "version"
                                                               },
                                                               "x-order": 1,
@@ -8850,7 +8834,6 @@ const PatternSchema: Record<string, unknown> = {
                                                         "registrant": {
                                                           "x-go-type": "RegistrantReference",
                                                           "x-oapi-codegen-extra-tags": {
-                                                            "yaml": "registrant",
                                                             "json": "registrant"
                                                           },
                                                           "type": "object",
@@ -9207,7 +9190,6 @@ const PatternSchema: Record<string, unknown> = {
                                                             "version": {
                                                               "description": "Version of the model as defined by the registrant.",
                                                               "x-oapi-codegen-extra-tags": {
-                                                                "yaml": "version",
                                                                 "json": "version"
                                                               },
                                                               "x-order": 1,
@@ -9221,7 +9203,6 @@ const PatternSchema: Record<string, unknown> = {
                                                         "registrant": {
                                                           "x-go-type": "RegistrantReference",
                                                           "x-oapi-codegen-extra-tags": {
-                                                            "yaml": "registrant",
                                                             "json": "registrant"
                                                           },
                                                           "type": "object",
@@ -9563,7 +9544,6 @@ const PatternSchema: Record<string, unknown> = {
                                                             "version": {
                                                               "description": "Version of the model as defined by the registrant.",
                                                               "x-oapi-codegen-extra-tags": {
-                                                                "yaml": "version",
                                                                 "json": "version"
                                                               },
                                                               "x-order": 1,
@@ -9577,7 +9557,6 @@ const PatternSchema: Record<string, unknown> = {
                                                         "registrant": {
                                                           "x-go-type": "RegistrantReference",
                                                           "x-oapi-codegen-extra-tags": {
-                                                            "yaml": "registrant",
                                                             "json": "registrant"
                                                           },
                                                           "type": "object",
@@ -9716,13 +9695,13 @@ const PatternSchema: Record<string, unknown> = {
         },
         "responses": {
           "200": {
-            "description": "Design saved successfully",
+            "description": "Design saved",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "catalog_data": {
+                    "catalogData": {
                       "x-go-type": "catalogv1alpha2.CatalogData",
                       "x-go-type-import": {
                         "path": "github.com/meshery/schemas/models/v1alpha2/catalog",
@@ -9834,7 +9813,7 @@ const PatternSchema: Record<string, unknown> = {
                       "type": "string",
                       "x-go-type-skip-optional-pointer": true
                     },
-                    "pattern_file": {
+                    "patternFile": {
                       "x-go-type": "PatternFile",
                       "$schema": "http://json-schema.org/draft-07/schema#",
                       "title": "Design Schema",
@@ -11073,7 +11052,6 @@ const PatternSchema: Record<string, unknown> = {
                                           "version": {
                                             "description": "Version of the model as defined by the registrant.",
                                             "x-oapi-codegen-extra-tags": {
-                                              "yaml": "version",
                                               "json": "version"
                                             },
                                             "x-order": 1,
@@ -11236,7 +11214,6 @@ const PatternSchema: Record<string, unknown> = {
                                           "version": {
                                             "description": "Version of the model as defined by the registrant.",
                                             "x-oapi-codegen-extra-tags": {
-                                              "yaml": "version",
                                               "json": "version"
                                             },
                                             "x-order": 1,
@@ -11250,7 +11227,6 @@ const PatternSchema: Record<string, unknown> = {
                                       "registrant": {
                                         "x-go-type": "RegistrantReference",
                                         "x-oapi-codegen-extra-tags": {
-                                          "yaml": "registrant",
                                           "json": "registrant"
                                         },
                                         "type": "object",
@@ -12905,7 +12881,6 @@ const PatternSchema: Record<string, unknown> = {
                                           "version": {
                                             "description": "Version of the model as defined by the registrant.",
                                             "x-oapi-codegen-extra-tags": {
-                                              "yaml": "version",
                                               "json": "version"
                                             },
                                             "x-order": 1,
@@ -12919,7 +12894,6 @@ const PatternSchema: Record<string, unknown> = {
                                       "registrant": {
                                         "x-go-type": "RegistrantReference",
                                         "x-oapi-codegen-extra-tags": {
-                                          "yaml": "registrant",
                                           "json": "registrant"
                                         },
                                         "type": "object",
@@ -13253,7 +13227,6 @@ const PatternSchema: Record<string, unknown> = {
                                                           "version": {
                                                             "description": "Version of the model as defined by the registrant.",
                                                             "x-oapi-codegen-extra-tags": {
-                                                              "yaml": "version",
                                                               "json": "version"
                                                             },
                                                             "x-order": 1,
@@ -13267,7 +13240,6 @@ const PatternSchema: Record<string, unknown> = {
                                                       "registrant": {
                                                         "x-go-type": "RegistrantReference",
                                                         "x-oapi-codegen-extra-tags": {
-                                                          "yaml": "registrant",
                                                           "json": "registrant"
                                                         },
                                                         "type": "object",
@@ -13609,7 +13581,6 @@ const PatternSchema: Record<string, unknown> = {
                                                           "version": {
                                                             "description": "Version of the model as defined by the registrant.",
                                                             "x-oapi-codegen-extra-tags": {
-                                                              "yaml": "version",
                                                               "json": "version"
                                                             },
                                                             "x-order": 1,
@@ -13623,7 +13594,6 @@ const PatternSchema: Record<string, unknown> = {
                                                       "registrant": {
                                                         "x-go-type": "RegistrantReference",
                                                         "x-oapi-codegen-extra-tags": {
-                                                          "yaml": "registrant",
                                                           "json": "registrant"
                                                         },
                                                         "type": "object",
@@ -13980,7 +13950,6 @@ const PatternSchema: Record<string, unknown> = {
                                                           "version": {
                                                             "description": "Version of the model as defined by the registrant.",
                                                             "x-oapi-codegen-extra-tags": {
-                                                              "yaml": "version",
                                                               "json": "version"
                                                             },
                                                             "x-order": 1,
@@ -13994,7 +13963,6 @@ const PatternSchema: Record<string, unknown> = {
                                                       "registrant": {
                                                         "x-go-type": "RegistrantReference",
                                                         "x-oapi-codegen-extra-tags": {
-                                                          "yaml": "registrant",
                                                           "json": "registrant"
                                                         },
                                                         "type": "object",
@@ -14336,7 +14304,6 @@ const PatternSchema: Record<string, unknown> = {
                                                           "version": {
                                                             "description": "Version of the model as defined by the registrant.",
                                                             "x-oapi-codegen-extra-tags": {
-                                                              "yaml": "version",
                                                               "json": "version"
                                                             },
                                                             "x-order": 1,
@@ -14350,7 +14317,6 @@ const PatternSchema: Record<string, unknown> = {
                                                       "registrant": {
                                                         "x-go-type": "RegistrantReference",
                                                         "x-oapi-codegen-extra-tags": {
-                                                          "yaml": "registrant",
                                                           "json": "registrant"
                                                         },
                                                         "type": "object",
@@ -14552,7 +14518,7 @@ const PatternSchema: Record<string, unknown> = {
         },
         "responses": {
           "200": {
-            "description": "Designs deleted successfully"
+            "description": "Designs deleted"
           },
           "400": {
             "description": "Invalid request body or request param",
@@ -14634,7 +14600,7 @@ const PatternSchema: Record<string, unknown> = {
         ],
         "responses": {
           "200": {
-            "description": "Pattern resources fetched successfully"
+            "description": "Pattern resources response"
           },
           "401": {
             "description": "Expired JWT token used or insufficient privilege",
@@ -14670,7 +14636,7 @@ const PatternSchema: Record<string, unknown> = {
         "description": "Creates or updates a pattern resource definition.",
         "responses": {
           "200": {
-            "description": "Pattern resource saved successfully"
+            "description": "Pattern resource saved"
           },
           "400": {
             "description": "Invalid request body or request param",
@@ -14734,7 +14700,7 @@ const PatternSchema: Record<string, unknown> = {
         ],
         "responses": {
           "200": {
-            "description": "Pattern resource fetched successfully"
+            "description": "Pattern resource response"
           },
           "401": {
             "description": "Expired JWT token used or insufficient privilege",
@@ -14796,7 +14762,7 @@ const PatternSchema: Record<string, unknown> = {
         ],
         "responses": {
           "204": {
-            "description": "Pattern resource deleted successfully"
+            "description": "Pattern resource deleted"
           },
           "401": {
             "description": "Expired JWT token used or insufficient privilege",
@@ -14860,13 +14826,13 @@ const PatternSchema: Record<string, unknown> = {
         ],
         "responses": {
           "200": {
-            "description": "Design fetched successfully",
+            "description": "Design response",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "catalog_data": {
+                    "catalogData": {
                       "x-go-type": "catalogv1alpha2.CatalogData",
                       "x-go-type-import": {
                         "path": "github.com/meshery/schemas/models/v1alpha2/catalog",
@@ -14978,7 +14944,7 @@ const PatternSchema: Record<string, unknown> = {
                       "type": "string",
                       "x-go-type-skip-optional-pointer": true
                     },
-                    "pattern_file": {
+                    "patternFile": {
                       "x-go-type": "PatternFile",
                       "$schema": "http://json-schema.org/draft-07/schema#",
                       "title": "Design Schema",
@@ -16217,7 +16183,6 @@ const PatternSchema: Record<string, unknown> = {
                                           "version": {
                                             "description": "Version of the model as defined by the registrant.",
                                             "x-oapi-codegen-extra-tags": {
-                                              "yaml": "version",
                                               "json": "version"
                                             },
                                             "x-order": 1,
@@ -16380,7 +16345,6 @@ const PatternSchema: Record<string, unknown> = {
                                           "version": {
                                             "description": "Version of the model as defined by the registrant.",
                                             "x-oapi-codegen-extra-tags": {
-                                              "yaml": "version",
                                               "json": "version"
                                             },
                                             "x-order": 1,
@@ -16394,7 +16358,6 @@ const PatternSchema: Record<string, unknown> = {
                                       "registrant": {
                                         "x-go-type": "RegistrantReference",
                                         "x-oapi-codegen-extra-tags": {
-                                          "yaml": "registrant",
                                           "json": "registrant"
                                         },
                                         "type": "object",
@@ -18049,7 +18012,6 @@ const PatternSchema: Record<string, unknown> = {
                                           "version": {
                                             "description": "Version of the model as defined by the registrant.",
                                             "x-oapi-codegen-extra-tags": {
-                                              "yaml": "version",
                                               "json": "version"
                                             },
                                             "x-order": 1,
@@ -18063,7 +18025,6 @@ const PatternSchema: Record<string, unknown> = {
                                       "registrant": {
                                         "x-go-type": "RegistrantReference",
                                         "x-oapi-codegen-extra-tags": {
-                                          "yaml": "registrant",
                                           "json": "registrant"
                                         },
                                         "type": "object",
@@ -18397,7 +18358,6 @@ const PatternSchema: Record<string, unknown> = {
                                                           "version": {
                                                             "description": "Version of the model as defined by the registrant.",
                                                             "x-oapi-codegen-extra-tags": {
-                                                              "yaml": "version",
                                                               "json": "version"
                                                             },
                                                             "x-order": 1,
@@ -18411,7 +18371,6 @@ const PatternSchema: Record<string, unknown> = {
                                                       "registrant": {
                                                         "x-go-type": "RegistrantReference",
                                                         "x-oapi-codegen-extra-tags": {
-                                                          "yaml": "registrant",
                                                           "json": "registrant"
                                                         },
                                                         "type": "object",
@@ -18753,7 +18712,6 @@ const PatternSchema: Record<string, unknown> = {
                                                           "version": {
                                                             "description": "Version of the model as defined by the registrant.",
                                                             "x-oapi-codegen-extra-tags": {
-                                                              "yaml": "version",
                                                               "json": "version"
                                                             },
                                                             "x-order": 1,
@@ -18767,7 +18725,6 @@ const PatternSchema: Record<string, unknown> = {
                                                       "registrant": {
                                                         "x-go-type": "RegistrantReference",
                                                         "x-oapi-codegen-extra-tags": {
-                                                          "yaml": "registrant",
                                                           "json": "registrant"
                                                         },
                                                         "type": "object",
@@ -19124,7 +19081,6 @@ const PatternSchema: Record<string, unknown> = {
                                                           "version": {
                                                             "description": "Version of the model as defined by the registrant.",
                                                             "x-oapi-codegen-extra-tags": {
-                                                              "yaml": "version",
                                                               "json": "version"
                                                             },
                                                             "x-order": 1,
@@ -19138,7 +19094,6 @@ const PatternSchema: Record<string, unknown> = {
                                                       "registrant": {
                                                         "x-go-type": "RegistrantReference",
                                                         "x-oapi-codegen-extra-tags": {
-                                                          "yaml": "registrant",
                                                           "json": "registrant"
                                                         },
                                                         "type": "object",
@@ -19480,7 +19435,6 @@ const PatternSchema: Record<string, unknown> = {
                                                           "version": {
                                                             "description": "Version of the model as defined by the registrant.",
                                                             "x-oapi-codegen-extra-tags": {
-                                                              "yaml": "version",
                                                               "json": "version"
                                                             },
                                                             "x-order": 1,
@@ -19494,7 +19448,6 @@ const PatternSchema: Record<string, unknown> = {
                                                       "registrant": {
                                                         "x-go-type": "RegistrantReference",
                                                         "x-oapi-codegen-extra-tags": {
-                                                          "yaml": "registrant",
                                                           "json": "registrant"
                                                         },
                                                         "type": "object",
@@ -19676,7 +19629,7 @@ const PatternSchema: Record<string, unknown> = {
         ],
         "responses": {
           "204": {
-            "description": "Design deleted successfully"
+            "description": "Design deleted"
           },
           "401": {
             "description": "Expired JWT token used or insufficient privilege",
@@ -19741,13 +19694,13 @@ const PatternSchema: Record<string, unknown> = {
         ],
         "responses": {
           "200": {
-            "description": "Design cloned successfully",
+            "description": "Design cloned",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "catalog_data": {
+                    "catalogData": {
                       "x-go-type": "catalogv1alpha2.CatalogData",
                       "x-go-type-import": {
                         "path": "github.com/meshery/schemas/models/v1alpha2/catalog",
@@ -19859,7 +19812,7 @@ const PatternSchema: Record<string, unknown> = {
                       "type": "string",
                       "x-go-type-skip-optional-pointer": true
                     },
-                    "pattern_file": {
+                    "patternFile": {
                       "x-go-type": "PatternFile",
                       "$schema": "http://json-schema.org/draft-07/schema#",
                       "title": "Design Schema",
@@ -21098,7 +21051,6 @@ const PatternSchema: Record<string, unknown> = {
                                           "version": {
                                             "description": "Version of the model as defined by the registrant.",
                                             "x-oapi-codegen-extra-tags": {
-                                              "yaml": "version",
                                               "json": "version"
                                             },
                                             "x-order": 1,
@@ -21261,7 +21213,6 @@ const PatternSchema: Record<string, unknown> = {
                                           "version": {
                                             "description": "Version of the model as defined by the registrant.",
                                             "x-oapi-codegen-extra-tags": {
-                                              "yaml": "version",
                                               "json": "version"
                                             },
                                             "x-order": 1,
@@ -21275,7 +21226,6 @@ const PatternSchema: Record<string, unknown> = {
                                       "registrant": {
                                         "x-go-type": "RegistrantReference",
                                         "x-oapi-codegen-extra-tags": {
-                                          "yaml": "registrant",
                                           "json": "registrant"
                                         },
                                         "type": "object",
@@ -22930,7 +22880,6 @@ const PatternSchema: Record<string, unknown> = {
                                           "version": {
                                             "description": "Version of the model as defined by the registrant.",
                                             "x-oapi-codegen-extra-tags": {
-                                              "yaml": "version",
                                               "json": "version"
                                             },
                                             "x-order": 1,
@@ -22944,7 +22893,6 @@ const PatternSchema: Record<string, unknown> = {
                                       "registrant": {
                                         "x-go-type": "RegistrantReference",
                                         "x-oapi-codegen-extra-tags": {
-                                          "yaml": "registrant",
                                           "json": "registrant"
                                         },
                                         "type": "object",
@@ -23278,7 +23226,6 @@ const PatternSchema: Record<string, unknown> = {
                                                           "version": {
                                                             "description": "Version of the model as defined by the registrant.",
                                                             "x-oapi-codegen-extra-tags": {
-                                                              "yaml": "version",
                                                               "json": "version"
                                                             },
                                                             "x-order": 1,
@@ -23292,7 +23239,6 @@ const PatternSchema: Record<string, unknown> = {
                                                       "registrant": {
                                                         "x-go-type": "RegistrantReference",
                                                         "x-oapi-codegen-extra-tags": {
-                                                          "yaml": "registrant",
                                                           "json": "registrant"
                                                         },
                                                         "type": "object",
@@ -23634,7 +23580,6 @@ const PatternSchema: Record<string, unknown> = {
                                                           "version": {
                                                             "description": "Version of the model as defined by the registrant.",
                                                             "x-oapi-codegen-extra-tags": {
-                                                              "yaml": "version",
                                                               "json": "version"
                                                             },
                                                             "x-order": 1,
@@ -23648,7 +23593,6 @@ const PatternSchema: Record<string, unknown> = {
                                                       "registrant": {
                                                         "x-go-type": "RegistrantReference",
                                                         "x-oapi-codegen-extra-tags": {
-                                                          "yaml": "registrant",
                                                           "json": "registrant"
                                                         },
                                                         "type": "object",
@@ -24005,7 +23949,6 @@ const PatternSchema: Record<string, unknown> = {
                                                           "version": {
                                                             "description": "Version of the model as defined by the registrant.",
                                                             "x-oapi-codegen-extra-tags": {
-                                                              "yaml": "version",
                                                               "json": "version"
                                                             },
                                                             "x-order": 1,
@@ -24019,7 +23962,6 @@ const PatternSchema: Record<string, unknown> = {
                                                       "registrant": {
                                                         "x-go-type": "RegistrantReference",
                                                         "x-oapi-codegen-extra-tags": {
-                                                          "yaml": "registrant",
                                                           "json": "registrant"
                                                         },
                                                         "type": "object",
@@ -24361,7 +24303,6 @@ const PatternSchema: Record<string, unknown> = {
                                                           "version": {
                                                             "description": "Version of the model as defined by the registrant.",
                                                             "x-oapi-codegen-extra-tags": {
-                                                              "yaml": "version",
                                                               "json": "version"
                                                             },
                                                             "x-order": 1,
@@ -24375,7 +24316,6 @@ const PatternSchema: Record<string, unknown> = {
                                                       "registrant": {
                                                         "x-go-type": "RegistrantReference",
                                                         "x-oapi-codegen-extra-tags": {
-                                                          "yaml": "registrant",
                                                           "json": "registrant"
                                                         },
                                                         "type": "object",
@@ -24493,6 +24433,16 @@ const PatternSchema: Record<string, unknown> = {
                       "x-go-type-skip-optional-pointer": true
                     }
                   }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request body or request param",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
                 }
               }
             }
@@ -24647,7 +24597,7 @@ const PatternSchema: Record<string, unknown> = {
                     "format": "file",
                     "description": "Supported formats: Kubernetes Manifests, Helm Charts, Docker Compose, and Meshery Designs. See [Import Designs Documentation](https://docs.meshery.io/guides/configuration-management/importing-designs#import-designs-using-meshery-ui) for details"
                   },
-                  "file_name": {
+                  "fileName": {
                     "type": "string",
                     "description": "The name of the pattern file being imported."
                   },
@@ -24668,7 +24618,7 @@ const PatternSchema: Record<string, unknown> = {
         },
         "responses": {
           "200": {
-            "description": "Design source content uploaded successfully"
+            "description": "Design source content uploaded"
           },
           "400": {
             "description": "Invalid request body or request param",
@@ -24682,6 +24632,16 @@ const PatternSchema: Record<string, unknown> = {
           },
           "401": {
             "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Result not found",
             "content": {
               "text/plain": {
                 "schema": {
@@ -24724,7 +24684,7 @@ const PatternSchema: Record<string, unknown> = {
                     "format": "file",
                     "description": "Supported formats: Kubernetes Manifests, Helm Charts, Docker Compose, and Meshery Designs. See [Import Designs Documentation](https://docs.meshery.io/guides/configuration-management/importing-designs#import-designs-using-meshery-ui) for details"
                   },
-                  "file_name": {
+                  "fileName": {
                     "type": "string",
                     "description": "The name of the pattern file being imported."
                   },
@@ -24761,6 +24721,16 @@ const PatternSchema: Record<string, unknown> = {
           },
           "400": {
             "description": "Invalid request format"
+          },
+          "401": {
+            "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           },
           "500": {
             "description": "Internal server error"
@@ -24861,7 +24831,7 @@ const PatternSchema: Record<string, unknown> = {
             }
           },
           {
-            "name": "orgID",
+            "name": "orgId",
             "in": "query",
             "required": false,
             "schema": {
@@ -24915,7 +24885,7 @@ const PatternSchema: Record<string, unknown> = {
                       "items": {
                         "type": "object",
                         "properties": {
-                          "catalog_data": {
+                          "catalogData": {
                             "x-go-type": "catalogv1alpha2.CatalogData",
                             "x-go-type-import": {
                               "path": "github.com/meshery/schemas/models/v1alpha2/catalog",
@@ -25027,7 +24997,7 @@ const PatternSchema: Record<string, unknown> = {
                             "type": "string",
                             "x-go-type-skip-optional-pointer": true
                           },
-                          "pattern_file": {
+                          "patternFile": {
                             "x-go-type": "PatternFile",
                             "$schema": "http://json-schema.org/draft-07/schema#",
                             "title": "Design Schema",
@@ -26266,7 +26236,6 @@ const PatternSchema: Record<string, unknown> = {
                                                 "version": {
                                                   "description": "Version of the model as defined by the registrant.",
                                                   "x-oapi-codegen-extra-tags": {
-                                                    "yaml": "version",
                                                     "json": "version"
                                                   },
                                                   "x-order": 1,
@@ -26429,7 +26398,6 @@ const PatternSchema: Record<string, unknown> = {
                                                 "version": {
                                                   "description": "Version of the model as defined by the registrant.",
                                                   "x-oapi-codegen-extra-tags": {
-                                                    "yaml": "version",
                                                     "json": "version"
                                                   },
                                                   "x-order": 1,
@@ -26443,7 +26411,6 @@ const PatternSchema: Record<string, unknown> = {
                                             "registrant": {
                                               "x-go-type": "RegistrantReference",
                                               "x-oapi-codegen-extra-tags": {
-                                                "yaml": "registrant",
                                                 "json": "registrant"
                                               },
                                               "type": "object",
@@ -28098,7 +28065,6 @@ const PatternSchema: Record<string, unknown> = {
                                                 "version": {
                                                   "description": "Version of the model as defined by the registrant.",
                                                   "x-oapi-codegen-extra-tags": {
-                                                    "yaml": "version",
                                                     "json": "version"
                                                   },
                                                   "x-order": 1,
@@ -28112,7 +28078,6 @@ const PatternSchema: Record<string, unknown> = {
                                             "registrant": {
                                               "x-go-type": "RegistrantReference",
                                               "x-oapi-codegen-extra-tags": {
-                                                "yaml": "registrant",
                                                 "json": "registrant"
                                               },
                                               "type": "object",
@@ -28446,7 +28411,6 @@ const PatternSchema: Record<string, unknown> = {
                                                                 "version": {
                                                                   "description": "Version of the model as defined by the registrant.",
                                                                   "x-oapi-codegen-extra-tags": {
-                                                                    "yaml": "version",
                                                                     "json": "version"
                                                                   },
                                                                   "x-order": 1,
@@ -28460,7 +28424,6 @@ const PatternSchema: Record<string, unknown> = {
                                                             "registrant": {
                                                               "x-go-type": "RegistrantReference",
                                                               "x-oapi-codegen-extra-tags": {
-                                                                "yaml": "registrant",
                                                                 "json": "registrant"
                                                               },
                                                               "type": "object",
@@ -28802,7 +28765,6 @@ const PatternSchema: Record<string, unknown> = {
                                                                 "version": {
                                                                   "description": "Version of the model as defined by the registrant.",
                                                                   "x-oapi-codegen-extra-tags": {
-                                                                    "yaml": "version",
                                                                     "json": "version"
                                                                   },
                                                                   "x-order": 1,
@@ -28816,7 +28778,6 @@ const PatternSchema: Record<string, unknown> = {
                                                             "registrant": {
                                                               "x-go-type": "RegistrantReference",
                                                               "x-oapi-codegen-extra-tags": {
-                                                                "yaml": "registrant",
                                                                 "json": "registrant"
                                                               },
                                                               "type": "object",
@@ -29173,7 +29134,6 @@ const PatternSchema: Record<string, unknown> = {
                                                                 "version": {
                                                                   "description": "Version of the model as defined by the registrant.",
                                                                   "x-oapi-codegen-extra-tags": {
-                                                                    "yaml": "version",
                                                                     "json": "version"
                                                                   },
                                                                   "x-order": 1,
@@ -29187,7 +29147,6 @@ const PatternSchema: Record<string, unknown> = {
                                                             "registrant": {
                                                               "x-go-type": "RegistrantReference",
                                                               "x-oapi-codegen-extra-tags": {
-                                                                "yaml": "registrant",
                                                                 "json": "registrant"
                                                               },
                                                               "type": "object",
@@ -29529,7 +29488,6 @@ const PatternSchema: Record<string, unknown> = {
                                                                 "version": {
                                                                   "description": "Version of the model as defined by the registrant.",
                                                                   "x-oapi-codegen-extra-tags": {
-                                                                    "yaml": "version",
                                                                     "json": "version"
                                                                   },
                                                                   "x-order": 1,
@@ -29543,7 +29501,6 @@ const PatternSchema: Record<string, unknown> = {
                                                             "registrant": {
                                                               "x-go-type": "RegistrantReference",
                                                               "x-oapi-codegen-extra-tags": {
-                                                                "yaml": "registrant",
                                                                 "json": "registrant"
                                                               },
                                                               "type": "object",
@@ -29670,14 +29627,14 @@ const PatternSchema: Record<string, unknown> = {
                         "additionalProperties": true
                       }
                     },
-                    "models_count": {
+                    "modelsCount": {
                       "type": "array",
                       "items": {
                         "type": "object",
                         "additionalProperties": true
                       }
                     },
-                    "category_count": {
+                    "categoryCount": {
                       "type": "array",
                       "items": {
                         "type": "object",
@@ -29685,6 +29642,16 @@ const PatternSchema: Record<string, unknown> = {
                       }
                     }
                   }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Result not found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
                 }
               }
             }
@@ -29743,8 +29710,28 @@ const PatternSchema: Record<string, unknown> = {
               }
             }
           },
+          "400": {
+            "description": "Invalid request body or request param",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
           "401": {
             "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Result not found",
             "content": {
               "text/plain": {
                 "schema": {
@@ -29812,8 +29799,28 @@ const PatternSchema: Record<string, unknown> = {
               }
             }
           },
+          "400": {
+            "description": "Invalid request body or request param",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
           "401": {
             "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Result not found",
             "content": {
               "text/plain": {
                 "schema": {
@@ -29848,6 +29855,24 @@ const PatternSchema: Record<string, unknown> = {
         ],
         "summary": "Get catalog content classes",
         "operationId": "getCatalogContentClasses",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Get responses by page",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pagesize",
+            "in": "query",
+            "description": "Get responses by pagesize",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Catalog content classes",
@@ -29927,6 +29952,16 @@ const PatternSchema: Record<string, unknown> = {
               }
             }
           },
+          "400": {
+            "description": "Invalid request body or request param",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
           "401": {
             "description": "Expired JWT token used or insufficient privilege",
             "content": {
@@ -29982,6 +30017,16 @@ const PatternSchema: Record<string, unknown> = {
                 "schema": {
                   "type": "object",
                   "additionalProperties": true
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request body or request param",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
                 }
               }
             }
@@ -30164,6 +30209,16 @@ const PatternSchema: Record<string, unknown> = {
               }
             }
           },
+          "404": {
+            "description": "Result not found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Internal server error",
             "content": {
@@ -30313,6 +30368,16 @@ const PatternSchema: Record<string, unknown> = {
               }
             }
           },
+          "404": {
+            "description": "Result not found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Internal server error",
             "content": {
@@ -30394,7 +30459,7 @@ const PatternSchema: Record<string, unknown> = {
             }
           },
           {
-            "name": "orgID",
+            "name": "orgId",
             "in": "query",
             "required": false,
             "schema": {
@@ -30402,7 +30467,7 @@ const PatternSchema: Record<string, unknown> = {
             }
           },
           {
-            "name": "user_id",
+            "name": "userId",
             "in": "query",
             "required": false,
             "schema": {
@@ -30513,8 +30578,28 @@ const PatternSchema: Record<string, unknown> = {
               }
             }
           },
+          "400": {
+            "description": "Invalid request body or request param",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
           "401": {
             "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Result not found",
             "content": {
               "text/plain": {
                 "schema": {
@@ -30594,6 +30679,16 @@ const PatternSchema: Record<string, unknown> = {
           },
           "401": {
             "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Result not found",
             "content": {
               "text/plain": {
                 "schema": {
@@ -32076,7 +32171,6 @@ const PatternSchema: Record<string, unknown> = {
                             "version": {
                               "description": "Version of the model as defined by the registrant.",
                               "x-oapi-codegen-extra-tags": {
-                                "yaml": "version",
                                 "json": "version"
                               },
                               "x-order": 1,
@@ -32239,7 +32333,6 @@ const PatternSchema: Record<string, unknown> = {
                             "version": {
                               "description": "Version of the model as defined by the registrant.",
                               "x-oapi-codegen-extra-tags": {
-                                "yaml": "version",
                                 "json": "version"
                               },
                               "x-order": 1,
@@ -32253,7 +32346,6 @@ const PatternSchema: Record<string, unknown> = {
                         "registrant": {
                           "x-go-type": "RegistrantReference",
                           "x-oapi-codegen-extra-tags": {
-                            "yaml": "registrant",
                             "json": "registrant"
                           },
                           "type": "object",
@@ -33908,7 +34000,6 @@ const PatternSchema: Record<string, unknown> = {
                             "version": {
                               "description": "Version of the model as defined by the registrant.",
                               "x-oapi-codegen-extra-tags": {
-                                "yaml": "version",
                                 "json": "version"
                               },
                               "x-order": 1,
@@ -33922,7 +34013,6 @@ const PatternSchema: Record<string, unknown> = {
                         "registrant": {
                           "x-go-type": "RegistrantReference",
                           "x-oapi-codegen-extra-tags": {
-                            "yaml": "registrant",
                             "json": "registrant"
                           },
                           "type": "object",
@@ -34256,7 +34346,6 @@ const PatternSchema: Record<string, unknown> = {
                                             "version": {
                                               "description": "Version of the model as defined by the registrant.",
                                               "x-oapi-codegen-extra-tags": {
-                                                "yaml": "version",
                                                 "json": "version"
                                               },
                                               "x-order": 1,
@@ -34270,7 +34359,6 @@ const PatternSchema: Record<string, unknown> = {
                                         "registrant": {
                                           "x-go-type": "RegistrantReference",
                                           "x-oapi-codegen-extra-tags": {
-                                            "yaml": "registrant",
                                             "json": "registrant"
                                           },
                                           "type": "object",
@@ -34612,7 +34700,6 @@ const PatternSchema: Record<string, unknown> = {
                                             "version": {
                                               "description": "Version of the model as defined by the registrant.",
                                               "x-oapi-codegen-extra-tags": {
-                                                "yaml": "version",
                                                 "json": "version"
                                               },
                                               "x-order": 1,
@@ -34626,7 +34713,6 @@ const PatternSchema: Record<string, unknown> = {
                                         "registrant": {
                                           "x-go-type": "RegistrantReference",
                                           "x-oapi-codegen-extra-tags": {
-                                            "yaml": "registrant",
                                             "json": "registrant"
                                           },
                                           "type": "object",
@@ -34983,7 +35069,6 @@ const PatternSchema: Record<string, unknown> = {
                                             "version": {
                                               "description": "Version of the model as defined by the registrant.",
                                               "x-oapi-codegen-extra-tags": {
-                                                "yaml": "version",
                                                 "json": "version"
                                               },
                                               "x-order": 1,
@@ -34997,7 +35082,6 @@ const PatternSchema: Record<string, unknown> = {
                                         "registrant": {
                                           "x-go-type": "RegistrantReference",
                                           "x-oapi-codegen-extra-tags": {
-                                            "yaml": "registrant",
                                             "json": "registrant"
                                           },
                                           "type": "object",
@@ -35339,7 +35423,6 @@ const PatternSchema: Record<string, unknown> = {
                                             "version": {
                                               "description": "Version of the model as defined by the registrant.",
                                               "x-oapi-codegen-extra-tags": {
-                                                "yaml": "version",
                                                 "json": "version"
                                               },
                                               "x-order": 1,
@@ -35353,7 +35436,6 @@ const PatternSchema: Record<string, unknown> = {
                                         "registrant": {
                                           "x-go-type": "RegistrantReference",
                                           "x-oapi-codegen-extra-tags": {
-                                            "yaml": "registrant",
                                             "json": "registrant"
                                           },
                                           "type": "object",
@@ -35455,7 +35537,7 @@ const PatternSchema: Record<string, unknown> = {
       "MesheryPattern": {
         "type": "object",
         "properties": {
-          "catalog_data": {
+          "catalogData": {
             "x-go-type": "catalogv1alpha2.CatalogData",
             "x-go-type-import": {
               "path": "github.com/meshery/schemas/models/v1alpha2/catalog",
@@ -35567,7 +35649,7 @@ const PatternSchema: Record<string, unknown> = {
             "type": "string",
             "x-go-type-skip-optional-pointer": true
           },
-          "pattern_file": {
+          "patternFile": {
             "x-go-type": "PatternFile",
             "$schema": "http://json-schema.org/draft-07/schema#",
             "title": "Design Schema",
@@ -36806,7 +36888,6 @@ const PatternSchema: Record<string, unknown> = {
                                 "version": {
                                   "description": "Version of the model as defined by the registrant.",
                                   "x-oapi-codegen-extra-tags": {
-                                    "yaml": "version",
                                     "json": "version"
                                   },
                                   "x-order": 1,
@@ -36969,7 +37050,6 @@ const PatternSchema: Record<string, unknown> = {
                                 "version": {
                                   "description": "Version of the model as defined by the registrant.",
                                   "x-oapi-codegen-extra-tags": {
-                                    "yaml": "version",
                                     "json": "version"
                                   },
                                   "x-order": 1,
@@ -36983,7 +37063,6 @@ const PatternSchema: Record<string, unknown> = {
                             "registrant": {
                               "x-go-type": "RegistrantReference",
                               "x-oapi-codegen-extra-tags": {
-                                "yaml": "registrant",
                                 "json": "registrant"
                               },
                               "type": "object",
@@ -38638,7 +38717,6 @@ const PatternSchema: Record<string, unknown> = {
                                 "version": {
                                   "description": "Version of the model as defined by the registrant.",
                                   "x-oapi-codegen-extra-tags": {
-                                    "yaml": "version",
                                     "json": "version"
                                   },
                                   "x-order": 1,
@@ -38652,7 +38730,6 @@ const PatternSchema: Record<string, unknown> = {
                             "registrant": {
                               "x-go-type": "RegistrantReference",
                               "x-oapi-codegen-extra-tags": {
-                                "yaml": "registrant",
                                 "json": "registrant"
                               },
                               "type": "object",
@@ -38986,7 +39063,6 @@ const PatternSchema: Record<string, unknown> = {
                                                 "version": {
                                                   "description": "Version of the model as defined by the registrant.",
                                                   "x-oapi-codegen-extra-tags": {
-                                                    "yaml": "version",
                                                     "json": "version"
                                                   },
                                                   "x-order": 1,
@@ -39000,7 +39076,6 @@ const PatternSchema: Record<string, unknown> = {
                                             "registrant": {
                                               "x-go-type": "RegistrantReference",
                                               "x-oapi-codegen-extra-tags": {
-                                                "yaml": "registrant",
                                                 "json": "registrant"
                                               },
                                               "type": "object",
@@ -39342,7 +39417,6 @@ const PatternSchema: Record<string, unknown> = {
                                                 "version": {
                                                   "description": "Version of the model as defined by the registrant.",
                                                   "x-oapi-codegen-extra-tags": {
-                                                    "yaml": "version",
                                                     "json": "version"
                                                   },
                                                   "x-order": 1,
@@ -39356,7 +39430,6 @@ const PatternSchema: Record<string, unknown> = {
                                             "registrant": {
                                               "x-go-type": "RegistrantReference",
                                               "x-oapi-codegen-extra-tags": {
-                                                "yaml": "registrant",
                                                 "json": "registrant"
                                               },
                                               "type": "object",
@@ -39713,7 +39786,6 @@ const PatternSchema: Record<string, unknown> = {
                                                 "version": {
                                                   "description": "Version of the model as defined by the registrant.",
                                                   "x-oapi-codegen-extra-tags": {
-                                                    "yaml": "version",
                                                     "json": "version"
                                                   },
                                                   "x-order": 1,
@@ -39727,7 +39799,6 @@ const PatternSchema: Record<string, unknown> = {
                                             "registrant": {
                                               "x-go-type": "RegistrantReference",
                                               "x-oapi-codegen-extra-tags": {
-                                                "yaml": "registrant",
                                                 "json": "registrant"
                                               },
                                               "type": "object",
@@ -40069,7 +40140,6 @@ const PatternSchema: Record<string, unknown> = {
                                                 "version": {
                                                   "description": "Version of the model as defined by the registrant.",
                                                   "x-oapi-codegen-extra-tags": {
-                                                    "yaml": "version",
                                                     "json": "version"
                                                   },
                                                   "x-order": 1,
@@ -40083,7 +40153,6 @@ const PatternSchema: Record<string, unknown> = {
                                             "registrant": {
                                               "x-go-type": "RegistrantReference",
                                               "x-oapi-codegen-extra-tags": {
-                                                "yaml": "registrant",
                                                 "json": "registrant"
                                               },
                                               "type": "object",
@@ -40217,7 +40286,7 @@ const PatternSchema: Record<string, unknown> = {
               "x-go-type": "MesheryPattern",
               "type": "object",
               "properties": {
-                "catalog_data": {
+                "catalogData": {
                   "x-go-type": "catalogv1alpha2.CatalogData",
                   "x-go-type-import": {
                     "path": "github.com/meshery/schemas/models/v1alpha2/catalog",
@@ -40329,7 +40398,7 @@ const PatternSchema: Record<string, unknown> = {
                   "type": "string",
                   "x-go-type-skip-optional-pointer": true
                 },
-                "pattern_file": {
+                "patternFile": {
                   "x-go-type": "PatternFile",
                   "$schema": "http://json-schema.org/draft-07/schema#",
                   "title": "Design Schema",
@@ -41568,7 +41637,6 @@ const PatternSchema: Record<string, unknown> = {
                                       "version": {
                                         "description": "Version of the model as defined by the registrant.",
                                         "x-oapi-codegen-extra-tags": {
-                                          "yaml": "version",
                                           "json": "version"
                                         },
                                         "x-order": 1,
@@ -41731,7 +41799,6 @@ const PatternSchema: Record<string, unknown> = {
                                       "version": {
                                         "description": "Version of the model as defined by the registrant.",
                                         "x-oapi-codegen-extra-tags": {
-                                          "yaml": "version",
                                           "json": "version"
                                         },
                                         "x-order": 1,
@@ -41745,7 +41812,6 @@ const PatternSchema: Record<string, unknown> = {
                                   "registrant": {
                                     "x-go-type": "RegistrantReference",
                                     "x-oapi-codegen-extra-tags": {
-                                      "yaml": "registrant",
                                       "json": "registrant"
                                     },
                                     "type": "object",
@@ -43400,7 +43466,6 @@ const PatternSchema: Record<string, unknown> = {
                                       "version": {
                                         "description": "Version of the model as defined by the registrant.",
                                         "x-oapi-codegen-extra-tags": {
-                                          "yaml": "version",
                                           "json": "version"
                                         },
                                         "x-order": 1,
@@ -43414,7 +43479,6 @@ const PatternSchema: Record<string, unknown> = {
                                   "registrant": {
                                     "x-go-type": "RegistrantReference",
                                     "x-oapi-codegen-extra-tags": {
-                                      "yaml": "registrant",
                                       "json": "registrant"
                                     },
                                     "type": "object",
@@ -43748,7 +43812,6 @@ const PatternSchema: Record<string, unknown> = {
                                                       "version": {
                                                         "description": "Version of the model as defined by the registrant.",
                                                         "x-oapi-codegen-extra-tags": {
-                                                          "yaml": "version",
                                                           "json": "version"
                                                         },
                                                         "x-order": 1,
@@ -43762,7 +43825,6 @@ const PatternSchema: Record<string, unknown> = {
                                                   "registrant": {
                                                     "x-go-type": "RegistrantReference",
                                                     "x-oapi-codegen-extra-tags": {
-                                                      "yaml": "registrant",
                                                       "json": "registrant"
                                                     },
                                                     "type": "object",
@@ -44104,7 +44166,6 @@ const PatternSchema: Record<string, unknown> = {
                                                       "version": {
                                                         "description": "Version of the model as defined by the registrant.",
                                                         "x-oapi-codegen-extra-tags": {
-                                                          "yaml": "version",
                                                           "json": "version"
                                                         },
                                                         "x-order": 1,
@@ -44118,7 +44179,6 @@ const PatternSchema: Record<string, unknown> = {
                                                   "registrant": {
                                                     "x-go-type": "RegistrantReference",
                                                     "x-oapi-codegen-extra-tags": {
-                                                      "yaml": "registrant",
                                                       "json": "registrant"
                                                     },
                                                     "type": "object",
@@ -44475,7 +44535,6 @@ const PatternSchema: Record<string, unknown> = {
                                                       "version": {
                                                         "description": "Version of the model as defined by the registrant.",
                                                         "x-oapi-codegen-extra-tags": {
-                                                          "yaml": "version",
                                                           "json": "version"
                                                         },
                                                         "x-order": 1,
@@ -44489,7 +44548,6 @@ const PatternSchema: Record<string, unknown> = {
                                                   "registrant": {
                                                     "x-go-type": "RegistrantReference",
                                                     "x-oapi-codegen-extra-tags": {
-                                                      "yaml": "registrant",
                                                       "json": "registrant"
                                                     },
                                                     "type": "object",
@@ -44831,7 +44889,6 @@ const PatternSchema: Record<string, unknown> = {
                                                       "version": {
                                                         "description": "Version of the model as defined by the registrant.",
                                                         "x-oapi-codegen-extra-tags": {
-                                                          "yaml": "version",
                                                           "json": "version"
                                                         },
                                                         "x-order": 1,
@@ -44845,7 +44902,6 @@ const PatternSchema: Record<string, unknown> = {
                                                   "registrant": {
                                                     "x-go-type": "RegistrantReference",
                                                     "x-oapi-codegen-extra-tags": {
-                                                      "yaml": "registrant",
                                                       "json": "registrant"
                                                     },
                                                     "type": "object",
@@ -45007,11 +45063,11 @@ const PatternSchema: Record<string, unknown> = {
             "type": "string",
             "x-go-type-skip-optional-pointer": true
           },
-          "pattern_data": {
+          "patternData": {
             "x-go-type": "MesheryPattern",
             "type": "object",
             "properties": {
-              "catalog_data": {
+              "catalogData": {
                 "x-go-type": "catalogv1alpha2.CatalogData",
                 "x-go-type-import": {
                   "path": "github.com/meshery/schemas/models/v1alpha2/catalog",
@@ -45123,7 +45179,7 @@ const PatternSchema: Record<string, unknown> = {
                 "type": "string",
                 "x-go-type-skip-optional-pointer": true
               },
-              "pattern_file": {
+              "patternFile": {
                 "x-go-type": "PatternFile",
                 "$schema": "http://json-schema.org/draft-07/schema#",
                 "title": "Design Schema",
@@ -46362,7 +46418,6 @@ const PatternSchema: Record<string, unknown> = {
                                     "version": {
                                       "description": "Version of the model as defined by the registrant.",
                                       "x-oapi-codegen-extra-tags": {
-                                        "yaml": "version",
                                         "json": "version"
                                       },
                                       "x-order": 1,
@@ -46525,7 +46580,6 @@ const PatternSchema: Record<string, unknown> = {
                                     "version": {
                                       "description": "Version of the model as defined by the registrant.",
                                       "x-oapi-codegen-extra-tags": {
-                                        "yaml": "version",
                                         "json": "version"
                                       },
                                       "x-order": 1,
@@ -46539,7 +46593,6 @@ const PatternSchema: Record<string, unknown> = {
                                 "registrant": {
                                   "x-go-type": "RegistrantReference",
                                   "x-oapi-codegen-extra-tags": {
-                                    "yaml": "registrant",
                                     "json": "registrant"
                                   },
                                   "type": "object",
@@ -48194,7 +48247,6 @@ const PatternSchema: Record<string, unknown> = {
                                     "version": {
                                       "description": "Version of the model as defined by the registrant.",
                                       "x-oapi-codegen-extra-tags": {
-                                        "yaml": "version",
                                         "json": "version"
                                       },
                                       "x-order": 1,
@@ -48208,7 +48260,6 @@ const PatternSchema: Record<string, unknown> = {
                                 "registrant": {
                                   "x-go-type": "RegistrantReference",
                                   "x-oapi-codegen-extra-tags": {
-                                    "yaml": "registrant",
                                     "json": "registrant"
                                   },
                                   "type": "object",
@@ -48542,7 +48593,6 @@ const PatternSchema: Record<string, unknown> = {
                                                     "version": {
                                                       "description": "Version of the model as defined by the registrant.",
                                                       "x-oapi-codegen-extra-tags": {
-                                                        "yaml": "version",
                                                         "json": "version"
                                                       },
                                                       "x-order": 1,
@@ -48556,7 +48606,6 @@ const PatternSchema: Record<string, unknown> = {
                                                 "registrant": {
                                                   "x-go-type": "RegistrantReference",
                                                   "x-oapi-codegen-extra-tags": {
-                                                    "yaml": "registrant",
                                                     "json": "registrant"
                                                   },
                                                   "type": "object",
@@ -48898,7 +48947,6 @@ const PatternSchema: Record<string, unknown> = {
                                                     "version": {
                                                       "description": "Version of the model as defined by the registrant.",
                                                       "x-oapi-codegen-extra-tags": {
-                                                        "yaml": "version",
                                                         "json": "version"
                                                       },
                                                       "x-order": 1,
@@ -48912,7 +48960,6 @@ const PatternSchema: Record<string, unknown> = {
                                                 "registrant": {
                                                   "x-go-type": "RegistrantReference",
                                                   "x-oapi-codegen-extra-tags": {
-                                                    "yaml": "registrant",
                                                     "json": "registrant"
                                                   },
                                                   "type": "object",
@@ -49269,7 +49316,6 @@ const PatternSchema: Record<string, unknown> = {
                                                     "version": {
                                                       "description": "Version of the model as defined by the registrant.",
                                                       "x-oapi-codegen-extra-tags": {
-                                                        "yaml": "version",
                                                         "json": "version"
                                                       },
                                                       "x-order": 1,
@@ -49283,7 +49329,6 @@ const PatternSchema: Record<string, unknown> = {
                                                 "registrant": {
                                                   "x-go-type": "RegistrantReference",
                                                   "x-oapi-codegen-extra-tags": {
-                                                    "yaml": "registrant",
                                                     "json": "registrant"
                                                   },
                                                   "type": "object",
@@ -49625,7 +49670,6 @@ const PatternSchema: Record<string, unknown> = {
                                                     "version": {
                                                       "description": "Version of the model as defined by the registrant.",
                                                       "x-oapi-codegen-extra-tags": {
-                                                        "yaml": "version",
                                                         "json": "version"
                                                       },
                                                       "x-order": 1,
@@ -49639,7 +49683,6 @@ const PatternSchema: Record<string, unknown> = {
                                                 "registrant": {
                                                   "x-go-type": "RegistrantReference",
                                                   "x-oapi-codegen-extra-tags": {
-                                                    "yaml": "registrant",
                                                     "json": "registrant"
                                                   },
                                                   "type": "object",
@@ -49786,7 +49829,7 @@ const PatternSchema: Record<string, unknown> = {
             "format": "file",
             "description": "Supported formats: Kubernetes Manifests, Helm Charts, Docker Compose, and Meshery Designs. See [Import Designs Documentation](https://docs.meshery.io/guides/configuration-management/importing-designs#import-designs-using-meshery-ui) for details"
           },
-          "file_name": {
+          "fileName": {
             "type": "string",
             "description": "The name of the pattern file being imported."
           },
@@ -49837,7 +49880,7 @@ const PatternSchema: Record<string, unknown> = {
             "items": {
               "type": "object",
               "properties": {
-                "catalog_data": {
+                "catalogData": {
                   "x-go-type": "catalogv1alpha2.CatalogData",
                   "x-go-type-import": {
                     "path": "github.com/meshery/schemas/models/v1alpha2/catalog",
@@ -49949,7 +49992,7 @@ const PatternSchema: Record<string, unknown> = {
                   "type": "string",
                   "x-go-type-skip-optional-pointer": true
                 },
-                "pattern_file": {
+                "patternFile": {
                   "x-go-type": "PatternFile",
                   "$schema": "http://json-schema.org/draft-07/schema#",
                   "title": "Design Schema",
@@ -51188,7 +51231,6 @@ const PatternSchema: Record<string, unknown> = {
                                       "version": {
                                         "description": "Version of the model as defined by the registrant.",
                                         "x-oapi-codegen-extra-tags": {
-                                          "yaml": "version",
                                           "json": "version"
                                         },
                                         "x-order": 1,
@@ -51351,7 +51393,6 @@ const PatternSchema: Record<string, unknown> = {
                                       "version": {
                                         "description": "Version of the model as defined by the registrant.",
                                         "x-oapi-codegen-extra-tags": {
-                                          "yaml": "version",
                                           "json": "version"
                                         },
                                         "x-order": 1,
@@ -51365,7 +51406,6 @@ const PatternSchema: Record<string, unknown> = {
                                   "registrant": {
                                     "x-go-type": "RegistrantReference",
                                     "x-oapi-codegen-extra-tags": {
-                                      "yaml": "registrant",
                                       "json": "registrant"
                                     },
                                     "type": "object",
@@ -53020,7 +53060,6 @@ const PatternSchema: Record<string, unknown> = {
                                       "version": {
                                         "description": "Version of the model as defined by the registrant.",
                                         "x-oapi-codegen-extra-tags": {
-                                          "yaml": "version",
                                           "json": "version"
                                         },
                                         "x-order": 1,
@@ -53034,7 +53073,6 @@ const PatternSchema: Record<string, unknown> = {
                                   "registrant": {
                                     "x-go-type": "RegistrantReference",
                                     "x-oapi-codegen-extra-tags": {
-                                      "yaml": "registrant",
                                       "json": "registrant"
                                     },
                                     "type": "object",
@@ -53368,7 +53406,6 @@ const PatternSchema: Record<string, unknown> = {
                                                       "version": {
                                                         "description": "Version of the model as defined by the registrant.",
                                                         "x-oapi-codegen-extra-tags": {
-                                                          "yaml": "version",
                                                           "json": "version"
                                                         },
                                                         "x-order": 1,
@@ -53382,7 +53419,6 @@ const PatternSchema: Record<string, unknown> = {
                                                   "registrant": {
                                                     "x-go-type": "RegistrantReference",
                                                     "x-oapi-codegen-extra-tags": {
-                                                      "yaml": "registrant",
                                                       "json": "registrant"
                                                     },
                                                     "type": "object",
@@ -53724,7 +53760,6 @@ const PatternSchema: Record<string, unknown> = {
                                                       "version": {
                                                         "description": "Version of the model as defined by the registrant.",
                                                         "x-oapi-codegen-extra-tags": {
-                                                          "yaml": "version",
                                                           "json": "version"
                                                         },
                                                         "x-order": 1,
@@ -53738,7 +53773,6 @@ const PatternSchema: Record<string, unknown> = {
                                                   "registrant": {
                                                     "x-go-type": "RegistrantReference",
                                                     "x-oapi-codegen-extra-tags": {
-                                                      "yaml": "registrant",
                                                       "json": "registrant"
                                                     },
                                                     "type": "object",
@@ -54095,7 +54129,6 @@ const PatternSchema: Record<string, unknown> = {
                                                       "version": {
                                                         "description": "Version of the model as defined by the registrant.",
                                                         "x-oapi-codegen-extra-tags": {
-                                                          "yaml": "version",
                                                           "json": "version"
                                                         },
                                                         "x-order": 1,
@@ -54109,7 +54142,6 @@ const PatternSchema: Record<string, unknown> = {
                                                   "registrant": {
                                                     "x-go-type": "RegistrantReference",
                                                     "x-oapi-codegen-extra-tags": {
-                                                      "yaml": "registrant",
                                                       "json": "registrant"
                                                     },
                                                     "type": "object",
@@ -54451,7 +54483,6 @@ const PatternSchema: Record<string, unknown> = {
                                                       "version": {
                                                         "description": "Version of the model as defined by the registrant.",
                                                         "x-oapi-codegen-extra-tags": {
-                                                          "yaml": "version",
                                                           "json": "version"
                                                         },
                                                         "x-order": 1,
@@ -54465,7 +54496,6 @@ const PatternSchema: Record<string, unknown> = {
                                                   "registrant": {
                                                     "x-go-type": "RegistrantReference",
                                                     "x-oapi-codegen-extra-tags": {
-                                                      "yaml": "registrant",
                                                       "json": "registrant"
                                                     },
                                                     "type": "object",
@@ -54592,14 +54622,14 @@ const PatternSchema: Record<string, unknown> = {
               "additionalProperties": true
             }
           },
-          "models_count": {
+          "modelsCount": {
             "type": "array",
             "items": {
               "type": "object",
               "additionalProperties": true
             }
           },
-          "category_count": {
+          "categoryCount": {
             "type": "array",
             "items": {
               "type": "object",

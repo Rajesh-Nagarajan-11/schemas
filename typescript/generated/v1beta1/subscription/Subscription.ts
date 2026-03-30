@@ -28,7 +28,7 @@ export interface paths {
                  * Format: uuid
                  * @description A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.
                  */
-                ID: string;
+                id: string;
                 /**
                  * Format: uuid
                  * @description A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.
@@ -96,10 +96,30 @@ export interface paths {
             };
           };
         };
-        /** Invalid request */
-        400: unknown;
+        /** Invalid request body or request param */
+        400: {
+          content: {
+            "text/plain": string;
+          };
+        };
+        /** Expired JWT token used or insufficient privilege */
+        401: {
+          content: {
+            "text/plain": string;
+          };
+        };
+        /** Result not found */
+        404: {
+          content: {
+            "text/plain": string;
+          };
+        };
         /** Internal server error */
-        500: unknown;
+        500: {
+          content: {
+            "text/plain": string;
+          };
+        };
       };
     };
   };
@@ -110,27 +130,41 @@ export interface paths {
         200: {
           content: {
             "application/json": {
-              subscription_id?: string;
+              subscriptionId?: string;
               clientSecret?: string;
             };
           };
         };
-        /** Invalid request */
-        400: unknown;
+        /** Invalid request body or request param */
+        400: {
+          content: {
+            "text/plain": string;
+          };
+        };
+        /** Expired JWT token used or insufficient privilege */
+        401: {
+          content: {
+            "text/plain": string;
+          };
+        };
         /** Internal server error */
-        500: unknown;
+        500: {
+          content: {
+            "text/plain": string;
+          };
+        };
       };
       requestBody: {
         content: {
           "application/json": {
             /** @description Organization ID */
-            org_id?: string;
+            orgId?: string;
             /** @description Price ID from the payment processor */
-            plan_id?: string;
+            planId?: string;
             /** @description Coupon ID to apply */
-            coupon_id?: string;
+            couponId?: string;
             /** @description Number of users in the organization */
-            user_count?: number;
+            userCount?: number;
             /**
              * Format: email
              * @description Email of the customer
@@ -140,7 +174,7 @@ export interface paths {
              * @description Supported payment processors
              * @enum {string}
              */
-            payment_processor?: "stripe" | "paypal" | "braintree";
+            paymentProcessor?: "stripe" | "paypal" | "braintree";
           };
         };
       };
@@ -162,7 +196,7 @@ export interface paths {
                * Format: uuid
                * @description A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.
                */
-              ID: string;
+              id: string;
               /**
                * Format: uuid
                * @description A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.
@@ -225,10 +259,30 @@ export interface paths {
             };
           };
         };
-        /** Invalid request */
-        400: unknown;
+        /** Invalid request body or request param */
+        400: {
+          content: {
+            "text/plain": string;
+          };
+        };
+        /** Expired JWT token used or insufficient privilege */
+        401: {
+          content: {
+            "text/plain": string;
+          };
+        };
+        /** Result not found */
+        404: {
+          content: {
+            "text/plain": string;
+          };
+        };
         /** Internal server error */
-        500: unknown;
+        500: {
+          content: {
+            "text/plain": string;
+          };
+        };
       };
       requestBody: {
         content: {
@@ -237,18 +291,18 @@ export interface paths {
              * Format: uuid
              * @description Old Plan id that is being changed
              */
-            old_plan_id?: string;
+            oldPlanId?: string;
             /**
              * Format: uuid
              * @description New Plan id that is being changed to
              */
-            new_plan_id?: string;
+            newPlanId?: string;
           };
         };
       };
     };
   };
-  "/api/entitlement/subscriptions/{subscriptionId}/upgradePreview": {
+  "/api/entitlement/subscriptions/{subscriptionId}/upgrade-preview": {
     post: {
       parameters: {
         path: {
@@ -263,10 +317,30 @@ export interface paths {
             "application/json": { [key: string]: unknown };
           };
         };
-        /** Invalid request */
-        400: unknown;
+        /** Invalid request body or request param */
+        400: {
+          content: {
+            "text/plain": string;
+          };
+        };
+        /** Expired JWT token used or insufficient privilege */
+        401: {
+          content: {
+            "text/plain": string;
+          };
+        };
+        /** Result not found */
+        404: {
+          content: {
+            "text/plain": string;
+          };
+        };
         /** Internal server error */
-        500: unknown;
+        500: {
+          content: {
+            "text/plain": string;
+          };
+        };
       };
       requestBody: {
         content: {
@@ -275,12 +349,12 @@ export interface paths {
              * Format: uuid
              * @description Old Plan id that is being changed
              */
-            old_plan_id?: string;
+            oldPlanId?: string;
             /**
              * Format: uuid
              * @description New Plan id that is being changed to
              */
-            new_plan_id?: string;
+            newPlanId?: string;
           };
         };
       };
@@ -289,10 +363,26 @@ export interface paths {
   "/api/entitlement/subscriptions/webhooks": {
     post: {
       responses: {
-        /** Webhook processed successfully */
+        /** Webhook processed */
         200: unknown;
-        /** Invalid webhook event */
-        400: unknown;
+        /** Invalid request body or request param */
+        400: {
+          content: {
+            "text/plain": string;
+          };
+        };
+        /** Expired JWT token used or insufficient privilege */
+        401: {
+          content: {
+            "text/plain": string;
+          };
+        };
+        /** Internal server error */
+        500: {
+          content: {
+            "text/plain": string;
+          };
+        };
       };
       requestBody: {
         content: {
@@ -312,13 +402,13 @@ export interface components {
     PaymentProcessor: "stripe" | "paypal" | "braintree";
     CreateSubscriptionRequest: {
       /** @description Organization ID */
-      org_id?: string;
+      orgId?: string;
       /** @description Price ID from the payment processor */
-      plan_id?: string;
+      planId?: string;
       /** @description Coupon ID to apply */
-      coupon_id?: string;
+      couponId?: string;
       /** @description Number of users in the organization */
-      user_count?: number;
+      userCount?: number;
       /**
        * Format: email
        * @description Email of the customer
@@ -328,22 +418,22 @@ export interface components {
        * @description Supported payment processors
        * @enum {string}
        */
-      payment_processor?: "stripe" | "paypal" | "braintree";
+      paymentProcessor?: "stripe" | "paypal" | "braintree";
     };
     UpgradeSubscriptionRequest: {
       /**
        * Format: uuid
        * @description Old Plan id that is being changed
        */
-      old_plan_id?: string;
+      oldPlanId?: string;
       /**
        * Format: uuid
        * @description New Plan id that is being changed to
        */
-      new_plan_id?: string;
+      newPlanId?: string;
     };
     CreateSubscriptionResponse: {
-      subscription_id?: string;
+      subscriptionId?: string;
       clientSecret?: string;
     };
     UpdateUsersRequest: {
@@ -351,16 +441,16 @@ export interface components {
        * @description Supported payment processors
        * @enum {string}
        */
-      payment_processor?: "stripe" | "paypal" | "braintree";
+      paymentProcessor?: "stripe" | "paypal" | "braintree";
     };
     CancelSubscriptionRequest: {
       /** @description Subscription ID from the payment processor */
-      subscription_id?: string;
+      subscriptionId?: string;
       /**
        * @description Supported payment processors
        * @enum {string}
        */
-      payment_processor?: "stripe" | "paypal" | "braintree";
+      paymentProcessor?: "stripe" | "paypal" | "braintree";
     };
     /** @description Payload for webhook events from payment processors */
     WebhookEvent: { [key: string]: unknown };
@@ -373,7 +463,7 @@ export interface components {
          * Format: uuid
          * @description A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.
          */
-        ID: string;
+        id: string;
         /**
          * Format: uuid
          * @description A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.
@@ -440,7 +530,7 @@ export interface components {
        * Format: uuid
        * @description A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.
        */
-      ID: string;
+      id: string;
       /**
        * Format: uuid
        * @description A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.
@@ -527,6 +617,12 @@ export interface components {
         "text/plain": string;
       };
     };
+    /** Result not found */
+    404: {
+      content: {
+        "text/plain": string;
+      };
+    };
     /** Internal server error */
     500: {
       content: {
@@ -576,7 +672,7 @@ export interface operations {
                * Format: uuid
                * @description A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.
                */
-              ID: string;
+              id: string;
               /**
                * Format: uuid
                * @description A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.

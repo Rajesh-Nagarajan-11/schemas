@@ -62,9 +62,9 @@ export interface paths {
 
 export interface components {
   schemas: {
-    workspace: {
+    Workspace: {
       /** Format: uuid */
-      ID?: string;
+      id?: string;
       name?: string;
       description?: string;
       /**
@@ -90,9 +90,9 @@ export interface components {
        */
       deleted_at?: string;
     };
-    workspacesTeamsMapping: {
+    WorkspacesTeamsMapping: {
       /** Format: uuid */
-      ID?: string;
+      id?: string;
       /** Format: uuid */
       team_id?: string;
       /** Format: uuid */
@@ -113,9 +113,9 @@ export interface components {
        */
       deleted_at?: string;
     };
-    workspacesEnvironmentsMapping: {
+    WorkspacesEnvironmentsMapping: {
       /** Format: uuid */
-      ID?: string;
+      id?: string;
       /** Format: uuid */
       environment_id?: string;
       /** Format: uuid */
@@ -136,9 +136,9 @@ export interface components {
        */
       deleted_at?: string;
     };
-    workspacesViewsMapping: {
+    WorkspacesViewsMapping: {
       /** Format: uuid */
-      ID?: string;
+      id?: string;
       /** Format: uuid */
       view_id?: string;
       /** Format: uuid */
@@ -159,9 +159,9 @@ export interface components {
        */
       deleted_at?: string;
     };
-    workspacesDesignsMapping: {
+    WorkspacesDesignsMapping: {
       /** Format: uuid */
-      ID?: string;
+      id?: string;
       /** Format: uuid */
       design_id?: string;
       /** Format: uuid */
@@ -182,7 +182,7 @@ export interface components {
        */
       deleted_at?: string;
     };
-    workspacePayload: {
+    WorkspacePayload: {
       /** @description Name of the workspace. */
       name: string;
       /** @description Description of the workspace. */
@@ -193,7 +193,7 @@ export interface components {
        */
       organization_id: string;
     };
-    workspaceUpdatePayload: {
+    WorkspaceUpdatePayload: {
       /** @description Name of the workspace. */
       name?: string;
       /** @description Description of the workspace. */
@@ -204,13 +204,13 @@ export interface components {
        */
       organization_id: string;
     };
-    workspacePage: {
+    WorkspacePage: {
       page?: number;
       page_size?: number;
       total_count?: number;
       workspaces?: {
         /** Format: uuid */
-        ID?: string;
+        id?: string;
         name?: string;
         description?: string;
         /**
@@ -237,13 +237,13 @@ export interface components {
         deleted_at?: string;
       }[];
     };
-    workspacesTeamsMappingPage: {
+    WorkspacesTeamsMappingPage: {
       page?: number;
       page_size?: number;
       total_count?: number;
-      workspaces_teams_mapping?: {
+      workspacesTeamsMapping?: {
         /** Format: uuid */
-        ID?: string;
+        id?: string;
         /** Format: uuid */
         team_id?: string;
         /** Format: uuid */
@@ -265,13 +265,13 @@ export interface components {
         deleted_at?: string;
       }[];
     };
-    workspacesEnvironmentsMappingPage: {
+    WorkspacesEnvironmentsMappingPage: {
       page?: number;
       page_size?: number;
       total_count?: number;
-      workspaces_environments_mapping?: {
+      workspacesEnvironmentsMapping?: {
         /** Format: uuid */
-        ID?: string;
+        id?: string;
         /** Format: uuid */
         environment_id?: string;
         /** Format: uuid */
@@ -293,13 +293,13 @@ export interface components {
         deleted_at?: string;
       }[];
     };
-    workspacesDesignsMappingPage: {
+    WorkspacesDesignsMappingPage: {
       page?: number;
       page_size?: number;
       total_count?: number;
-      workspaces_designs_mapping?: {
+      workspacesDesignsMapping?: {
         /** Format: uuid */
-        ID?: string;
+        id?: string;
         /** Format: uuid */
         design_id?: string;
         /** Format: uuid */
@@ -321,13 +321,13 @@ export interface components {
         deleted_at?: string;
       }[];
     };
-    workspacesViewsMappingPage: {
+    WorkspacesViewsMappingPage: {
       page?: number;
       page_size?: number;
       total_count?: number;
-      workspaces_views_mapping?: {
+      workspacesViewsMapping?: {
         /** Format: uuid */
-        ID?: string;
+        id?: string;
         /** Format: uuid */
         view_id?: string;
         /** Format: uuid */
@@ -349,12 +349,12 @@ export interface components {
         deleted_at?: string;
       }[];
     };
-    mesheryDesignPage: {
+    MesheryDesignPage: {
       page?: number;
       page_size?: number;
       total_count?: number;
       designs?: {
-        catalog_data?: {
+        catalogData?: {
           /** @description Tracks the specific content version that has been made available in the Catalog. */
           publishedVersion?: string;
           /** @description Published content is classifed by its support level. Content classes help you understand the origin and expected support level for each piece of content. It is important to note that the level of support may vary within each class, and you should exercise discretion when using community-contributed content. Content produced and fully supported by Meshery maintainers. This represents the highest level of support and is considered the most reliable. Content produced by partners and verified by Meshery maintainers. While not directly maintained by Meshery, it has undergone a verification process to ensure quality and compatibility. Content produced and supported by the respective project or organization responsible for the specific technology. This class offers a level of support from the project maintainers themselves. Content produced and shared by Meshery users. This includes a wide range of content, such as performance profiles, test results, filters, patterns, and applications. Community content may have varying levels of support and reliability. */
@@ -402,7 +402,7 @@ export interface components {
          * Design Schema
          * @description Designs are your primary tool for collaborative authorship of your infrastructure, workflow, and processes.
          */
-        pattern_file?: {
+        patternFile?: {
           /**
            * Format: uuid
            * @description A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.
@@ -1909,9 +1909,9 @@ export interface components {
         visibility?: string;
       }[];
     };
-    mesheryView: {
+    MesheryView: {
       /** Format: uuid */
-      ID?: string;
+      id?: string;
       name?: string;
       filters?: { [key: string]: string };
       visibility?: string;
@@ -1933,13 +1933,13 @@ export interface components {
        */
       deleted_at?: string;
     };
-    mesheryViewPage: {
+    MesheryViewPage: {
       page?: number;
       page_size?: number;
       total_count?: number;
       views?: {
         /** Format: uuid */
-        ID?: string;
+        id?: string;
         name?: string;
         filters?: { [key: string]: string };
         visibility?: string;
@@ -2080,7 +2080,7 @@ export interface operations {
             total_count?: number;
             workspaces?: {
               /** Format: uuid */
-              ID?: string;
+              id?: string;
               name?: string;
               description?: string;
               /**
@@ -2131,7 +2131,7 @@ export interface operations {
         content: {
           "application/json": {
             /** Format: uuid */
-            ID?: string;
+            id?: string;
             name?: string;
             description?: string;
             /**
@@ -2161,6 +2161,12 @@ export interface operations {
       };
       /** Invalid request body or request param */
       400: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Expired JWT token used or insufficient privilege */
+      401: {
         content: {
           "text/plain": string;
         };
@@ -2203,7 +2209,7 @@ export interface operations {
         content: {
           "application/json": {
             /** Format: uuid */
-            ID?: string;
+            id?: string;
             name?: string;
             description?: string;
             /**
@@ -2271,7 +2277,7 @@ export interface operations {
         content: {
           "application/json": {
             /** Format: uuid */
-            ID?: string;
+            id?: string;
             name?: string;
             description?: string;
             /**
@@ -2311,6 +2317,12 @@ export interface operations {
           "text/plain": string;
         };
       };
+      /** Result not found */
+      404: {
+        content: {
+          "text/plain": string;
+        };
+      };
       /** Internal server error */
       500: {
         content: {
@@ -2344,39 +2356,8 @@ export interface operations {
       };
     };
     responses: {
-      /** Workspace */
-      200: {
-        content: {
-          "application/json": {
-            /** Format: uuid */
-            ID?: string;
-            name?: string;
-            description?: string;
-            /**
-             * Format: uuid
-             * @description Workspace organization ID
-             */
-            organization_id?: string;
-            owner?: string;
-            metadata?: { [key: string]: string };
-            /**
-             * Format: date-time
-             * @description Timestamp when the resource was created.
-             */
-            created_at?: string;
-            /**
-             * Format: date-time
-             * @description Timestamp when the resource was updated.
-             */
-            updated_at?: string;
-            /**
-             * Format: date-time
-             * @description Timestamp when the resource was deleted.
-             */
-            deleted_at?: string;
-          };
-        };
-      };
+      /** Workspace deleted */
+      204: never;
       /** Invalid request body or request param */
       400: {
         content: {
@@ -2505,9 +2486,9 @@ export interface operations {
             page?: number;
             page_size?: number;
             total_count?: number;
-            workspaces_teams_mapping?: {
+            workspacesTeamsMapping?: {
               /** Format: uuid */
-              ID?: string;
+              id?: string;
               /** Format: uuid */
               team_id?: string;
               /** Format: uuid */
@@ -2543,6 +2524,12 @@ export interface operations {
           "text/plain": string;
         };
       };
+      /** Result not found */
+      404: {
+        content: {
+          "text/plain": string;
+        };
+      };
       /** Internal server error */
       500: {
         content: {
@@ -2562,39 +2549,8 @@ export interface operations {
       };
     };
     responses: {
-      /** Workspace team mappings */
-      200: {
-        content: {
-          "application/json": {
-            page?: number;
-            page_size?: number;
-            total_count?: number;
-            workspaces_teams_mapping?: {
-              /** Format: uuid */
-              ID?: string;
-              /** Format: uuid */
-              team_id?: string;
-              /** Format: uuid */
-              workspace_id?: string;
-              /**
-               * Format: date-time
-               * @description Timestamp when the resource was created.
-               */
-              created_at?: string;
-              /**
-               * Format: date-time
-               * @description Timestamp when the resource was updated.
-               */
-              updated_at?: string;
-              /**
-               * Format: date-time
-               * @description Timestamp when the resource was deleted.
-               */
-              deleted_at?: string;
-            }[];
-          };
-        };
-      };
+      /** Workspace team mapping removed */
+      204: never;
       /** Invalid request body or request param */
       400: {
         content: {
@@ -2747,9 +2703,9 @@ export interface operations {
             page?: number;
             page_size?: number;
             total_count?: number;
-            workspaces_environments_mapping?: {
+            workspacesEnvironmentsMapping?: {
               /** Format: uuid */
-              ID?: string;
+              id?: string;
               /** Format: uuid */
               environment_id?: string;
               /** Format: uuid */
@@ -2785,6 +2741,12 @@ export interface operations {
           "text/plain": string;
         };
       };
+      /** Result not found */
+      404: {
+        content: {
+          "text/plain": string;
+        };
+      };
       /** Internal server error */
       500: {
         content: {
@@ -2804,39 +2766,8 @@ export interface operations {
       };
     };
     responses: {
-      /** Workspace environment mappings */
-      200: {
-        content: {
-          "application/json": {
-            page?: number;
-            page_size?: number;
-            total_count?: number;
-            workspaces_environments_mapping?: {
-              /** Format: uuid */
-              ID?: string;
-              /** Format: uuid */
-              environment_id?: string;
-              /** Format: uuid */
-              workspace_id?: string;
-              /**
-               * Format: date-time
-               * @description Timestamp when the resource was created.
-               */
-              created_at?: string;
-              /**
-               * Format: date-time
-               * @description Timestamp when the resource was updated.
-               */
-              updated_at?: string;
-              /**
-               * Format: date-time
-               * @description Timestamp when the resource was deleted.
-               */
-              deleted_at?: string;
-            }[];
-          };
-        };
-      };
+      /** Workspace environment mapping removed */
+      204: never;
       /** Invalid request body or request param */
       400: {
         content: {
@@ -2892,7 +2823,7 @@ export interface operations {
             page_size?: number;
             total_count?: number;
             designs?: {
-              catalog_data?: {
+              catalogData?: {
                 /** @description Tracks the specific content version that has been made available in the Catalog. */
                 publishedVersion?: string;
                 /** @description Published content is classifed by its support level. Content classes help you understand the origin and expected support level for each piece of content. It is important to note that the level of support may vary within each class, and you should exercise discretion when using community-contributed content. Content produced and fully supported by Meshery maintainers. This represents the highest level of support and is considered the most reliable. Content produced by partners and verified by Meshery maintainers. While not directly maintained by Meshery, it has undergone a verification process to ensure quality and compatibility. Content produced and supported by the respective project or organization responsible for the specific technology. This class offers a level of support from the project maintainers themselves. Content produced and shared by Meshery users. This includes a wide range of content, such as performance profiles, test results, filters, patterns, and applications. Community content may have varying levels of support and reliability. */
@@ -2940,7 +2871,7 @@ export interface operations {
                * Design Schema
                * @description Designs are your primary tool for collaborative authorship of your infrastructure, workflow, and processes.
                */
-              pattern_file?: {
+              patternFile?: {
                 /**
                  * Format: uuid
                  * @description A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.
@@ -4503,9 +4434,9 @@ export interface operations {
             page?: number;
             page_size?: number;
             total_count?: number;
-            workspaces_designs_mapping?: {
+            workspacesDesignsMapping?: {
               /** Format: uuid */
-              ID?: string;
+              id?: string;
               /** Format: uuid */
               design_id?: string;
               /** Format: uuid */
@@ -4541,6 +4472,12 @@ export interface operations {
           "text/plain": string;
         };
       };
+      /** Result not found */
+      404: {
+        content: {
+          "text/plain": string;
+        };
+      };
       /** Internal server error */
       500: {
         content: {
@@ -4560,39 +4497,8 @@ export interface operations {
       };
     };
     responses: {
-      /** Workspace design mappings */
-      200: {
-        content: {
-          "application/json": {
-            page?: number;
-            page_size?: number;
-            total_count?: number;
-            workspaces_designs_mapping?: {
-              /** Format: uuid */
-              ID?: string;
-              /** Format: uuid */
-              design_id?: string;
-              /** Format: uuid */
-              workspace_id?: string;
-              /**
-               * Format: date-time
-               * @description Timestamp when the resource was created.
-               */
-              created_at?: string;
-              /**
-               * Format: date-time
-               * @description Timestamp when the resource was updated.
-               */
-              updated_at?: string;
-              /**
-               * Format: date-time
-               * @description Timestamp when the resource was deleted.
-               */
-              deleted_at?: string;
-            }[];
-          };
-        };
-      };
+      /** Workspace design mapping removed */
+      204: never;
       /** Invalid request body or request param */
       400: {
         content: {
@@ -4649,7 +4555,7 @@ export interface operations {
             total_count?: number;
             views?: {
               /** Format: uuid */
-              ID?: string;
+              id?: string;
               name?: string;
               filters?: { [key: string]: string };
               visibility?: string;
@@ -4718,9 +4624,9 @@ export interface operations {
             page?: number;
             page_size?: number;
             total_count?: number;
-            workspaces_views_mapping?: {
+            workspacesViewsMapping?: {
               /** Format: uuid */
-              ID?: string;
+              id?: string;
               /** Format: uuid */
               view_id?: string;
               /** Format: uuid */
@@ -4756,6 +4662,12 @@ export interface operations {
           "text/plain": string;
         };
       };
+      /** Result not found */
+      404: {
+        content: {
+          "text/plain": string;
+        };
+      };
       /** Internal server error */
       500: {
         content: {
@@ -4775,39 +4687,8 @@ export interface operations {
       };
     };
     responses: {
-      /** Workspace view mappings */
-      200: {
-        content: {
-          "application/json": {
-            page?: number;
-            page_size?: number;
-            total_count?: number;
-            workspaces_views_mapping?: {
-              /** Format: uuid */
-              ID?: string;
-              /** Format: uuid */
-              view_id?: string;
-              /** Format: uuid */
-              workspace_id?: string;
-              /**
-               * Format: date-time
-               * @description Timestamp when the resource was created.
-               */
-              created_at?: string;
-              /**
-               * Format: date-time
-               * @description Timestamp when the resource was updated.
-               */
-              updated_at?: string;
-              /**
-               * Format: date-time
-               * @description Timestamp when the resource was deleted.
-               */
-              deleted_at?: string;
-            }[];
-          };
-        };
-      };
+      /** Workspace view mapping removed */
+      204: never;
       /** Invalid request body or request param */
       400: {
         content: {

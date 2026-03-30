@@ -10,6 +10,9 @@ info:
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+security:
+  - jwt: []
 paths:
   /api/content/patterns:
     get:
@@ -29,13 +32,13 @@ paths:
           description: Filter by visibility (public, private, published)
           schema:
             type: string
-        - name: user_id
+        - name: userId
           in: query
           required: false
-          description: UUID of User. Pass user_id for fetching public and published designs.
+          description: UUID of User. Pass userId for fetching public and published designs.
           schema:
             type: string
-        - name: orgID
+        - name: orgId
           in: query
           required: false
           description: User's organization ID.
@@ -63,7 +66,7 @@ paths:
             type: boolean
       responses:
         "200":
-          description: Designs fetched successfully
+          description: Designs response
           content:
             application/json:
               schema:
@@ -87,7 +90,7 @@ paths:
               $ref: "#/components/schemas/MesheryPatternRequestBody"
       responses:
         "200":
-          description: Design saved successfully
+          description: Design saved
           content:
             application/json:
               schema:
@@ -115,7 +118,7 @@ paths:
               $ref: "#/components/schemas/MesheryPatternDeleteRequestBody"
       responses:
         "200":
-          description: Designs deleted successfully
+          description: Designs deleted
         "400":
           $ref: "#/components/responses/400"
         "401":
@@ -138,7 +141,7 @@ paths:
         - $ref: "#/components/parameters/order"
       responses:
         "200":
-          description: Pattern resources fetched successfully
+          description: Pattern resources response
         "401":
           $ref: "#/components/responses/401"
         "500":
@@ -152,7 +155,7 @@ paths:
       description: Creates or updates a pattern resource definition.
       responses:
         "200":
-          description: Pattern resource saved successfully
+          description: Pattern resource saved
         "400":
           $ref: "#/components/responses/400"
         "401":
@@ -171,7 +174,7 @@ paths:
         - $ref: "#/components/parameters/id"
       responses:
         "200":
-          description: Pattern resource fetched successfully
+          description: Pattern resource response
         "401":
           $ref: "#/components/responses/401"
         "404":
@@ -188,7 +191,7 @@ paths:
         - $ref: "#/components/parameters/id"
       responses:
         "204":
-          description: Pattern resource deleted successfully
+          description: Pattern resource deleted
         "401":
           $ref: "#/components/responses/401"
         "404":
@@ -207,7 +210,7 @@ paths:
         - $ref: "#/components/parameters/id"
       responses:
         "200":
-          description: Design fetched successfully
+          description: Design response
           content:
             application/json:
               schema:
@@ -228,7 +231,7 @@ paths:
         - $ref: "#/components/parameters/id"
       responses:
         "204":
-          description: Design deleted successfully
+          description: Design deleted
         "401":
           $ref: "#/components/responses/401"
         "404":
@@ -248,11 +251,13 @@ paths:
         - $ref: "#/components/parameters/id"
       responses:
         "200":
-          description: Design cloned successfully
+          description: Design cloned
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/MesheryPattern"
+        "400":
+          $ref: "#/components/responses/400"
         "401":
           $ref: "#/components/responses/401"
         "404":
@@ -302,11 +307,13 @@ paths:
               $ref: "#/components/schemas/MesheryPatternImportRequestBody"
       responses:
         "200":
-          description: Design source content uploaded successfully
+          description: Design source content uploaded
         "400":
           $ref: "#/components/responses/400"
         "401":
           $ref: "#/components/responses/401"
+        "404":
+          $ref: "#/components/responses/404"
         "500":
           $ref: "#/components/responses/500"
 
@@ -332,6 +339,8 @@ paths:
                     type: string
         "400":
           description: Invalid request format
+        "401":
+          $ref: "#/components/responses/401"
         "500":
           description: Internal server error
 
@@ -378,7 +387,7 @@ paths:
           required: false
           schema:
             type: string
-        - name: orgID
+        - name: orgId
           in: query
           required: false
           schema:
@@ -405,6 +414,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/CatalogContentPage"
+        "404":
+          $ref: "#/components/responses/404"
         "500":
           $ref: "#/components/responses/500"
     post:
@@ -428,8 +439,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/CatalogRequest"
+        "400":
+          $ref: "#/components/responses/400"
         "401":
           $ref: "#/components/responses/401"
+        "404":
+          $ref: "#/components/responses/404"
         "409":
           description: Conflict
         "500":
@@ -456,8 +471,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/CatalogRequest"
+        "400":
+          $ref: "#/components/responses/400"
         "401":
           $ref: "#/components/responses/401"
+        "404":
+          $ref: "#/components/responses/404"
         "409":
           description: Conflict
         "500":
@@ -470,6 +489,9 @@ paths:
         - designs
       summary: Get catalog content classes
       operationId: getCatalogContentClasses
+      parameters:
+        - $ref: "#/components/parameters/page"
+        - $ref: "#/components/parameters/pagesize"
       responses:
         "200":
           description: Catalog content classes
@@ -501,6 +523,8 @@ paths:
               schema:
                 type: object
                 additionalProperties: true
+        "400":
+          $ref: "#/components/responses/400"
         "401":
           $ref: "#/components/responses/401"
         "409":
@@ -525,6 +549,8 @@ paths:
               schema:
                 type: object
                 additionalProperties: true
+        "400":
+          $ref: "#/components/responses/400"
         "401":
           $ref: "#/components/responses/401"
         "409":
@@ -584,6 +610,8 @@ paths:
           $ref: "#/components/responses/400"
         "401":
           $ref: "#/components/responses/401"
+        "404":
+          $ref: "#/components/responses/404"
         "500":
           $ref: "#/components/responses/500"
 
@@ -640,6 +668,8 @@ paths:
           $ref: "#/components/responses/400"
         "401":
           $ref: "#/components/responses/401"
+        "404":
+          $ref: "#/components/responses/404"
         "500":
           $ref: "#/components/responses/500"
 
@@ -670,12 +700,12 @@ paths:
           required: false
           schema:
             type: string
-        - name: orgID
+        - name: orgId
           in: query
           required: false
           schema:
             type: string
-        - name: user_id
+        - name: userId
           in: query
           required: false
           schema:
@@ -719,8 +749,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ResourceAccessMapping"
+        "400":
+          $ref: "#/components/responses/400"
         "401":
           $ref: "#/components/responses/401"
+        "404":
+          $ref: "#/components/responses/404"
         "500":
           $ref: "#/components/responses/500"
 
@@ -756,6 +790,8 @@ paths:
                 $ref: "#/components/schemas/ResourceAccessActorsResponse"
         "401":
           $ref: "#/components/responses/401"
+        "404":
+          $ref: "#/components/responses/404"
         "500":
           $ref: "#/components/responses/500"
 
@@ -796,13 +832,13 @@ components:
 
   responses:
     400:
-      $ref: "../../v1alpha1/core/api.yml#/components/responses/400"
+      $ref: "../core/api.yml#/components/responses/400"
     401:
-      $ref: "../../v1alpha1/core/api.yml#/components/responses/401"
+      $ref: "../core/api.yml#/components/responses/401"
     404:
-      $ref: "../../v1alpha1/core/api.yml#/components/responses/404"
+      $ref: "../core/api.yml#/components/responses/404"
     500:
-      $ref: "../../v1alpha1/core/api.yml#/components/responses/500"
+      $ref: "../core/api.yml#/components/responses/500"
 
   parameters:
     id:
@@ -811,24 +847,24 @@ components:
       description: Design (Pattern) ID
       required: true
       schema:
-        $ref: "../../v1alpha1/core/api.yml#/components/schemas/uuid"
+        $ref: "../core/api.yml#/components/schemas/uuid"
     page:
-      $ref: "../../v1alpha1/core/api.yml#/components/parameters/page"
+      $ref: "../core/api.yml#/components/parameters/page"
     pagesize:
-      $ref: "../../v1alpha1/core/api.yml#/components/parameters/pagesize"
+      $ref: "../core/api.yml#/components/parameters/pagesize"
     search:
-      $ref: "../../v1alpha1/core/api.yml#/components/parameters/search"
+      $ref: "../core/api.yml#/components/parameters/search"
     order:
-      $ref: "../../v1alpha1/core/api.yml#/components/parameters/order"
+      $ref: "../core/api.yml#/components/parameters/order"
 
   schemas:
     DeletePatternModel:
       type: object
       properties:
         id:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/Id"
+          $ref: "../core/api.yml#/components/schemas/Id"
         name:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/Text"
+          $ref: "../core/api.yml#/components/schemas/Text"
 
     PatternFile:
       $ref: "./design.yaml"
@@ -836,31 +872,31 @@ components:
     MesheryPattern:
       type: object
       properties:
-        catalog_data:
-          $ref: "../../v1alpha2/catalog/api.yml#/components/schemas/CatalogData"
-          x-go-type: catalogv1alpha2.CatalogData
+        catalogData:
+          $ref: "../catalog/api.yml#/components/schemas/CatalogData"
+          x-go-type: catalogv1beta1.CatalogData
           x-go-type-import:
-            path: github.com/meshery/schemas/models/v1alpha2/catalog
-            name: catalogv1alpha2
+            path: github.com/meshery/schemas/models/v1beta1/catalog
+            name: catalogv1beta1
 
         created_at:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/Time"
+          $ref: "../core/api.yml#/components/schemas/Time"
         user_id:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/Id"
+          $ref: "../core/api.yml#/components/schemas/Id"
         location:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/MapObject"
+          $ref: "../core/api.yml#/components/schemas/MapObject"
         name:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/Text"
-        pattern_file:
+          $ref: "../core/api.yml#/components/schemas/Text"
+        patternFile:
           $ref: "#/components/schemas/PatternFile"
           x-go-type: PatternFile
 
         updated_at:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/Time"
+          $ref: "../core/api.yml#/components/schemas/Time"
         id:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/Id"
+          $ref: "../core/api.yml#/components/schemas/Id"
         visibility:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/Text"
+          $ref: "../core/api.yml#/components/schemas/Text"
 
     MesheryPatternPage:
       type: object
@@ -893,14 +929,14 @@ components:
       type: object
       properties:
         path:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/Text"
-        pattern_data:
+          $ref: "../core/api.yml#/components/schemas/Text"
+        patternData:
           $ref: "#/components/schemas/MesheryPattern"
           x-go-type: MesheryPattern
         save:
           type: boolean
         url:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/Endpoint"
+          $ref: "../core/api.yml#/components/schemas/Endpoint"
         name:
           type: string
 
@@ -915,7 +951,7 @@ components:
           type: string
           format: file
           description: "Supported formats: Kubernetes Manifests, Helm Charts, Docker Compose, and Meshery Designs. See [Import Designs Documentation](https://docs.meshery.io/guides/configuration-management/importing-designs#import-designs-using-meshery-ui) for details"
-        file_name:
+        fileName:
           type: string
           description: "The name of the pattern file being imported."
         name:
@@ -959,12 +995,12 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/MesheryFilter"
-        models_count:
+        modelsCount:
           type: array
           items:
             type: object
             additionalProperties: true
-        category_count:
+        categoryCount:
           type: array
           items:
             type: object

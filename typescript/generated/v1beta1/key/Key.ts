@@ -163,6 +163,12 @@ export interface operations {
         /** Organization ID */
         orgId: string;
       };
+      query: {
+        /** Get responses by page */
+        page?: string;
+        /** Get responses by pagesize */
+        pagesize?: string;
+      };
     };
     responses: {
       /** Returns user keys based on roles assigned to user */
@@ -212,6 +218,12 @@ export interface operations {
       };
       /** Expired JWT token used or insufficient privilege */
       401: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Result not found */
+      404: {
         content: {
           "text/plain": string;
         };
@@ -305,7 +317,7 @@ export interface operations {
   };
   upsertKey: {
     responses: {
-      /** Key upserted successfully */
+      /** Key upserted */
       200: {
         content: {
           "application/json": {
@@ -392,7 +404,7 @@ export interface operations {
       };
     };
     responses: {
-      /** Key fetched successfully */
+      /** Key response */
       200: {
         content: {
           "application/json": {
@@ -466,7 +478,7 @@ export interface operations {
       };
     };
     responses: {
-      /** Key deleted successfully */
+      /** Key deleted */
       204: never;
       /** Invalid request body or request param */
       400: {

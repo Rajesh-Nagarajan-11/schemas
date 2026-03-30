@@ -154,13 +154,13 @@ const OrganizationSchema: Record<string, unknown> = {
                                         "x-go-type": "Logo",
                                         "type": "object",
                                         "required": [
-                                          "desktop_view",
-                                          "mobile_view",
-                                          "dark_desktop_view",
-                                          "dark_mobile_view"
+                                          "desktopView",
+                                          "mobileView",
+                                          "darkDesktopView",
+                                          "darkMobileView"
                                         ],
                                         "properties": {
-                                          "desktop_view": {
+                                          "desktopView": {
                                             "x-go-type": "Location",
                                             "type": "object",
                                             "required": [
@@ -176,7 +176,7 @@ const OrganizationSchema: Record<string, unknown> = {
                                               }
                                             }
                                           },
-                                          "mobile_view": {
+                                          "mobileView": {
                                             "x-go-type": "Location",
                                             "type": "object",
                                             "required": [
@@ -192,7 +192,7 @@ const OrganizationSchema: Record<string, unknown> = {
                                               }
                                             }
                                           },
-                                          "dark_desktop_view": {
+                                          "darkDesktopView": {
                                             "x-go-type": "Location",
                                             "type": "object",
                                             "required": [
@@ -208,7 +208,7 @@ const OrganizationSchema: Record<string, unknown> = {
                                               }
                                             }
                                           },
-                                          "dark_mobile_view": {
+                                          "darkMobileView": {
                                             "x-go-type": "Location",
                                             "type": "object",
                                             "required": [
@@ -327,7 +327,7 @@ const OrganizationSchema: Record<string, unknown> = {
                     "type": "string",
                     "x-go-type-skip-optional-pointer": true
                   },
-                  "notify_org_update": {
+                  "notifyOrgUpdate": {
                     "type": "boolean"
                   },
                   "preferences": {
@@ -352,13 +352,13 @@ const OrganizationSchema: Record<string, unknown> = {
                             "x-go-type": "Logo",
                             "type": "object",
                             "required": [
-                              "desktop_view",
-                              "mobile_view",
-                              "dark_desktop_view",
-                              "dark_mobile_view"
+                              "desktopView",
+                              "mobileView",
+                              "darkDesktopView",
+                              "darkMobileView"
                             ],
                             "properties": {
-                              "desktop_view": {
+                              "desktopView": {
                                 "x-go-type": "Location",
                                 "type": "object",
                                 "required": [
@@ -374,7 +374,7 @@ const OrganizationSchema: Record<string, unknown> = {
                                   }
                                 }
                               },
-                              "mobile_view": {
+                              "mobileView": {
                                 "x-go-type": "Location",
                                 "type": "object",
                                 "required": [
@@ -390,7 +390,7 @@ const OrganizationSchema: Record<string, unknown> = {
                                   }
                                 }
                               },
-                              "dark_desktop_view": {
+                              "darkDesktopView": {
                                 "x-go-type": "Location",
                                 "type": "object",
                                 "required": [
@@ -406,7 +406,7 @@ const OrganizationSchema: Record<string, unknown> = {
                                   }
                                 }
                               },
-                              "dark_mobile_view": {
+                              "darkMobileView": {
                                 "x-go-type": "Location",
                                 "type": "object",
                                 "required": [
@@ -527,13 +527,13 @@ const OrganizationSchema: Record<string, unknown> = {
                                         "x-go-type": "Logo",
                                         "type": "object",
                                         "required": [
-                                          "desktop_view",
-                                          "mobile_view",
-                                          "dark_desktop_view",
-                                          "dark_mobile_view"
+                                          "desktopView",
+                                          "mobileView",
+                                          "darkDesktopView",
+                                          "darkMobileView"
                                         ],
                                         "properties": {
-                                          "desktop_view": {
+                                          "desktopView": {
                                             "x-go-type": "Location",
                                             "type": "object",
                                             "required": [
@@ -549,7 +549,7 @@ const OrganizationSchema: Record<string, unknown> = {
                                               }
                                             }
                                           },
-                                          "mobile_view": {
+                                          "mobileView": {
                                             "x-go-type": "Location",
                                             "type": "object",
                                             "required": [
@@ -565,7 +565,7 @@ const OrganizationSchema: Record<string, unknown> = {
                                               }
                                             }
                                           },
-                                          "dark_desktop_view": {
+                                          "darkDesktopView": {
                                             "x-go-type": "Location",
                                             "type": "object",
                                             "required": [
@@ -581,7 +581,7 @@ const OrganizationSchema: Record<string, unknown> = {
                                               }
                                             }
                                           },
-                                          "dark_mobile_view": {
+                                          "darkMobileView": {
                                             "x-go-type": "Location",
                                             "type": "object",
                                             "required": [
@@ -638,6 +638,16 @@ const OrganizationSchema: Record<string, unknown> = {
                       }
                     }
                   }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request body or request param",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
                 }
               }
             }
@@ -779,13 +789,13 @@ const OrganizationSchema: Record<string, unknown> = {
                                   "x-go-type": "Logo",
                                   "type": "object",
                                   "required": [
-                                    "desktop_view",
-                                    "mobile_view",
-                                    "dark_desktop_view",
-                                    "dark_mobile_view"
+                                    "desktopView",
+                                    "mobileView",
+                                    "darkDesktopView",
+                                    "darkMobileView"
                                   ],
                                   "properties": {
-                                    "desktop_view": {
+                                    "desktopView": {
                                       "x-go-type": "Location",
                                       "type": "object",
                                       "required": [
@@ -801,7 +811,7 @@ const OrganizationSchema: Record<string, unknown> = {
                                         }
                                       }
                                     },
-                                    "mobile_view": {
+                                    "mobileView": {
                                       "x-go-type": "Location",
                                       "type": "object",
                                       "required": [
@@ -817,7 +827,7 @@ const OrganizationSchema: Record<string, unknown> = {
                                         }
                                       }
                                     },
-                                    "dark_desktop_view": {
+                                    "darkDesktopView": {
                                       "x-go-type": "Location",
                                       "type": "object",
                                       "required": [
@@ -833,7 +843,7 @@ const OrganizationSchema: Record<string, unknown> = {
                                         }
                                       }
                                     },
-                                    "dark_mobile_view": {
+                                    "darkMobileView": {
                                       "x-go-type": "Location",
                                       "type": "object",
                                       "required": [
@@ -903,6 +913,16 @@ const OrganizationSchema: Record<string, unknown> = {
                       }
                     }
                   }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
                 }
               }
             }
@@ -1031,13 +1051,13 @@ const OrganizationSchema: Record<string, unknown> = {
                                         "x-go-type": "Logo",
                                         "type": "object",
                                         "required": [
-                                          "desktop_view",
-                                          "mobile_view",
-                                          "dark_desktop_view",
-                                          "dark_mobile_view"
+                                          "desktopView",
+                                          "mobileView",
+                                          "darkDesktopView",
+                                          "darkMobileView"
                                         ],
                                         "properties": {
-                                          "desktop_view": {
+                                          "desktopView": {
                                             "x-go-type": "Location",
                                             "type": "object",
                                             "required": [
@@ -1053,7 +1073,7 @@ const OrganizationSchema: Record<string, unknown> = {
                                               }
                                             }
                                           },
-                                          "mobile_view": {
+                                          "mobileView": {
                                             "x-go-type": "Location",
                                             "type": "object",
                                             "required": [
@@ -1069,7 +1089,7 @@ const OrganizationSchema: Record<string, unknown> = {
                                               }
                                             }
                                           },
-                                          "dark_desktop_view": {
+                                          "darkDesktopView": {
                                             "x-go-type": "Location",
                                             "type": "object",
                                             "required": [
@@ -1085,7 +1105,7 @@ const OrganizationSchema: Record<string, unknown> = {
                                               }
                                             }
                                           },
-                                          "dark_mobile_view": {
+                                          "darkMobileView": {
                                             "x-go-type": "Location",
                                             "type": "object",
                                             "required": [
@@ -1156,6 +1176,16 @@ const OrganizationSchema: Record<string, unknown> = {
               }
             }
           },
+          "404": {
+            "description": "Result not found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Internal server error",
             "content": {
@@ -1199,203 +1229,8 @@ const OrganizationSchema: Record<string, unknown> = {
           }
         ],
         "responses": {
-          "200": {
-            "description": "Single-organization page response for the deleted organization",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "description": "Single-organization wrapper used by current meshery-cloud organization handlers.",
-                  "properties": {
-                    "page": {
-                      "type": "integer"
-                    },
-                    "page_size": {
-                      "type": "integer"
-                    },
-                    "total_count": {
-                      "type": "integer"
-                    },
-                    "organizations": {
-                      "type": "array",
-                      "maxItems": 1,
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "id": {
-                            "x-go-name": "ID",
-                            "type": "string",
-                            "format": "uuid",
-                            "description": "A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.",
-                            "x-go-type": "uuid.UUID",
-                            "x-go-type-import": {
-                              "path": "github.com/gofrs/uuid"
-                            }
-                          },
-                          "name": {
-                            "type": "string",
-                            "x-go-type-skip-optional-pointer": true
-                          },
-                          "description": {
-                            "type": "string",
-                            "x-go-type-skip-optional-pointer": true
-                          },
-                          "country": {
-                            "type": "string",
-                            "x-go-type-skip-optional-pointer": true
-                          },
-                          "region": {
-                            "type": "string",
-                            "x-go-type-skip-optional-pointer": true
-                          },
-                          "owner": {
-                            "type": "string",
-                            "x-go-type-skip-optional-pointer": true
-                          },
-                          "metadata": {
-                            "x-go-type": "OrgMetadata",
-                            "type": "object",
-                            "required": [
-                              "preferences"
-                            ],
-                            "properties": {
-                              "preferences": {
-                                "x-go-type": "Preferences",
-                                "type": "object",
-                                "required": [
-                                  "theme",
-                                  "dashboard"
-                                ],
-                                "properties": {
-                                  "theme": {
-                                    "x-go-type": "Theme",
-                                    "type": "object",
-                                    "required": [
-                                      "id",
-                                      "logo"
-                                    ],
-                                    "properties": {
-                                      "id": {
-                                        "type": "string"
-                                      },
-                                      "logo": {
-                                        "x-go-type": "Logo",
-                                        "type": "object",
-                                        "required": [
-                                          "desktop_view",
-                                          "mobile_view",
-                                          "dark_desktop_view",
-                                          "dark_mobile_view"
-                                        ],
-                                        "properties": {
-                                          "desktop_view": {
-                                            "x-go-type": "Location",
-                                            "type": "object",
-                                            "required": [
-                                              "svg",
-                                              "location"
-                                            ],
-                                            "properties": {
-                                              "svg": {
-                                                "type": "string"
-                                              },
-                                              "location": {
-                                                "type": "string"
-                                              }
-                                            }
-                                          },
-                                          "mobile_view": {
-                                            "x-go-type": "Location",
-                                            "type": "object",
-                                            "required": [
-                                              "svg",
-                                              "location"
-                                            ],
-                                            "properties": {
-                                              "svg": {
-                                                "type": "string"
-                                              },
-                                              "location": {
-                                                "type": "string"
-                                              }
-                                            }
-                                          },
-                                          "dark_desktop_view": {
-                                            "x-go-type": "Location",
-                                            "type": "object",
-                                            "required": [
-                                              "svg",
-                                              "location"
-                                            ],
-                                            "properties": {
-                                              "svg": {
-                                                "type": "string"
-                                              },
-                                              "location": {
-                                                "type": "string"
-                                              }
-                                            }
-                                          },
-                                          "dark_mobile_view": {
-                                            "x-go-type": "Location",
-                                            "type": "object",
-                                            "required": [
-                                              "svg",
-                                              "location"
-                                            ],
-                                            "properties": {
-                                              "svg": {
-                                                "type": "string"
-                                              },
-                                              "location": {
-                                                "type": "string"
-                                              }
-                                            }
-                                          }
-                                        }
-                                      },
-                                      "vars": {
-                                        "type": "object",
-                                        "additionalProperties": true
-                                      }
-                                    }
-                                  },
-                                  "dashboard": {
-                                    "x-go-type": "DashboardPrefs",
-                                    "type": "object",
-                                    "description": "Preferences specific to dashboard behavior",
-                                    "additionalProperties": true
-                                  }
-                                }
-                              }
-                            }
-                          },
-                          "created_at": {
-                            "type": "string",
-                            "format": "date-time",
-                            "x-go-type-skip-optional-pointer": true
-                          },
-                          "updated_at": {
-                            "type": "string",
-                            "format": "date-time",
-                            "x-go-type-skip-optional-pointer": true
-                          },
-                          "deleted_at": {
-                            "type": "string",
-                            "format": "date-time",
-                            "x-go-type": "sql.NullTime",
-                            "x-go-type-import": {
-                              "path": "database/sql"
-                            },
-                            "x-go-type-skip-optional-pointer": true
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
+          "204": {
+            "description": "Organization deleted"
           },
           "400": {
             "description": "Invalid request body or request param",
@@ -1493,7 +1328,7 @@ const OrganizationSchema: Record<string, unknown> = {
                     "type": "string",
                     "x-go-type-skip-optional-pointer": true
                   },
-                  "notify_org_update": {
+                  "notifyOrgUpdate": {
                     "type": "boolean"
                   },
                   "preferences": {
@@ -1518,13 +1353,13 @@ const OrganizationSchema: Record<string, unknown> = {
                             "x-go-type": "Logo",
                             "type": "object",
                             "required": [
-                              "desktop_view",
-                              "mobile_view",
-                              "dark_desktop_view",
-                              "dark_mobile_view"
+                              "desktopView",
+                              "mobileView",
+                              "darkDesktopView",
+                              "darkMobileView"
                             ],
                             "properties": {
-                              "desktop_view": {
+                              "desktopView": {
                                 "x-go-type": "Location",
                                 "type": "object",
                                 "required": [
@@ -1540,7 +1375,7 @@ const OrganizationSchema: Record<string, unknown> = {
                                   }
                                 }
                               },
-                              "mobile_view": {
+                              "mobileView": {
                                 "x-go-type": "Location",
                                 "type": "object",
                                 "required": [
@@ -1556,7 +1391,7 @@ const OrganizationSchema: Record<string, unknown> = {
                                   }
                                 }
                               },
-                              "dark_desktop_view": {
+                              "darkDesktopView": {
                                 "x-go-type": "Location",
                                 "type": "object",
                                 "required": [
@@ -1572,7 +1407,7 @@ const OrganizationSchema: Record<string, unknown> = {
                                   }
                                 }
                               },
-                              "dark_mobile_view": {
+                              "darkMobileView": {
                                 "x-go-type": "Location",
                                 "type": "object",
                                 "required": [
@@ -1693,13 +1528,13 @@ const OrganizationSchema: Record<string, unknown> = {
                                         "x-go-type": "Logo",
                                         "type": "object",
                                         "required": [
-                                          "desktop_view",
-                                          "mobile_view",
-                                          "dark_desktop_view",
-                                          "dark_mobile_view"
+                                          "desktopView",
+                                          "mobileView",
+                                          "darkDesktopView",
+                                          "darkMobileView"
                                         ],
                                         "properties": {
-                                          "desktop_view": {
+                                          "desktopView": {
                                             "x-go-type": "Location",
                                             "type": "object",
                                             "required": [
@@ -1715,7 +1550,7 @@ const OrganizationSchema: Record<string, unknown> = {
                                               }
                                             }
                                           },
-                                          "mobile_view": {
+                                          "mobileView": {
                                             "x-go-type": "Location",
                                             "type": "object",
                                             "required": [
@@ -1731,7 +1566,7 @@ const OrganizationSchema: Record<string, unknown> = {
                                               }
                                             }
                                           },
-                                          "dark_desktop_view": {
+                                          "darkDesktopView": {
                                             "x-go-type": "Location",
                                             "type": "object",
                                             "required": [
@@ -1747,7 +1582,7 @@ const OrganizationSchema: Record<string, unknown> = {
                                               }
                                             }
                                           },
-                                          "dark_mobile_view": {
+                                          "darkMobileView": {
                                             "x-go-type": "Location",
                                             "type": "object",
                                             "required": [
@@ -1820,6 +1655,16 @@ const OrganizationSchema: Record<string, unknown> = {
           },
           "401": {
             "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Result not found",
             "content": {
               "text/plain": {
                 "schema": {
@@ -1906,13 +1751,13 @@ const OrganizationSchema: Record<string, unknown> = {
                               "x-go-type": "Logo",
                               "type": "object",
                               "required": [
-                                "desktop_view",
-                                "mobile_view",
-                                "dark_desktop_view",
-                                "dark_mobile_view"
+                                "desktopView",
+                                "mobileView",
+                                "darkDesktopView",
+                                "darkMobileView"
                               ],
                               "properties": {
-                                "desktop_view": {
+                                "desktopView": {
                                   "x-go-type": "Location",
                                   "type": "object",
                                   "required": [
@@ -1928,7 +1773,7 @@ const OrganizationSchema: Record<string, unknown> = {
                                     }
                                   }
                                 },
-                                "mobile_view": {
+                                "mobileView": {
                                   "x-go-type": "Location",
                                   "type": "object",
                                   "required": [
@@ -1944,7 +1789,7 @@ const OrganizationSchema: Record<string, unknown> = {
                                     }
                                   }
                                 },
-                                "dark_desktop_view": {
+                                "darkDesktopView": {
                                   "x-go-type": "Location",
                                   "type": "object",
                                   "required": [
@@ -1960,7 +1805,7 @@ const OrganizationSchema: Record<string, unknown> = {
                                     }
                                   }
                                 },
-                                "dark_mobile_view": {
+                                "darkMobileView": {
                                   "x-go-type": "Location",
                                   "type": "object",
                                   "required": [
@@ -1999,6 +1844,16 @@ const OrganizationSchema: Record<string, unknown> = {
           },
           "401": {
             "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Result not found",
             "content": {
               "text/plain": {
                 "schema": {
@@ -2091,7 +1946,7 @@ const OrganizationSchema: Record<string, unknown> = {
           }
         },
         "responses": {
-          "200": {
+          "201": {
             "description": "Team added to organization or team tombstoned",
             "content": {
               "application/json": {
@@ -2109,12 +1964,12 @@ const OrganizationSchema: Record<string, unknown> = {
                         "total_count": {
                           "type": "integer"
                         },
-                        "teams_organizations_mapping": {
+                        "teamsOrganizationsMapping": {
                           "type": "array",
                           "items": {
                             "type": "object",
                             "properties": {
-                              "ID": {
+                              "id": {
                                 "type": "string",
                                 "format": "uuid",
                                 "x-go-type": "uuid.UUID",
@@ -2128,7 +1983,7 @@ const OrganizationSchema: Record<string, unknown> = {
                                 "x-go-type-name": "GeneralId",
                                 "x-go-type-skip-optional-pointer": true
                               },
-                              "org_id": {
+                              "orgId": {
                                 "type": "string",
                                 "format": "uuid",
                                 "x-go-type": "uuid.UUID",
@@ -2197,7 +2052,7 @@ const OrganizationSchema: Record<string, unknown> = {
                           "items": {
                             "type": "object",
                             "properties": {
-                              "ID": {
+                              "id": {
                                 "type": "string",
                                 "format": "uuid",
                                 "x-go-type": "uuid.UUID",
@@ -2341,12 +2196,12 @@ const OrganizationSchema: Record<string, unknown> = {
                     "total_count": {
                       "type": "integer"
                     },
-                    "teams_organizations_mapping": {
+                    "teamsOrganizationsMapping": {
                       "type": "array",
                       "items": {
                         "type": "object",
                         "properties": {
-                          "ID": {
+                          "id": {
                             "type": "string",
                             "format": "uuid",
                             "x-go-type": "uuid.UUID",
@@ -2360,7 +2215,7 @@ const OrganizationSchema: Record<string, unknown> = {
                             "x-go-type-name": "GeneralId",
                             "x-go-type-skip-optional-pointer": true
                           },
-                          "org_id": {
+                          "orgId": {
                             "type": "string",
                             "format": "uuid",
                             "x-go-type": "uuid.UUID",
@@ -2471,7 +2326,7 @@ const OrganizationSchema: Record<string, unknown> = {
           }
         ],
         "responses": {
-          "200": {
+          "201": {
             "description": "User added to organization",
             "content": {
               "application/json": {
@@ -2482,8 +2337,28 @@ const OrganizationSchema: Record<string, unknown> = {
               }
             }
           },
+          "400": {
+            "description": "Invalid request body or request param",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
           "401": {
             "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Result not found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           },
           "500": {
             "description": "Internal server error"
@@ -2530,19 +2405,21 @@ const OrganizationSchema: Record<string, unknown> = {
           }
         ],
         "responses": {
-          "200": {
-            "description": "User removed from organization",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": true
-                }
-              }
-            }
+          "204": {
+            "description": "User removed from organization"
           },
           "401": {
             "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Result not found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           },
           "500": {
             "description": "Internal server error"
@@ -2706,7 +2583,7 @@ const OrganizationSchema: Record<string, unknown> = {
                   "type": "string",
                   "x-go-type-skip-optional-pointer": true
                 },
-                "notify_org_update": {
+                "notifyOrgUpdate": {
                   "type": "boolean"
                 },
                 "preferences": {
@@ -2731,13 +2608,13 @@ const OrganizationSchema: Record<string, unknown> = {
                           "x-go-type": "Logo",
                           "type": "object",
                           "required": [
-                            "desktop_view",
-                            "mobile_view",
-                            "dark_desktop_view",
-                            "dark_mobile_view"
+                            "desktopView",
+                            "mobileView",
+                            "darkDesktopView",
+                            "darkMobileView"
                           ],
                           "properties": {
-                            "desktop_view": {
+                            "desktopView": {
                               "x-go-type": "Location",
                               "type": "object",
                               "required": [
@@ -2753,7 +2630,7 @@ const OrganizationSchema: Record<string, unknown> = {
                                 }
                               }
                             },
-                            "mobile_view": {
+                            "mobileView": {
                               "x-go-type": "Location",
                               "type": "object",
                               "required": [
@@ -2769,7 +2646,7 @@ const OrganizationSchema: Record<string, unknown> = {
                                 }
                               }
                             },
-                            "dark_desktop_view": {
+                            "darkDesktopView": {
                               "x-go-type": "Location",
                               "type": "object",
                               "required": [
@@ -2785,7 +2662,7 @@ const OrganizationSchema: Record<string, unknown> = {
                                 }
                               }
                             },
-                            "dark_mobile_view": {
+                            "darkMobileView": {
                               "x-go-type": "Location",
                               "type": "object",
                               "required": [
@@ -2889,13 +2766,13 @@ const OrganizationSchema: Record<string, unknown> = {
       "Logo": {
         "type": "object",
         "required": [
-          "desktop_view",
-          "mobile_view",
-          "dark_desktop_view",
-          "dark_mobile_view"
+          "desktopView",
+          "mobileView",
+          "darkDesktopView",
+          "darkMobileView"
         ],
         "properties": {
-          "desktop_view": {
+          "desktopView": {
             "x-go-type": "Location",
             "type": "object",
             "required": [
@@ -2911,7 +2788,7 @@ const OrganizationSchema: Record<string, unknown> = {
               }
             }
           },
-          "mobile_view": {
+          "mobileView": {
             "x-go-type": "Location",
             "type": "object",
             "required": [
@@ -2927,7 +2804,7 @@ const OrganizationSchema: Record<string, unknown> = {
               }
             }
           },
-          "dark_desktop_view": {
+          "darkDesktopView": {
             "x-go-type": "Location",
             "type": "object",
             "required": [
@@ -2943,7 +2820,7 @@ const OrganizationSchema: Record<string, unknown> = {
               }
             }
           },
-          "dark_mobile_view": {
+          "darkMobileView": {
             "x-go-type": "Location",
             "type": "object",
             "required": [
@@ -2975,13 +2852,13 @@ const OrganizationSchema: Record<string, unknown> = {
             "x-go-type": "Logo",
             "type": "object",
             "required": [
-              "desktop_view",
-              "mobile_view",
-              "dark_desktop_view",
-              "dark_mobile_view"
+              "desktopView",
+              "mobileView",
+              "darkDesktopView",
+              "darkMobileView"
             ],
             "properties": {
-              "desktop_view": {
+              "desktopView": {
                 "x-go-type": "Location",
                 "type": "object",
                 "required": [
@@ -2997,7 +2874,7 @@ const OrganizationSchema: Record<string, unknown> = {
                   }
                 }
               },
-              "mobile_view": {
+              "mobileView": {
                 "x-go-type": "Location",
                 "type": "object",
                 "required": [
@@ -3013,7 +2890,7 @@ const OrganizationSchema: Record<string, unknown> = {
                   }
                 }
               },
-              "dark_desktop_view": {
+              "darkDesktopView": {
                 "x-go-type": "Location",
                 "type": "object",
                 "required": [
@@ -3029,7 +2906,7 @@ const OrganizationSchema: Record<string, unknown> = {
                   }
                 }
               },
-              "dark_mobile_view": {
+              "darkMobileView": {
                 "x-go-type": "Location",
                 "type": "object",
                 "required": [
@@ -3080,13 +2957,13 @@ const OrganizationSchema: Record<string, unknown> = {
                 "x-go-type": "Logo",
                 "type": "object",
                 "required": [
-                  "desktop_view",
-                  "mobile_view",
-                  "dark_desktop_view",
-                  "dark_mobile_view"
+                  "desktopView",
+                  "mobileView",
+                  "darkDesktopView",
+                  "darkMobileView"
                 ],
                 "properties": {
-                  "desktop_view": {
+                  "desktopView": {
                     "x-go-type": "Location",
                     "type": "object",
                     "required": [
@@ -3102,7 +2979,7 @@ const OrganizationSchema: Record<string, unknown> = {
                       }
                     }
                   },
-                  "mobile_view": {
+                  "mobileView": {
                     "x-go-type": "Location",
                     "type": "object",
                     "required": [
@@ -3118,7 +2995,7 @@ const OrganizationSchema: Record<string, unknown> = {
                       }
                     }
                   },
-                  "dark_desktop_view": {
+                  "darkDesktopView": {
                     "x-go-type": "Location",
                     "type": "object",
                     "required": [
@@ -3134,7 +3011,7 @@ const OrganizationSchema: Record<string, unknown> = {
                       }
                     }
                   },
-                  "dark_mobile_view": {
+                  "darkMobileView": {
                     "x-go-type": "Location",
                     "type": "object",
                     "required": [
@@ -3195,13 +3072,13 @@ const OrganizationSchema: Record<string, unknown> = {
                     "x-go-type": "Logo",
                     "type": "object",
                     "required": [
-                      "desktop_view",
-                      "mobile_view",
-                      "dark_desktop_view",
-                      "dark_mobile_view"
+                      "desktopView",
+                      "mobileView",
+                      "darkDesktopView",
+                      "darkMobileView"
                     ],
                     "properties": {
-                      "desktop_view": {
+                      "desktopView": {
                         "x-go-type": "Location",
                         "type": "object",
                         "required": [
@@ -3217,7 +3094,7 @@ const OrganizationSchema: Record<string, unknown> = {
                           }
                         }
                       },
-                      "mobile_view": {
+                      "mobileView": {
                         "x-go-type": "Location",
                         "type": "object",
                         "required": [
@@ -3233,7 +3110,7 @@ const OrganizationSchema: Record<string, unknown> = {
                           }
                         }
                       },
-                      "dark_desktop_view": {
+                      "darkDesktopView": {
                         "x-go-type": "Location",
                         "type": "object",
                         "required": [
@@ -3249,7 +3126,7 @@ const OrganizationSchema: Record<string, unknown> = {
                           }
                         }
                       },
-                      "dark_mobile_view": {
+                      "darkMobileView": {
                         "x-go-type": "Location",
                         "type": "object",
                         "required": [
@@ -3378,13 +3255,13 @@ const OrganizationSchema: Record<string, unknown> = {
                         "x-go-type": "Logo",
                         "type": "object",
                         "required": [
-                          "desktop_view",
-                          "mobile_view",
-                          "dark_desktop_view",
-                          "dark_mobile_view"
+                          "desktopView",
+                          "mobileView",
+                          "darkDesktopView",
+                          "darkMobileView"
                         ],
                         "properties": {
-                          "desktop_view": {
+                          "desktopView": {
                             "x-go-type": "Location",
                             "type": "object",
                             "required": [
@@ -3400,7 +3277,7 @@ const OrganizationSchema: Record<string, unknown> = {
                               }
                             }
                           },
-                          "mobile_view": {
+                          "mobileView": {
                             "x-go-type": "Location",
                             "type": "object",
                             "required": [
@@ -3416,7 +3293,7 @@ const OrganizationSchema: Record<string, unknown> = {
                               }
                             }
                           },
-                          "dark_desktop_view": {
+                          "darkDesktopView": {
                             "x-go-type": "Location",
                             "type": "object",
                             "required": [
@@ -3432,7 +3309,7 @@ const OrganizationSchema: Record<string, unknown> = {
                               }
                             }
                           },
-                          "dark_mobile_view": {
+                          "darkMobileView": {
                             "x-go-type": "Location",
                             "type": "object",
                             "required": [
@@ -3566,13 +3443,13 @@ const OrganizationSchema: Record<string, unknown> = {
                         "x-go-type": "Logo",
                         "type": "object",
                         "required": [
-                          "desktop_view",
-                          "mobile_view",
-                          "dark_desktop_view",
-                          "dark_mobile_view"
+                          "desktopView",
+                          "mobileView",
+                          "darkDesktopView",
+                          "darkMobileView"
                         ],
                         "properties": {
-                          "desktop_view": {
+                          "desktopView": {
                             "x-go-type": "Location",
                             "type": "object",
                             "required": [
@@ -3588,7 +3465,7 @@ const OrganizationSchema: Record<string, unknown> = {
                               }
                             }
                           },
-                          "mobile_view": {
+                          "mobileView": {
                             "x-go-type": "Location",
                             "type": "object",
                             "required": [
@@ -3604,7 +3481,7 @@ const OrganizationSchema: Record<string, unknown> = {
                               }
                             }
                           },
-                          "dark_desktop_view": {
+                          "darkDesktopView": {
                             "x-go-type": "Location",
                             "type": "object",
                             "required": [
@@ -3620,7 +3497,7 @@ const OrganizationSchema: Record<string, unknown> = {
                               }
                             }
                           },
-                          "dark_mobile_view": {
+                          "darkMobileView": {
                             "x-go-type": "Location",
                             "type": "object",
                             "required": [
@@ -3752,13 +3629,13 @@ const OrganizationSchema: Record<string, unknown> = {
                               "x-go-type": "Logo",
                               "type": "object",
                               "required": [
-                                "desktop_view",
-                                "mobile_view",
-                                "dark_desktop_view",
-                                "dark_mobile_view"
+                                "desktopView",
+                                "mobileView",
+                                "darkDesktopView",
+                                "darkMobileView"
                               ],
                               "properties": {
-                                "desktop_view": {
+                                "desktopView": {
                                   "x-go-type": "Location",
                                   "type": "object",
                                   "required": [
@@ -3774,7 +3651,7 @@ const OrganizationSchema: Record<string, unknown> = {
                                     }
                                   }
                                 },
-                                "mobile_view": {
+                                "mobileView": {
                                   "x-go-type": "Location",
                                   "type": "object",
                                   "required": [
@@ -3790,7 +3667,7 @@ const OrganizationSchema: Record<string, unknown> = {
                                     }
                                   }
                                 },
-                                "dark_desktop_view": {
+                                "darkDesktopView": {
                                   "x-go-type": "Location",
                                   "type": "object",
                                   "required": [
@@ -3806,7 +3683,7 @@ const OrganizationSchema: Record<string, unknown> = {
                                     }
                                   }
                                 },
-                                "dark_mobile_view": {
+                                "darkMobileView": {
                                   "x-go-type": "Location",
                                   "type": "object",
                                   "required": [
@@ -3943,13 +3820,13 @@ const OrganizationSchema: Record<string, unknown> = {
                               "x-go-type": "Logo",
                               "type": "object",
                               "required": [
-                                "desktop_view",
-                                "mobile_view",
-                                "dark_desktop_view",
-                                "dark_mobile_view"
+                                "desktopView",
+                                "mobileView",
+                                "darkDesktopView",
+                                "darkMobileView"
                               ],
                               "properties": {
-                                "desktop_view": {
+                                "desktopView": {
                                   "x-go-type": "Location",
                                   "type": "object",
                                   "required": [
@@ -3965,7 +3842,7 @@ const OrganizationSchema: Record<string, unknown> = {
                                     }
                                   }
                                 },
-                                "mobile_view": {
+                                "mobileView": {
                                   "x-go-type": "Location",
                                   "type": "object",
                                   "required": [
@@ -3981,7 +3858,7 @@ const OrganizationSchema: Record<string, unknown> = {
                                     }
                                   }
                                 },
-                                "dark_desktop_view": {
+                                "darkDesktopView": {
                                   "x-go-type": "Location",
                                   "type": "object",
                                   "required": [
@@ -3997,7 +3874,7 @@ const OrganizationSchema: Record<string, unknown> = {
                                     }
                                   }
                                 },
-                                "dark_mobile_view": {
+                                "darkMobileView": {
                                   "x-go-type": "Location",
                                   "type": "object",
                                   "required": [
@@ -4074,7 +3951,7 @@ const OrganizationSchema: Record<string, unknown> = {
             "type": "string",
             "x-go-type-skip-optional-pointer": true
           },
-          "notify_org_update": {
+          "notifyOrgUpdate": {
             "type": "boolean"
           },
           "preferences": {
@@ -4099,13 +3976,13 @@ const OrganizationSchema: Record<string, unknown> = {
                     "x-go-type": "Logo",
                     "type": "object",
                     "required": [
-                      "desktop_view",
-                      "mobile_view",
-                      "dark_desktop_view",
-                      "dark_mobile_view"
+                      "desktopView",
+                      "mobileView",
+                      "darkDesktopView",
+                      "darkMobileView"
                     ],
                     "properties": {
-                      "desktop_view": {
+                      "desktopView": {
                         "x-go-type": "Location",
                         "type": "object",
                         "required": [
@@ -4121,7 +3998,7 @@ const OrganizationSchema: Record<string, unknown> = {
                           }
                         }
                       },
-                      "mobile_view": {
+                      "mobileView": {
                         "x-go-type": "Location",
                         "type": "object",
                         "required": [
@@ -4137,7 +4014,7 @@ const OrganizationSchema: Record<string, unknown> = {
                           }
                         }
                       },
-                      "dark_desktop_view": {
+                      "darkDesktopView": {
                         "x-go-type": "Location",
                         "type": "object",
                         "required": [
@@ -4153,7 +4030,7 @@ const OrganizationSchema: Record<string, unknown> = {
                           }
                         }
                       },
-                      "dark_mobile_view": {
+                      "darkMobileView": {
                         "x-go-type": "Location",
                         "type": "object",
                         "required": [
@@ -4190,7 +4067,7 @@ const OrganizationSchema: Record<string, unknown> = {
       "AvailableTeam": {
         "type": "object",
         "properties": {
-          "ID": {
+          "id": {
             "type": "string",
             "format": "uuid",
             "x-go-type": "uuid.UUID",
@@ -4261,7 +4138,7 @@ const OrganizationSchema: Record<string, unknown> = {
             "items": {
               "type": "object",
               "properties": {
-                "ID": {
+                "id": {
                   "type": "string",
                   "format": "uuid",
                   "x-go-type": "uuid.UUID",
@@ -4321,7 +4198,7 @@ const OrganizationSchema: Record<string, unknown> = {
       "TeamsOrganizationsMapping": {
         "type": "object",
         "properties": {
-          "ID": {
+          "id": {
             "type": "string",
             "format": "uuid",
             "x-go-type": "uuid.UUID",
@@ -4335,7 +4212,7 @@ const OrganizationSchema: Record<string, unknown> = {
             "x-go-type-name": "GeneralId",
             "x-go-type-skip-optional-pointer": true
           },
-          "org_id": {
+          "orgId": {
             "type": "string",
             "format": "uuid",
             "x-go-type": "uuid.UUID",
@@ -4396,12 +4273,12 @@ const OrganizationSchema: Record<string, unknown> = {
           "total_count": {
             "type": "integer"
           },
-          "teams_organizations_mapping": {
+          "teamsOrganizationsMapping": {
             "type": "array",
             "items": {
               "type": "object",
               "properties": {
-                "ID": {
+                "id": {
                   "type": "string",
                   "format": "uuid",
                   "x-go-type": "uuid.UUID",
@@ -4415,7 +4292,7 @@ const OrganizationSchema: Record<string, unknown> = {
                   "x-go-type-name": "GeneralId",
                   "x-go-type-skip-optional-pointer": true
                 },
-                "org_id": {
+                "orgId": {
                   "type": "string",
                   "format": "uuid",
                   "x-go-type": "uuid.UUID",

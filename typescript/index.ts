@@ -84,8 +84,8 @@ export namespace v1beta1 {
   export type Category = CategoryComponents["schemas"]["CategoryDefinition"];
   export type Subcategory =
     SubcategoryComponents["schemas"]["SubCategoryDefinition"];
-  export type Environment = EnvironmentComponents["schemas"]["environment"];
-  export type Workspace = WorkspaceComponents["schemas"]["workspace"];
+  export type Environment = EnvironmentComponents["schemas"]["Environment"];
+  export type Workspace = WorkspaceComponents["schemas"]["Workspace"];
   export type Invitation = InvitationComponents["schemas"]["Invitation"];
   export type Badge = BadgeComponents["schemas"]["Badge"];
 }

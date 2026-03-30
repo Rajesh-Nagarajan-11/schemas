@@ -139,7 +139,7 @@ export interface operations {
       };
     };
     responses: {
-      /** Schedules fetched successfully */
+      /** Schedules response */
       200: {
         content: {
           "application/json": {
@@ -195,7 +195,7 @@ export interface operations {
   /** Creates or updates a schedule for the authenticated user. */
   upsertSchedule: {
     responses: {
-      /** Schedule upserted successfully */
+      /** Schedule upserted */
       200: {
         content: {
           "application/json": {
@@ -285,7 +285,7 @@ export interface operations {
       };
     };
     responses: {
-      /** Schedule fetched successfully */
+      /** Schedule response */
       200: {
         content: {
           "application/json": {
@@ -345,7 +345,7 @@ export interface operations {
       };
     };
     responses: {
-      /** Schedule deleted successfully */
+      /** Schedule deleted */
       204: never;
       /** Expired JWT token used or insufficient privilege */
       401: {

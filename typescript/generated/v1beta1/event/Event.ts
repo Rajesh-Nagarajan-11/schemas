@@ -13,44 +13,58 @@ export interface paths {
         };
       };
       responses: {
-        /** Event deleted successfully */
-        200: {
-          content: {
-            "application/json": {
-              message?: string;
-              /** Format: uuid */
-              event_id?: string;
-            };
-          };
-        };
-        /** Invalid event ID */
+        /** Event deleted */
+        204: never;
+        /** Invalid request body or request param */
         400: {
           content: {
-            "application/json": {
-              error?: string;
-            };
+            "text/plain": string;
           };
         };
-        /** Server error */
-        500: unknown;
+        /** Expired JWT token used or insufficient privilege */
+        401: {
+          content: {
+            "text/plain": string;
+          };
+        };
+        /** Result not found */
+        404: {
+          content: {
+            "text/plain": string;
+          };
+        };
+        /** Internal server error */
+        500: {
+          content: {
+            "text/plain": string;
+          };
+        };
       };
     };
   };
   "/events": {
     post: {
       responses: {
-        /** Event created successfully */
+        /** Event created */
         200: unknown;
-        /** Invalid request */
+        /** Invalid request body or request param */
         400: {
           content: {
-            "application/json": {
-              error?: string;
-            };
+            "text/plain": string;
           };
         };
-        /** Server error */
-        500: unknown;
+        /** Expired JWT token used or insufficient privilege */
+        401: {
+          content: {
+            "text/plain": string;
+          };
+        };
+        /** Internal server error */
+        500: {
+          content: {
+            "text/plain": string;
+          };
+        };
       };
       requestBody: {
         content: {
@@ -70,16 +84,24 @@ export interface paths {
             };
           };
         };
-        /** Invalid request */
+        /** Invalid request body or request param */
         400: {
           content: {
-            "application/json": {
-              error?: string;
-            };
+            "text/plain": string;
           };
         };
-        /** Server error */
-        500: unknown;
+        /** Expired JWT token used or insufficient privilege */
+        401: {
+          content: {
+            "text/plain": string;
+          };
+        };
+        /** Internal server error */
+        500: {
+          content: {
+            "text/plain": string;
+          };
+        };
       };
       requestBody: {
         content: {
@@ -93,7 +115,7 @@ export interface paths {
   "/events/status": {
     put: {
       responses: {
-        /** Events updated successfully */
+        /** Events updated */
         200: {
           content: {
             "application/json": {
@@ -101,16 +123,24 @@ export interface paths {
             };
           };
         };
-        /** Invalid request */
+        /** Invalid request body or request param */
         400: {
           content: {
-            "application/json": {
-              error?: string;
-            };
+            "text/plain": string;
           };
         };
-        /** Server error */
-        500: unknown;
+        /** Expired JWT token used or insufficient privilege */
+        401: {
+          content: {
+            "text/plain": string;
+          };
+        };
+        /** Internal server error */
+        500: {
+          content: {
+            "text/plain": string;
+          };
+        };
       };
       requestBody: {
         content: {
@@ -132,7 +162,7 @@ export interface paths {
         };
       };
       responses: {
-        /** Event status updated successfully */
+        /** Event status updated */
         200: {
           content: {
             "application/json": {
@@ -143,16 +173,30 @@ export interface paths {
             };
           };
         };
-        /** Invalid request or status */
+        /** Invalid request body or request param */
         400: {
           content: {
-            "application/json": {
-              error?: string;
-            };
+            "text/plain": string;
           };
         };
-        /** Server error */
-        500: unknown;
+        /** Expired JWT token used or insufficient privilege */
+        401: {
+          content: {
+            "text/plain": string;
+          };
+        };
+        /** Result not found */
+        404: {
+          content: {
+            "text/plain": string;
+          };
+        };
+        /** Internal server error */
+        500: {
+          content: {
+            "text/plain": string;
+          };
+        };
       };
       requestBody: {
         content: {
@@ -196,7 +240,7 @@ export interface components {
       /** @example failed */
       status: string;
     };
-    eventResult: {
+    EventResult: {
       /** Format: uuid */
       user_id?: string;
       /** Format: uuid */
@@ -204,8 +248,8 @@ export interface components {
       category?: string;
       action?: string;
       description?: string;
-      first_name?: string;
-      last_name?: string;
+      firstName?: string;
+      lastName?: string;
       /**
        * Format: email
        * @description email
@@ -219,7 +263,7 @@ export interface components {
        */
       created_at?: string;
     };
-    eventsPage: {
+    EventsPage: {
       page?: number;
       page_size?: number;
       total_count?: number;
@@ -231,8 +275,8 @@ export interface components {
         category?: string;
         action?: string;
         description?: string;
-        first_name?: string;
-        last_name?: string;
+        firstName?: string;
+        lastName?: string;
         /**
          * Format: email
          * @description email
@@ -247,22 +291,48 @@ export interface components {
         created_at?: string;
       }[];
     };
-    eventsAggregate: {
+    EventsAggregate: {
       audit?: number;
     } & { [key: string]: unknown };
-    eventSummary: { [key: string]: unknown };
-    eventSummaryPage: {
+    EventSummary: { [key: string]: unknown };
+    EventSummaryPage: {
       page?: number;
       page_size?: number;
       total_count?: number;
       data?: { [key: string]: unknown }[];
     };
-    eventType: {
+    EventType: {
       category?: string;
       action?: string;
     };
     ErrorResponse: {
       error?: string;
+    };
+  };
+  responses: {
+    /** Invalid request body or request param */
+    400: {
+      content: {
+        "text/plain": string;
+      };
+    };
+    /** Expired JWT token used or insufficient privilege */
+    401: {
+      content: {
+        "text/plain": string;
+      };
+    };
+    /** Result not found */
+    404: {
+      content: {
+        "text/plain": string;
+      };
+    };
+    /** Internal server error */
+    500: {
+      content: {
+        "text/plain": string;
+      };
     };
   };
   parameters: {
@@ -319,8 +389,8 @@ export interface operations {
               category?: string;
               action?: string;
               description?: string;
-              first_name?: string;
-              last_name?: string;
+              firstName?: string;
+              lastName?: string;
               /**
                * Format: email
                * @description email
@@ -407,8 +477,8 @@ export interface operations {
               category?: string;
               action?: string;
               description?: string;
-              first_name?: string;
-              last_name?: string;
+              firstName?: string;
+              lastName?: string;
               /**
                * Format: email
                * @description email
@@ -469,6 +539,14 @@ export interface operations {
     };
   };
   getEventTypes: {
+    parameters: {
+      query: {
+        /** Get responses by page */
+        page?: string;
+        /** Get responses by pagesize */
+        pagesize?: string;
+      };
+    };
     responses: {
       /** Event types */
       200: {

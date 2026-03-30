@@ -769,7 +769,6 @@ const RelationshipSchema: Record<string, unknown> = {
                   "version": {
                     "description": "Version of the model as defined by the registrant.",
                     "x-oapi-codegen-extra-tags": {
-                      "yaml": "version",
                       "json": "version"
                     },
                     "x-order": 1,
@@ -783,7 +782,6 @@ const RelationshipSchema: Record<string, unknown> = {
               "registrant": {
                 "x-go-type": "RegistrantReference",
                 "x-oapi-codegen-extra-tags": {
-                  "yaml": "registrant",
                   "json": "registrant"
                 },
                 "type": "object",
@@ -1117,7 +1115,6 @@ const RelationshipSchema: Record<string, unknown> = {
                                   "version": {
                                     "description": "Version of the model as defined by the registrant.",
                                     "x-oapi-codegen-extra-tags": {
-                                      "yaml": "version",
                                       "json": "version"
                                     },
                                     "x-order": 1,
@@ -1131,7 +1128,6 @@ const RelationshipSchema: Record<string, unknown> = {
                               "registrant": {
                                 "x-go-type": "RegistrantReference",
                                 "x-oapi-codegen-extra-tags": {
-                                  "yaml": "registrant",
                                   "json": "registrant"
                                 },
                                 "type": "object",
@@ -1473,7 +1469,6 @@ const RelationshipSchema: Record<string, unknown> = {
                                   "version": {
                                     "description": "Version of the model as defined by the registrant.",
                                     "x-oapi-codegen-extra-tags": {
-                                      "yaml": "version",
                                       "json": "version"
                                     },
                                     "x-order": 1,
@@ -1487,7 +1482,6 @@ const RelationshipSchema: Record<string, unknown> = {
                               "registrant": {
                                 "x-go-type": "RegistrantReference",
                                 "x-oapi-codegen-extra-tags": {
-                                  "yaml": "registrant",
                                   "json": "registrant"
                                 },
                                 "type": "object",
@@ -1844,7 +1838,6 @@ const RelationshipSchema: Record<string, unknown> = {
                                   "version": {
                                     "description": "Version of the model as defined by the registrant.",
                                     "x-oapi-codegen-extra-tags": {
-                                      "yaml": "version",
                                       "json": "version"
                                     },
                                     "x-order": 1,
@@ -1858,7 +1851,6 @@ const RelationshipSchema: Record<string, unknown> = {
                               "registrant": {
                                 "x-go-type": "RegistrantReference",
                                 "x-oapi-codegen-extra-tags": {
-                                  "yaml": "registrant",
                                   "json": "registrant"
                                 },
                                 "type": "object",
@@ -2200,7 +2192,6 @@ const RelationshipSchema: Record<string, unknown> = {
                                   "version": {
                                     "description": "Version of the model as defined by the registrant.",
                                     "x-oapi-codegen-extra-tags": {
-                                      "yaml": "version",
                                       "json": "version"
                                     },
                                     "x-order": 1,
@@ -2214,7 +2205,6 @@ const RelationshipSchema: Record<string, unknown> = {
                               "registrant": {
                                 "x-go-type": "RegistrantReference",
                                 "x-oapi-codegen-extra-tags": {
-                                  "yaml": "registrant",
                                   "json": "registrant"
                                 },
                                 "type": "object",
@@ -2825,7 +2815,6 @@ const RelationshipSchema: Record<string, unknown> = {
                   "version": {
                     "description": "Version of the model as defined by the registrant.",
                     "x-oapi-codegen-extra-tags": {
-                      "yaml": "version",
                       "json": "version"
                     },
                     "x-order": 1,
@@ -2839,7 +2828,6 @@ const RelationshipSchema: Record<string, unknown> = {
               "registrant": {
                 "x-go-type": "RegistrantReference",
                 "x-oapi-codegen-extra-tags": {
-                  "yaml": "registrant",
                   "json": "registrant"
                 },
                 "type": "object",
@@ -3184,7 +3172,6 @@ const RelationshipSchema: Record<string, unknown> = {
                         "version": {
                           "description": "Version of the model as defined by the registrant.",
                           "x-oapi-codegen-extra-tags": {
-                            "yaml": "version",
                             "json": "version"
                           },
                           "x-order": 1,
@@ -3198,7 +3185,6 @@ const RelationshipSchema: Record<string, unknown> = {
                     "registrant": {
                       "x-go-type": "RegistrantReference",
                       "x-oapi-codegen-extra-tags": {
-                        "yaml": "registrant",
                         "json": "registrant"
                       },
                       "type": "object",
@@ -3540,7 +3526,6 @@ const RelationshipSchema: Record<string, unknown> = {
                         "version": {
                           "description": "Version of the model as defined by the registrant.",
                           "x-oapi-codegen-extra-tags": {
-                            "yaml": "version",
                             "json": "version"
                           },
                           "x-order": 1,
@@ -3554,7 +3539,6 @@ const RelationshipSchema: Record<string, unknown> = {
                     "registrant": {
                       "x-go-type": "RegistrantReference",
                       "x-oapi-codegen-extra-tags": {
-                        "yaml": "registrant",
                         "json": "registrant"
                       },
                       "type": "object",
@@ -3918,7 +3902,6 @@ const RelationshipSchema: Record<string, unknown> = {
                             "version": {
                               "description": "Version of the model as defined by the registrant.",
                               "x-oapi-codegen-extra-tags": {
-                                "yaml": "version",
                                 "json": "version"
                               },
                               "x-order": 1,
@@ -3932,7 +3915,6 @@ const RelationshipSchema: Record<string, unknown> = {
                         "registrant": {
                           "x-go-type": "RegistrantReference",
                           "x-oapi-codegen-extra-tags": {
-                            "yaml": "registrant",
                             "json": "registrant"
                           },
                           "type": "object",
@@ -4274,7 +4256,6 @@ const RelationshipSchema: Record<string, unknown> = {
                             "version": {
                               "description": "Version of the model as defined by the registrant.",
                               "x-oapi-codegen-extra-tags": {
-                                "yaml": "version",
                                 "json": "version"
                               },
                               "x-order": 1,
@@ -4288,7 +4269,6 @@ const RelationshipSchema: Record<string, unknown> = {
                         "registrant": {
                           "x-go-type": "RegistrantReference",
                           "x-oapi-codegen-extra-tags": {
-                            "yaml": "registrant",
                             "json": "registrant"
                           },
                           "type": "object",
@@ -4645,7 +4625,6 @@ const RelationshipSchema: Record<string, unknown> = {
                             "version": {
                               "description": "Version of the model as defined by the registrant.",
                               "x-oapi-codegen-extra-tags": {
-                                "yaml": "version",
                                 "json": "version"
                               },
                               "x-order": 1,
@@ -4659,7 +4638,6 @@ const RelationshipSchema: Record<string, unknown> = {
                         "registrant": {
                           "x-go-type": "RegistrantReference",
                           "x-oapi-codegen-extra-tags": {
-                            "yaml": "registrant",
                             "json": "registrant"
                           },
                           "type": "object",
@@ -5001,7 +4979,6 @@ const RelationshipSchema: Record<string, unknown> = {
                             "version": {
                               "description": "Version of the model as defined by the registrant.",
                               "x-oapi-codegen-extra-tags": {
-                                "yaml": "version",
                                 "json": "version"
                               },
                               "x-order": 1,
@@ -5015,7 +4992,6 @@ const RelationshipSchema: Record<string, unknown> = {
                         "registrant": {
                           "x-go-type": "RegistrantReference",
                           "x-oapi-codegen-extra-tags": {
-                            "yaml": "registrant",
                             "json": "registrant"
                           },
                           "type": "object",
@@ -5387,7 +5363,6 @@ const RelationshipSchema: Record<string, unknown> = {
                               "version": {
                                 "description": "Version of the model as defined by the registrant.",
                                 "x-oapi-codegen-extra-tags": {
-                                  "yaml": "version",
                                   "json": "version"
                                 },
                                 "x-order": 1,
@@ -5401,7 +5376,6 @@ const RelationshipSchema: Record<string, unknown> = {
                           "registrant": {
                             "x-go-type": "RegistrantReference",
                             "x-oapi-codegen-extra-tags": {
-                              "yaml": "registrant",
                               "json": "registrant"
                             },
                             "type": "object",
@@ -5743,7 +5717,6 @@ const RelationshipSchema: Record<string, unknown> = {
                               "version": {
                                 "description": "Version of the model as defined by the registrant.",
                                 "x-oapi-codegen-extra-tags": {
-                                  "yaml": "version",
                                   "json": "version"
                                 },
                                 "x-order": 1,
@@ -5757,7 +5730,6 @@ const RelationshipSchema: Record<string, unknown> = {
                           "registrant": {
                             "x-go-type": "RegistrantReference",
                             "x-oapi-codegen-extra-tags": {
-                              "yaml": "registrant",
                               "json": "registrant"
                             },
                             "type": "object",
@@ -6114,7 +6086,6 @@ const RelationshipSchema: Record<string, unknown> = {
                               "version": {
                                 "description": "Version of the model as defined by the registrant.",
                                 "x-oapi-codegen-extra-tags": {
-                                  "yaml": "version",
                                   "json": "version"
                                 },
                                 "x-order": 1,
@@ -6128,7 +6099,6 @@ const RelationshipSchema: Record<string, unknown> = {
                           "registrant": {
                             "x-go-type": "RegistrantReference",
                             "x-oapi-codegen-extra-tags": {
-                              "yaml": "registrant",
                               "json": "registrant"
                             },
                             "type": "object",
@@ -6470,7 +6440,6 @@ const RelationshipSchema: Record<string, unknown> = {
                               "version": {
                                 "description": "Version of the model as defined by the registrant.",
                                 "x-oapi-codegen-extra-tags": {
-                                  "yaml": "version",
                                   "json": "version"
                                 },
                                 "x-order": 1,
@@ -6484,7 +6453,6 @@ const RelationshipSchema: Record<string, unknown> = {
                           "registrant": {
                             "x-go-type": "RegistrantReference",
                             "x-oapi-codegen-extra-tags": {
-                              "yaml": "registrant",
                               "json": "registrant"
                             },
                             "type": "object",

@@ -19,6 +19,11 @@ const UserSchema: Record<string, unknown> = {
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     }
   },
+  "security": [
+    {
+      "jwt": []
+    }
+  ],
   "paths": {
     "/api/identity/orgs/{orgId}/users": {
       "get": {
@@ -90,7 +95,7 @@ const UserSchema: Record<string, unknown> = {
             }
           },
           {
-            "name": "teamID",
+            "name": "teamId",
             "in": "query",
             "required": false,
             "description": "Optional team filter when listing organization users",
@@ -152,8 +157,7 @@ const UserSchema: Record<string, unknown> = {
                             "x-go-name": "ID",
                             "x-oapi-codegen-extra-tags": {
                               "db": "id",
-                              "json": "id",
-                              "yaml": "id"
+                              "json": "id"
                             },
                             "type": "string",
                             "format": "uuid",
@@ -168,8 +172,7 @@ const UserSchema: Record<string, unknown> = {
                             "description": "User identifier (username or external ID)",
                             "x-oapi-codegen-extra-tags": {
                               "db": "user_id",
-                              "json": "user_id",
-                              "yaml": "user_id"
+                              "json": "user_id"
                             }
                           },
                           "provider": {
@@ -184,8 +187,7 @@ const UserSchema: Record<string, unknown> = {
                             ],
                             "x-oapi-codegen-extra-tags": {
                               "db": "provider",
-                              "json": "provider",
-                              "yaml": "provider"
+                              "json": "provider"
                             }
                           },
                           "email": {
@@ -195,8 +197,7 @@ const UserSchema: Record<string, unknown> = {
                             "description": "User's email address",
                             "x-oapi-codegen-extra-tags": {
                               "db": "email",
-                              "json": "email",
-                              "yaml": "email"
+                              "json": "email"
                             }
                           },
                           "first_name": {
@@ -205,8 +206,7 @@ const UserSchema: Record<string, unknown> = {
                             "description": "User's first name",
                             "x-oapi-codegen-extra-tags": {
                               "db": "first_name",
-                              "json": "first_name",
-                              "yaml": "first_name"
+                              "json": "first_name"
                             }
                           },
                           "last_name": {
@@ -215,8 +215,7 @@ const UserSchema: Record<string, unknown> = {
                             "description": "User's last name",
                             "x-oapi-codegen-extra-tags": {
                               "db": "last_name",
-                              "json": "last_name",
-                              "yaml": "last_name"
+                              "json": "last_name"
                             }
                           },
                           "avatar_url": {
@@ -226,8 +225,7 @@ const UserSchema: Record<string, unknown> = {
                             "description": "URL to user's avatar image",
                             "x-oapi-codegen-extra-tags": {
                               "db": "avatar_url",
-                              "json": "avatar_url",
-                              "yaml": "avatar_url"
+                              "json": "avatar_url"
                             }
                           },
                           "status": {
@@ -242,8 +240,7 @@ const UserSchema: Record<string, unknown> = {
                             "description": "User account status",
                             "x-oapi-codegen-extra-tags": {
                               "db": "status",
-                              "json": "status",
-                              "yaml": "status"
+                              "json": "status"
                             }
                           },
                           "bio": {
@@ -253,8 +250,7 @@ const UserSchema: Record<string, unknown> = {
                             "description": "User's biography or description",
                             "x-oapi-codegen-extra-tags": {
                               "db": "bio",
-                              "json": "bio",
-                              "yaml": "bio"
+                              "json": "bio"
                             }
                           },
                           "country": {
@@ -265,8 +261,7 @@ const UserSchema: Record<string, unknown> = {
                             "x-go-type-skip-optional-pointer": true,
                             "x-oapi-codegen-extra-tags": {
                               "db": "country",
-                              "json": "country",
-                              "yaml": "country"
+                              "json": "country"
                             }
                           },
                           "region": {
@@ -277,8 +272,7 @@ const UserSchema: Record<string, unknown> = {
                             "x-go-type-skip-optional-pointer": true,
                             "x-oapi-codegen-extra-tags": {
                               "db": "region",
-                              "json": "region",
-                              "yaml": "region"
+                              "json": "region"
                             }
                           },
                           "preferences": {
@@ -286,8 +280,7 @@ const UserSchema: Record<string, unknown> = {
                             "description": "User preferences stored as JSONB",
                             "x-oapi-codegen-extra-tags": {
                               "db": "preferences",
-                              "json": "preferences",
-                              "yaml": "preferences"
+                              "json": "preferences"
                             },
                             "x-generate-db-helpers": true,
                             "type": "object",
@@ -296,7 +289,7 @@ const UserSchema: Record<string, unknown> = {
                               "anonymousPerfResults",
                               "updated_at",
                               "dashboardPreferences",
-                              "selectedOrganizationID",
+                              "selectedOrganizationId",
                               "selectedWorkspaceForOrganizations",
                               "usersExtensionPreferences",
                               "remoteProviderPreferences"
@@ -417,7 +410,7 @@ const UserSchema: Record<string, unknown> = {
                                 "type": "object",
                                 "additionalProperties": true
                               },
-                              "selectedOrganizationID": {
+                              "selectedOrganizationId": {
                                 "type": "string"
                               },
                               "selectedWorkspaceForOrganizations": {
@@ -440,8 +433,7 @@ const UserSchema: Record<string, unknown> = {
                             "description": "Timestamp when user accepted terms and conditions",
                             "x-oapi-codegen-extra-tags": {
                               "db": "accepted_terms_at",
-                              "json": "accepted_terms_at",
-                              "yaml": "accepted_terms_at"
+                              "json": "accepted_terms_at"
                             },
                             "type": "string",
                             "format": "date-time",
@@ -451,8 +443,7 @@ const UserSchema: Record<string, unknown> = {
                             "description": "Timestamp of user's first login",
                             "x-oapi-codegen-extra-tags": {
                               "db": "first_login_time",
-                              "json": "first_login_time",
-                              "yaml": "first_login_time"
+                              "json": "first_login_time"
                             },
                             "type": "string",
                             "format": "date-time",
@@ -462,8 +453,7 @@ const UserSchema: Record<string, unknown> = {
                             "description": "Timestamp of user's most recent login",
                             "x-oapi-codegen-extra-tags": {
                               "db": "last_login_time",
-                              "json": "last_login_time",
-                              "yaml": "last_login_time"
+                              "json": "last_login_time"
                             },
                             "type": "string",
                             "format": "date-time",
@@ -473,8 +463,7 @@ const UserSchema: Record<string, unknown> = {
                             "description": "Timestamp when the user record was created",
                             "x-oapi-codegen-extra-tags": {
                               "db": "created_at",
-                              "json": "created_at",
-                              "yaml": "created_at"
+                              "json": "created_at"
                             },
                             "type": "string",
                             "format": "date-time",
@@ -484,8 +473,7 @@ const UserSchema: Record<string, unknown> = {
                             "description": "Timestamp when the user record was last updated",
                             "x-oapi-codegen-extra-tags": {
                               "db": "updated_at",
-                              "json": "updated_at",
-                              "yaml": "updated_at"
+                              "json": "updated_at"
                             },
                             "type": "string",
                             "format": "date-time",
@@ -516,8 +504,7 @@ const UserSchema: Record<string, unknown> = {
                             },
                             "x-oapi-codegen-extra-tags": {
                               "db": "socials",
-                              "json": "socials",
-                              "yaml": "socials"
+                              "json": "socials"
                             }
                           },
                           "deleted_at": {
@@ -528,8 +515,7 @@ const UserSchema: Record<string, unknown> = {
                             "x-go-type": "core.NullTime",
                             "x-oapi-codegen-extra-tags": {
                               "db": "deleted_at",
-                              "json": "deleted_at",
-                              "yaml": "deleted_at"
+                              "json": "deleted_at"
                             }
                           },
                           "role_names": {
@@ -554,8 +540,7 @@ const UserSchema: Record<string, unknown> = {
                             ],
                             "x-oapi-codegen-extra-tags": {
                               "db": "role_names",
-                              "json": "role_names",
-                              "yaml": "role_names"
+                              "json": "role_names"
                             }
                           },
                           "teams": {
@@ -563,8 +548,7 @@ const UserSchema: Record<string, unknown> = {
                             "description": "Teams the user belongs to with role information",
                             "x-oapi-codegen-extra-tags": {
                               "db": "teams",
-                              "json": "teams",
-                              "yaml": "teams"
+                              "json": "teams"
                             },
                             "properties": {
                               "teams_with_roles": {
@@ -574,16 +558,14 @@ const UserSchema: Record<string, unknown> = {
                                 },
                                 "x-oapi-codegen-extra-tags": {
                                   "db": "teams_with_roles",
-                                  "json": "teams_with_roles",
-                                  "yaml": "teams_with_roles"
+                                  "json": "teams_with_roles"
                                 }
                               },
                               "total_count": {
                                 "type": "integer",
                                 "x-oapi-codegen-extra-tags": {
                                   "db": "total_count",
-                                  "json": "total_count",
-                                  "yaml": "total_count"
+                                  "json": "total_count"
                                 }
                               }
                             }
@@ -593,8 +575,7 @@ const UserSchema: Record<string, unknown> = {
                             "description": "Organizations the user belongs to with role information",
                             "x-oapi-codegen-extra-tags": {
                               "db": "organizations",
-                              "json": "organizations",
-                              "yaml": "organizations"
+                              "json": "organizations"
                             },
                             "properties": {
                               "organizations_with_roles": {
@@ -604,16 +585,14 @@ const UserSchema: Record<string, unknown> = {
                                 },
                                 "x-oapi-codegen-extra-tags": {
                                   "db": "organizations_with_roles",
-                                  "json": "organizations_with_roles",
-                                  "yaml": "organizations_with_roles"
+                                  "json": "organizations_with_roles"
                                 }
                               },
                               "total_count": {
                                 "type": "integer",
                                 "x-oapi-codegen-extra-tags": {
                                   "db": "total_count",
-                                  "json": "total_count",
-                                  "yaml": "total_count"
+                                  "json": "total_count"
                                 }
                               }
                             }
@@ -647,6 +626,16 @@ const UserSchema: Record<string, unknown> = {
               }
             }
           },
+          "404": {
+            "description": "Result not found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Internal server error",
             "content": {
@@ -668,6 +657,7 @@ const UserSchema: Record<string, unknown> = {
         "operationId": "getUsers",
         "summary": "Get public users",
         "description": "Returns publicly viewable user records.",
+        "security": [],
         "parameters": [
           {
             "name": "page",
@@ -752,8 +742,7 @@ const UserSchema: Record<string, unknown> = {
                             "x-go-name": "ID",
                             "x-oapi-codegen-extra-tags": {
                               "db": "id",
-                              "json": "id",
-                              "yaml": "id"
+                              "json": "id"
                             },
                             "type": "string",
                             "format": "uuid",
@@ -768,8 +757,7 @@ const UserSchema: Record<string, unknown> = {
                             "description": "User identifier (username or external ID)",
                             "x-oapi-codegen-extra-tags": {
                               "db": "user_id",
-                              "json": "user_id",
-                              "yaml": "user_id"
+                              "json": "user_id"
                             }
                           },
                           "provider": {
@@ -784,8 +772,7 @@ const UserSchema: Record<string, unknown> = {
                             ],
                             "x-oapi-codegen-extra-tags": {
                               "db": "provider",
-                              "json": "provider",
-                              "yaml": "provider"
+                              "json": "provider"
                             }
                           },
                           "email": {
@@ -795,8 +782,7 @@ const UserSchema: Record<string, unknown> = {
                             "description": "User's email address",
                             "x-oapi-codegen-extra-tags": {
                               "db": "email",
-                              "json": "email",
-                              "yaml": "email"
+                              "json": "email"
                             }
                           },
                           "first_name": {
@@ -805,8 +791,7 @@ const UserSchema: Record<string, unknown> = {
                             "description": "User's first name",
                             "x-oapi-codegen-extra-tags": {
                               "db": "first_name",
-                              "json": "first_name",
-                              "yaml": "first_name"
+                              "json": "first_name"
                             }
                           },
                           "last_name": {
@@ -815,8 +800,7 @@ const UserSchema: Record<string, unknown> = {
                             "description": "User's last name",
                             "x-oapi-codegen-extra-tags": {
                               "db": "last_name",
-                              "json": "last_name",
-                              "yaml": "last_name"
+                              "json": "last_name"
                             }
                           },
                           "avatar_url": {
@@ -826,8 +810,7 @@ const UserSchema: Record<string, unknown> = {
                             "description": "URL to user's avatar image",
                             "x-oapi-codegen-extra-tags": {
                               "db": "avatar_url",
-                              "json": "avatar_url",
-                              "yaml": "avatar_url"
+                              "json": "avatar_url"
                             }
                           },
                           "status": {
@@ -842,8 +825,7 @@ const UserSchema: Record<string, unknown> = {
                             "description": "User account status",
                             "x-oapi-codegen-extra-tags": {
                               "db": "status",
-                              "json": "status",
-                              "yaml": "status"
+                              "json": "status"
                             }
                           },
                           "bio": {
@@ -853,8 +835,7 @@ const UserSchema: Record<string, unknown> = {
                             "description": "User's biography or description",
                             "x-oapi-codegen-extra-tags": {
                               "db": "bio",
-                              "json": "bio",
-                              "yaml": "bio"
+                              "json": "bio"
                             }
                           },
                           "country": {
@@ -865,8 +846,7 @@ const UserSchema: Record<string, unknown> = {
                             "x-go-type-skip-optional-pointer": true,
                             "x-oapi-codegen-extra-tags": {
                               "db": "country",
-                              "json": "country",
-                              "yaml": "country"
+                              "json": "country"
                             }
                           },
                           "region": {
@@ -877,8 +857,7 @@ const UserSchema: Record<string, unknown> = {
                             "x-go-type-skip-optional-pointer": true,
                             "x-oapi-codegen-extra-tags": {
                               "db": "region",
-                              "json": "region",
-                              "yaml": "region"
+                              "json": "region"
                             }
                           },
                           "preferences": {
@@ -886,8 +865,7 @@ const UserSchema: Record<string, unknown> = {
                             "description": "User preferences stored as JSONB",
                             "x-oapi-codegen-extra-tags": {
                               "db": "preferences",
-                              "json": "preferences",
-                              "yaml": "preferences"
+                              "json": "preferences"
                             },
                             "x-generate-db-helpers": true,
                             "type": "object",
@@ -896,7 +874,7 @@ const UserSchema: Record<string, unknown> = {
                               "anonymousPerfResults",
                               "updated_at",
                               "dashboardPreferences",
-                              "selectedOrganizationID",
+                              "selectedOrganizationId",
                               "selectedWorkspaceForOrganizations",
                               "usersExtensionPreferences",
                               "remoteProviderPreferences"
@@ -1017,7 +995,7 @@ const UserSchema: Record<string, unknown> = {
                                 "type": "object",
                                 "additionalProperties": true
                               },
-                              "selectedOrganizationID": {
+                              "selectedOrganizationId": {
                                 "type": "string"
                               },
                               "selectedWorkspaceForOrganizations": {
@@ -1040,8 +1018,7 @@ const UserSchema: Record<string, unknown> = {
                             "description": "Timestamp when user accepted terms and conditions",
                             "x-oapi-codegen-extra-tags": {
                               "db": "accepted_terms_at",
-                              "json": "accepted_terms_at",
-                              "yaml": "accepted_terms_at"
+                              "json": "accepted_terms_at"
                             },
                             "type": "string",
                             "format": "date-time",
@@ -1051,8 +1028,7 @@ const UserSchema: Record<string, unknown> = {
                             "description": "Timestamp of user's first login",
                             "x-oapi-codegen-extra-tags": {
                               "db": "first_login_time",
-                              "json": "first_login_time",
-                              "yaml": "first_login_time"
+                              "json": "first_login_time"
                             },
                             "type": "string",
                             "format": "date-time",
@@ -1062,8 +1038,7 @@ const UserSchema: Record<string, unknown> = {
                             "description": "Timestamp of user's most recent login",
                             "x-oapi-codegen-extra-tags": {
                               "db": "last_login_time",
-                              "json": "last_login_time",
-                              "yaml": "last_login_time"
+                              "json": "last_login_time"
                             },
                             "type": "string",
                             "format": "date-time",
@@ -1073,8 +1048,7 @@ const UserSchema: Record<string, unknown> = {
                             "description": "Timestamp when the user record was created",
                             "x-oapi-codegen-extra-tags": {
                               "db": "created_at",
-                              "json": "created_at",
-                              "yaml": "created_at"
+                              "json": "created_at"
                             },
                             "type": "string",
                             "format": "date-time",
@@ -1084,8 +1058,7 @@ const UserSchema: Record<string, unknown> = {
                             "description": "Timestamp when the user record was last updated",
                             "x-oapi-codegen-extra-tags": {
                               "db": "updated_at",
-                              "json": "updated_at",
-                              "yaml": "updated_at"
+                              "json": "updated_at"
                             },
                             "type": "string",
                             "format": "date-time",
@@ -1116,8 +1089,7 @@ const UserSchema: Record<string, unknown> = {
                             },
                             "x-oapi-codegen-extra-tags": {
                               "db": "socials",
-                              "json": "socials",
-                              "yaml": "socials"
+                              "json": "socials"
                             }
                           },
                           "deleted_at": {
@@ -1128,8 +1100,7 @@ const UserSchema: Record<string, unknown> = {
                             "x-go-type": "core.NullTime",
                             "x-oapi-codegen-extra-tags": {
                               "db": "deleted_at",
-                              "json": "deleted_at",
-                              "yaml": "deleted_at"
+                              "json": "deleted_at"
                             }
                           },
                           "role_names": {
@@ -1154,8 +1125,7 @@ const UserSchema: Record<string, unknown> = {
                             ],
                             "x-oapi-codegen-extra-tags": {
                               "db": "role_names",
-                              "json": "role_names",
-                              "yaml": "role_names"
+                              "json": "role_names"
                             }
                           },
                           "teams": {
@@ -1163,8 +1133,7 @@ const UserSchema: Record<string, unknown> = {
                             "description": "Teams the user belongs to with role information",
                             "x-oapi-codegen-extra-tags": {
                               "db": "teams",
-                              "json": "teams",
-                              "yaml": "teams"
+                              "json": "teams"
                             },
                             "properties": {
                               "teams_with_roles": {
@@ -1174,16 +1143,14 @@ const UserSchema: Record<string, unknown> = {
                                 },
                                 "x-oapi-codegen-extra-tags": {
                                   "db": "teams_with_roles",
-                                  "json": "teams_with_roles",
-                                  "yaml": "teams_with_roles"
+                                  "json": "teams_with_roles"
                                 }
                               },
                               "total_count": {
                                 "type": "integer",
                                 "x-oapi-codegen-extra-tags": {
                                   "db": "total_count",
-                                  "json": "total_count",
-                                  "yaml": "total_count"
+                                  "json": "total_count"
                                 }
                               }
                             }
@@ -1193,8 +1160,7 @@ const UserSchema: Record<string, unknown> = {
                             "description": "Organizations the user belongs to with role information",
                             "x-oapi-codegen-extra-tags": {
                               "db": "organizations",
-                              "json": "organizations",
-                              "yaml": "organizations"
+                              "json": "organizations"
                             },
                             "properties": {
                               "organizations_with_roles": {
@@ -1204,16 +1170,14 @@ const UserSchema: Record<string, unknown> = {
                                 },
                                 "x-oapi-codegen-extra-tags": {
                                   "db": "organizations_with_roles",
-                                  "json": "organizations_with_roles",
-                                  "yaml": "organizations_with_roles"
+                                  "json": "organizations_with_roles"
                                 }
                               },
                               "total_count": {
                                 "type": "integer",
                                 "x-oapi-codegen-extra-tags": {
                                   "db": "total_count",
-                                  "json": "total_count",
-                                  "yaml": "total_count"
+                                  "json": "total_count"
                                 }
                               }
                             }
@@ -1311,8 +1275,7 @@ const UserSchema: Record<string, unknown> = {
                       "x-go-name": "ID",
                       "x-oapi-codegen-extra-tags": {
                         "db": "id",
-                        "json": "id",
-                        "yaml": "id"
+                        "json": "id"
                       },
                       "type": "string",
                       "format": "uuid",
@@ -1327,8 +1290,7 @@ const UserSchema: Record<string, unknown> = {
                       "description": "User identifier (username or external ID)",
                       "x-oapi-codegen-extra-tags": {
                         "db": "user_id",
-                        "json": "user_id",
-                        "yaml": "user_id"
+                        "json": "user_id"
                       }
                     },
                     "provider": {
@@ -1343,8 +1305,7 @@ const UserSchema: Record<string, unknown> = {
                       ],
                       "x-oapi-codegen-extra-tags": {
                         "db": "provider",
-                        "json": "provider",
-                        "yaml": "provider"
+                        "json": "provider"
                       }
                     },
                     "email": {
@@ -1354,8 +1315,7 @@ const UserSchema: Record<string, unknown> = {
                       "description": "User's email address",
                       "x-oapi-codegen-extra-tags": {
                         "db": "email",
-                        "json": "email",
-                        "yaml": "email"
+                        "json": "email"
                       }
                     },
                     "first_name": {
@@ -1364,8 +1324,7 @@ const UserSchema: Record<string, unknown> = {
                       "description": "User's first name",
                       "x-oapi-codegen-extra-tags": {
                         "db": "first_name",
-                        "json": "first_name",
-                        "yaml": "first_name"
+                        "json": "first_name"
                       }
                     },
                     "last_name": {
@@ -1374,8 +1333,7 @@ const UserSchema: Record<string, unknown> = {
                       "description": "User's last name",
                       "x-oapi-codegen-extra-tags": {
                         "db": "last_name",
-                        "json": "last_name",
-                        "yaml": "last_name"
+                        "json": "last_name"
                       }
                     },
                     "avatar_url": {
@@ -1385,8 +1343,7 @@ const UserSchema: Record<string, unknown> = {
                       "description": "URL to user's avatar image",
                       "x-oapi-codegen-extra-tags": {
                         "db": "avatar_url",
-                        "json": "avatar_url",
-                        "yaml": "avatar_url"
+                        "json": "avatar_url"
                       }
                     },
                     "status": {
@@ -1401,8 +1358,7 @@ const UserSchema: Record<string, unknown> = {
                       "description": "User account status",
                       "x-oapi-codegen-extra-tags": {
                         "db": "status",
-                        "json": "status",
-                        "yaml": "status"
+                        "json": "status"
                       }
                     },
                     "bio": {
@@ -1412,8 +1368,7 @@ const UserSchema: Record<string, unknown> = {
                       "description": "User's biography or description",
                       "x-oapi-codegen-extra-tags": {
                         "db": "bio",
-                        "json": "bio",
-                        "yaml": "bio"
+                        "json": "bio"
                       }
                     },
                     "country": {
@@ -1424,8 +1379,7 @@ const UserSchema: Record<string, unknown> = {
                       "x-go-type-skip-optional-pointer": true,
                       "x-oapi-codegen-extra-tags": {
                         "db": "country",
-                        "json": "country",
-                        "yaml": "country"
+                        "json": "country"
                       }
                     },
                     "region": {
@@ -1436,8 +1390,7 @@ const UserSchema: Record<string, unknown> = {
                       "x-go-type-skip-optional-pointer": true,
                       "x-oapi-codegen-extra-tags": {
                         "db": "region",
-                        "json": "region",
-                        "yaml": "region"
+                        "json": "region"
                       }
                     },
                     "preferences": {
@@ -1445,8 +1398,7 @@ const UserSchema: Record<string, unknown> = {
                       "description": "User preferences stored as JSONB",
                       "x-oapi-codegen-extra-tags": {
                         "db": "preferences",
-                        "json": "preferences",
-                        "yaml": "preferences"
+                        "json": "preferences"
                       },
                       "x-generate-db-helpers": true,
                       "type": "object",
@@ -1455,7 +1407,7 @@ const UserSchema: Record<string, unknown> = {
                         "anonymousPerfResults",
                         "updated_at",
                         "dashboardPreferences",
-                        "selectedOrganizationID",
+                        "selectedOrganizationId",
                         "selectedWorkspaceForOrganizations",
                         "usersExtensionPreferences",
                         "remoteProviderPreferences"
@@ -1576,7 +1528,7 @@ const UserSchema: Record<string, unknown> = {
                           "type": "object",
                           "additionalProperties": true
                         },
-                        "selectedOrganizationID": {
+                        "selectedOrganizationId": {
                           "type": "string"
                         },
                         "selectedWorkspaceForOrganizations": {
@@ -1599,8 +1551,7 @@ const UserSchema: Record<string, unknown> = {
                       "description": "Timestamp when user accepted terms and conditions",
                       "x-oapi-codegen-extra-tags": {
                         "db": "accepted_terms_at",
-                        "json": "accepted_terms_at",
-                        "yaml": "accepted_terms_at"
+                        "json": "accepted_terms_at"
                       },
                       "type": "string",
                       "format": "date-time",
@@ -1610,8 +1561,7 @@ const UserSchema: Record<string, unknown> = {
                       "description": "Timestamp of user's first login",
                       "x-oapi-codegen-extra-tags": {
                         "db": "first_login_time",
-                        "json": "first_login_time",
-                        "yaml": "first_login_time"
+                        "json": "first_login_time"
                       },
                       "type": "string",
                       "format": "date-time",
@@ -1621,8 +1571,7 @@ const UserSchema: Record<string, unknown> = {
                       "description": "Timestamp of user's most recent login",
                       "x-oapi-codegen-extra-tags": {
                         "db": "last_login_time",
-                        "json": "last_login_time",
-                        "yaml": "last_login_time"
+                        "json": "last_login_time"
                       },
                       "type": "string",
                       "format": "date-time",
@@ -1632,8 +1581,7 @@ const UserSchema: Record<string, unknown> = {
                       "description": "Timestamp when the user record was created",
                       "x-oapi-codegen-extra-tags": {
                         "db": "created_at",
-                        "json": "created_at",
-                        "yaml": "created_at"
+                        "json": "created_at"
                       },
                       "type": "string",
                       "format": "date-time",
@@ -1643,8 +1591,7 @@ const UserSchema: Record<string, unknown> = {
                       "description": "Timestamp when the user record was last updated",
                       "x-oapi-codegen-extra-tags": {
                         "db": "updated_at",
-                        "json": "updated_at",
-                        "yaml": "updated_at"
+                        "json": "updated_at"
                       },
                       "type": "string",
                       "format": "date-time",
@@ -1675,8 +1622,7 @@ const UserSchema: Record<string, unknown> = {
                       },
                       "x-oapi-codegen-extra-tags": {
                         "db": "socials",
-                        "json": "socials",
-                        "yaml": "socials"
+                        "json": "socials"
                       }
                     },
                     "deleted_at": {
@@ -1687,8 +1633,7 @@ const UserSchema: Record<string, unknown> = {
                       "x-go-type": "core.NullTime",
                       "x-oapi-codegen-extra-tags": {
                         "db": "deleted_at",
-                        "json": "deleted_at",
-                        "yaml": "deleted_at"
+                        "json": "deleted_at"
                       }
                     },
                     "role_names": {
@@ -1713,8 +1658,7 @@ const UserSchema: Record<string, unknown> = {
                       ],
                       "x-oapi-codegen-extra-tags": {
                         "db": "role_names",
-                        "json": "role_names",
-                        "yaml": "role_names"
+                        "json": "role_names"
                       }
                     },
                     "teams": {
@@ -1722,8 +1666,7 @@ const UserSchema: Record<string, unknown> = {
                       "description": "Teams the user belongs to with role information",
                       "x-oapi-codegen-extra-tags": {
                         "db": "teams",
-                        "json": "teams",
-                        "yaml": "teams"
+                        "json": "teams"
                       },
                       "properties": {
                         "teams_with_roles": {
@@ -1733,16 +1676,14 @@ const UserSchema: Record<string, unknown> = {
                           },
                           "x-oapi-codegen-extra-tags": {
                             "db": "teams_with_roles",
-                            "json": "teams_with_roles",
-                            "yaml": "teams_with_roles"
+                            "json": "teams_with_roles"
                           }
                         },
                         "total_count": {
                           "type": "integer",
                           "x-oapi-codegen-extra-tags": {
                             "db": "total_count",
-                            "json": "total_count",
-                            "yaml": "total_count"
+                            "json": "total_count"
                           }
                         }
                       }
@@ -1752,8 +1693,7 @@ const UserSchema: Record<string, unknown> = {
                       "description": "Organizations the user belongs to with role information",
                       "x-oapi-codegen-extra-tags": {
                         "db": "organizations",
-                        "json": "organizations",
-                        "yaml": "organizations"
+                        "json": "organizations"
                       },
                       "properties": {
                         "organizations_with_roles": {
@@ -1763,16 +1703,14 @@ const UserSchema: Record<string, unknown> = {
                           },
                           "x-oapi-codegen-extra-tags": {
                             "db": "organizations_with_roles",
-                            "json": "organizations_with_roles",
-                            "yaml": "organizations_with_roles"
+                            "json": "organizations_with_roles"
                           }
                         },
                         "total_count": {
                           "type": "integer",
                           "x-oapi-codegen-extra-tags": {
                             "db": "total_count",
-                            "json": "total_count",
-                            "yaml": "total_count"
+                            "json": "total_count"
                           }
                         }
                       }
@@ -1785,6 +1723,26 @@ const UserSchema: Record<string, unknown> = {
           },
           "400": {
             "description": "Invalid request body or request param",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Result not found",
             "content": {
               "text/plain": {
                 "schema": {
@@ -1840,8 +1798,7 @@ const UserSchema: Record<string, unknown> = {
                       "x-go-name": "ID",
                       "x-oapi-codegen-extra-tags": {
                         "db": "id",
-                        "json": "id",
-                        "yaml": "id"
+                        "json": "id"
                       },
                       "type": "string",
                       "format": "uuid",
@@ -1856,8 +1813,7 @@ const UserSchema: Record<string, unknown> = {
                       "description": "User identifier (username or external ID)",
                       "x-oapi-codegen-extra-tags": {
                         "db": "user_id",
-                        "json": "user_id",
-                        "yaml": "user_id"
+                        "json": "user_id"
                       }
                     },
                     "provider": {
@@ -1872,8 +1828,7 @@ const UserSchema: Record<string, unknown> = {
                       ],
                       "x-oapi-codegen-extra-tags": {
                         "db": "provider",
-                        "json": "provider",
-                        "yaml": "provider"
+                        "json": "provider"
                       }
                     },
                     "email": {
@@ -1883,8 +1838,7 @@ const UserSchema: Record<string, unknown> = {
                       "description": "User's email address",
                       "x-oapi-codegen-extra-tags": {
                         "db": "email",
-                        "json": "email",
-                        "yaml": "email"
+                        "json": "email"
                       }
                     },
                     "first_name": {
@@ -1893,8 +1847,7 @@ const UserSchema: Record<string, unknown> = {
                       "description": "User's first name",
                       "x-oapi-codegen-extra-tags": {
                         "db": "first_name",
-                        "json": "first_name",
-                        "yaml": "first_name"
+                        "json": "first_name"
                       }
                     },
                     "last_name": {
@@ -1903,8 +1856,7 @@ const UserSchema: Record<string, unknown> = {
                       "description": "User's last name",
                       "x-oapi-codegen-extra-tags": {
                         "db": "last_name",
-                        "json": "last_name",
-                        "yaml": "last_name"
+                        "json": "last_name"
                       }
                     },
                     "avatar_url": {
@@ -1914,8 +1866,7 @@ const UserSchema: Record<string, unknown> = {
                       "description": "URL to user's avatar image",
                       "x-oapi-codegen-extra-tags": {
                         "db": "avatar_url",
-                        "json": "avatar_url",
-                        "yaml": "avatar_url"
+                        "json": "avatar_url"
                       }
                     },
                     "status": {
@@ -1930,8 +1881,7 @@ const UserSchema: Record<string, unknown> = {
                       "description": "User account status",
                       "x-oapi-codegen-extra-tags": {
                         "db": "status",
-                        "json": "status",
-                        "yaml": "status"
+                        "json": "status"
                       }
                     },
                     "bio": {
@@ -1941,8 +1891,7 @@ const UserSchema: Record<string, unknown> = {
                       "description": "User's biography or description",
                       "x-oapi-codegen-extra-tags": {
                         "db": "bio",
-                        "json": "bio",
-                        "yaml": "bio"
+                        "json": "bio"
                       }
                     },
                     "country": {
@@ -1953,8 +1902,7 @@ const UserSchema: Record<string, unknown> = {
                       "x-go-type-skip-optional-pointer": true,
                       "x-oapi-codegen-extra-tags": {
                         "db": "country",
-                        "json": "country",
-                        "yaml": "country"
+                        "json": "country"
                       }
                     },
                     "region": {
@@ -1965,8 +1913,7 @@ const UserSchema: Record<string, unknown> = {
                       "x-go-type-skip-optional-pointer": true,
                       "x-oapi-codegen-extra-tags": {
                         "db": "region",
-                        "json": "region",
-                        "yaml": "region"
+                        "json": "region"
                       }
                     },
                     "preferences": {
@@ -1974,8 +1921,7 @@ const UserSchema: Record<string, unknown> = {
                       "description": "User preferences stored as JSONB",
                       "x-oapi-codegen-extra-tags": {
                         "db": "preferences",
-                        "json": "preferences",
-                        "yaml": "preferences"
+                        "json": "preferences"
                       },
                       "x-generate-db-helpers": true,
                       "type": "object",
@@ -1984,7 +1930,7 @@ const UserSchema: Record<string, unknown> = {
                         "anonymousPerfResults",
                         "updated_at",
                         "dashboardPreferences",
-                        "selectedOrganizationID",
+                        "selectedOrganizationId",
                         "selectedWorkspaceForOrganizations",
                         "usersExtensionPreferences",
                         "remoteProviderPreferences"
@@ -2105,7 +2051,7 @@ const UserSchema: Record<string, unknown> = {
                           "type": "object",
                           "additionalProperties": true
                         },
-                        "selectedOrganizationID": {
+                        "selectedOrganizationId": {
                           "type": "string"
                         },
                         "selectedWorkspaceForOrganizations": {
@@ -2128,8 +2074,7 @@ const UserSchema: Record<string, unknown> = {
                       "description": "Timestamp when user accepted terms and conditions",
                       "x-oapi-codegen-extra-tags": {
                         "db": "accepted_terms_at",
-                        "json": "accepted_terms_at",
-                        "yaml": "accepted_terms_at"
+                        "json": "accepted_terms_at"
                       },
                       "type": "string",
                       "format": "date-time",
@@ -2139,8 +2084,7 @@ const UserSchema: Record<string, unknown> = {
                       "description": "Timestamp of user's first login",
                       "x-oapi-codegen-extra-tags": {
                         "db": "first_login_time",
-                        "json": "first_login_time",
-                        "yaml": "first_login_time"
+                        "json": "first_login_time"
                       },
                       "type": "string",
                       "format": "date-time",
@@ -2150,8 +2094,7 @@ const UserSchema: Record<string, unknown> = {
                       "description": "Timestamp of user's most recent login",
                       "x-oapi-codegen-extra-tags": {
                         "db": "last_login_time",
-                        "json": "last_login_time",
-                        "yaml": "last_login_time"
+                        "json": "last_login_time"
                       },
                       "type": "string",
                       "format": "date-time",
@@ -2161,8 +2104,7 @@ const UserSchema: Record<string, unknown> = {
                       "description": "Timestamp when the user record was created",
                       "x-oapi-codegen-extra-tags": {
                         "db": "created_at",
-                        "json": "created_at",
-                        "yaml": "created_at"
+                        "json": "created_at"
                       },
                       "type": "string",
                       "format": "date-time",
@@ -2172,8 +2114,7 @@ const UserSchema: Record<string, unknown> = {
                       "description": "Timestamp when the user record was last updated",
                       "x-oapi-codegen-extra-tags": {
                         "db": "updated_at",
-                        "json": "updated_at",
-                        "yaml": "updated_at"
+                        "json": "updated_at"
                       },
                       "type": "string",
                       "format": "date-time",
@@ -2204,8 +2145,7 @@ const UserSchema: Record<string, unknown> = {
                       },
                       "x-oapi-codegen-extra-tags": {
                         "db": "socials",
-                        "json": "socials",
-                        "yaml": "socials"
+                        "json": "socials"
                       }
                     },
                     "deleted_at": {
@@ -2216,8 +2156,7 @@ const UserSchema: Record<string, unknown> = {
                       "x-go-type": "core.NullTime",
                       "x-oapi-codegen-extra-tags": {
                         "db": "deleted_at",
-                        "json": "deleted_at",
-                        "yaml": "deleted_at"
+                        "json": "deleted_at"
                       }
                     },
                     "role_names": {
@@ -2242,8 +2181,7 @@ const UserSchema: Record<string, unknown> = {
                       ],
                       "x-oapi-codegen-extra-tags": {
                         "db": "role_names",
-                        "json": "role_names",
-                        "yaml": "role_names"
+                        "json": "role_names"
                       }
                     },
                     "teams": {
@@ -2251,8 +2189,7 @@ const UserSchema: Record<string, unknown> = {
                       "description": "Teams the user belongs to with role information",
                       "x-oapi-codegen-extra-tags": {
                         "db": "teams",
-                        "json": "teams",
-                        "yaml": "teams"
+                        "json": "teams"
                       },
                       "properties": {
                         "teams_with_roles": {
@@ -2262,16 +2199,14 @@ const UserSchema: Record<string, unknown> = {
                           },
                           "x-oapi-codegen-extra-tags": {
                             "db": "teams_with_roles",
-                            "json": "teams_with_roles",
-                            "yaml": "teams_with_roles"
+                            "json": "teams_with_roles"
                           }
                         },
                         "total_count": {
                           "type": "integer",
                           "x-oapi-codegen-extra-tags": {
                             "db": "total_count",
-                            "json": "total_count",
-                            "yaml": "total_count"
+                            "json": "total_count"
                           }
                         }
                       }
@@ -2281,8 +2216,7 @@ const UserSchema: Record<string, unknown> = {
                       "description": "Organizations the user belongs to with role information",
                       "x-oapi-codegen-extra-tags": {
                         "db": "organizations",
-                        "json": "organizations",
-                        "yaml": "organizations"
+                        "json": "organizations"
                       },
                       "properties": {
                         "organizations_with_roles": {
@@ -2292,16 +2226,14 @@ const UserSchema: Record<string, unknown> = {
                           },
                           "x-oapi-codegen-extra-tags": {
                             "db": "organizations_with_roles",
-                            "json": "organizations_with_roles",
-                            "yaml": "organizations_with_roles"
+                            "json": "organizations_with_roles"
                           }
                         },
                         "total_count": {
                           "type": "integer",
                           "x-oapi-codegen-extra-tags": {
                             "db": "total_count",
-                            "json": "total_count",
-                            "yaml": "total_count"
+                            "json": "total_count"
                           }
                         }
                       }
@@ -2455,8 +2387,8 @@ const UserSchema: Record<string, unknown> = {
           "type": "string"
         }
       },
-      "teamID": {
-        "name": "teamID",
+      "teamId": {
+        "name": "teamId",
         "in": "query",
         "required": false,
         "description": "Optional team filter when listing organization users",
@@ -2506,8 +2438,7 @@ const UserSchema: Record<string, unknown> = {
             "x-go-name": "ID",
             "x-oapi-codegen-extra-tags": {
               "db": "id",
-              "json": "id",
-              "yaml": "id"
+              "json": "id"
             },
             "type": "string",
             "format": "uuid",
@@ -2522,8 +2453,7 @@ const UserSchema: Record<string, unknown> = {
             "description": "User identifier (username or external ID)",
             "x-oapi-codegen-extra-tags": {
               "db": "user_id",
-              "json": "user_id",
-              "yaml": "user_id"
+              "json": "user_id"
             }
           },
           "provider": {
@@ -2538,8 +2468,7 @@ const UserSchema: Record<string, unknown> = {
             ],
             "x-oapi-codegen-extra-tags": {
               "db": "provider",
-              "json": "provider",
-              "yaml": "provider"
+              "json": "provider"
             }
           },
           "email": {
@@ -2549,8 +2478,7 @@ const UserSchema: Record<string, unknown> = {
             "description": "User's email address",
             "x-oapi-codegen-extra-tags": {
               "db": "email",
-              "json": "email",
-              "yaml": "email"
+              "json": "email"
             }
           },
           "first_name": {
@@ -2559,8 +2487,7 @@ const UserSchema: Record<string, unknown> = {
             "description": "User's first name",
             "x-oapi-codegen-extra-tags": {
               "db": "first_name",
-              "json": "first_name",
-              "yaml": "first_name"
+              "json": "first_name"
             }
           },
           "last_name": {
@@ -2569,8 +2496,7 @@ const UserSchema: Record<string, unknown> = {
             "description": "User's last name",
             "x-oapi-codegen-extra-tags": {
               "db": "last_name",
-              "json": "last_name",
-              "yaml": "last_name"
+              "json": "last_name"
             }
           },
           "avatar_url": {
@@ -2580,8 +2506,7 @@ const UserSchema: Record<string, unknown> = {
             "description": "URL to user's avatar image",
             "x-oapi-codegen-extra-tags": {
               "db": "avatar_url",
-              "json": "avatar_url",
-              "yaml": "avatar_url"
+              "json": "avatar_url"
             }
           },
           "status": {
@@ -2596,8 +2521,7 @@ const UserSchema: Record<string, unknown> = {
             "description": "User account status",
             "x-oapi-codegen-extra-tags": {
               "db": "status",
-              "json": "status",
-              "yaml": "status"
+              "json": "status"
             }
           },
           "bio": {
@@ -2607,8 +2531,7 @@ const UserSchema: Record<string, unknown> = {
             "description": "User's biography or description",
             "x-oapi-codegen-extra-tags": {
               "db": "bio",
-              "json": "bio",
-              "yaml": "bio"
+              "json": "bio"
             }
           },
           "country": {
@@ -2619,8 +2542,7 @@ const UserSchema: Record<string, unknown> = {
             "x-go-type-skip-optional-pointer": true,
             "x-oapi-codegen-extra-tags": {
               "db": "country",
-              "json": "country",
-              "yaml": "country"
+              "json": "country"
             }
           },
           "region": {
@@ -2631,8 +2553,7 @@ const UserSchema: Record<string, unknown> = {
             "x-go-type-skip-optional-pointer": true,
             "x-oapi-codegen-extra-tags": {
               "db": "region",
-              "json": "region",
-              "yaml": "region"
+              "json": "region"
             }
           },
           "preferences": {
@@ -2640,8 +2561,7 @@ const UserSchema: Record<string, unknown> = {
             "description": "User preferences stored as JSONB",
             "x-oapi-codegen-extra-tags": {
               "db": "preferences",
-              "json": "preferences",
-              "yaml": "preferences"
+              "json": "preferences"
             },
             "x-generate-db-helpers": true,
             "type": "object",
@@ -2650,7 +2570,7 @@ const UserSchema: Record<string, unknown> = {
               "anonymousPerfResults",
               "updated_at",
               "dashboardPreferences",
-              "selectedOrganizationID",
+              "selectedOrganizationId",
               "selectedWorkspaceForOrganizations",
               "usersExtensionPreferences",
               "remoteProviderPreferences"
@@ -2771,7 +2691,7 @@ const UserSchema: Record<string, unknown> = {
                 "type": "object",
                 "additionalProperties": true
               },
-              "selectedOrganizationID": {
+              "selectedOrganizationId": {
                 "type": "string"
               },
               "selectedWorkspaceForOrganizations": {
@@ -2794,8 +2714,7 @@ const UserSchema: Record<string, unknown> = {
             "description": "Timestamp when user accepted terms and conditions",
             "x-oapi-codegen-extra-tags": {
               "db": "accepted_terms_at",
-              "json": "accepted_terms_at",
-              "yaml": "accepted_terms_at"
+              "json": "accepted_terms_at"
             },
             "type": "string",
             "format": "date-time",
@@ -2805,8 +2724,7 @@ const UserSchema: Record<string, unknown> = {
             "description": "Timestamp of user's first login",
             "x-oapi-codegen-extra-tags": {
               "db": "first_login_time",
-              "json": "first_login_time",
-              "yaml": "first_login_time"
+              "json": "first_login_time"
             },
             "type": "string",
             "format": "date-time",
@@ -2816,8 +2734,7 @@ const UserSchema: Record<string, unknown> = {
             "description": "Timestamp of user's most recent login",
             "x-oapi-codegen-extra-tags": {
               "db": "last_login_time",
-              "json": "last_login_time",
-              "yaml": "last_login_time"
+              "json": "last_login_time"
             },
             "type": "string",
             "format": "date-time",
@@ -2827,8 +2744,7 @@ const UserSchema: Record<string, unknown> = {
             "description": "Timestamp when the user record was created",
             "x-oapi-codegen-extra-tags": {
               "db": "created_at",
-              "json": "created_at",
-              "yaml": "created_at"
+              "json": "created_at"
             },
             "type": "string",
             "format": "date-time",
@@ -2838,8 +2754,7 @@ const UserSchema: Record<string, unknown> = {
             "description": "Timestamp when the user record was last updated",
             "x-oapi-codegen-extra-tags": {
               "db": "updated_at",
-              "json": "updated_at",
-              "yaml": "updated_at"
+              "json": "updated_at"
             },
             "type": "string",
             "format": "date-time",
@@ -2870,8 +2785,7 @@ const UserSchema: Record<string, unknown> = {
             },
             "x-oapi-codegen-extra-tags": {
               "db": "socials",
-              "json": "socials",
-              "yaml": "socials"
+              "json": "socials"
             }
           },
           "deleted_at": {
@@ -2882,8 +2796,7 @@ const UserSchema: Record<string, unknown> = {
             "x-go-type": "core.NullTime",
             "x-oapi-codegen-extra-tags": {
               "db": "deleted_at",
-              "json": "deleted_at",
-              "yaml": "deleted_at"
+              "json": "deleted_at"
             }
           },
           "role_names": {
@@ -2908,8 +2821,7 @@ const UserSchema: Record<string, unknown> = {
             ],
             "x-oapi-codegen-extra-tags": {
               "db": "role_names",
-              "json": "role_names",
-              "yaml": "role_names"
+              "json": "role_names"
             }
           },
           "teams": {
@@ -2917,8 +2829,7 @@ const UserSchema: Record<string, unknown> = {
             "description": "Teams the user belongs to with role information",
             "x-oapi-codegen-extra-tags": {
               "db": "teams",
-              "json": "teams",
-              "yaml": "teams"
+              "json": "teams"
             },
             "properties": {
               "teams_with_roles": {
@@ -2928,16 +2839,14 @@ const UserSchema: Record<string, unknown> = {
                 },
                 "x-oapi-codegen-extra-tags": {
                   "db": "teams_with_roles",
-                  "json": "teams_with_roles",
-                  "yaml": "teams_with_roles"
+                  "json": "teams_with_roles"
                 }
               },
               "total_count": {
                 "type": "integer",
                 "x-oapi-codegen-extra-tags": {
                   "db": "total_count",
-                  "json": "total_count",
-                  "yaml": "total_count"
+                  "json": "total_count"
                 }
               }
             }
@@ -2947,8 +2856,7 @@ const UserSchema: Record<string, unknown> = {
             "description": "Organizations the user belongs to with role information",
             "x-oapi-codegen-extra-tags": {
               "db": "organizations",
-              "json": "organizations",
-              "yaml": "organizations"
+              "json": "organizations"
             },
             "properties": {
               "organizations_with_roles": {
@@ -2958,16 +2866,14 @@ const UserSchema: Record<string, unknown> = {
                 },
                 "x-oapi-codegen-extra-tags": {
                   "db": "organizations_with_roles",
-                  "json": "organizations_with_roles",
-                  "yaml": "organizations_with_roles"
+                  "json": "organizations_with_roles"
                 }
               },
               "total_count": {
                 "type": "integer",
                 "x-oapi-codegen-extra-tags": {
                   "db": "total_count",
-                  "json": "total_count",
-                  "yaml": "total_count"
+                  "json": "total_count"
                 }
               }
             }
@@ -3012,8 +2918,7 @@ const UserSchema: Record<string, unknown> = {
                   "x-go-name": "ID",
                   "x-oapi-codegen-extra-tags": {
                     "db": "id",
-                    "json": "id",
-                    "yaml": "id"
+                    "json": "id"
                   },
                   "type": "string",
                   "format": "uuid",
@@ -3028,8 +2933,7 @@ const UserSchema: Record<string, unknown> = {
                   "description": "User identifier (username or external ID)",
                   "x-oapi-codegen-extra-tags": {
                     "db": "user_id",
-                    "json": "user_id",
-                    "yaml": "user_id"
+                    "json": "user_id"
                   }
                 },
                 "provider": {
@@ -3044,8 +2948,7 @@ const UserSchema: Record<string, unknown> = {
                   ],
                   "x-oapi-codegen-extra-tags": {
                     "db": "provider",
-                    "json": "provider",
-                    "yaml": "provider"
+                    "json": "provider"
                   }
                 },
                 "email": {
@@ -3055,8 +2958,7 @@ const UserSchema: Record<string, unknown> = {
                   "description": "User's email address",
                   "x-oapi-codegen-extra-tags": {
                     "db": "email",
-                    "json": "email",
-                    "yaml": "email"
+                    "json": "email"
                   }
                 },
                 "first_name": {
@@ -3065,8 +2967,7 @@ const UserSchema: Record<string, unknown> = {
                   "description": "User's first name",
                   "x-oapi-codegen-extra-tags": {
                     "db": "first_name",
-                    "json": "first_name",
-                    "yaml": "first_name"
+                    "json": "first_name"
                   }
                 },
                 "last_name": {
@@ -3075,8 +2976,7 @@ const UserSchema: Record<string, unknown> = {
                   "description": "User's last name",
                   "x-oapi-codegen-extra-tags": {
                     "db": "last_name",
-                    "json": "last_name",
-                    "yaml": "last_name"
+                    "json": "last_name"
                   }
                 },
                 "avatar_url": {
@@ -3086,8 +2986,7 @@ const UserSchema: Record<string, unknown> = {
                   "description": "URL to user's avatar image",
                   "x-oapi-codegen-extra-tags": {
                     "db": "avatar_url",
-                    "json": "avatar_url",
-                    "yaml": "avatar_url"
+                    "json": "avatar_url"
                   }
                 },
                 "status": {
@@ -3102,8 +3001,7 @@ const UserSchema: Record<string, unknown> = {
                   "description": "User account status",
                   "x-oapi-codegen-extra-tags": {
                     "db": "status",
-                    "json": "status",
-                    "yaml": "status"
+                    "json": "status"
                   }
                 },
                 "bio": {
@@ -3113,8 +3011,7 @@ const UserSchema: Record<string, unknown> = {
                   "description": "User's biography or description",
                   "x-oapi-codegen-extra-tags": {
                     "db": "bio",
-                    "json": "bio",
-                    "yaml": "bio"
+                    "json": "bio"
                   }
                 },
                 "country": {
@@ -3125,8 +3022,7 @@ const UserSchema: Record<string, unknown> = {
                   "x-go-type-skip-optional-pointer": true,
                   "x-oapi-codegen-extra-tags": {
                     "db": "country",
-                    "json": "country",
-                    "yaml": "country"
+                    "json": "country"
                   }
                 },
                 "region": {
@@ -3137,8 +3033,7 @@ const UserSchema: Record<string, unknown> = {
                   "x-go-type-skip-optional-pointer": true,
                   "x-oapi-codegen-extra-tags": {
                     "db": "region",
-                    "json": "region",
-                    "yaml": "region"
+                    "json": "region"
                   }
                 },
                 "preferences": {
@@ -3146,8 +3041,7 @@ const UserSchema: Record<string, unknown> = {
                   "description": "User preferences stored as JSONB",
                   "x-oapi-codegen-extra-tags": {
                     "db": "preferences",
-                    "json": "preferences",
-                    "yaml": "preferences"
+                    "json": "preferences"
                   },
                   "x-generate-db-helpers": true,
                   "type": "object",
@@ -3156,7 +3050,7 @@ const UserSchema: Record<string, unknown> = {
                     "anonymousPerfResults",
                     "updated_at",
                     "dashboardPreferences",
-                    "selectedOrganizationID",
+                    "selectedOrganizationId",
                     "selectedWorkspaceForOrganizations",
                     "usersExtensionPreferences",
                     "remoteProviderPreferences"
@@ -3277,7 +3171,7 @@ const UserSchema: Record<string, unknown> = {
                       "type": "object",
                       "additionalProperties": true
                     },
-                    "selectedOrganizationID": {
+                    "selectedOrganizationId": {
                       "type": "string"
                     },
                     "selectedWorkspaceForOrganizations": {
@@ -3300,8 +3194,7 @@ const UserSchema: Record<string, unknown> = {
                   "description": "Timestamp when user accepted terms and conditions",
                   "x-oapi-codegen-extra-tags": {
                     "db": "accepted_terms_at",
-                    "json": "accepted_terms_at",
-                    "yaml": "accepted_terms_at"
+                    "json": "accepted_terms_at"
                   },
                   "type": "string",
                   "format": "date-time",
@@ -3311,8 +3204,7 @@ const UserSchema: Record<string, unknown> = {
                   "description": "Timestamp of user's first login",
                   "x-oapi-codegen-extra-tags": {
                     "db": "first_login_time",
-                    "json": "first_login_time",
-                    "yaml": "first_login_time"
+                    "json": "first_login_time"
                   },
                   "type": "string",
                   "format": "date-time",
@@ -3322,8 +3214,7 @@ const UserSchema: Record<string, unknown> = {
                   "description": "Timestamp of user's most recent login",
                   "x-oapi-codegen-extra-tags": {
                     "db": "last_login_time",
-                    "json": "last_login_time",
-                    "yaml": "last_login_time"
+                    "json": "last_login_time"
                   },
                   "type": "string",
                   "format": "date-time",
@@ -3333,8 +3224,7 @@ const UserSchema: Record<string, unknown> = {
                   "description": "Timestamp when the user record was created",
                   "x-oapi-codegen-extra-tags": {
                     "db": "created_at",
-                    "json": "created_at",
-                    "yaml": "created_at"
+                    "json": "created_at"
                   },
                   "type": "string",
                   "format": "date-time",
@@ -3344,8 +3234,7 @@ const UserSchema: Record<string, unknown> = {
                   "description": "Timestamp when the user record was last updated",
                   "x-oapi-codegen-extra-tags": {
                     "db": "updated_at",
-                    "json": "updated_at",
-                    "yaml": "updated_at"
+                    "json": "updated_at"
                   },
                   "type": "string",
                   "format": "date-time",
@@ -3376,8 +3265,7 @@ const UserSchema: Record<string, unknown> = {
                   },
                   "x-oapi-codegen-extra-tags": {
                     "db": "socials",
-                    "json": "socials",
-                    "yaml": "socials"
+                    "json": "socials"
                   }
                 },
                 "deleted_at": {
@@ -3388,8 +3276,7 @@ const UserSchema: Record<string, unknown> = {
                   "x-go-type": "core.NullTime",
                   "x-oapi-codegen-extra-tags": {
                     "db": "deleted_at",
-                    "json": "deleted_at",
-                    "yaml": "deleted_at"
+                    "json": "deleted_at"
                   }
                 },
                 "role_names": {
@@ -3414,8 +3301,7 @@ const UserSchema: Record<string, unknown> = {
                   ],
                   "x-oapi-codegen-extra-tags": {
                     "db": "role_names",
-                    "json": "role_names",
-                    "yaml": "role_names"
+                    "json": "role_names"
                   }
                 },
                 "teams": {
@@ -3423,8 +3309,7 @@ const UserSchema: Record<string, unknown> = {
                   "description": "Teams the user belongs to with role information",
                   "x-oapi-codegen-extra-tags": {
                     "db": "teams",
-                    "json": "teams",
-                    "yaml": "teams"
+                    "json": "teams"
                   },
                   "properties": {
                     "teams_with_roles": {
@@ -3434,16 +3319,14 @@ const UserSchema: Record<string, unknown> = {
                       },
                       "x-oapi-codegen-extra-tags": {
                         "db": "teams_with_roles",
-                        "json": "teams_with_roles",
-                        "yaml": "teams_with_roles"
+                        "json": "teams_with_roles"
                       }
                     },
                     "total_count": {
                       "type": "integer",
                       "x-oapi-codegen-extra-tags": {
                         "db": "total_count",
-                        "json": "total_count",
-                        "yaml": "total_count"
+                        "json": "total_count"
                       }
                     }
                   }
@@ -3453,8 +3336,7 @@ const UserSchema: Record<string, unknown> = {
                   "description": "Organizations the user belongs to with role information",
                   "x-oapi-codegen-extra-tags": {
                     "db": "organizations",
-                    "json": "organizations",
-                    "yaml": "organizations"
+                    "json": "organizations"
                   },
                   "properties": {
                     "organizations_with_roles": {
@@ -3464,16 +3346,14 @@ const UserSchema: Record<string, unknown> = {
                       },
                       "x-oapi-codegen-extra-tags": {
                         "db": "organizations_with_roles",
-                        "json": "organizations_with_roles",
-                        "yaml": "organizations_with_roles"
+                        "json": "organizations_with_roles"
                       }
                     },
                     "total_count": {
                       "type": "integer",
                       "x-oapi-codegen-extra-tags": {
                         "db": "total_count",
-                        "json": "total_count",
-                        "yaml": "total_count"
+                        "json": "total_count"
                       }
                     }
                   }
@@ -3521,8 +3401,7 @@ const UserSchema: Record<string, unknown> = {
                   "x-go-name": "ID",
                   "x-oapi-codegen-extra-tags": {
                     "db": "id",
-                    "json": "id",
-                    "yaml": "id"
+                    "json": "id"
                   },
                   "type": "string",
                   "format": "uuid",
@@ -3537,8 +3416,7 @@ const UserSchema: Record<string, unknown> = {
                   "description": "User identifier (username or external ID)",
                   "x-oapi-codegen-extra-tags": {
                     "db": "user_id",
-                    "json": "user_id",
-                    "yaml": "user_id"
+                    "json": "user_id"
                   }
                 },
                 "provider": {
@@ -3553,8 +3431,7 @@ const UserSchema: Record<string, unknown> = {
                   ],
                   "x-oapi-codegen-extra-tags": {
                     "db": "provider",
-                    "json": "provider",
-                    "yaml": "provider"
+                    "json": "provider"
                   }
                 },
                 "email": {
@@ -3564,8 +3441,7 @@ const UserSchema: Record<string, unknown> = {
                   "description": "User's email address",
                   "x-oapi-codegen-extra-tags": {
                     "db": "email",
-                    "json": "email",
-                    "yaml": "email"
+                    "json": "email"
                   }
                 },
                 "first_name": {
@@ -3574,8 +3450,7 @@ const UserSchema: Record<string, unknown> = {
                   "description": "User's first name",
                   "x-oapi-codegen-extra-tags": {
                     "db": "first_name",
-                    "json": "first_name",
-                    "yaml": "first_name"
+                    "json": "first_name"
                   }
                 },
                 "last_name": {
@@ -3584,8 +3459,7 @@ const UserSchema: Record<string, unknown> = {
                   "description": "User's last name",
                   "x-oapi-codegen-extra-tags": {
                     "db": "last_name",
-                    "json": "last_name",
-                    "yaml": "last_name"
+                    "json": "last_name"
                   }
                 },
                 "avatar_url": {
@@ -3595,8 +3469,7 @@ const UserSchema: Record<string, unknown> = {
                   "description": "URL to user's avatar image",
                   "x-oapi-codegen-extra-tags": {
                     "db": "avatar_url",
-                    "json": "avatar_url",
-                    "yaml": "avatar_url"
+                    "json": "avatar_url"
                   }
                 },
                 "status": {
@@ -3611,8 +3484,7 @@ const UserSchema: Record<string, unknown> = {
                   "description": "User account status",
                   "x-oapi-codegen-extra-tags": {
                     "db": "status",
-                    "json": "status",
-                    "yaml": "status"
+                    "json": "status"
                   }
                 },
                 "bio": {
@@ -3622,8 +3494,7 @@ const UserSchema: Record<string, unknown> = {
                   "description": "User's biography or description",
                   "x-oapi-codegen-extra-tags": {
                     "db": "bio",
-                    "json": "bio",
-                    "yaml": "bio"
+                    "json": "bio"
                   }
                 },
                 "country": {
@@ -3634,8 +3505,7 @@ const UserSchema: Record<string, unknown> = {
                   "x-go-type-skip-optional-pointer": true,
                   "x-oapi-codegen-extra-tags": {
                     "db": "country",
-                    "json": "country",
-                    "yaml": "country"
+                    "json": "country"
                   }
                 },
                 "region": {
@@ -3646,8 +3516,7 @@ const UserSchema: Record<string, unknown> = {
                   "x-go-type-skip-optional-pointer": true,
                   "x-oapi-codegen-extra-tags": {
                     "db": "region",
-                    "json": "region",
-                    "yaml": "region"
+                    "json": "region"
                   }
                 },
                 "preferences": {
@@ -3655,8 +3524,7 @@ const UserSchema: Record<string, unknown> = {
                   "description": "User preferences stored as JSONB",
                   "x-oapi-codegen-extra-tags": {
                     "db": "preferences",
-                    "json": "preferences",
-                    "yaml": "preferences"
+                    "json": "preferences"
                   },
                   "x-generate-db-helpers": true,
                   "type": "object",
@@ -3665,7 +3533,7 @@ const UserSchema: Record<string, unknown> = {
                     "anonymousPerfResults",
                     "updated_at",
                     "dashboardPreferences",
-                    "selectedOrganizationID",
+                    "selectedOrganizationId",
                     "selectedWorkspaceForOrganizations",
                     "usersExtensionPreferences",
                     "remoteProviderPreferences"
@@ -3786,7 +3654,7 @@ const UserSchema: Record<string, unknown> = {
                       "type": "object",
                       "additionalProperties": true
                     },
-                    "selectedOrganizationID": {
+                    "selectedOrganizationId": {
                       "type": "string"
                     },
                     "selectedWorkspaceForOrganizations": {
@@ -3809,8 +3677,7 @@ const UserSchema: Record<string, unknown> = {
                   "description": "Timestamp when user accepted terms and conditions",
                   "x-oapi-codegen-extra-tags": {
                     "db": "accepted_terms_at",
-                    "json": "accepted_terms_at",
-                    "yaml": "accepted_terms_at"
+                    "json": "accepted_terms_at"
                   },
                   "type": "string",
                   "format": "date-time",
@@ -3820,8 +3687,7 @@ const UserSchema: Record<string, unknown> = {
                   "description": "Timestamp of user's first login",
                   "x-oapi-codegen-extra-tags": {
                     "db": "first_login_time",
-                    "json": "first_login_time",
-                    "yaml": "first_login_time"
+                    "json": "first_login_time"
                   },
                   "type": "string",
                   "format": "date-time",
@@ -3831,8 +3697,7 @@ const UserSchema: Record<string, unknown> = {
                   "description": "Timestamp of user's most recent login",
                   "x-oapi-codegen-extra-tags": {
                     "db": "last_login_time",
-                    "json": "last_login_time",
-                    "yaml": "last_login_time"
+                    "json": "last_login_time"
                   },
                   "type": "string",
                   "format": "date-time",
@@ -3842,8 +3707,7 @@ const UserSchema: Record<string, unknown> = {
                   "description": "Timestamp when the user record was created",
                   "x-oapi-codegen-extra-tags": {
                     "db": "created_at",
-                    "json": "created_at",
-                    "yaml": "created_at"
+                    "json": "created_at"
                   },
                   "type": "string",
                   "format": "date-time",
@@ -3853,8 +3717,7 @@ const UserSchema: Record<string, unknown> = {
                   "description": "Timestamp when the user record was last updated",
                   "x-oapi-codegen-extra-tags": {
                     "db": "updated_at",
-                    "json": "updated_at",
-                    "yaml": "updated_at"
+                    "json": "updated_at"
                   },
                   "type": "string",
                   "format": "date-time",
@@ -3885,8 +3748,7 @@ const UserSchema: Record<string, unknown> = {
                   },
                   "x-oapi-codegen-extra-tags": {
                     "db": "socials",
-                    "json": "socials",
-                    "yaml": "socials"
+                    "json": "socials"
                   }
                 },
                 "deleted_at": {
@@ -3897,8 +3759,7 @@ const UserSchema: Record<string, unknown> = {
                   "x-go-type": "core.NullTime",
                   "x-oapi-codegen-extra-tags": {
                     "db": "deleted_at",
-                    "json": "deleted_at",
-                    "yaml": "deleted_at"
+                    "json": "deleted_at"
                   }
                 },
                 "role_names": {
@@ -3923,8 +3784,7 @@ const UserSchema: Record<string, unknown> = {
                   ],
                   "x-oapi-codegen-extra-tags": {
                     "db": "role_names",
-                    "json": "role_names",
-                    "yaml": "role_names"
+                    "json": "role_names"
                   }
                 },
                 "teams": {
@@ -3932,8 +3792,7 @@ const UserSchema: Record<string, unknown> = {
                   "description": "Teams the user belongs to with role information",
                   "x-oapi-codegen-extra-tags": {
                     "db": "teams",
-                    "json": "teams",
-                    "yaml": "teams"
+                    "json": "teams"
                   },
                   "properties": {
                     "teams_with_roles": {
@@ -3943,16 +3802,14 @@ const UserSchema: Record<string, unknown> = {
                       },
                       "x-oapi-codegen-extra-tags": {
                         "db": "teams_with_roles",
-                        "json": "teams_with_roles",
-                        "yaml": "teams_with_roles"
+                        "json": "teams_with_roles"
                       }
                     },
                     "total_count": {
                       "type": "integer",
                       "x-oapi-codegen-extra-tags": {
                         "db": "total_count",
-                        "json": "total_count",
-                        "yaml": "total_count"
+                        "json": "total_count"
                       }
                     }
                   }
@@ -3962,8 +3819,7 @@ const UserSchema: Record<string, unknown> = {
                   "description": "Organizations the user belongs to with role information",
                   "x-oapi-codegen-extra-tags": {
                     "db": "organizations",
-                    "json": "organizations",
-                    "yaml": "organizations"
+                    "json": "organizations"
                   },
                   "properties": {
                     "organizations_with_roles": {
@@ -3973,16 +3829,14 @@ const UserSchema: Record<string, unknown> = {
                       },
                       "x-oapi-codegen-extra-tags": {
                         "db": "organizations_with_roles",
-                        "json": "organizations_with_roles",
-                        "yaml": "organizations_with_roles"
+                        "json": "organizations_with_roles"
                       }
                     },
                     "total_count": {
                       "type": "integer",
                       "x-oapi-codegen-extra-tags": {
                         "db": "total_count",
-                        "json": "total_count",
-                        "yaml": "total_count"
+                        "json": "total_count"
                       }
                     }
                   }
@@ -4001,7 +3855,7 @@ const UserSchema: Record<string, unknown> = {
           "anonymousPerfResults",
           "updated_at",
           "dashboardPreferences",
-          "selectedOrganizationID",
+          "selectedOrganizationId",
           "selectedWorkspaceForOrganizations",
           "usersExtensionPreferences",
           "remoteProviderPreferences"
@@ -4122,7 +3976,7 @@ const UserSchema: Record<string, unknown> = {
             "type": "object",
             "additionalProperties": true
           },
-          "selectedOrganizationID": {
+          "selectedOrganizationId": {
             "type": "string"
           },
           "selectedWorkspaceForOrganizations": {

@@ -42,7 +42,7 @@ paths:
         - $ref: "#/components/parameters/order"
       responses:
         "200":
-          description: Tokens fetched successfully
+          description: Tokens response
           content:
             application/json:
               schema:
@@ -63,7 +63,7 @@ paths:
         - $ref: "#/components/parameters/purpose"
       responses:
         "200":
-          description: Token generated successfully
+          description: Token generated
           content:
             application/json:
               schema:
@@ -85,7 +85,7 @@ paths:
         - $ref: "#/components/parameters/tokenId"
       responses:
         "200":
-          description: Token deleted successfully
+          description: Token deleted
           content:
             application/json:
               schema:
@@ -109,7 +109,7 @@ paths:
         - $ref: "#/components/parameters/id"
       responses:
         "200":
-          description: Token fetched successfully
+          description: Token response
           content:
             application/json:
               schema:
@@ -134,7 +134,7 @@ paths:
         - $ref: "#/components/parameters/provider"
       responses:
         "200":
-          description: Token generated successfully
+          description: Token generated
           content:
             application/json:
               schema:
@@ -155,13 +155,13 @@ components:
 
   responses:
     400:
-      $ref: "../../v1alpha1/core/api.yml#/components/responses/400"
+      $ref: "../core/api.yml#/components/responses/400"
     401:
-      $ref: "../../v1alpha1/core/api.yml#/components/responses/401"
+      $ref: "../core/api.yml#/components/responses/401"
     404:
-      $ref: "../../v1alpha1/core/api.yml#/components/responses/404"
+      $ref: "../core/api.yml#/components/responses/404"
     500:
-      $ref: "../../v1alpha1/core/api.yml#/components/responses/500"
+      $ref: "../core/api.yml#/components/responses/500"
 
   parameters:
     id:
@@ -170,15 +170,15 @@ components:
       description: Token ID
       required: true
       schema:
-        $ref: "../../v1alpha1/core/api.yml#/components/schemas/uuid"
+        $ref: "../core/api.yml#/components/schemas/uuid"
     page:
-      $ref: "../../v1alpha1/core/api.yml#/components/parameters/page"
+      $ref: "../core/api.yml#/components/parameters/page"
     pagesize:
-      $ref: "../../v1alpha1/core/api.yml#/components/parameters/pagesize"
+      $ref: "../core/api.yml#/components/parameters/pagesize"
     search:
-      $ref: "../../v1alpha1/core/api.yml#/components/parameters/search"
+      $ref: "../core/api.yml#/components/parameters/search"
     order:
-      $ref: "../../v1alpha1/core/api.yml#/components/parameters/order"
+      $ref: "../core/api.yml#/components/parameters/order"
     isOAuth:
       name: isOAuth
       in: query
@@ -204,14 +204,14 @@ components:
       description: ID of the token.
       required: true
       schema:
-        $ref: "../../v1alpha1/core/api.yml#/components/schemas/uuid"
+        $ref: "../core/api.yml#/components/schemas/uuid"
     userId:
       name: user_id
       in: query
       description: UUID of the user.
       required: true
       schema:
-        $ref: "../../v1alpha1/core/api.yml#/components/schemas/uuid"
+        $ref: "../core/api.yml#/components/schemas/uuid"
     provider:
       name: provider
       in: query
@@ -226,13 +226,13 @@ components:
       description: Represents a user-owned API token or OAuth session.
       properties:
         id:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/uuid"
+          $ref: "../core/api.yml#/components/schemas/uuid"
           description: Unique identifier for the token.
           x-order: 1
           x-oapi-codegen-extra-tags:
             db: "id"
         user_id:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/uuid"
+          $ref: "../core/api.yml#/components/schemas/uuid"
           description: UUID of the user who owns the token.
           x-order: 2
           x-oapi-codegen-extra-tags:
@@ -274,10 +274,10 @@ components:
           x-oapi-codegen-extra-tags:
             db: "is_oauth"
         created_at:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/created_at"
+          $ref: "../core/api.yml#/components/schemas/created_at"
           x-order: 9
         updated_at:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/updated_at"
+          $ref: "../core/api.yml#/components/schemas/updated_at"
           x-order: 10
 
     TokenPage:

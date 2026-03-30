@@ -36,7 +36,7 @@ const injectedRtkApi = api
     endpoints: (build) => ({
       getMyAcademyCurricula: build.query<GetMyAcademyCurriculaApiResponse, GetMyAcademyCurriculaApiArg>({
         query: (queryArg) => ({
-          url: `/api/academy/Curricula/registered`,
+          url: `/api/academy/curricula/registered`,
           params: {
             contentType: queryArg.contentType,
             orgId: queryArg.orgId,
@@ -50,7 +50,7 @@ const injectedRtkApi = api
       }),
       getAcademyCurricula: build.query<GetAcademyCurriculaApiResponse, GetAcademyCurriculaApiArg>({
         query: (queryArg) => ({
-          url: `/api/academy/Curricula`,
+          url: `/api/academy/curricula`,
           params: {
             contentType: queryArg.contentType,
             visibility: queryArg.visibility,
@@ -150,6 +150,8 @@ const injectedRtkApi = api
         query: (queryArg) => ({
           url: `/api/academy/registrations/${queryArg.id}/test-sessions`,
           params: {
+            page: queryArg.page,
+            pagesize: queryArg.pagesize,
             testAbsPath: queryArg.testAbsPath,
           },
         }),
@@ -176,7 +178,7 @@ const injectedRtkApi = api
           params: {
             pagesize: queryArg.pagesize,
             page: queryArg.page,
-            content_type: queryArg.contentType,
+            contentType: queryArg.contentType,
             status: queryArg.status,
           },
         }),
@@ -299,7 +301,7 @@ const injectedRtkApi = api
           url: `/api/integrations/credentials`,
           method: "DELETE",
           params: {
-            credential_id: queryArg.credentialId,
+            credentialId: queryArg.credentialId,
           },
         }),
         invalidatesTags: ["credential_credentials"],
@@ -317,8 +319,8 @@ const injectedRtkApi = api
             search: queryArg.search,
             order: queryArg.order,
             visibility: queryArg.visibility,
-            user_id: queryArg.userId,
-            orgID: queryArg.orgId,
+            userId: queryArg.userId,
+            orgId: queryArg.orgId,
             metrics: queryArg.metrics,
             workspaceid: queryArg.workspaceid,
             populate: queryArg.populate,
@@ -403,7 +405,7 @@ const injectedRtkApi = api
             metrics: queryArg.metrics,
             class: queryArg["class"],
             userid: queryArg.userid,
-            orgID: queryArg.orgId,
+            orgId: queryArg.orgId,
             workspaceid: queryArg.workspaceid,
             teamId: queryArg.teamId,
             populate: queryArg.populate,
@@ -424,7 +426,13 @@ const injectedRtkApi = api
         invalidatesTags: ["Design_designs"],
       }),
       getCatalogContentClasses: build.query<GetCatalogContentClassesApiResponse, GetCatalogContentClassesApiArg>({
-        query: () => ({ url: `/api/catalog/content/classes` }),
+        query: (queryArg) => ({
+          url: `/api/catalog/content/classes`,
+          params: {
+            page: queryArg.page,
+            pagesize: queryArg.pagesize,
+          },
+        }),
         providesTags: ["Design_designs"],
       }),
       approveCatalogRequest: build.mutation<ApproveCatalogRequestApiResponse, ApproveCatalogRequestApiArg>({
@@ -466,8 +474,8 @@ const injectedRtkApi = api
             filter: queryArg.filter,
             shared: queryArg.shared,
             visibility: queryArg.visibility,
-            orgID: queryArg.orgId,
-            user_id: queryArg.userId,
+            orgId: queryArg.orgId,
+            userId: queryArg.userId,
           },
         }),
         providesTags: ["Design_designs"],
@@ -514,7 +522,7 @@ const injectedRtkApi = api
             order: queryArg.order,
             page: queryArg.page,
             pagesize: queryArg.pagesize,
-            orgID: queryArg.orgId,
+            orgId: queryArg.orgId,
           },
         }),
         providesTags: ["Environment_environments"],
@@ -523,7 +531,7 @@ const injectedRtkApi = api
         query: (queryArg) => ({
           url: `/api/environments/${queryArg.environmentId}`,
           params: {
-            orgID: queryArg.orgId,
+            orgId: queryArg.orgId,
           },
         }),
         providesTags: ["Environment_environments"],
@@ -621,7 +629,13 @@ const injectedRtkApi = api
         providesTags: ["Events_events"],
       }),
       getEventTypes: build.query<GetEventTypesApiResponse, GetEventTypesApiArg>({
-        query: () => ({ url: `/api/events/types` }),
+        query: (queryArg) => ({
+          url: `/api/events/types`,
+          params: {
+            page: queryArg.page,
+            pagesize: queryArg.pagesize,
+          },
+        }),
         providesTags: ["Events_events"],
       }),
       getFeatures: build.query<GetFeaturesApiResponse, GetFeaturesApiArg>({
@@ -706,7 +720,13 @@ const injectedRtkApi = api
         providesTags: ["Invitation_Invitation"],
       }),
       getUserKeys: build.query<GetUserKeysApiResponse, GetUserKeysApiArg>({
-        query: (queryArg) => ({ url: `/api/identity/orgs/${queryArg.orgId}/users/keys` }),
+        query: (queryArg) => ({
+          url: `/api/identity/orgs/${queryArg.orgId}/users/keys`,
+          params: {
+            page: queryArg.page,
+            pagesize: queryArg.pagesize,
+          },
+        }),
         providesTags: ["Key_users"],
       }),
       getKeys: build.query<GetKeysApiResponse, GetKeysApiArg>({
@@ -892,7 +912,13 @@ const injectedRtkApi = api
         invalidatesTags: ["Organization_other"],
       }),
       getPlans: build.query<GetPlansApiResponse, GetPlansApiArg>({
-        query: () => ({ url: `/api/entitlement/plans` }),
+        query: (queryArg) => ({
+          url: `/api/entitlement/plans`,
+          params: {
+            page: queryArg.page,
+            pagesize: queryArg.pagesize,
+          },
+        }),
         providesTags: ["Plan_Plans"],
       }),
       addRoleHolder: build.mutation<AddRoleHolderApiResponse, AddRoleHolderApiArg>({
@@ -913,7 +939,7 @@ const injectedRtkApi = api
             order: queryArg.order,
             all: queryArg.all,
             selector: queryArg.selector,
-            teamID: queryArg.teamId,
+            teamId: queryArg.teamId,
           },
         }),
         providesTags: ["role_roles"],
@@ -1029,7 +1055,7 @@ const injectedRtkApi = api
         PostApiEntitlementSubscriptionsBySubscriptionIdUpgradePreviewApiArg
       >({
         query: (queryArg) => ({
-          url: `/api/entitlement/subscriptions/${queryArg.subscriptionId}/upgradePreview`,
+          url: `/api/entitlement/subscriptions/${queryArg.subscriptionId}/upgrade-preview`,
           method: "POST",
           body: queryArg.body,
         }),
@@ -1129,7 +1155,7 @@ const injectedRtkApi = api
           url: `/api/identity/tokens`,
           method: "DELETE",
           params: {
-            token_id: queryArg.tokenId,
+            tokenId: queryArg.tokenId,
           },
         }),
         invalidatesTags: ["token_tokens"],
@@ -1145,7 +1171,7 @@ const injectedRtkApi = api
         query: (queryArg) => ({
           url: `/api/identity/tokens/infinite`,
           params: {
-            user_id: queryArg.userId,
+            userId: queryArg.userId,
             provider: queryArg.provider,
           },
         }),
@@ -1160,7 +1186,7 @@ const injectedRtkApi = api
             search: queryArg.search,
             order: queryArg.order,
             filter: queryArg.filter,
-            teamID: queryArg.teamId,
+            teamId: queryArg.teamId,
           },
         }),
         providesTags: ["User_users"],
@@ -1356,7 +1382,7 @@ export type GetMyAcademyCurriculaApiResponse = /** status 200 A list of content 
     /** ID of the badge to be awarded on completion of this curricula */
     badge_id?: string;
     /** ID of the invite associated with this Curricula */
-    invite_id?: string;
+    inviteId?: string;
     /** ID of the workspace to which this Curricula belongs */
     workspace_id?: string;
     /** When the Curricula item was created */
@@ -1371,7 +1397,7 @@ export type GetMyAcademyCurriculaApiResponse = /** status 200 A list of content 
       /** Short description of the curricula */
       description: string;
       /** Detailed description of the curricula */
-      detailed_description?: string;
+      detailedDescription?: string;
       /** Filename of the banner image, which should be placed in the same directory as the _index.md file */
       banner?: string | null;
       /** Canonical URL for the learning path */
@@ -1380,30 +1406,30 @@ export type GetMyAcademyCurriculaApiResponse = /** status 200 A list of content 
         /** Unique identifier for the certificate */
         id: string;
         /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
-        org_id: string;
+        orgId: string;
         /** ID of the recipient (user) who received the certificate */
-        recipient_id: string;
+        recipientId: string;
         /** Name of the recipient (user) who received the certificate */
-        recipient_name: string;
+        recipientName: string;
         /** Title of the certificate */
         title: string;
         /** Description of the certificate */
         description: string;
         /** List of issuing authorities for the certificate */
-        issuing_authorities: {
+        issuingAuthorities: {
           /** Name of the issuing authority */
           name: string;
           /** Role of the issuing authority */
           role?: string;
           /** URL to the signature image of the issuing authority should be a publicly accessible URL and transparent PNG or SVG format */
-          signature_url?: string;
+          signatureUrl?: string;
         }[];
         /** Date when the certificate was issued */
-        issued_date: string;
+        issuedDate: string;
         /** Date when the certificate expires (optional) */
-        expiration_date?: string;
+        expirationDate?: string;
         /** Number of months after which the certificate expires */
-        expires_in?: number;
+        expiresIn?: number;
       };
       /** List of children items in the top-level curricula */
       children?: {
@@ -1451,7 +1477,7 @@ export type CreateAcademyCurriculaApiResponse = /** status 201 created the curri
   /** ID of the badge to be awarded on completion of this curricula */
   badge_id?: string;
   /** ID of the invite associated with this Curricula */
-  invite_id?: string;
+  inviteId?: string;
   /** ID of the workspace to which this Curricula belongs */
   workspace_id?: string;
   /** When the Curricula item was created */
@@ -1466,7 +1492,7 @@ export type CreateAcademyCurriculaApiResponse = /** status 201 created the curri
     /** Short description of the curricula */
     description: string;
     /** Detailed description of the curricula */
-    detailed_description?: string;
+    detailedDescription?: string;
     /** Filename of the banner image, which should be placed in the same directory as the _index.md file */
     banner?: string | null;
     /** Canonical URL for the learning path */
@@ -1475,30 +1501,30 @@ export type CreateAcademyCurriculaApiResponse = /** status 201 created the curri
       /** Unique identifier for the certificate */
       id: string;
       /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
-      org_id: string;
+      orgId: string;
       /** ID of the recipient (user) who received the certificate */
-      recipient_id: string;
+      recipientId: string;
       /** Name of the recipient (user) who received the certificate */
-      recipient_name: string;
+      recipientName: string;
       /** Title of the certificate */
       title: string;
       /** Description of the certificate */
       description: string;
       /** List of issuing authorities for the certificate */
-      issuing_authorities: {
+      issuingAuthorities: {
         /** Name of the issuing authority */
         name: string;
         /** Role of the issuing authority */
         role?: string;
         /** URL to the signature image of the issuing authority should be a publicly accessible URL and transparent PNG or SVG format */
-        signature_url?: string;
+        signatureUrl?: string;
       }[];
       /** Date when the certificate was issued */
-      issued_date: string;
+      issuedDate: string;
       /** Date when the certificate expires (optional) */
-      expiration_date?: string;
+      expirationDate?: string;
       /** Number of months after which the certificate expires */
-      expires_in?: number;
+      expiresIn?: number;
     };
     /** List of children items in the top-level curricula */
     children?: {
@@ -1537,7 +1563,7 @@ export type CreateAcademyCurriculaApiArg = {
     /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
     team_id: string;
     /** Expiry time for curricula access */
-    access_expires_at?: string;
+    accessExpiresAt?: string;
     /** Current access status of the curricula */
     access_status: "enabled" | "disabled";
     /** Additional metadata about the Curricula */
@@ -1547,7 +1573,7 @@ export type CreateAcademyCurriculaApiArg = {
       /** Short description of the curricula */
       description: string;
       /** Detailed description of the curricula */
-      detailed_description?: string;
+      detailedDescription?: string;
       /** Filename of the banner image, which should be placed in the same directory as the _index.md file */
       banner?: string | null;
       /** Canonical URL for the learning path */
@@ -1556,30 +1582,30 @@ export type CreateAcademyCurriculaApiArg = {
         /** Unique identifier for the certificate */
         id: string;
         /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
-        org_id: string;
+        orgId: string;
         /** ID of the recipient (user) who received the certificate */
-        recipient_id: string;
+        recipientId: string;
         /** Name of the recipient (user) who received the certificate */
-        recipient_name: string;
+        recipientName: string;
         /** Title of the certificate */
         title: string;
         /** Description of the certificate */
         description: string;
         /** List of issuing authorities for the certificate */
-        issuing_authorities: {
+        issuingAuthorities: {
           /** Name of the issuing authority */
           name: string;
           /** Role of the issuing authority */
           role?: string;
           /** URL to the signature image of the issuing authority should be a publicly accessible URL and transparent PNG or SVG format */
-          signature_url?: string;
+          signatureUrl?: string;
         }[];
         /** Date when the certificate was issued */
-        issued_date: string;
+        issuedDate: string;
         /** Date when the certificate expires (optional) */
-        expiration_date?: string;
+        expirationDate?: string;
         /** Number of months after which the certificate expires */
-        expires_in?: number;
+        expiresIn?: number;
       };
       /** List of children items in the top-level curricula */
       children?: {
@@ -1624,7 +1650,7 @@ export type GetAcademyCurriculaApiResponse = /** status 200 A list of content wi
     /** ID of the badge to be awarded on completion of this curricula */
     badge_id?: string;
     /** ID of the invite associated with this Curricula */
-    invite_id?: string;
+    inviteId?: string;
     /** ID of the workspace to which this Curricula belongs */
     workspace_id?: string;
     /** When the Curricula item was created */
@@ -1639,7 +1665,7 @@ export type GetAcademyCurriculaApiResponse = /** status 200 A list of content wi
       /** Short description of the curricula */
       description: string;
       /** Detailed description of the curricula */
-      detailed_description?: string;
+      detailedDescription?: string;
       /** Filename of the banner image, which should be placed in the same directory as the _index.md file */
       banner?: string | null;
       /** Canonical URL for the learning path */
@@ -1648,30 +1674,30 @@ export type GetAcademyCurriculaApiResponse = /** status 200 A list of content wi
         /** Unique identifier for the certificate */
         id: string;
         /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
-        org_id: string;
+        orgId: string;
         /** ID of the recipient (user) who received the certificate */
-        recipient_id: string;
+        recipientId: string;
         /** Name of the recipient (user) who received the certificate */
-        recipient_name: string;
+        recipientName: string;
         /** Title of the certificate */
         title: string;
         /** Description of the certificate */
         description: string;
         /** List of issuing authorities for the certificate */
-        issuing_authorities: {
+        issuingAuthorities: {
           /** Name of the issuing authority */
           name: string;
           /** Role of the issuing authority */
           role?: string;
           /** URL to the signature image of the issuing authority should be a publicly accessible URL and transparent PNG or SVG format */
-          signature_url?: string;
+          signatureUrl?: string;
         }[];
         /** Date when the certificate was issued */
-        issued_date: string;
+        issuedDate: string;
         /** Date when the certificate expires (optional) */
-        expiration_date?: string;
+        expirationDate?: string;
         /** Number of months after which the certificate expires */
-        expires_in?: number;
+        expiresIn?: number;
       };
       /** List of children items in the top-level curricula */
       children?: {
@@ -1739,7 +1765,7 @@ export type GetApiAcademyByTypeAndOrgIdSlugApiResponse = /** status 200 A single
   /** ID of the badge to be awarded on completion of this curricula */
   badge_id?: string;
   /** ID of the invite associated with this Curricula */
-  invite_id?: string;
+  inviteId?: string;
   /** ID of the workspace to which this Curricula belongs */
   workspace_id?: string;
   /** When the Curricula item was created */
@@ -1754,7 +1780,7 @@ export type GetApiAcademyByTypeAndOrgIdSlugApiResponse = /** status 200 A single
     /** Short description of the curricula */
     description: string;
     /** Detailed description of the curricula */
-    detailed_description?: string;
+    detailedDescription?: string;
     /** Filename of the banner image, which should be placed in the same directory as the _index.md file */
     banner?: string | null;
     /** Canonical URL for the learning path */
@@ -1763,30 +1789,30 @@ export type GetApiAcademyByTypeAndOrgIdSlugApiResponse = /** status 200 A single
       /** Unique identifier for the certificate */
       id: string;
       /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
-      org_id: string;
+      orgId: string;
       /** ID of the recipient (user) who received the certificate */
-      recipient_id: string;
+      recipientId: string;
       /** Name of the recipient (user) who received the certificate */
-      recipient_name: string;
+      recipientName: string;
       /** Title of the certificate */
       title: string;
       /** Description of the certificate */
       description: string;
       /** List of issuing authorities for the certificate */
-      issuing_authorities: {
+      issuingAuthorities: {
         /** Name of the issuing authority */
         name: string;
         /** Role of the issuing authority */
         role?: string;
         /** URL to the signature image of the issuing authority should be a publicly accessible URL and transparent PNG or SVG format */
-        signature_url?: string;
+        signatureUrl?: string;
       }[];
       /** Date when the certificate was issued */
-      issued_date: string;
+      issuedDate: string;
       /** Date when the certificate expires (optional) */
-      expiration_date?: string;
+      expirationDate?: string;
       /** Number of months after which the certificate expires */
-      expires_in?: number;
+      expiresIn?: number;
     };
     /** List of children items in the top-level curricula */
     children?: {
@@ -1815,7 +1841,7 @@ export type GetApiAcademyByTypeAndOrgIdSlugApiArg = {
   orgId: string;
   slug: string;
 };
-export type RegisterToAcademyContentApiResponse = /** status 200 registered content */ {
+export type RegisterToAcademyContentApiResponse = /** status 201 registered content */ {
   /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
   id: string;
   /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
@@ -1837,30 +1863,30 @@ export type RegisterToAcademyContentApiResponse = /** status 200 registered cont
     /** Unique identifier for the certificate */
     id: string;
     /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
-    org_id: string;
+    orgId: string;
     /** ID of the recipient (user) who received the certificate */
-    recipient_id: string;
+    recipientId: string;
     /** Name of the recipient (user) who received the certificate */
-    recipient_name: string;
+    recipientName: string;
     /** Title of the certificate */
     title: string;
     /** Description of the certificate */
     description: string;
     /** List of issuing authorities for the certificate */
-    issuing_authorities: {
+    issuingAuthorities: {
       /** Name of the issuing authority */
       name: string;
       /** Role of the issuing authority */
       role?: string;
       /** URL to the signature image of the issuing authority should be a publicly accessible URL and transparent PNG or SVG format */
-      signature_url?: string;
+      signatureUrl?: string;
     }[];
     /** Date when the certificate was issued */
-    issued_date: string;
+    issuedDate: string;
     /** Date when the certificate expires (optional) */
-    expiration_date?: string;
+    expirationDate?: string;
     /** Number of months after which the certificate expires */
-    expires_in?: number;
+    expiresIn?: number;
   };
   /** Additional metadata about the registration */
   metadata: {
@@ -1870,8 +1896,8 @@ export type RegisterToAcademyContentApiResponse = /** status 200 registered cont
 export type RegisterToAcademyContentApiArg = {
   body: {
     /** ID of the academy content to register for */
-    content_id: string;
-    content_type?: "learning-path" | "challenge" | "certification";
+    contentId: string;
+    contentType?: "learning-path" | "challenge" | "certification";
   };
 };
 export type WithdrawFromAcademyContentApiResponse = /** status 200 registered content */ {
@@ -1896,30 +1922,30 @@ export type WithdrawFromAcademyContentApiResponse = /** status 200 registered co
     /** Unique identifier for the certificate */
     id: string;
     /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
-    org_id: string;
+    orgId: string;
     /** ID of the recipient (user) who received the certificate */
-    recipient_id: string;
+    recipientId: string;
     /** Name of the recipient (user) who received the certificate */
-    recipient_name: string;
+    recipientName: string;
     /** Title of the certificate */
     title: string;
     /** Description of the certificate */
     description: string;
     /** List of issuing authorities for the certificate */
-    issuing_authorities: {
+    issuingAuthorities: {
       /** Name of the issuing authority */
       name: string;
       /** Role of the issuing authority */
       role?: string;
       /** URL to the signature image of the issuing authority should be a publicly accessible URL and transparent PNG or SVG format */
-      signature_url?: string;
+      signatureUrl?: string;
     }[];
     /** Date when the certificate was issued */
-    issued_date: string;
+    issuedDate: string;
     /** Date when the certificate expires (optional) */
-    expiration_date?: string;
+    expirationDate?: string;
     /** Number of months after which the certificate expires */
-    expires_in?: number;
+    expiresIn?: number;
   };
   /** Additional metadata about the registration */
   metadata: {
@@ -1947,7 +1973,7 @@ export type UpdateAcademyCurriculaByIdApiResponse = /** status 200 updated the c
   /** ID of the badge to be awarded on completion of this curricula */
   badge_id?: string;
   /** ID of the invite associated with this Curricula */
-  invite_id?: string;
+  inviteId?: string;
   /** ID of the workspace to which this Curricula belongs */
   workspace_id?: string;
   /** When the Curricula item was created */
@@ -1962,7 +1988,7 @@ export type UpdateAcademyCurriculaByIdApiResponse = /** status 200 updated the c
     /** Short description of the curricula */
     description: string;
     /** Detailed description of the curricula */
-    detailed_description?: string;
+    detailedDescription?: string;
     /** Filename of the banner image, which should be placed in the same directory as the _index.md file */
     banner?: string | null;
     /** Canonical URL for the learning path */
@@ -1971,30 +1997,30 @@ export type UpdateAcademyCurriculaByIdApiResponse = /** status 200 updated the c
       /** Unique identifier for the certificate */
       id: string;
       /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
-      org_id: string;
+      orgId: string;
       /** ID of the recipient (user) who received the certificate */
-      recipient_id: string;
+      recipientId: string;
       /** Name of the recipient (user) who received the certificate */
-      recipient_name: string;
+      recipientName: string;
       /** Title of the certificate */
       title: string;
       /** Description of the certificate */
       description: string;
       /** List of issuing authorities for the certificate */
-      issuing_authorities: {
+      issuingAuthorities: {
         /** Name of the issuing authority */
         name: string;
         /** Role of the issuing authority */
         role?: string;
         /** URL to the signature image of the issuing authority should be a publicly accessible URL and transparent PNG or SVG format */
-        signature_url?: string;
+        signatureUrl?: string;
       }[];
       /** Date when the certificate was issued */
-      issued_date: string;
+      issuedDate: string;
       /** Date when the certificate expires (optional) */
-      expiration_date?: string;
+      expirationDate?: string;
       /** Number of months after which the certificate expires */
-      expires_in?: number;
+      expiresIn?: number;
     };
     /** List of children items in the top-level curricula */
     children?: {
@@ -2019,7 +2045,7 @@ export type UpdateAcademyCurriculaByIdApiResponse = /** status 200 updated the c
   };
 } & {
   registration_count: number;
-  Invitation?: {
+  invitation?: {
     /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
     id: string;
     /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
@@ -2068,7 +2094,7 @@ export type UpdateAcademyCurriculaByIdApiArg = {
     /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
     team_id: string;
     /** Expiry time for curricula access */
-    access_expires_at?: string;
+    accessExpiresAt?: string;
     /** Current access status of the curricula */
     access_status: "enabled" | "disabled";
     /** Additional metadata about the Curricula */
@@ -2078,7 +2104,7 @@ export type UpdateAcademyCurriculaByIdApiArg = {
       /** Short description of the curricula */
       description: string;
       /** Detailed description of the curricula */
-      detailed_description?: string;
+      detailedDescription?: string;
       /** Filename of the banner image, which should be placed in the same directory as the _index.md file */
       banner?: string | null;
       /** Canonical URL for the learning path */
@@ -2087,30 +2113,30 @@ export type UpdateAcademyCurriculaByIdApiArg = {
         /** Unique identifier for the certificate */
         id: string;
         /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
-        org_id: string;
+        orgId: string;
         /** ID of the recipient (user) who received the certificate */
-        recipient_id: string;
+        recipientId: string;
         /** Name of the recipient (user) who received the certificate */
-        recipient_name: string;
+        recipientName: string;
         /** Title of the certificate */
         title: string;
         /** Description of the certificate */
         description: string;
         /** List of issuing authorities for the certificate */
-        issuing_authorities: {
+        issuingAuthorities: {
           /** Name of the issuing authority */
           name: string;
           /** Role of the issuing authority */
           role?: string;
           /** URL to the signature image of the issuing authority should be a publicly accessible URL and transparent PNG or SVG format */
-          signature_url?: string;
+          signatureUrl?: string;
         }[];
         /** Date when the certificate was issued */
-        issued_date: string;
+        issuedDate: string;
         /** Date when the certificate expires (optional) */
-        expiration_date?: string;
+        expirationDate?: string;
         /** Number of months after which the certificate expires */
-        expires_in?: number;
+        expiresIn?: number;
       };
       /** List of children items in the top-level curricula */
       children?: {
@@ -2157,7 +2183,7 @@ export type GetAcademyCurriculaByIdApiResponse = /** status 200 A single curricu
   /** ID of the badge to be awarded on completion of this curricula */
   badge_id?: string;
   /** ID of the invite associated with this Curricula */
-  invite_id?: string;
+  inviteId?: string;
   /** ID of the workspace to which this Curricula belongs */
   workspace_id?: string;
   /** When the Curricula item was created */
@@ -2172,7 +2198,7 @@ export type GetAcademyCurriculaByIdApiResponse = /** status 200 A single curricu
     /** Short description of the curricula */
     description: string;
     /** Detailed description of the curricula */
-    detailed_description?: string;
+    detailedDescription?: string;
     /** Filename of the banner image, which should be placed in the same directory as the _index.md file */
     banner?: string | null;
     /** Canonical URL for the learning path */
@@ -2181,30 +2207,30 @@ export type GetAcademyCurriculaByIdApiResponse = /** status 200 A single curricu
       /** Unique identifier for the certificate */
       id: string;
       /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
-      org_id: string;
+      orgId: string;
       /** ID of the recipient (user) who received the certificate */
-      recipient_id: string;
+      recipientId: string;
       /** Name of the recipient (user) who received the certificate */
-      recipient_name: string;
+      recipientName: string;
       /** Title of the certificate */
       title: string;
       /** Description of the certificate */
       description: string;
       /** List of issuing authorities for the certificate */
-      issuing_authorities: {
+      issuingAuthorities: {
         /** Name of the issuing authority */
         name: string;
         /** Role of the issuing authority */
         role?: string;
         /** URL to the signature image of the issuing authority should be a publicly accessible URL and transparent PNG or SVG format */
-        signature_url?: string;
+        signatureUrl?: string;
       }[];
       /** Date when the certificate was issued */
-      issued_date: string;
+      issuedDate: string;
       /** Date when the certificate expires (optional) */
-      expiration_date?: string;
+      expirationDate?: string;
       /** Number of months after which the certificate expires */
-      expires_in?: number;
+      expiresIn?: number;
     };
     /** List of children items in the top-level curricula */
     children?: {
@@ -2229,7 +2255,7 @@ export type GetAcademyCurriculaByIdApiResponse = /** status 200 A single curricu
   };
 } & {
   registration_count: number;
-  Invitation?: {
+  invitation?: {
     /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
     id: string;
     /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
@@ -2288,30 +2314,30 @@ export type GetApiAcademyRegistrationsByContentIdApiResponse =
       /** Unique identifier for the certificate */
       id: string;
       /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
-      org_id: string;
+      orgId: string;
       /** ID of the recipient (user) who received the certificate */
-      recipient_id: string;
+      recipientId: string;
       /** Name of the recipient (user) who received the certificate */
-      recipient_name: string;
+      recipientName: string;
       /** Title of the certificate */
       title: string;
       /** Description of the certificate */
       description: string;
       /** List of issuing authorities for the certificate */
-      issuing_authorities: {
+      issuingAuthorities: {
         /** Name of the issuing authority */
         name: string;
         /** Role of the issuing authority */
         role?: string;
         /** URL to the signature image of the issuing authority should be a publicly accessible URL and transparent PNG or SVG format */
-        signature_url?: string;
+        signatureUrl?: string;
       }[];
       /** Date when the certificate was issued */
-      issued_date: string;
+      issuedDate: string;
       /** Date when the certificate expires (optional) */
-      expiration_date?: string;
+      expirationDate?: string;
       /** Number of months after which the certificate expires */
-      expires_in?: number;
+      expiresIn?: number;
     };
     /** Additional metadata about the registration */
     metadata: {
@@ -2324,124 +2350,123 @@ export type GetApiAcademyRegistrationsByContentIdApiArg = {
   /** Filter registrations by status (e.g., registered, completed) */
   status?: string;
 };
-export type UpdateCurrentItemInProgressTrackerApiResponse =
-  /** status 200 Successfully updated the progress tracker */ {
-    message?: string;
-    progress_tracker?: {
-      current_item: {
-        [key: string]: {
-          id: string;
-          last_opened: string;
-          content_type: "learning-path" | "challenge" | "certification";
-        };
+export type UpdateCurrentItemInProgressTrackerApiResponse = /** status 200 Progress tracker updated */ {
+  message?: string;
+  progressTracker?: {
+    currentItem: {
+      [key: string]: {
+        id: string;
+        lastOpened: string;
+        contentType: "learning-path" | "challenge" | "certification";
       };
-      grades: {
-        [key: string]: {
-          score: number;
-          passed: boolean;
-          percentage_scored: number;
-          total_marks: number;
-          pass_percentage: number;
-          correct_submissions: {
-            [key: string]: boolean;
-          };
-          quiz: {
+    };
+    grades: {
+      [key: string]: {
+        score: number;
+        passed: boolean;
+        percentageScored: number;
+        totalMarks: number;
+        passPercentage: number;
+        correctSubmissions: {
+          [key: string]: boolean;
+        };
+        quiz: {
+          id: string;
+          /** Organization ID that owns this quiz */
+          org_id: string;
+          /** Indicates if the quiz is final . i.e this quiz will used to evaluate the completion of parent section eg course , module , learning path */
+          final: boolean;
+          title: string;
+          description: string;
+          slug: string;
+          relPermalink: string;
+          permalink: string;
+          type: string;
+          section: string;
+          layout: string;
+          date: string;
+          lastmod: string;
+          draft: boolean;
+          filePath: string;
+          passPercentage: number;
+          /** Time limit for the quiz in minutes. A value of 0 indicates no time limit. */
+          timeLimit: string;
+          /** Maximum number of attempts allowed for the quiz. A value of 0 indicates unlimited attempts. */
+          maxAttempts: number;
+          questions: {
             id: string;
-            /** Organization ID that owns this quiz */
-            org_id: string;
-            /** Indicates if the quiz is final . i.e this quiz will used to evaluate the completion of parent section eg course , module , learning path */
-            final: boolean;
-            title: string;
-            description: string;
-            slug: string;
-            relPermalink: string;
-            permalink: string;
-            type: string;
-            section: string;
-            layout: string;
-            date: string;
-            lastmod: string;
-            draft: boolean;
-            file_path: string;
-            pass_percentage: number;
-            /** Time limit for the quiz in minutes. A value of 0 indicates no time limit. */
-            time_limit: string;
-            /** Maximum number of attempts allowed for the quiz. A value of 0 indicates unlimited attempts. */
-            max_attempts: number;
-            questions: {
+            text: string;
+            type: "multiple-answers" | "single-answer" | "short-answer" | "essay";
+            marks: number;
+            multipleAnswers?: boolean;
+            options: {
               id: string;
               text: string;
-              type: "multiple-answers" | "single-answer" | "short-answer" | "essay";
-              marks: number;
-              multiple_answers?: boolean;
-              options: {
-                id: string;
-                text: string;
-                is_correct: boolean;
-              }[];
-              correct_answer: string;
+              isCorrect: boolean;
             }[];
-            total_questions: number;
-            total_questions_in_bank: number;
-            total_question_sets: number;
-            total_marks: number;
-            prerequisites: {
-              id: string;
-              title: string;
-              relPermalink: string;
-              type: string;
-            }[];
-            parent?: {
-              id: string;
-              title: string;
-              relPermalink: string;
-              type: string;
-            };
-            next_page: {
-              id: string;
-              title: string;
-              relPermalink: string;
-              type: string;
-            };
+            correctAnswer: string;
+          }[];
+          totalQuestions: number;
+          totalQuestionsInBank: number;
+          totalQuestionSets: number;
+          totalMarks: number;
+          prerequisites: {
+            id: string;
+            title: string;
+            relPermalink: string;
+            type: string;
+          }[];
+          parent?: {
+            id: string;
+            title: string;
+            relPermalink: string;
+            type: string;
           };
-          attempted_at: string;
-          attempts: number;
-        };
-      };
-      /** Total time spent in seconds */
-      time_spent: number;
-      /** Items that have been completed (map of item IDs to item data) */
-      completed_items: {
-        [key: string]: {
-          /** Timestamp when the item was completed */
-          completed_at: string;
-          item_data: {
+          nextPage: {
             id: string;
             title: string;
             relPermalink: string;
             type: string;
           };
         };
+        attemptedAt: string;
+        attempts: number;
       };
-      completed: string;
     };
-    registration_id?: string;
-    content_type?: "learning-path" | "challenge" | "certification";
-    item_data?: {
-      id: string;
-      last_opened: string;
-      content_type: "learning-path" | "challenge" | "certification";
+    /** Total time spent in seconds */
+    timeSpent: number;
+    /** Items that have been completed (map of item IDs to item data) */
+    completedItems: {
+      [key: string]: {
+        /** Timestamp when the item was completed */
+        completedAt: string;
+        itemData: {
+          id: string;
+          title: string;
+          relPermalink: string;
+          type: string;
+        };
+      };
     };
+    completed: string;
   };
+  registrationId?: string;
+  contentType?: "learning-path" | "challenge" | "certification";
+  itemData?: {
+    id: string;
+    lastOpened: string;
+    contentType: "learning-path" | "challenge" | "certification";
+  };
+};
 export type UpdateCurrentItemInProgressTrackerApiArg = {
   /** The ID of the registration */
   registrationId: string;
   body: {
-    content_type: "learning-path" | "challenge" | "certification";
-    item_data: {
+    contentType: "learning-path" | "challenge" | "certification";
+    itemData: {
       id: string;
-      last_opened: string;
-      content_type: "learning-path" | "challenge" | "certification";
+      lastOpened: string;
+      contentType: "learning-path" | "challenge" | "certification";
     };
   };
 };
@@ -2462,29 +2487,29 @@ export type GetTestByAbsPathApiResponse = /** status 200 A single test */ {
   date: string;
   lastmod: string;
   draft: boolean;
-  file_path: string;
-  pass_percentage: number;
+  filePath: string;
+  passPercentage: number;
   /** Time limit for the quiz in minutes. A value of 0 indicates no time limit. */
-  time_limit: string;
+  timeLimit: string;
   /** Maximum number of attempts allowed for the quiz. A value of 0 indicates unlimited attempts. */
-  max_attempts: number;
+  maxAttempts: number;
   questions: {
     id: string;
     text: string;
     type: "multiple-answers" | "single-answer" | "short-answer" | "essay";
     marks: number;
-    multiple_answers?: boolean;
+    multipleAnswers?: boolean;
     options: {
       id: string;
       text: string;
-      is_correct: boolean;
+      isCorrect: boolean;
     }[];
-    correct_answer: string;
+    correctAnswer: string;
   }[];
-  total_questions: number;
-  total_questions_in_bank: number;
-  total_question_sets: number;
-  total_marks: number;
+  totalQuestions: number;
+  totalQuestionsInBank: number;
+  totalQuestionSets: number;
+  totalMarks: number;
   prerequisites: {
     id: string;
     title: string;
@@ -2497,7 +2522,7 @@ export type GetTestByAbsPathApiResponse = /** status 200 A single test */ {
     relPermalink: string;
     type: string;
   };
-  next_page: {
+  nextPage: {
     id: string;
     title: string;
     relPermalink: string;
@@ -2525,29 +2550,29 @@ export type StartTestByIdApiResponse = /** status 200 A single test */ {
   date: string;
   lastmod: string;
   draft: boolean;
-  file_path: string;
-  pass_percentage: number;
+  filePath: string;
+  passPercentage: number;
   /** Time limit for the quiz in minutes. A value of 0 indicates no time limit. */
-  time_limit: string;
+  timeLimit: string;
   /** Maximum number of attempts allowed for the quiz. A value of 0 indicates unlimited attempts. */
-  max_attempts: number;
+  maxAttempts: number;
   questions: {
     id: string;
     text: string;
     type: "multiple-answers" | "single-answer" | "short-answer" | "essay";
     marks: number;
-    multiple_answers?: boolean;
+    multipleAnswers?: boolean;
     options: {
       id: string;
       text: string;
-      is_correct: boolean;
+      isCorrect: boolean;
     }[];
-    correct_answer: string;
+    correctAnswer: string;
   }[];
-  total_questions: number;
-  total_questions_in_bank: number;
-  total_question_sets: number;
-  total_marks: number;
+  totalQuestions: number;
+  totalQuestionsInBank: number;
+  totalQuestionSets: number;
+  totalMarks: number;
   prerequisites: {
     id: string;
     title: string;
@@ -2560,7 +2585,7 @@ export type StartTestByIdApiResponse = /** status 200 A single test */ {
     relPermalink: string;
     type: string;
   };
-  next_page: {
+  nextPage: {
     id: string;
     title: string;
     relPermalink: string;
@@ -2569,18 +2594,18 @@ export type StartTestByIdApiResponse = /** status 200 A single test */ {
 };
 export type StartTestByIdApiArg = {
   body: {
-    test_abs_path: string;
-    registration_id: string;
+    testAbsPath: string;
+    registrationId: string;
   };
 };
 export type GetAllTestSessionsForRegistrationApiResponse =
   /** status 200 A list of tests for the specified registration */ {
     score: number;
     passed: boolean;
-    percentage_scored: number;
-    total_marks: number;
-    pass_percentage: number;
-    correct_submissions: {
+    percentageScored: number;
+    totalMarks: number;
+    passPercentage: number;
+    correctSubmissions: {
       [key: string]: boolean;
     };
     quiz: {
@@ -2600,29 +2625,29 @@ export type GetAllTestSessionsForRegistrationApiResponse =
       date: string;
       lastmod: string;
       draft: boolean;
-      file_path: string;
-      pass_percentage: number;
+      filePath: string;
+      passPercentage: number;
       /** Time limit for the quiz in minutes. A value of 0 indicates no time limit. */
-      time_limit: string;
+      timeLimit: string;
       /** Maximum number of attempts allowed for the quiz. A value of 0 indicates unlimited attempts. */
-      max_attempts: number;
+      maxAttempts: number;
       questions: {
         id: string;
         text: string;
         type: "multiple-answers" | "single-answer" | "short-answer" | "essay";
         marks: number;
-        multiple_answers?: boolean;
+        multipleAnswers?: boolean;
         options: {
           id: string;
           text: string;
-          is_correct: boolean;
+          isCorrect: boolean;
         }[];
-        correct_answer: string;
+        correctAnswer: string;
       }[];
-      total_questions: number;
-      total_questions_in_bank: number;
-      total_question_sets: number;
-      total_marks: number;
+      totalQuestions: number;
+      totalQuestionsInBank: number;
+      totalQuestionSets: number;
+      totalMarks: number;
       prerequisites: {
         id: string;
         title: string;
@@ -2635,29 +2660,33 @@ export type GetAllTestSessionsForRegistrationApiResponse =
         relPermalink: string;
         type: string;
       };
-      next_page: {
+      nextPage: {
         id: string;
         title: string;
         relPermalink: string;
         type: string;
       };
     };
-    attempted_at: string;
+    attemptedAt: string;
     attempts: number;
   }[][];
 export type GetAllTestSessionsForRegistrationApiArg = {
   /** The ID of the registration to retrieve tests for */
   id: string;
+  /** Get responses by page */
+  page?: string;
+  /** Get responses by pagesize */
+  pagesize?: string;
   /** Filter tests by absolute path */
   testAbsPath?: string;
 };
-export type SubmitQuizApiResponse = /** status 200 Successfully updated the progress tracker */ {
+export type SubmitQuizApiResponse = /** status 200 Progress tracker updated */ {
   score: number;
   passed: boolean;
-  percentage_scored: number;
-  total_marks: number;
-  pass_percentage: number;
-  correct_submissions: {
+  percentageScored: number;
+  totalMarks: number;
+  passPercentage: number;
+  correctSubmissions: {
     [key: string]: boolean;
   };
   quiz: {
@@ -2677,29 +2706,29 @@ export type SubmitQuizApiResponse = /** status 200 Successfully updated the prog
     date: string;
     lastmod: string;
     draft: boolean;
-    file_path: string;
-    pass_percentage: number;
+    filePath: string;
+    passPercentage: number;
     /** Time limit for the quiz in minutes. A value of 0 indicates no time limit. */
-    time_limit: string;
+    timeLimit: string;
     /** Maximum number of attempts allowed for the quiz. A value of 0 indicates unlimited attempts. */
-    max_attempts: number;
+    maxAttempts: number;
     questions: {
       id: string;
       text: string;
       type: "multiple-answers" | "single-answer" | "short-answer" | "essay";
       marks: number;
-      multiple_answers?: boolean;
+      multipleAnswers?: boolean;
       options: {
         id: string;
         text: string;
-        is_correct: boolean;
+        isCorrect: boolean;
       }[];
-      correct_answer: string;
+      correctAnswer: string;
     }[];
-    total_questions: number;
-    total_questions_in_bank: number;
-    total_question_sets: number;
-    total_marks: number;
+    totalQuestions: number;
+    totalQuestionsInBank: number;
+    totalQuestionSets: number;
+    totalMarks: number;
     prerequisites: {
       id: string;
       title: string;
@@ -2712,29 +2741,29 @@ export type SubmitQuizApiResponse = /** status 200 Successfully updated the prog
       relPermalink: string;
       type: string;
     };
-    next_page: {
+    nextPage: {
       id: string;
       title: string;
       relPermalink: string;
       type: string;
     };
   };
-  attempted_at: string;
+  attemptedAt: string;
   attempts: number;
 };
 export type SubmitQuizApiArg = {
   body: {
     /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
-    test_session_id: string;
-    quiz_abs_path: string;
-    registration_id: string;
+    testSessionId: string;
+    quizAbsPath: string;
+    registrationId: string;
     user_id: string;
     answers: {
-      question_id: string;
-      selected_option_id: {
+      questionId: string;
+      selectedOptionId: {
         [key: string]: boolean;
       };
-      answer_text: string;
+      answerText: string;
     }[];
   };
 };
@@ -2786,30 +2815,30 @@ export type GetCertificateByIdApiResponse = /** status 200 A single certificate 
   /** Unique identifier for the certificate */
   id: string;
   /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
-  org_id: string;
+  orgId: string;
   /** ID of the recipient (user) who received the certificate */
-  recipient_id: string;
+  recipientId: string;
   /** Name of the recipient (user) who received the certificate */
-  recipient_name: string;
+  recipientName: string;
   /** Title of the certificate */
   title: string;
   /** Description of the certificate */
   description: string;
   /** List of issuing authorities for the certificate */
-  issuing_authorities: {
+  issuingAuthorities: {
     /** Name of the issuing authority */
     name: string;
     /** Role of the issuing authority */
     role?: string;
     /** URL to the signature image of the issuing authority should be a publicly accessible URL and transparent PNG or SVG format */
-    signature_url?: string;
+    signatureUrl?: string;
   }[];
   /** Date when the certificate was issued */
-  issued_date: string;
+  issuedDate: string;
   /** Date when the certificate expires (optional) */
-  expiration_date?: string;
+  expirationDate?: string;
   /** Number of months after which the certificate expires */
-  expires_in?: number;
+  expiresIn?: number;
 };
 export type GetCertificateByIdApiArg = {
   /** The ID of the certificate to retrieve */
@@ -3014,7 +3043,7 @@ export type GetConnectionsApiArg = {
   /** Filter by connection name (partial match supported) */
   name?: string;
 };
-export type RegisterConnectionApiResponse = /** status 201 Connection registered successfully */ {
+export type RegisterConnectionApiResponse = /** status 201 Connection registered */ {
   /** Connection ID */
   id: string;
   /** Connection Name */
@@ -3082,9 +3111,9 @@ export type RegisterConnectionApiArg = {
     /** Connection type */
     type: string;
     /** Connection sub-type */
-    sub_type: string;
+    subType: string;
     /** Credential secret data */
-    credential_secret?: object;
+    credentialSecret?: object;
     /** Connection metadata */
     metadata?: object;
     /** Connection status */
@@ -3154,7 +3183,7 @@ export type GetConnectionByIdApiArg = {
   /** Connection ID */
   connectionId: string;
 };
-export type UpdateConnectionApiResponse = /** status 200 Connection updated successfully */ {
+export type UpdateConnectionApiResponse = /** status 200 Connection updated */ {
   /** Connection ID */
   id: string;
   /** Connection Name */
@@ -3224,9 +3253,9 @@ export type UpdateConnectionApiArg = {
     /** Connection type */
     type: string;
     /** Connection sub-type */
-    sub_type: string;
+    subType: string;
     /** Credential secret data */
-    credential_secret?: object;
+    credentialSecret?: object;
     /** Connection metadata */
     metadata?: object;
     /** Connection status */
@@ -3264,7 +3293,7 @@ export type RemoveConnectionFromEnvironmentApiArg = {
   /** Connection ID */
   connectionId: string;
 };
-export type GetUserCredentialsApiResponse = /** status 200 Credentials fetched successfully */ {
+export type GetUserCredentialsApiResponse = /** status 200 Credentials response */ {
   credentials: {
     /** Unique identifier for the credential. */
     id?: string;
@@ -3300,7 +3329,7 @@ export type GetUserCredentialsApiArg = {
   /** Get ordered responses */
   order?: string;
 };
-export type SaveUserCredentialApiResponse = /** status 201 Credential saved successfully */ {
+export type SaveUserCredentialApiResponse = /** status 201 Credential saved */ {
   /** Unique identifier for the credential. */
   id?: string;
   /** Human-readable name for the credential. */
@@ -3338,7 +3367,7 @@ export type SaveUserCredentialApiArg = {
     deleted_at?: string;
   };
 };
-export type UpdateUserCredentialApiResponse = /** status 200 Credential updated successfully */ {
+export type UpdateUserCredentialApiResponse = /** status 200 Credential updated */ {
   /** Unique identifier for the credential. */
   id?: string;
   /** Human-readable name for the credential. */
@@ -3381,7 +3410,7 @@ export type DeleteUserCredentialApiArg = {
   /** Credential ID */
   credentialId: string;
 };
-export type GetCredentialByIdApiResponse = /** status 200 Credential fetched successfully */ {
+export type GetCredentialByIdApiResponse = /** status 200 Credential response */ {
   /** Unique identifier for the credential. */
   id?: string;
   /** Human-readable name for the credential. */
@@ -3403,11 +3432,11 @@ export type GetCredentialByIdApiArg = {
   /** Credential ID */
   id: string;
 };
-export type GetPatternsApiResponse = /** status 200 Designs fetched successfully */ {
+export type GetPatternsApiResponse = /** status 200 Designs response */ {
   page?: number;
   page_size?: number;
   patterns?: {
-    catalog_data?: {
+    catalogData?: {
       /** Tracks the specific content version that has been made available in the Catalog. */
       publishedVersion?: string;
       /** Published content is classifed by its support level. Content classes help you understand the origin and expected support level for each piece of content. It is important to note that the level of support may vary within each class, and you should exercise discretion when using community-contributed content. Content produced and fully supported by Meshery maintainers. This represents the highest level of support and is considered the most reliable. Content produced by partners and verified by Meshery maintainers. While not directly maintained by Meshery, it has undergone a verification process to ensure quality and compatibility. Content produced and supported by the respective project or organization responsible for the specific technology. This class offers a level of support from the project maintainers themselves. Content produced and shared by Meshery users. This includes a wide range of content, such as performance profiles, test results, filters, patterns, and applications. Community content may have varying levels of support and reliability. */
@@ -3438,7 +3467,7 @@ export type GetPatternsApiResponse = /** status 200 Designs fetched successfully
     };
     name?: string;
     /** Designs are your primary tool for collaborative authorship of your infrastructure, workflow, and processes. */
-    pattern_file?: {
+    patternFile?: {
       /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
       id: string;
       /** Name of the design; a descriptive, but concise title for the design document. */
@@ -4422,7 +4451,7 @@ export type GetPatternsApiArg = {
   order?: string;
   /** Filter by visibility (public, private, published) */
   visibility?: string;
-  /** UUID of User. Pass user_id for fetching public and published designs. */
+  /** UUID of User. Pass userId for fetching public and published designs. */
   userId?: string;
   /** User's organization ID. */
   orgId?: string;
@@ -4431,8 +4460,8 @@ export type GetPatternsApiArg = {
   populate?: boolean;
   shared?: boolean;
 };
-export type UpsertPatternApiResponse = /** status 200 Design saved successfully */ {
-  catalog_data?: {
+export type UpsertPatternApiResponse = /** status 200 Design saved */ {
+  catalogData?: {
     /** Tracks the specific content version that has been made available in the Catalog. */
     publishedVersion?: string;
     /** Published content is classifed by its support level. Content classes help you understand the origin and expected support level for each piece of content. It is important to note that the level of support may vary within each class, and you should exercise discretion when using community-contributed content. Content produced and fully supported by Meshery maintainers. This represents the highest level of support and is considered the most reliable. Content produced by partners and verified by Meshery maintainers. While not directly maintained by Meshery, it has undergone a verification process to ensure quality and compatibility. Content produced and supported by the respective project or organization responsible for the specific technology. This class offers a level of support from the project maintainers themselves. Content produced and shared by Meshery users. This includes a wide range of content, such as performance profiles, test results, filters, patterns, and applications. Community content may have varying levels of support and reliability. */
@@ -4463,7 +4492,7 @@ export type UpsertPatternApiResponse = /** status 200 Design saved successfully 
   };
   name?: string;
   /** Designs are your primary tool for collaborative authorship of your infrastructure, workflow, and processes. */
-  pattern_file?: {
+  patternFile?: {
     /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
     id: string;
     /** Name of the design; a descriptive, but concise title for the design document. */
@@ -5436,8 +5465,8 @@ export type UpsertPatternApiResponse = /** status 200 Design saved successfully 
 export type UpsertPatternApiArg = {
   body: {
     path?: string;
-    pattern_data?: {
-      catalog_data?: {
+    patternData?: {
+      catalogData?: {
         /** Tracks the specific content version that has been made available in the Catalog. */
         publishedVersion?: string;
         /** Published content is classifed by its support level. Content classes help you understand the origin and expected support level for each piece of content. It is important to note that the level of support may vary within each class, and you should exercise discretion when using community-contributed content. Content produced and fully supported by Meshery maintainers. This represents the highest level of support and is considered the most reliable. Content produced by partners and verified by Meshery maintainers. While not directly maintained by Meshery, it has undergone a verification process to ensure quality and compatibility. Content produced and supported by the respective project or organization responsible for the specific technology. This class offers a level of support from the project maintainers themselves. Content produced and shared by Meshery users. This includes a wide range of content, such as performance profiles, test results, filters, patterns, and applications. Community content may have varying levels of support and reliability. */
@@ -5468,7 +5497,7 @@ export type UpsertPatternApiArg = {
       };
       name?: string;
       /** Designs are your primary tool for collaborative authorship of your infrastructure, workflow, and processes. */
-      pattern_file?: {
+      patternFile?: {
         /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
         id: string;
         /** Name of the design; a descriptive, but concise title for the design document. */
@@ -6476,8 +6505,8 @@ export type DeletePatternResourceApiArg = {
   /** Design (Pattern) ID */
   id: string;
 };
-export type GetPatternApiResponse = /** status 200 Design fetched successfully */ {
-  catalog_data?: {
+export type GetPatternApiResponse = /** status 200 Design response */ {
+  catalogData?: {
     /** Tracks the specific content version that has been made available in the Catalog. */
     publishedVersion?: string;
     /** Published content is classifed by its support level. Content classes help you understand the origin and expected support level for each piece of content. It is important to note that the level of support may vary within each class, and you should exercise discretion when using community-contributed content. Content produced and fully supported by Meshery maintainers. This represents the highest level of support and is considered the most reliable. Content produced by partners and verified by Meshery maintainers. While not directly maintained by Meshery, it has undergone a verification process to ensure quality and compatibility. Content produced and supported by the respective project or organization responsible for the specific technology. This class offers a level of support from the project maintainers themselves. Content produced and shared by Meshery users. This includes a wide range of content, such as performance profiles, test results, filters, patterns, and applications. Community content may have varying levels of support and reliability. */
@@ -6508,7 +6537,7 @@ export type GetPatternApiResponse = /** status 200 Design fetched successfully *
   };
   name?: string;
   /** Designs are your primary tool for collaborative authorship of your infrastructure, workflow, and processes. */
-  pattern_file?: {
+  patternFile?: {
     /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
     id: string;
     /** Name of the design; a descriptive, but concise title for the design document. */
@@ -7487,8 +7516,8 @@ export type DeletePatternApiArg = {
   /** Design (Pattern) ID */
   id: string;
 };
-export type ClonePatternApiResponse = /** status 200 Design cloned successfully */ {
-  catalog_data?: {
+export type ClonePatternApiResponse = /** status 200 Design cloned */ {
+  catalogData?: {
     /** Tracks the specific content version that has been made available in the Catalog. */
     publishedVersion?: string;
     /** Published content is classifed by its support level. Content classes help you understand the origin and expected support level for each piece of content. It is important to note that the level of support may vary within each class, and you should exercise discretion when using community-contributed content. Content produced and fully supported by Meshery maintainers. This represents the highest level of support and is considered the most reliable. Content produced by partners and verified by Meshery maintainers. While not directly maintained by Meshery, it has undergone a verification process to ensure quality and compatibility. Content produced and supported by the respective project or organization responsible for the specific technology. This class offers a level of support from the project maintainers themselves. Content produced and shared by Meshery users. This includes a wide range of content, such as performance profiles, test results, filters, patterns, and applications. Community content may have varying levels of support and reliability. */
@@ -7519,7 +7548,7 @@ export type ClonePatternApiResponse = /** status 200 Design cloned successfully 
   };
   name?: string;
   /** Designs are your primary tool for collaborative authorship of your infrastructure, workflow, and processes. */
-  pattern_file?: {
+  patternFile?: {
     /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
     id: string;
     /** Name of the design; a descriptive, but concise title for the design document. */
@@ -8506,7 +8535,7 @@ export type UpsertPatternSourceContentApiArg = {
     /** Supported formats: Kubernetes Manifests, Helm Charts, Docker Compose, and Meshery Designs. See [Import Designs Documentation](https://docs.meshery.io/guides/configuration-management/importing-designs#import-designs-using-meshery-ui) for details */
     file?: string;
     /** The name of the pattern file being imported. */
-    file_name?: string;
+    fileName?: string;
     /** Provide a name for your design file. This name will help you identify the file more easily. You can also change the name of your design after importing it. */
     name?: string;
     /** Provide the URL of the file you want to import. This should be a direct URL to a single file, for example: https://raw.github.com/your-design-file.yaml. Also, ensure that design is in a supported format: Kubernetes Manifest, Helm Chart, Docker Compose, or Meshery Design. See [Import Designs Documentation](https://docs.meshery.io/guides/configuration-management/importing-designs#import-designs-using-meshery-ui) for details */
@@ -8521,7 +8550,7 @@ export type ImportDesignApiArg = {
     /** Supported formats: Kubernetes Manifests, Helm Charts, Docker Compose, and Meshery Designs. See [Import Designs Documentation](https://docs.meshery.io/guides/configuration-management/importing-designs#import-designs-using-meshery-ui) for details */
     file?: string;
     /** The name of the pattern file being imported. */
-    file_name?: string;
+    fileName?: string;
     /** Provide a name for your design file. This name will help you identify the file more easily. You can also change the name of your design after importing it. */
     name?: string;
     /** Provide the URL of the file you want to import. This should be a direct URL to a single file, for example: https://raw.github.com/your-design-file.yaml. Also, ensure that design is in a supported format: Kubernetes Manifest, Helm Chart, Docker Compose, or Meshery Design. See [Import Designs Documentation](https://docs.meshery.io/guides/configuration-management/importing-designs#import-designs-using-meshery-ui) for details */
@@ -8533,7 +8562,7 @@ export type GetCatalogContentApiResponse = /** status 200 Catalog content page *
   page_size?: number;
   total_count?: number;
   patterns?: {
-    catalog_data?: {
+    catalogData?: {
       /** Tracks the specific content version that has been made available in the Catalog. */
       publishedVersion?: string;
       /** Published content is classifed by its support level. Content classes help you understand the origin and expected support level for each piece of content. It is important to note that the level of support may vary within each class, and you should exercise discretion when using community-contributed content. Content produced and fully supported by Meshery maintainers. This represents the highest level of support and is considered the most reliable. Content produced by partners and verified by Meshery maintainers. While not directly maintained by Meshery, it has undergone a verification process to ensure quality and compatibility. Content produced and supported by the respective project or organization responsible for the specific technology. This class offers a level of support from the project maintainers themselves. Content produced and shared by Meshery users. This includes a wide range of content, such as performance profiles, test results, filters, patterns, and applications. Community content may have varying levels of support and reliability. */
@@ -8564,7 +8593,7 @@ export type GetCatalogContentApiResponse = /** status 200 Catalog content page *
     };
     name?: string;
     /** Designs are your primary tool for collaborative authorship of your infrastructure, workflow, and processes. */
-    pattern_file?: {
+    patternFile?: {
       /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
       id: string;
       /** Name of the design; a descriptive, but concise title for the design document. */
@@ -9537,10 +9566,10 @@ export type GetCatalogContentApiResponse = /** status 200 Catalog content page *
   filters?: {
     [key: string]: any;
   }[];
-  models_count?: {
+  modelsCount?: {
     [key: string]: any;
   }[];
-  category_count?: {
+  categoryCount?: {
     [key: string]: any;
   }[];
 };
@@ -9587,7 +9616,12 @@ export type GetCatalogContentClassesApiResponse = /** status 200 Catalog content
   description?: string;
   [key: string]: any;
 }[];
-export type GetCatalogContentClassesApiArg = void;
+export type GetCatalogContentClassesApiArg = {
+  /** Get responses by page */
+  page?: string;
+  /** Get responses by pagesize */
+  pagesize?: string;
+};
 export type ApproveCatalogRequestApiResponse = /** status 201 Request approved */ {
   [key: string]: any;
 };
@@ -9843,33 +9877,7 @@ export type UpdateEnvironmentApiArg = {
     organization_id: string;
   };
 };
-export type DeleteEnvironmentApiResponse = /** status 200 Environment page */ {
-  page?: number;
-  page_size?: number;
-  total_count?: number;
-  environments?: {
-    /** ID */
-    id: string;
-    /** Specifies the version of the schema to which the environment conforms. */
-    schemaVersion: string;
-    /** Environment name */
-    name: string;
-    /** Environment description */
-    description: string;
-    /** Environment organization ID */
-    organization_id: string;
-    /** Environment owner */
-    owner?: string;
-    /** Timestamp when the resource was created. */
-    created_at?: string;
-    /** Additional metadata associated with the environment. */
-    metadata?: object;
-    /** Timestamp when the resource was updated. */
-    updated_at?: string;
-    /** Timestamp when the environment was soft deleted. Null while the environment remains active. */
-    deleted_at?: string | null;
-  }[];
-};
+export type DeleteEnvironmentApiResponse = unknown;
 export type DeleteEnvironmentApiArg = {
   /** Environment ID */
   environmentId: string;
@@ -9895,10 +9903,7 @@ export type GetEnvironmentConnectionsApiArg = {
   pagesize?: string;
   filter?: string;
 };
-export type DeleteEventsByIdApiResponse = /** status 200 Event deleted successfully */ {
-  message?: string;
-  event_id?: string;
-};
+export type DeleteEventsByIdApiResponse = unknown;
 export type DeleteEventsByIdApiArg = {
   /** ID of the event to delete */
   id: string;
@@ -9915,7 +9920,7 @@ export type PostEventsDeleteApiArg = {
     ids: string[];
   };
 };
-export type PutEventsStatusApiResponse = /** status 200 Events updated successfully */ {
+export type PutEventsStatusApiResponse = /** status 200 Events updated */ {
   updated?: string[];
 };
 export type PutEventsStatusApiArg = {
@@ -9924,7 +9929,7 @@ export type PutEventsStatusApiArg = {
     status: string;
   };
 };
-export type PutEventsByIdStatusApiResponse = /** status 200 Event status updated successfully */ {
+export type PutEventsByIdStatusApiResponse = /** status 200 Event status updated */ {
   message?: string;
   event_id?: string;
   status?: string;
@@ -9946,8 +9951,8 @@ export type GetEventsOfWorkspaceApiResponse = /** status 200 Workspace events */
     category?: string;
     action?: string;
     description?: string;
-    first_name?: string;
-    last_name?: string;
+    firstName?: string;
+    lastName?: string;
     /** email */
     email?: string;
     /** One of (x-oapi-codegen-extra-tags-cloud, github, google) */
@@ -9985,8 +9990,8 @@ export type GetEventsApiResponse = /** status 200 Events page */ {
     category?: string;
     action?: string;
     description?: string;
-    first_name?: string;
-    last_name?: string;
+    firstName?: string;
+    lastName?: string;
     /** email */
     email?: string;
     /** One of (x-oapi-codegen-extra-tags-cloud, github, google) */
@@ -10031,8 +10036,13 @@ export type GetEventTypesApiResponse = /** status 200 Event types */ {
   category?: string;
   action?: string;
 }[];
-export type GetEventTypesApiArg = void;
-export type GetFeaturesApiResponse = /** status 200 Features fetched successfully */ {
+export type GetEventTypesApiArg = {
+  /** Get responses by page */
+  page?: string;
+  /** Get responses by pagesize */
+  pagesize?: string;
+};
+export type GetFeaturesApiResponse = /** status 200 Features response */ {
   /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
   id: string;
   /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
@@ -10064,7 +10074,7 @@ export type GetFeaturesApiResponse = /** status 200 Features fetched successfull
   updated_at?: string;
 }[];
 export type GetFeaturesApiArg = void;
-export type GetFeaturesByOrganizationApiResponse = /** status 200 Features fetched successfully */ {
+export type GetFeaturesByOrganizationApiResponse = /** status 200 Features response */ {
   /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
   id: string;
   /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
@@ -10403,6 +10413,10 @@ export type GetUserKeysApiResponse = /** status 200 Returns user keys based on r
 export type GetUserKeysApiArg = {
   /** Organization ID */
   orgId: string;
+  /** Get responses by page */
+  page?: string;
+  /** Get responses by pagesize */
+  pagesize?: string;
 };
 export type GetKeysApiResponse = /** status 200 Keys fetched */ {
   page: number;
@@ -10439,7 +10453,7 @@ export type GetKeysApiArg = {
   /** Get ordered responses */
   order?: string;
 };
-export type UpsertKeyApiResponse = /** status 200 Key upserted successfully */ {
+export type UpsertKeyApiResponse = /** status 200 Key upserted */ {
   /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
   id: string;
   /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
@@ -10473,7 +10487,7 @@ export type UpsertKeyApiArg = {
     description?: string;
   };
 };
-export type GetKeyByIdApiResponse = /** status 200 Key fetched successfully */ {
+export type GetKeyByIdApiResponse = /** status 200 Key response */ {
   /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
   id: string;
   /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
@@ -10614,7 +10628,7 @@ export type RemoveKeyFromKeychainApiArg = {
   /** Key ID */
   keyId: string;
 };
-export type GetKeysOfKeychainApiResponse = /** status 200 Keys fetched successfully */ {
+export type GetKeysOfKeychainApiResponse = /** status 200 Keys response */ {
   page: number;
   page_size: number;
   total_count: number;
@@ -10651,7 +10665,7 @@ export type GetKeysOfKeychainApiArg = {
   /** Get ordered responses */
   order?: string;
 };
-export type RegisterMeshmodelsApiResponse = /** status 200 Successful registration */ {
+export type RegisterMeshmodelsApiResponse = /** status 201 Successful registration */ {
   message?: string;
 };
 export type RegisterMeshmodelsApiArg = {
@@ -10715,19 +10729,19 @@ export type GetOrgsApiResponse = /** status 200 Organizations response */ {
         theme: {
           id: string;
           logo: {
-            desktop_view: {
+            desktopView: {
               svg: string;
               location: string;
             };
-            mobile_view: {
+            mobileView: {
               svg: string;
               location: string;
             };
-            dark_desktop_view: {
+            darkDesktopView: {
               svg: string;
               location: string;
             };
-            dark_mobile_view: {
+            darkMobileView: {
               svg: string;
               location: string;
             };
@@ -10776,19 +10790,19 @@ export type CreateOrgApiResponse = /** status 201 Single-organization page respo
         theme: {
           id: string;
           logo: {
-            desktop_view: {
+            desktopView: {
               svg: string;
               location: string;
             };
-            mobile_view: {
+            mobileView: {
               svg: string;
               location: string;
             };
-            dark_desktop_view: {
+            darkDesktopView: {
               svg: string;
               location: string;
             };
-            dark_mobile_view: {
+            darkMobileView: {
               svg: string;
               location: string;
             };
@@ -10815,24 +10829,24 @@ export type CreateOrgApiArg = {
     country?: string;
     region?: string;
     description?: string;
-    notify_org_update?: boolean;
+    notifyOrgUpdate?: boolean;
     preferences?: {
       theme: {
         id: string;
         logo: {
-          desktop_view: {
+          desktopView: {
             svg: string;
             location: string;
           };
-          mobile_view: {
+          mobileView: {
             svg: string;
             location: string;
           };
-          dark_desktop_view: {
+          darkDesktopView: {
             svg: string;
             location: string;
           };
-          dark_mobile_view: {
+          darkMobileView: {
             svg: string;
             location: string;
           };
@@ -10862,19 +10876,19 @@ export type GetOrgByDomainApiResponse = /** status 200 Successful response */ {
       theme: {
         id: string;
         logo: {
-          desktop_view: {
+          desktopView: {
             svg: string;
             location: string;
           };
-          mobile_view: {
+          mobileView: {
             svg: string;
             location: string;
           };
-          dark_desktop_view: {
+          darkDesktopView: {
             svg: string;
             location: string;
           };
-          dark_mobile_view: {
+          darkMobileView: {
             svg: string;
             location: string;
           };
@@ -10914,19 +10928,19 @@ export type GetOrgApiResponse = /** status 200 Single-organization page response
         theme: {
           id: string;
           logo: {
-            desktop_view: {
+            desktopView: {
               svg: string;
               location: string;
             };
-            mobile_view: {
+            mobileView: {
               svg: string;
               location: string;
             };
-            dark_desktop_view: {
+            darkDesktopView: {
               svg: string;
               location: string;
             };
-            dark_mobile_view: {
+            darkMobileView: {
               svg: string;
               location: string;
             };
@@ -10949,55 +10963,7 @@ export type GetOrgApiResponse = /** status 200 Single-organization page response
 export type GetOrgApiArg = {
   orgId: string;
 };
-export type DeleteOrgApiResponse = /** status 200 Single-organization page response for the deleted organization */ {
-  page?: number;
-  page_size?: number;
-  total_count?: number;
-  organizations?: {
-    /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
-    id?: string;
-    name?: string;
-    description?: string;
-    country?: string;
-    region?: string;
-    owner?: string;
-    metadata?: {
-      preferences: {
-        theme: {
-          id: string;
-          logo: {
-            desktop_view: {
-              svg: string;
-              location: string;
-            };
-            mobile_view: {
-              svg: string;
-              location: string;
-            };
-            dark_desktop_view: {
-              svg: string;
-              location: string;
-            };
-            dark_mobile_view: {
-              svg: string;
-              location: string;
-            };
-          };
-          vars?: {
-            [key: string]: any;
-          };
-        };
-        /** Preferences specific to dashboard behavior */
-        dashboard: {
-          [key: string]: any;
-        };
-      };
-    };
-    created_at?: string;
-    updated_at?: string;
-    deleted_at?: string;
-  }[];
-};
+export type DeleteOrgApiResponse = unknown;
 export type DeleteOrgApiArg = {
   orgId: string;
 };
@@ -11019,19 +10985,19 @@ export type HandleUpdateOrgApiResponse =
           theme: {
             id: string;
             logo: {
-              desktop_view: {
+              desktopView: {
                 svg: string;
                 location: string;
               };
-              mobile_view: {
+              mobileView: {
                 svg: string;
                 location: string;
               };
-              dark_desktop_view: {
+              darkDesktopView: {
                 svg: string;
                 location: string;
               };
-              dark_mobile_view: {
+              darkMobileView: {
                 svg: string;
                 location: string;
               };
@@ -11059,24 +11025,24 @@ export type HandleUpdateOrgApiArg = {
     country?: string;
     region?: string;
     description?: string;
-    notify_org_update?: boolean;
+    notifyOrgUpdate?: boolean;
     preferences?: {
       theme: {
         id: string;
         logo: {
-          desktop_view: {
+          desktopView: {
             svg: string;
             location: string;
           };
-          mobile_view: {
+          mobileView: {
             svg: string;
             location: string;
           };
-          dark_desktop_view: {
+          darkDesktopView: {
             svg: string;
             location: string;
           };
-          dark_mobile_view: {
+          darkMobileView: {
             svg: string;
             location: string;
           };
@@ -11097,19 +11063,19 @@ export type GetOrgPreferencesApiResponse = /** status 200 Organization metadata,
     theme: {
       id: string;
       logo: {
-        desktop_view: {
+        desktopView: {
           svg: string;
           location: string;
         };
-        mobile_view: {
+        mobileView: {
           svg: string;
           location: string;
         };
-        dark_desktop_view: {
+        darkDesktopView: {
           svg: string;
           location: string;
         };
-        dark_mobile_view: {
+        darkMobileView: {
           svg: string;
           location: string;
         };
@@ -11127,14 +11093,14 @@ export type GetOrgPreferencesApiResponse = /** status 200 Organization metadata,
 export type GetOrgPreferencesApiArg = {
   orgId: string;
 };
-export type AddTeamToOrgApiResponse = /** status 200 Team added to organization or team tombstoned */
+export type AddTeamToOrgApiResponse = /** status 201 Team added to organization or team tombstoned */
   | {
       page?: number;
       page_size?: number;
       total_count?: number;
-      teams_organizations_mapping?: {
-        ID?: string;
-        org_id?: string;
+      teamsOrganizationsMapping?: {
+        id?: string;
+        orgId?: string;
         team_id?: string;
         created_at?: string;
         updated_at?: string;
@@ -11146,7 +11112,7 @@ export type AddTeamToOrgApiResponse = /** status 200 Team added to organization 
       page_size?: number;
       total_count?: number;
       teams?: {
-        ID?: string;
+        id?: string;
         name?: string;
         description?: string;
         owner?: string;
@@ -11228,9 +11194,9 @@ export type RemoveTeamFromOrgApiResponse = /** status 200 Team removed from orga
   page?: number;
   page_size?: number;
   total_count?: number;
-  teams_organizations_mapping?: {
-    ID?: string;
-    org_id?: string;
+  teamsOrganizationsMapping?: {
+    id?: string;
+    orgId?: string;
     team_id?: string;
     created_at?: string;
     updated_at?: string;
@@ -11241,21 +11207,19 @@ export type RemoveTeamFromOrgApiArg = {
   orgId: string;
   teamId: string;
 };
-export type AddUserToOrgApiResponse = /** status 200 User added to organization */ {
+export type AddUserToOrgApiResponse = /** status 201 User added to organization */ {
   [key: string]: any;
 };
 export type AddUserToOrgApiArg = {
   orgId: string;
   userId: string;
 };
-export type DeleteUserFromOrgApiResponse = /** status 200 User removed from organization */ {
-  [key: string]: any;
-};
+export type DeleteUserFromOrgApiResponse = unknown;
 export type DeleteUserFromOrgApiArg = {
   orgId: string;
   userId: string;
 };
-export type GetPlansApiResponse = /** status 200 Plans fetched successfully */ {
+export type GetPlansApiResponse = /** status 200 Plans response */ {
   /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
   id: string;
   /** Name of the plan */
@@ -11268,14 +11232,19 @@ export type GetPlansApiResponse = /** status 200 Plans fetched successfully */ {
   price_per_unit: number;
   currency: "usd";
 }[];
-export type GetPlansApiArg = void;
+export type GetPlansApiArg = {
+  /** Get responses by page */
+  page?: string;
+  /** Get responses by pagesize */
+  pagesize?: string;
+};
 export type AddRoleHolderApiResponse = unknown;
 export type AddRoleHolderApiArg = {
   body: {
     /** Email of the user to assign roles to. */
     email: string;
     /** List of role names to assign. */
-    role_names: string[];
+    roleNames: string[];
   };
 };
 export type DeleteRoleApiResponse = unknown;
@@ -11283,7 +11252,7 @@ export type DeleteRoleApiArg = {
   /** Role ID */
   id: string;
 };
-export type GetAllRolesApiResponse = /** status 200 Roles fetched successfully */ {
+export type GetAllRolesApiResponse = /** status 200 Roles response */ {
   /** Current page number (zero-based). */
   page: number;
   /** Number of roles per page. */
@@ -11323,7 +11292,7 @@ export type GetAllRolesApiArg = {
   /** Team ID used when selector is team. */
   teamId?: string;
 };
-export type UpsertRoleApiResponse = /** status 200 Role upserted successfully */ {
+export type UpsertRoleApiResponse = /** status 200 Role upserted */ {
   /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
   id?: string;
   /** Unique name of the role. */
@@ -11366,17 +11335,17 @@ export type BulkEditRoleHolderApiArg = {
     user_id?: string;
     username?: string;
     email?: string;
-    first_name?: string;
-    last_name?: string;
+    firstName?: string;
+    lastName?: string;
     status?: string;
-    role_names?: string[];
+    roleNames?: string[];
     created_at?: string;
     updated_at?: string;
     /** SQL null Timestamp to handle null values of time. */
     deleted_at?: string;
   }[];
 };
-export type GetRoleKeychainsApiResponse = /** status 200 Keychains fetched successfully */ {
+export type GetRoleKeychainsApiResponse = /** status 200 Keychains response */ {
   page: number;
   page_size: number;
   total_count: number;
@@ -11427,7 +11396,7 @@ export type UnassignKeychainFromRoleApiArg = {
   /** Keychain ID */
   keychainId: string;
 };
-export type GetSchedulesApiResponse = /** status 200 Schedules fetched successfully */ {
+export type GetSchedulesApiResponse = /** status 200 Schedules response */ {
   /** Current page number (zero-based). */
   page: number;
   /** Number of schedules per page. */
@@ -11460,7 +11429,7 @@ export type GetSchedulesApiArg = {
   /** Get ordered responses */
   order?: string;
 };
-export type UpsertScheduleApiResponse = /** status 200 Schedule upserted successfully */ {
+export type UpsertScheduleApiResponse = /** status 200 Schedule upserted */ {
   /** Unique identifier for the schedule. */
   id?: string;
   /** Human-readable name for the schedule. */
@@ -11492,7 +11461,7 @@ export type UpsertScheduleApiArg = {
     updated_at?: string;
   };
 };
-export type GetScheduleApiResponse = /** status 200 Schedule fetched successfully */ {
+export type GetScheduleApiResponse = /** status 200 Schedule response */ {
   /** Unique identifier for the schedule. */
   id?: string;
   /** Human-readable name for the schedule. */
@@ -11522,7 +11491,7 @@ export type GetSubscriptionsApiResponse = /** status 200 Get subscription respon
   total_count: number;
   subscriptions: {
     /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
-    ID: string;
+    id: string;
     /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
     org_id: string;
     /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
@@ -11568,7 +11537,7 @@ export type PostApiEntitlementSubscriptionsBySubscriptionIdCancelApiResponse = /
   total_count: number;
   subscriptions: {
     /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
-    ID: string;
+    id: string;
     /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
     org_id: string;
     /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
@@ -11603,28 +11572,28 @@ export type PostApiEntitlementSubscriptionsBySubscriptionIdCancelApiArg = {
   subscriptionId: string;
 };
 export type PostApiEntitlementSubscriptionsCreateApiResponse = /** status 200 A new subscription has been created */ {
-  subscription_id?: string;
+  subscriptionId?: string;
   clientSecret?: string;
 };
 export type PostApiEntitlementSubscriptionsCreateApiArg = {
   body: {
     /** Organization ID */
-    org_id?: string;
+    orgId?: string;
     /** Price ID from the payment processor */
-    plan_id?: string;
+    planId?: string;
     /** Coupon ID to apply */
-    coupon_id?: string;
+    couponId?: string;
     /** Number of users in the organization */
-    user_count?: number;
+    userCount?: number;
     /** Email of the customer */
     email?: string;
     /** Supported payment processors */
-    payment_processor?: "stripe" | "paypal" | "braintree";
+    paymentProcessor?: "stripe" | "paypal" | "braintree";
   };
 };
 export type PostApiEntitlementSubscriptionsBySubscriptionIdUpgradeApiResponse = /** status 200 undefined */ {
   /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
-  ID: string;
+  id: string;
   /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
   org_id: string;
   /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
@@ -11658,9 +11627,9 @@ export type PostApiEntitlementSubscriptionsBySubscriptionIdUpgradeApiArg = {
   subscriptionId: string;
   body: {
     /** Old Plan id that is being changed */
-    old_plan_id?: string;
+    oldPlanId?: string;
     /** New Plan id that is being changed to */
-    new_plan_id?: string;
+    newPlanId?: string;
   };
 };
 export type PostApiEntitlementSubscriptionsBySubscriptionIdUpgradePreviewApiResponse =
@@ -11670,9 +11639,9 @@ export type PostApiEntitlementSubscriptionsBySubscriptionIdUpgradePreviewApiArg 
   subscriptionId: string;
   body: {
     /** Old Plan id that is being changed */
-    old_plan_id?: string;
+    oldPlanId?: string;
     /** New Plan id that is being changed to */
-    new_plan_id?: string;
+    newPlanId?: string;
   };
 };
 export type PostApiEntitlementSubscriptionsWebhooksApiResponse = unknown;
@@ -11743,7 +11712,7 @@ export type GetTeamUsersApiResponse = /** status 200 Team users mapping */ {
   page?: number;
   page_size?: number;
   total_count?: number;
-  teams_users_mapping?: {
+  teamsUsersMapping?: {
     id?: string;
     team_id?: string;
     /** user's email or username */
@@ -11768,7 +11737,7 @@ export type GetTeamUsersApiArg = {
   /** Get responses by pagesize */
   pagesize?: string;
 };
-export type AddUserToTeamApiResponse = /** status 200 User added to team */ {
+export type AddUserToTeamApiResponse = /** status 201 User added to team */ {
   id?: string;
   team_id?: string;
   /** user's email or username */
@@ -11788,18 +11757,7 @@ export type AddUserToTeamApiArg = {
   /** User ID */
   userId: string;
 };
-export type RemoveUserFromTeamApiResponse = /** status 200 User removed from team */ {
-  id?: string;
-  team_id?: string;
-  /** user's email or username */
-  user_id?: string;
-  /** Timestamp when the resource was created. */
-  created_at?: string;
-  /** Timestamp when the resource was updated. */
-  updated_at?: string;
-  /** SQL null Timestamp to handle null values of time. */
-  deleted_at?: string;
-};
+export type RemoveUserFromTeamApiResponse = unknown;
 export type RemoveUserFromTeamApiArg = {
   /** Organization ID */
   orgId: string;
@@ -11830,7 +11788,7 @@ export type ListUsersNotInTeamApiArg = {
   /** Get responses by pagesize */
   pagesize?: string;
 };
-export type GetUserTokensApiResponse = /** status 200 Tokens fetched successfully */ {
+export type GetUserTokensApiResponse = /** status 200 Tokens response */ {
   tokens: {
     /** Unique identifier for the token. */
     id?: string;
@@ -11872,7 +11830,7 @@ export type GetUserTokensApiArg = {
   /** Get ordered responses */
   order?: string;
 };
-export type GenerateTokenApiResponse = /** status 200 Token generated successfully */ {
+export type GenerateTokenApiResponse = /** status 200 Token generated */ {
   tokens: {
     /** Unique identifier for the token. */
     id?: string;
@@ -11908,7 +11866,7 @@ export type GenerateTokenApiArg = {
   /** Purpose for which the token is generated. */
   purpose?: string;
 };
-export type DeleteUserTokenApiResponse = /** status 200 Token deleted successfully */ {
+export type DeleteUserTokenApiResponse = /** status 200 Token deleted */ {
   tokens: {
     /** Unique identifier for the token. */
     id?: string;
@@ -11942,7 +11900,7 @@ export type DeleteUserTokenApiArg = {
   /** ID of the token. */
   tokenId: string;
 };
-export type GetUserTokensByIdApiResponse = /** status 200 Token fetched successfully */ {
+export type GetUserTokensByIdApiResponse = /** status 200 Token response */ {
   /** Unique identifier for the token. */
   id?: string;
   /** UUID of the user who owns the token. */
@@ -11968,7 +11926,7 @@ export type GetUserTokensByIdApiArg = {
   /** Token ID */
   id: string;
 };
-export type IssueIndefiniteLifetimeTokenApiResponse = /** status 200 Token generated successfully */ {
+export type IssueIndefiniteLifetimeTokenApiResponse = /** status 200 Token generated */ {
   tokens: {
     /** Unique identifier for the token. */
     id?: string;
@@ -12073,7 +12031,7 @@ export type GetUsersForOrgApiResponse = /** status 200 Paginated list of organiz
       dashboardPreferences: {
         [key: string]: any;
       };
-      selectedOrganizationID: string;
+      selectedOrganizationId: string;
       selectedWorkspaceForOrganizations: {
         [key: string]: string;
       };
@@ -12209,7 +12167,7 @@ export type GetUsersApiResponse = /** status 200 Paginated list of public users 
       dashboardPreferences: {
         [key: string]: any;
       };
-      selectedOrganizationID: string;
+      selectedOrganizationId: string;
       selectedWorkspaceForOrganizations: {
         [key: string]: string;
       };
@@ -12337,7 +12295,7 @@ export type GetUserProfileByIdApiResponse = /** status 200 User profile for the 
     dashboardPreferences: {
       [key: string]: any;
     };
-    selectedOrganizationID: string;
+    selectedOrganizationId: string;
     selectedWorkspaceForOrganizations: {
       [key: string]: string;
     };
@@ -12456,7 +12414,7 @@ export type GetUserApiResponse = /** status 200 Current user profile and role co
     dashboardPreferences: {
       [key: string]: any;
     };
-    selectedOrganizationID: string;
+    selectedOrganizationId: string;
     selectedWorkspaceForOrganizations: {
       [key: string]: string;
     };
@@ -12512,7 +12470,7 @@ export type GetWorkspacesApiResponse = /** status 200 Workspaces */ {
   page_size?: number;
   total_count?: number;
   workspaces?: {
-    ID?: string;
+    id?: string;
     name?: string;
     description?: string;
     /** Workspace organization ID */
@@ -12542,7 +12500,7 @@ export type GetWorkspacesApiArg = {
   filter?: string;
 };
 export type CreateWorkspaceApiResponse = /** status 201 Created workspace */ {
-  ID?: string;
+  id?: string;
   name?: string;
   description?: string;
   /** Workspace organization ID */
@@ -12570,7 +12528,7 @@ export type CreateWorkspaceApiArg = {
   };
 };
 export type GetWorkspaceByIdApiResponse = /** status 200 Workspace */ {
-  ID?: string;
+  id?: string;
   name?: string;
   description?: string;
   /** Workspace organization ID */
@@ -12591,7 +12549,7 @@ export type GetWorkspaceByIdApiArg = {
   workspaceId: string;
 };
 export type UpdateWorkspaceApiResponse = /** status 200 Workspace */ {
-  ID?: string;
+  id?: string;
   name?: string;
   description?: string;
   /** Workspace organization ID */
@@ -12620,23 +12578,7 @@ export type UpdateWorkspaceApiArg = {
     organization_id: string;
   };
 };
-export type DeleteWorkspaceApiResponse = /** status 200 Workspace */ {
-  ID?: string;
-  name?: string;
-  description?: string;
-  /** Workspace organization ID */
-  organization_id?: string;
-  owner?: string;
-  metadata?: {
-    [key: string]: string;
-  };
-  /** Timestamp when the resource was created. */
-  created_at?: string;
-  /** Timestamp when the resource was updated. */
-  updated_at?: string;
-  /** Timestamp when the resource was deleted. */
-  deleted_at?: string;
-};
+export type DeleteWorkspaceApiResponse = unknown;
 export type DeleteWorkspaceApiArg = {
   /** Workspace ID */
   workspaceId: string;
@@ -12680,8 +12622,8 @@ export type AssignTeamToWorkspaceApiResponse = /** status 200 Workspace team map
   page?: number;
   page_size?: number;
   total_count?: number;
-  workspaces_teams_mapping?: {
-    ID?: string;
+  workspacesTeamsMapping?: {
+    id?: string;
     team_id?: string;
     workspace_id?: string;
     /** Timestamp when the resource was created. */
@@ -12698,22 +12640,7 @@ export type AssignTeamToWorkspaceApiArg = {
   /** Team ID */
   teamId: string;
 };
-export type UnassignTeamFromWorkspaceApiResponse = /** status 200 Workspace team mappings */ {
-  page?: number;
-  page_size?: number;
-  total_count?: number;
-  workspaces_teams_mapping?: {
-    ID?: string;
-    team_id?: string;
-    workspace_id?: string;
-    /** Timestamp when the resource was created. */
-    created_at?: string;
-    /** Timestamp when the resource was updated. */
-    updated_at?: string;
-    /** Timestamp when the resource was deleted. */
-    deleted_at?: string;
-  }[];
-};
+export type UnassignTeamFromWorkspaceApiResponse = unknown;
 export type UnassignTeamFromWorkspaceApiArg = {
   /** Workspace ID */
   workspaceId: string;
@@ -12765,8 +12692,8 @@ export type AssignEnvironmentToWorkspaceApiResponse = /** status 200 Workspace e
   page?: number;
   page_size?: number;
   total_count?: number;
-  workspaces_environments_mapping?: {
-    ID?: string;
+  workspacesEnvironmentsMapping?: {
+    id?: string;
     environment_id?: string;
     workspace_id?: string;
     /** Timestamp when the resource was created. */
@@ -12783,22 +12710,7 @@ export type AssignEnvironmentToWorkspaceApiArg = {
   /** Environment ID */
   environmentId: string;
 };
-export type UnassignEnvironmentFromWorkspaceApiResponse = /** status 200 Workspace environment mappings */ {
-  page?: number;
-  page_size?: number;
-  total_count?: number;
-  workspaces_environments_mapping?: {
-    ID?: string;
-    environment_id?: string;
-    workspace_id?: string;
-    /** Timestamp when the resource was created. */
-    created_at?: string;
-    /** Timestamp when the resource was updated. */
-    updated_at?: string;
-    /** Timestamp when the resource was deleted. */
-    deleted_at?: string;
-  }[];
-};
+export type UnassignEnvironmentFromWorkspaceApiResponse = unknown;
 export type UnassignEnvironmentFromWorkspaceApiArg = {
   /** Workspace ID */
   workspaceId: string;
@@ -12810,7 +12722,7 @@ export type GetDesignsOfWorkspaceApiResponse = /** status 200 Designs */ {
   page_size?: number;
   total_count?: number;
   designs?: {
-    catalog_data?: {
+    catalogData?: {
       /** Tracks the specific content version that has been made available in the Catalog. */
       publishedVersion?: string;
       /** Published content is classifed by its support level. Content classes help you understand the origin and expected support level for each piece of content. It is important to note that the level of support may vary within each class, and you should exercise discretion when using community-contributed content. Content produced and fully supported by Meshery maintainers. This represents the highest level of support and is considered the most reliable. Content produced by partners and verified by Meshery maintainers. While not directly maintained by Meshery, it has undergone a verification process to ensure quality and compatibility. Content produced and supported by the respective project or organization responsible for the specific technology. This class offers a level of support from the project maintainers themselves. Content produced and shared by Meshery users. This includes a wide range of content, such as performance profiles, test results, filters, patterns, and applications. Community content may have varying levels of support and reliability. */
@@ -12841,7 +12753,7 @@ export type GetDesignsOfWorkspaceApiResponse = /** status 200 Designs */ {
     };
     name?: string;
     /** Designs are your primary tool for collaborative authorship of your infrastructure, workflow, and processes. */
-    pattern_file?: {
+    patternFile?: {
       /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
       id: string;
       /** Name of the design; a descriptive, but concise title for the design document. */
@@ -13830,8 +13742,8 @@ export type AssignDesignToWorkspaceApiResponse = /** status 200 Workspace design
   page?: number;
   page_size?: number;
   total_count?: number;
-  workspaces_designs_mapping?: {
-    ID?: string;
+  workspacesDesignsMapping?: {
+    id?: string;
     design_id?: string;
     workspace_id?: string;
     /** Timestamp when the resource was created. */
@@ -13848,22 +13760,7 @@ export type AssignDesignToWorkspaceApiArg = {
   /** Design ID */
   designId: string;
 };
-export type UnassignDesignFromWorkspaceApiResponse = /** status 200 Workspace design mappings */ {
-  page?: number;
-  page_size?: number;
-  total_count?: number;
-  workspaces_designs_mapping?: {
-    ID?: string;
-    design_id?: string;
-    workspace_id?: string;
-    /** Timestamp when the resource was created. */
-    created_at?: string;
-    /** Timestamp when the resource was updated. */
-    updated_at?: string;
-    /** Timestamp when the resource was deleted. */
-    deleted_at?: string;
-  }[];
-};
+export type UnassignDesignFromWorkspaceApiResponse = unknown;
 export type UnassignDesignFromWorkspaceApiArg = {
   /** Workspace ID */
   workspaceId: string;
@@ -13875,7 +13772,7 @@ export type GetViewsOfWorkspaceApiResponse = /** status 200 Views */ {
   page_size?: number;
   total_count?: number;
   views?: {
-    ID?: string;
+    id?: string;
     name?: string;
     filters?: {
       [key: string]: string;
@@ -13911,8 +13808,8 @@ export type AssignViewToWorkspaceApiResponse = /** status 200 Workspace view map
   page?: number;
   page_size?: number;
   total_count?: number;
-  workspaces_views_mapping?: {
-    ID?: string;
+  workspacesViewsMapping?: {
+    id?: string;
     view_id?: string;
     workspace_id?: string;
     /** Timestamp when the resource was created. */
@@ -13929,22 +13826,7 @@ export type AssignViewToWorkspaceApiArg = {
   /** View ID */
   viewId: string;
 };
-export type UnassignViewFromWorkspaceApiResponse = /** status 200 Workspace view mappings */ {
-  page?: number;
-  page_size?: number;
-  total_count?: number;
-  workspaces_views_mapping?: {
-    ID?: string;
-    view_id?: string;
-    workspace_id?: string;
-    /** Timestamp when the resource was created. */
-    created_at?: string;
-    /** Timestamp when the resource was updated. */
-    updated_at?: string;
-    /** Timestamp when the resource was deleted. */
-    deleted_at?: string;
-  }[];
-};
+export type UnassignViewFromWorkspaceApiResponse = unknown;
 export type UnassignViewFromWorkspaceApiArg = {
   /** Workspace ID */
   workspaceId: string;

@@ -563,7 +563,7 @@ export interface operations {
       };
     };
     responses: {
-      /** Keys fetched successfully */
+      /** Keys response */
       200: {
         content: {
           "application/json": {

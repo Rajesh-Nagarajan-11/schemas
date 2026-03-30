@@ -855,6 +855,101 @@ function validateGeneratedDbTags(filePath, inputPath) {
   }
 }
 
+/**
+ * Verify that every schema property's json tag in the generated Go code
+ * matches the schema property name. This is the belt-and-suspenders check
+ * that catches oapi-codegen regressions or post-processing bugs.
+ *
+ * The property name IS the json tag (oapi-codegen hardcodes this). When
+ * x-oapi-codegen-extra-tags.json is declared it may replace the tag, but
+ * Rule 27 in the validator already ensures it equals the property name.
+ * This function confirms the generated output is consistent end-to-end.
+ */
+function validateGeneratedJsonTags(filePath, inputPath) {
+  const generatedTagsByStruct = collectGeneratedStructTags(filePath);
+  const document = loadYamlFile(inputPath) || {};
+  const componentSchemas = document.components?.schemas || {};
+  const failures = [];
+
+  function toStructName(schemaName) {
+    if (!schemaName) return schemaName;
+    return schemaName.charAt(0).toUpperCase() + schemaName.slice(1);
+  }
+
+  for (const [schemaName, schemaDef] of Object.entries(componentSchemas)) {
+    if (!schemaDef || typeof schemaDef !== "object") continue;
+
+    const structName = toStructName(schemaName);
+    const generatedProps = generatedTagsByStruct.get(structName);
+    if (!generatedProps) continue;
+
+    // Collect all property names from this schema (including allOf)
+    const propertyNames = new Set();
+    function collectProps(def) {
+      if (!def || typeof def !== "object") return;
+      if (def.properties) {
+        for (const name of Object.keys(def.properties)) {
+          propertyNames.add(name);
+        }
+      }
+      if (Array.isArray(def.allOf)) {
+        for (const sub of def.allOf) {
+          // Only collect inline properties, not $ref schemas (those become
+          // their own structs and are validated separately).
+          if (!sub.$ref) collectProps(sub);
+        }
+      }
+    }
+    collectProps(schemaDef);
+
+    for (const propName of propertyNames) {
+      // The expected json tag base name. If x-oapi-codegen-extra-tags.json
+      // is declared, it may differ (e.g. adding omitempty or suppressing
+      // with "-"). In those cases the explicit tag is authoritative and
+      // Rule 27 validates it matches the property name, so we skip here.
+      const propDef = schemaDef.properties?.[propName];
+      const explicitJson = propDef?.["x-oapi-codegen-extra-tags"]?.json;
+      if (explicitJson !== undefined) {
+        // Explicit override — validated by Rule 27; skip here.
+        continue;
+      }
+
+      // Fields excluded from serialization (json:"-") are not expected.
+      const generatedField = generatedProps.get(propName);
+      if (!generatedField) {
+        // Property may be from a $ref that oapi-codegen inlines differently,
+        // or a property that maps to an embedded struct. Not finding it in
+        // the flat struct fields is not necessarily an error — skip.
+        continue;
+      }
+
+      // Verify the json tag base name matches the property name.
+      const jsonMatch = generatedField.rawTags.match(/json:"([^",]+)(?:,[^"]*)?"/);
+      if (!jsonMatch) {
+        failures.push(
+          `${structName}.${propName} — no json tag found in generated tags: \`${generatedField.rawTags}\``,
+        );
+        continue;
+      }
+
+      const generatedJsonName = jsonMatch[1];
+      if (generatedJsonName !== propName && generatedJsonName !== "-") {
+        failures.push(
+          `${structName}.${propName} — json tag "${generatedJsonName}" does not match ` +
+            `schema property name "${propName}"`,
+        );
+      }
+    }
+  }
+
+  if (failures.length > 0) {
+    throw new Error(
+      "Generated Go json tags do not match schema property names:\n" +
+        failures.map((f) => `  - ${f}`).join("\n"),
+    );
+  }
+}
+
 function toPosixPath(filePath) {
   return filePath.split(path.sep).join("/");
 }
@@ -1332,6 +1427,7 @@ async function generateGoModels(pkg) {
     validateReadableImportAliases(outputPath);
     addCompatibilityParameterAliases(outputPath, inputPath);
     validateGeneratedDbTags(outputPath, inputPath);
+    validateGeneratedJsonTags(outputPath, inputPath);
     writeGeneratedHelperFile(pkg, outputDir);
 
     logger.success(`Generated: ${paths.relativePath(outputPath)}`);

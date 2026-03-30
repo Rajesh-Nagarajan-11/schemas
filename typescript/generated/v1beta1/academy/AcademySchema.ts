@@ -19,8 +19,13 @@ const AcademySchema: Record<string, unknown> = {
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     }
   },
+  "security": [
+    {
+      "jwt": []
+    }
+  ],
   "paths": {
-    "/api/academy/Curricula/registered": {
+    "/api/academy/curricula/registered": {
       "get": {
         "x-internal": [
           "cloud"
@@ -87,8 +92,7 @@ const AcademySchema: Record<string, unknown> = {
                             "x-go-name": "ID",
                             "x-oapi-codegen-extra-tags": {
                               "db": "id",
-                              "json": "id",
-                              "yaml": "id"
+                              "json": "id"
                             }
                           },
                           "type": {
@@ -109,8 +113,7 @@ const AcademySchema: Record<string, unknown> = {
                             "example": "layer5",
                             "x-oapi-codegen-extra-tags": {
                               "db": "org_id",
-                              "json": "org_id",
-                              "yaml": "org_id"
+                              "json": "org_id"
                             }
                           },
                           "visibility": {
@@ -118,8 +121,7 @@ const AcademySchema: Record<string, unknown> = {
                             "x-go-type": "Visibility",
                             "x-oapi-codegen-extra-tags": {
                               "db": "visibility",
-                              "json": "visibility",
-                              "yaml": "visibility"
+                              "json": "visibility"
                             },
                             "type": "string",
                             "enum": [
@@ -133,8 +135,7 @@ const AcademySchema: Record<string, unknown> = {
                             "x-go-type": "Status",
                             "x-oapi-codegen-extra-tags": {
                               "db": "status",
-                              "json": "status",
-                              "yaml": "status"
+                              "json": "status"
                             },
                             "type": "string",
                             "enum": [
@@ -153,8 +154,7 @@ const AcademySchema: Record<string, unknown> = {
                             "x-go-type": "Level",
                             "x-oapi-codegen-extra-tags": {
                               "db": "level",
-                              "json": "level",
-                              "yaml": "level"
+                              "json": "level"
                             },
                             "type": "string",
                             "enum": [
@@ -174,11 +174,10 @@ const AcademySchema: Record<string, unknown> = {
                             },
                             "x-oapi-codegen-extra-tags": {
                               "db": "badge_id",
-                              "json": "badge_id",
-                              "yaml": "badge_id"
+                              "json": "badge_id"
                             }
                           },
-                          "invite_id": {
+                          "inviteId": {
                             "allOf": [
                               {
                                 "type": "string",
@@ -193,8 +192,7 @@ const AcademySchema: Record<string, unknown> = {
                             "description": "ID of the invite associated with this Curricula",
                             "x-oapi-codegen-extra-tags": {
                               "db": "invite_id",
-                              "json": "invite_id",
-                              "yaml": "invite_id"
+                              "json": "invite_id"
                             }
                           },
                           "workspace_id": {
@@ -212,8 +210,7 @@ const AcademySchema: Record<string, unknown> = {
                             "description": "ID of the workspace to which this Curricula belongs",
                             "x-oapi-codegen-extra-tags": {
                               "db": "workspace_id",
-                              "json": "workspace_id",
-                              "yaml": "workspace_id"
+                              "json": "workspace_id"
                             }
                           },
                           "createdAt": {
@@ -227,8 +224,7 @@ const AcademySchema: Record<string, unknown> = {
                             "description": "When the Curricula item was created",
                             "x-oapi-codegen-extra-tags": {
                               "db": "created_at",
-                              "json": "created_at",
-                              "yaml": "created_at"
+                              "json": "created_at"
                             }
                           },
                           "updatedAt": {
@@ -243,8 +239,7 @@ const AcademySchema: Record<string, unknown> = {
                             "x-go-type": "core.Time",
                             "x-oapi-codegen-extra-tags": {
                               "db": "updated_at",
-                              "json": "updated_at",
-                              "yaml": "updated_at"
+                              "json": "updated_at"
                             }
                           },
                           "deletedAt": {
@@ -265,8 +260,7 @@ const AcademySchema: Record<string, unknown> = {
                             "x-go-type": "core.NullTime",
                             "x-oapi-codegen-extra-tags": {
                               "db": "deleted_at",
-                              "json": "deleted_at",
-                              "yaml": "deleted_at"
+                              "json": "deleted_at"
                             }
                           },
                           "metadata": {
@@ -277,8 +271,7 @@ const AcademySchema: Record<string, unknown> = {
                             "x-go-type-skip-optional-pointer": true,
                             "x-oapi-codegen-extra-tags": {
                               "db": "metadata",
-                              "json": "metadata",
-                              "yaml": "metadata"
+                              "json": "metadata"
                             },
                             "oneOf": [
                               {
@@ -295,7 +288,7 @@ const AcademySchema: Record<string, unknown> = {
                                     "description": "Short description of the curricula",
                                     "example": "Learn how to configure your Kubernetes clusters and manage the lifecycle of your workloads"
                                   },
-                                  "detailed_description": {
+                                  "detailedDescription": {
                                     "type": "string",
                                     "description": "Detailed description of the curricula",
                                     "example": "This learning path covers everything from Kubernetes architecture to advanced deployment strategies, including hands-on labs and real-world scenarios."
@@ -318,13 +311,13 @@ const AcademySchema: Record<string, unknown> = {
                                     "type": "object",
                                     "required": [
                                       "id",
-                                      "org_id",
+                                      "orgId",
                                       "title",
                                       "description",
-                                      "issuing_authorities",
-                                      "issued_date",
-                                      "recipient_id",
-                                      "recipient_name"
+                                      "issuingAuthorities",
+                                      "issuedDate",
+                                      "recipientId",
+                                      "recipientName"
                                     ],
                                     "properties": {
                                       "id": {
@@ -333,7 +326,7 @@ const AcademySchema: Record<string, unknown> = {
                                         "example": "1234567890abcdef",
                                         "x-go-name": "ID"
                                       },
-                                      "org_id": {
+                                      "orgId": {
                                         "type": "string",
                                         "format": "uuid",
                                         "description": "A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.",
@@ -342,12 +335,12 @@ const AcademySchema: Record<string, unknown> = {
                                           "path": "github.com/gofrs/uuid"
                                         }
                                       },
-                                      "recipient_id": {
+                                      "recipientId": {
                                         "type": "string",
                                         "description": "ID of the recipient (user) who received the certificate",
                                         "example": "1234567890abcdef"
                                       },
-                                      "recipient_name": {
+                                      "recipientName": {
                                         "type": "string",
                                         "description": "Name of the recipient (user) who received the certificate",
                                         "example": "John Doe"
@@ -362,7 +355,7 @@ const AcademySchema: Record<string, unknown> = {
                                         "description": "Description of the certificate",
                                         "example": "Awarded for successfully completing the Kubernetes Expert course"
                                       },
-                                      "issuing_authorities": {
+                                      "issuingAuthorities": {
                                         "type": "array",
                                         "items": {
                                           "x-go-type": "CertificateIssuingAuthority",
@@ -382,7 +375,7 @@ const AcademySchema: Record<string, unknown> = {
                                               "description": "Role of the issuing authority",
                                               "example": "COO"
                                             },
-                                            "signature_url": {
+                                            "signatureUrl": {
                                               "type": "string",
                                               "format": "uri",
                                               "description": "URL to the signature image of the issuing authority should be a publicly accessible URL and transparent PNG or SVG format",
@@ -392,19 +385,19 @@ const AcademySchema: Record<string, unknown> = {
                                         },
                                         "description": "List of issuing authorities for the certificate"
                                       },
-                                      "issued_date": {
+                                      "issuedDate": {
                                         "type": "string",
                                         "format": "date-time",
                                         "description": "Date when the certificate was issued",
                                         "example": "2023-10-01T12:00:00Z"
                                       },
-                                      "expiration_date": {
+                                      "expirationDate": {
                                         "type": "string",
                                         "format": "date-time",
                                         "description": "Date when the certificate expires (optional)",
                                         "example": "2025-10-01T12:00:00Z"
                                       },
-                                      "expires_in": {
+                                      "expiresIn": {
                                         "type": "integer",
                                         "description": "Number of months after which the certificate expires",
                                         "example": 24
@@ -425,8 +418,7 @@ const AcademySchema: Record<string, unknown> = {
                                           "x-go-name": "ID",
                                           "x-oapi-codegen-extra-tags": {
                                             "db": "id",
-                                            "json": "id",
-                                            "yaml": "id"
+                                            "json": "id"
                                           }
                                         },
                                         "title": {
@@ -521,6 +513,16 @@ const AcademySchema: Record<string, unknown> = {
           "400": {
             "description": "Invalid request parameters"
           },
+          "401": {
+            "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Server error"
           }
@@ -574,8 +576,7 @@ const AcademySchema: Record<string, unknown> = {
                     "example": "layer5",
                     "x-oapi-codegen-extra-tags": {
                       "db": "org_id",
-                      "json": "org_id",
-                      "yaml": "org_id"
+                      "json": "org_id"
                     }
                   },
                   "workspace_id": {
@@ -593,8 +594,7 @@ const AcademySchema: Record<string, unknown> = {
                     "description": "ID of the workspace to which this Curricula belongs",
                     "x-oapi-codegen-extra-tags": {
                       "db": "workspace_id",
-                      "json": "workspace_id",
-                      "yaml": "workspace_id"
+                      "json": "workspace_id"
                     }
                   },
                   "badge_id": {
@@ -608,8 +608,7 @@ const AcademySchema: Record<string, unknown> = {
                     },
                     "x-oapi-codegen-extra-tags": {
                       "db": "badge_id",
-                      "json": "badge_id",
-                      "yaml": "badge_id"
+                      "json": "badge_id"
                     }
                   },
                   "team_id": {
@@ -623,11 +622,10 @@ const AcademySchema: Record<string, unknown> = {
                     "x-go-name": "TeamId",
                     "x-oapi-codegen-extra-tags": {
                       "json": "team_id",
-                      "db": "team_id",
-                      "yaml": "team_id"
+                      "db": "team_id"
                     }
                   },
-                  "access_expires_at": {
+                  "accessExpiresAt": {
                     "allOf": [
                       {
                         "type": "string",
@@ -638,9 +636,8 @@ const AcademySchema: Record<string, unknown> = {
                     "description": "Expiry time for curricula access",
                     "x-go-type": "*time.Time",
                     "x-oapi-codegen-extra-tags": {
-                      "json": "access_expires_at",
-                      "db": "access_expires_at",
-                      "yaml": "access_expires_at"
+                      "json": "accessExpiresAt",
+                      "db": "access_expires_at"
                     }
                   },
                   "access_status": {
@@ -653,8 +650,7 @@ const AcademySchema: Record<string, unknown> = {
                     },
                     "x-oapi-codegen-extra-tags": {
                       "json": "access_status",
-                      "db": "access_status",
-                      "yaml": "access_status"
+                      "db": "access_status"
                     },
                     "type": "string",
                     "enum": [
@@ -670,8 +666,7 @@ const AcademySchema: Record<string, unknown> = {
                     "x-go-type-skip-optional-pointer": true,
                     "x-oapi-codegen-extra-tags": {
                       "db": "metadata",
-                      "json": "metadata",
-                      "yaml": "metadata"
+                      "json": "metadata"
                     },
                     "oneOf": [
                       {
@@ -688,7 +683,7 @@ const AcademySchema: Record<string, unknown> = {
                             "description": "Short description of the curricula",
                             "example": "Learn how to configure your Kubernetes clusters and manage the lifecycle of your workloads"
                           },
-                          "detailed_description": {
+                          "detailedDescription": {
                             "type": "string",
                             "description": "Detailed description of the curricula",
                             "example": "This learning path covers everything from Kubernetes architecture to advanced deployment strategies, including hands-on labs and real-world scenarios."
@@ -711,13 +706,13 @@ const AcademySchema: Record<string, unknown> = {
                             "type": "object",
                             "required": [
                               "id",
-                              "org_id",
+                              "orgId",
                               "title",
                               "description",
-                              "issuing_authorities",
-                              "issued_date",
-                              "recipient_id",
-                              "recipient_name"
+                              "issuingAuthorities",
+                              "issuedDate",
+                              "recipientId",
+                              "recipientName"
                             ],
                             "properties": {
                               "id": {
@@ -726,7 +721,7 @@ const AcademySchema: Record<string, unknown> = {
                                 "example": "1234567890abcdef",
                                 "x-go-name": "ID"
                               },
-                              "org_id": {
+                              "orgId": {
                                 "type": "string",
                                 "format": "uuid",
                                 "description": "A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.",
@@ -735,12 +730,12 @@ const AcademySchema: Record<string, unknown> = {
                                   "path": "github.com/gofrs/uuid"
                                 }
                               },
-                              "recipient_id": {
+                              "recipientId": {
                                 "type": "string",
                                 "description": "ID of the recipient (user) who received the certificate",
                                 "example": "1234567890abcdef"
                               },
-                              "recipient_name": {
+                              "recipientName": {
                                 "type": "string",
                                 "description": "Name of the recipient (user) who received the certificate",
                                 "example": "John Doe"
@@ -755,7 +750,7 @@ const AcademySchema: Record<string, unknown> = {
                                 "description": "Description of the certificate",
                                 "example": "Awarded for successfully completing the Kubernetes Expert course"
                               },
-                              "issuing_authorities": {
+                              "issuingAuthorities": {
                                 "type": "array",
                                 "items": {
                                   "x-go-type": "CertificateIssuingAuthority",
@@ -775,7 +770,7 @@ const AcademySchema: Record<string, unknown> = {
                                       "description": "Role of the issuing authority",
                                       "example": "COO"
                                     },
-                                    "signature_url": {
+                                    "signatureUrl": {
                                       "type": "string",
                                       "format": "uri",
                                       "description": "URL to the signature image of the issuing authority should be a publicly accessible URL and transparent PNG or SVG format",
@@ -785,19 +780,19 @@ const AcademySchema: Record<string, unknown> = {
                                 },
                                 "description": "List of issuing authorities for the certificate"
                               },
-                              "issued_date": {
+                              "issuedDate": {
                                 "type": "string",
                                 "format": "date-time",
                                 "description": "Date when the certificate was issued",
                                 "example": "2023-10-01T12:00:00Z"
                               },
-                              "expiration_date": {
+                              "expirationDate": {
                                 "type": "string",
                                 "format": "date-time",
                                 "description": "Date when the certificate expires (optional)",
                                 "example": "2025-10-01T12:00:00Z"
                               },
-                              "expires_in": {
+                              "expiresIn": {
                                 "type": "integer",
                                 "description": "Number of months after which the certificate expires",
                                 "example": 24
@@ -818,8 +813,7 @@ const AcademySchema: Record<string, unknown> = {
                                   "x-go-name": "ID",
                                   "x-oapi-codegen-extra-tags": {
                                     "db": "id",
-                                    "json": "id",
-                                    "yaml": "id"
+                                    "json": "id"
                                   }
                                 },
                                 "title": {
@@ -915,8 +909,7 @@ const AcademySchema: Record<string, unknown> = {
                       "x-go-name": "ID",
                       "x-oapi-codegen-extra-tags": {
                         "db": "id",
-                        "json": "id",
-                        "yaml": "id"
+                        "json": "id"
                       }
                     },
                     "type": {
@@ -937,8 +930,7 @@ const AcademySchema: Record<string, unknown> = {
                       "example": "layer5",
                       "x-oapi-codegen-extra-tags": {
                         "db": "org_id",
-                        "json": "org_id",
-                        "yaml": "org_id"
+                        "json": "org_id"
                       }
                     },
                     "visibility": {
@@ -946,8 +938,7 @@ const AcademySchema: Record<string, unknown> = {
                       "x-go-type": "Visibility",
                       "x-oapi-codegen-extra-tags": {
                         "db": "visibility",
-                        "json": "visibility",
-                        "yaml": "visibility"
+                        "json": "visibility"
                       },
                       "type": "string",
                       "enum": [
@@ -961,8 +952,7 @@ const AcademySchema: Record<string, unknown> = {
                       "x-go-type": "Status",
                       "x-oapi-codegen-extra-tags": {
                         "db": "status",
-                        "json": "status",
-                        "yaml": "status"
+                        "json": "status"
                       },
                       "type": "string",
                       "enum": [
@@ -981,8 +971,7 @@ const AcademySchema: Record<string, unknown> = {
                       "x-go-type": "Level",
                       "x-oapi-codegen-extra-tags": {
                         "db": "level",
-                        "json": "level",
-                        "yaml": "level"
+                        "json": "level"
                       },
                       "type": "string",
                       "enum": [
@@ -1002,11 +991,10 @@ const AcademySchema: Record<string, unknown> = {
                       },
                       "x-oapi-codegen-extra-tags": {
                         "db": "badge_id",
-                        "json": "badge_id",
-                        "yaml": "badge_id"
+                        "json": "badge_id"
                       }
                     },
-                    "invite_id": {
+                    "inviteId": {
                       "allOf": [
                         {
                           "type": "string",
@@ -1021,8 +1009,7 @@ const AcademySchema: Record<string, unknown> = {
                       "description": "ID of the invite associated with this Curricula",
                       "x-oapi-codegen-extra-tags": {
                         "db": "invite_id",
-                        "json": "invite_id",
-                        "yaml": "invite_id"
+                        "json": "invite_id"
                       }
                     },
                     "workspace_id": {
@@ -1040,8 +1027,7 @@ const AcademySchema: Record<string, unknown> = {
                       "description": "ID of the workspace to which this Curricula belongs",
                       "x-oapi-codegen-extra-tags": {
                         "db": "workspace_id",
-                        "json": "workspace_id",
-                        "yaml": "workspace_id"
+                        "json": "workspace_id"
                       }
                     },
                     "createdAt": {
@@ -1055,8 +1041,7 @@ const AcademySchema: Record<string, unknown> = {
                       "description": "When the Curricula item was created",
                       "x-oapi-codegen-extra-tags": {
                         "db": "created_at",
-                        "json": "created_at",
-                        "yaml": "created_at"
+                        "json": "created_at"
                       }
                     },
                     "updatedAt": {
@@ -1071,8 +1056,7 @@ const AcademySchema: Record<string, unknown> = {
                       "x-go-type": "core.Time",
                       "x-oapi-codegen-extra-tags": {
                         "db": "updated_at",
-                        "json": "updated_at",
-                        "yaml": "updated_at"
+                        "json": "updated_at"
                       }
                     },
                     "deletedAt": {
@@ -1093,8 +1077,7 @@ const AcademySchema: Record<string, unknown> = {
                       "x-go-type": "core.NullTime",
                       "x-oapi-codegen-extra-tags": {
                         "db": "deleted_at",
-                        "json": "deleted_at",
-                        "yaml": "deleted_at"
+                        "json": "deleted_at"
                       }
                     },
                     "metadata": {
@@ -1105,8 +1088,7 @@ const AcademySchema: Record<string, unknown> = {
                       "x-go-type-skip-optional-pointer": true,
                       "x-oapi-codegen-extra-tags": {
                         "db": "metadata",
-                        "json": "metadata",
-                        "yaml": "metadata"
+                        "json": "metadata"
                       },
                       "oneOf": [
                         {
@@ -1123,7 +1105,7 @@ const AcademySchema: Record<string, unknown> = {
                               "description": "Short description of the curricula",
                               "example": "Learn how to configure your Kubernetes clusters and manage the lifecycle of your workloads"
                             },
-                            "detailed_description": {
+                            "detailedDescription": {
                               "type": "string",
                               "description": "Detailed description of the curricula",
                               "example": "This learning path covers everything from Kubernetes architecture to advanced deployment strategies, including hands-on labs and real-world scenarios."
@@ -1146,13 +1128,13 @@ const AcademySchema: Record<string, unknown> = {
                               "type": "object",
                               "required": [
                                 "id",
-                                "org_id",
+                                "orgId",
                                 "title",
                                 "description",
-                                "issuing_authorities",
-                                "issued_date",
-                                "recipient_id",
-                                "recipient_name"
+                                "issuingAuthorities",
+                                "issuedDate",
+                                "recipientId",
+                                "recipientName"
                               ],
                               "properties": {
                                 "id": {
@@ -1161,7 +1143,7 @@ const AcademySchema: Record<string, unknown> = {
                                   "example": "1234567890abcdef",
                                   "x-go-name": "ID"
                                 },
-                                "org_id": {
+                                "orgId": {
                                   "type": "string",
                                   "format": "uuid",
                                   "description": "A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.",
@@ -1170,12 +1152,12 @@ const AcademySchema: Record<string, unknown> = {
                                     "path": "github.com/gofrs/uuid"
                                   }
                                 },
-                                "recipient_id": {
+                                "recipientId": {
                                   "type": "string",
                                   "description": "ID of the recipient (user) who received the certificate",
                                   "example": "1234567890abcdef"
                                 },
-                                "recipient_name": {
+                                "recipientName": {
                                   "type": "string",
                                   "description": "Name of the recipient (user) who received the certificate",
                                   "example": "John Doe"
@@ -1190,7 +1172,7 @@ const AcademySchema: Record<string, unknown> = {
                                   "description": "Description of the certificate",
                                   "example": "Awarded for successfully completing the Kubernetes Expert course"
                                 },
-                                "issuing_authorities": {
+                                "issuingAuthorities": {
                                   "type": "array",
                                   "items": {
                                     "x-go-type": "CertificateIssuingAuthority",
@@ -1210,7 +1192,7 @@ const AcademySchema: Record<string, unknown> = {
                                         "description": "Role of the issuing authority",
                                         "example": "COO"
                                       },
-                                      "signature_url": {
+                                      "signatureUrl": {
                                         "type": "string",
                                         "format": "uri",
                                         "description": "URL to the signature image of the issuing authority should be a publicly accessible URL and transparent PNG or SVG format",
@@ -1220,19 +1202,19 @@ const AcademySchema: Record<string, unknown> = {
                                   },
                                   "description": "List of issuing authorities for the certificate"
                                 },
-                                "issued_date": {
+                                "issuedDate": {
                                   "type": "string",
                                   "format": "date-time",
                                   "description": "Date when the certificate was issued",
                                   "example": "2023-10-01T12:00:00Z"
                                 },
-                                "expiration_date": {
+                                "expirationDate": {
                                   "type": "string",
                                   "format": "date-time",
                                   "description": "Date when the certificate expires (optional)",
                                   "example": "2025-10-01T12:00:00Z"
                                 },
-                                "expires_in": {
+                                "expiresIn": {
                                   "type": "integer",
                                   "description": "Number of months after which the certificate expires",
                                   "example": 24
@@ -1253,8 +1235,7 @@ const AcademySchema: Record<string, unknown> = {
                                     "x-go-name": "ID",
                                     "x-oapi-codegen-extra-tags": {
                                       "db": "id",
-                                      "json": "id",
-                                      "yaml": "id"
+                                      "json": "id"
                                     }
                                   },
                                   "title": {
@@ -1342,13 +1323,21 @@ const AcademySchema: Record<string, unknown> = {
           "400": {
             "description": "Invalid request parameters"
           },
+          "401": {
+            "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Server error"
           }
         }
-      }
-    },
-    "/api/academy/Curricula": {
+      },
       "get": {
         "x-internal": [
           "cloud"
@@ -1523,8 +1512,7 @@ const AcademySchema: Record<string, unknown> = {
                                 "x-go-name": "ID",
                                 "x-oapi-codegen-extra-tags": {
                                   "db": "id",
-                                  "json": "id",
-                                  "yaml": "id"
+                                  "json": "id"
                                 }
                               },
                               "type": {
@@ -1545,8 +1533,7 @@ const AcademySchema: Record<string, unknown> = {
                                 "example": "layer5",
                                 "x-oapi-codegen-extra-tags": {
                                   "db": "org_id",
-                                  "json": "org_id",
-                                  "yaml": "org_id"
+                                  "json": "org_id"
                                 }
                               },
                               "visibility": {
@@ -1554,8 +1541,7 @@ const AcademySchema: Record<string, unknown> = {
                                 "x-go-type": "Visibility",
                                 "x-oapi-codegen-extra-tags": {
                                   "db": "visibility",
-                                  "json": "visibility",
-                                  "yaml": "visibility"
+                                  "json": "visibility"
                                 },
                                 "type": "string",
                                 "enum": [
@@ -1569,8 +1555,7 @@ const AcademySchema: Record<string, unknown> = {
                                 "x-go-type": "Status",
                                 "x-oapi-codegen-extra-tags": {
                                   "db": "status",
-                                  "json": "status",
-                                  "yaml": "status"
+                                  "json": "status"
                                 },
                                 "type": "string",
                                 "enum": [
@@ -1589,8 +1574,7 @@ const AcademySchema: Record<string, unknown> = {
                                 "x-go-type": "Level",
                                 "x-oapi-codegen-extra-tags": {
                                   "db": "level",
-                                  "json": "level",
-                                  "yaml": "level"
+                                  "json": "level"
                                 },
                                 "type": "string",
                                 "enum": [
@@ -1610,11 +1594,10 @@ const AcademySchema: Record<string, unknown> = {
                                 },
                                 "x-oapi-codegen-extra-tags": {
                                   "db": "badge_id",
-                                  "json": "badge_id",
-                                  "yaml": "badge_id"
+                                  "json": "badge_id"
                                 }
                               },
-                              "invite_id": {
+                              "inviteId": {
                                 "allOf": [
                                   {
                                     "type": "string",
@@ -1629,8 +1612,7 @@ const AcademySchema: Record<string, unknown> = {
                                 "description": "ID of the invite associated with this Curricula",
                                 "x-oapi-codegen-extra-tags": {
                                   "db": "invite_id",
-                                  "json": "invite_id",
-                                  "yaml": "invite_id"
+                                  "json": "invite_id"
                                 }
                               },
                               "workspace_id": {
@@ -1648,8 +1630,7 @@ const AcademySchema: Record<string, unknown> = {
                                 "description": "ID of the workspace to which this Curricula belongs",
                                 "x-oapi-codegen-extra-tags": {
                                   "db": "workspace_id",
-                                  "json": "workspace_id",
-                                  "yaml": "workspace_id"
+                                  "json": "workspace_id"
                                 }
                               },
                               "createdAt": {
@@ -1663,8 +1644,7 @@ const AcademySchema: Record<string, unknown> = {
                                 "description": "When the Curricula item was created",
                                 "x-oapi-codegen-extra-tags": {
                                   "db": "created_at",
-                                  "json": "created_at",
-                                  "yaml": "created_at"
+                                  "json": "created_at"
                                 }
                               },
                               "updatedAt": {
@@ -1679,8 +1659,7 @@ const AcademySchema: Record<string, unknown> = {
                                 "x-go-type": "core.Time",
                                 "x-oapi-codegen-extra-tags": {
                                   "db": "updated_at",
-                                  "json": "updated_at",
-                                  "yaml": "updated_at"
+                                  "json": "updated_at"
                                 }
                               },
                               "deletedAt": {
@@ -1701,8 +1680,7 @@ const AcademySchema: Record<string, unknown> = {
                                 "x-go-type": "core.NullTime",
                                 "x-oapi-codegen-extra-tags": {
                                   "db": "deleted_at",
-                                  "json": "deleted_at",
-                                  "yaml": "deleted_at"
+                                  "json": "deleted_at"
                                 }
                               },
                               "metadata": {
@@ -1713,8 +1691,7 @@ const AcademySchema: Record<string, unknown> = {
                                 "x-go-type-skip-optional-pointer": true,
                                 "x-oapi-codegen-extra-tags": {
                                   "db": "metadata",
-                                  "json": "metadata",
-                                  "yaml": "metadata"
+                                  "json": "metadata"
                                 },
                                 "oneOf": [
                                   {
@@ -1731,7 +1708,7 @@ const AcademySchema: Record<string, unknown> = {
                                         "description": "Short description of the curricula",
                                         "example": "Learn how to configure your Kubernetes clusters and manage the lifecycle of your workloads"
                                       },
-                                      "detailed_description": {
+                                      "detailedDescription": {
                                         "type": "string",
                                         "description": "Detailed description of the curricula",
                                         "example": "This learning path covers everything from Kubernetes architecture to advanced deployment strategies, including hands-on labs and real-world scenarios."
@@ -1754,13 +1731,13 @@ const AcademySchema: Record<string, unknown> = {
                                         "type": "object",
                                         "required": [
                                           "id",
-                                          "org_id",
+                                          "orgId",
                                           "title",
                                           "description",
-                                          "issuing_authorities",
-                                          "issued_date",
-                                          "recipient_id",
-                                          "recipient_name"
+                                          "issuingAuthorities",
+                                          "issuedDate",
+                                          "recipientId",
+                                          "recipientName"
                                         ],
                                         "properties": {
                                           "id": {
@@ -1769,7 +1746,7 @@ const AcademySchema: Record<string, unknown> = {
                                             "example": "1234567890abcdef",
                                             "x-go-name": "ID"
                                           },
-                                          "org_id": {
+                                          "orgId": {
                                             "type": "string",
                                             "format": "uuid",
                                             "description": "A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.",
@@ -1778,12 +1755,12 @@ const AcademySchema: Record<string, unknown> = {
                                               "path": "github.com/gofrs/uuid"
                                             }
                                           },
-                                          "recipient_id": {
+                                          "recipientId": {
                                             "type": "string",
                                             "description": "ID of the recipient (user) who received the certificate",
                                             "example": "1234567890abcdef"
                                           },
-                                          "recipient_name": {
+                                          "recipientName": {
                                             "type": "string",
                                             "description": "Name of the recipient (user) who received the certificate",
                                             "example": "John Doe"
@@ -1798,7 +1775,7 @@ const AcademySchema: Record<string, unknown> = {
                                             "description": "Description of the certificate",
                                             "example": "Awarded for successfully completing the Kubernetes Expert course"
                                           },
-                                          "issuing_authorities": {
+                                          "issuingAuthorities": {
                                             "type": "array",
                                             "items": {
                                               "x-go-type": "CertificateIssuingAuthority",
@@ -1818,7 +1795,7 @@ const AcademySchema: Record<string, unknown> = {
                                                   "description": "Role of the issuing authority",
                                                   "example": "COO"
                                                 },
-                                                "signature_url": {
+                                                "signatureUrl": {
                                                   "type": "string",
                                                   "format": "uri",
                                                   "description": "URL to the signature image of the issuing authority should be a publicly accessible URL and transparent PNG or SVG format",
@@ -1828,19 +1805,19 @@ const AcademySchema: Record<string, unknown> = {
                                             },
                                             "description": "List of issuing authorities for the certificate"
                                           },
-                                          "issued_date": {
+                                          "issuedDate": {
                                             "type": "string",
                                             "format": "date-time",
                                             "description": "Date when the certificate was issued",
                                             "example": "2023-10-01T12:00:00Z"
                                           },
-                                          "expiration_date": {
+                                          "expirationDate": {
                                             "type": "string",
                                             "format": "date-time",
                                             "description": "Date when the certificate expires (optional)",
                                             "example": "2025-10-01T12:00:00Z"
                                           },
-                                          "expires_in": {
+                                          "expiresIn": {
                                             "type": "integer",
                                             "description": "Number of months after which the certificate expires",
                                             "example": 24
@@ -1861,8 +1838,7 @@ const AcademySchema: Record<string, unknown> = {
                                               "x-go-name": "ID",
                                               "x-oapi-codegen-extra-tags": {
                                                 "db": "id",
-                                                "json": "id",
-                                                "yaml": "id"
+                                                "json": "id"
                                               }
                                             },
                                             "title": {
@@ -1954,8 +1930,7 @@ const AcademySchema: Record<string, unknown> = {
                                 "type": "number",
                                 "x-oapi-codegen-extra-tags": {
                                   "db": "registration_count,omitempty",
-                                  "json": "registration_count,omitempty",
-                                  "yaml": "registration_count,omitempty"
+                                  "json": "registration_count,omitempty"
                                 }
                               }
                             }
@@ -1974,6 +1949,16 @@ const AcademySchema: Record<string, unknown> = {
           },
           "400": {
             "description": "Invalid request parameters"
+          },
+          "401": {
+            "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           },
           "500": {
             "description": "Server error"
@@ -2029,8 +2014,7 @@ const AcademySchema: Record<string, unknown> = {
                       "x-go-name": "ID",
                       "x-oapi-codegen-extra-tags": {
                         "db": "id",
-                        "json": "id",
-                        "yaml": "id"
+                        "json": "id"
                       }
                     },
                     "type": {
@@ -2051,8 +2035,7 @@ const AcademySchema: Record<string, unknown> = {
                       "example": "layer5",
                       "x-oapi-codegen-extra-tags": {
                         "db": "org_id",
-                        "json": "org_id",
-                        "yaml": "org_id"
+                        "json": "org_id"
                       }
                     },
                     "visibility": {
@@ -2060,8 +2043,7 @@ const AcademySchema: Record<string, unknown> = {
                       "x-go-type": "Visibility",
                       "x-oapi-codegen-extra-tags": {
                         "db": "visibility",
-                        "json": "visibility",
-                        "yaml": "visibility"
+                        "json": "visibility"
                       },
                       "type": "string",
                       "enum": [
@@ -2075,8 +2057,7 @@ const AcademySchema: Record<string, unknown> = {
                       "x-go-type": "Status",
                       "x-oapi-codegen-extra-tags": {
                         "db": "status",
-                        "json": "status",
-                        "yaml": "status"
+                        "json": "status"
                       },
                       "type": "string",
                       "enum": [
@@ -2095,8 +2076,7 @@ const AcademySchema: Record<string, unknown> = {
                       "x-go-type": "Level",
                       "x-oapi-codegen-extra-tags": {
                         "db": "level",
-                        "json": "level",
-                        "yaml": "level"
+                        "json": "level"
                       },
                       "type": "string",
                       "enum": [
@@ -2116,11 +2096,10 @@ const AcademySchema: Record<string, unknown> = {
                       },
                       "x-oapi-codegen-extra-tags": {
                         "db": "badge_id",
-                        "json": "badge_id",
-                        "yaml": "badge_id"
+                        "json": "badge_id"
                       }
                     },
-                    "invite_id": {
+                    "inviteId": {
                       "allOf": [
                         {
                           "type": "string",
@@ -2135,8 +2114,7 @@ const AcademySchema: Record<string, unknown> = {
                       "description": "ID of the invite associated with this Curricula",
                       "x-oapi-codegen-extra-tags": {
                         "db": "invite_id",
-                        "json": "invite_id",
-                        "yaml": "invite_id"
+                        "json": "invite_id"
                       }
                     },
                     "workspace_id": {
@@ -2154,8 +2132,7 @@ const AcademySchema: Record<string, unknown> = {
                       "description": "ID of the workspace to which this Curricula belongs",
                       "x-oapi-codegen-extra-tags": {
                         "db": "workspace_id",
-                        "json": "workspace_id",
-                        "yaml": "workspace_id"
+                        "json": "workspace_id"
                       }
                     },
                     "createdAt": {
@@ -2169,8 +2146,7 @@ const AcademySchema: Record<string, unknown> = {
                       "description": "When the Curricula item was created",
                       "x-oapi-codegen-extra-tags": {
                         "db": "created_at",
-                        "json": "created_at",
-                        "yaml": "created_at"
+                        "json": "created_at"
                       }
                     },
                     "updatedAt": {
@@ -2185,8 +2161,7 @@ const AcademySchema: Record<string, unknown> = {
                       "x-go-type": "core.Time",
                       "x-oapi-codegen-extra-tags": {
                         "db": "updated_at",
-                        "json": "updated_at",
-                        "yaml": "updated_at"
+                        "json": "updated_at"
                       }
                     },
                     "deletedAt": {
@@ -2207,8 +2182,7 @@ const AcademySchema: Record<string, unknown> = {
                       "x-go-type": "core.NullTime",
                       "x-oapi-codegen-extra-tags": {
                         "db": "deleted_at",
-                        "json": "deleted_at",
-                        "yaml": "deleted_at"
+                        "json": "deleted_at"
                       }
                     },
                     "metadata": {
@@ -2219,8 +2193,7 @@ const AcademySchema: Record<string, unknown> = {
                       "x-go-type-skip-optional-pointer": true,
                       "x-oapi-codegen-extra-tags": {
                         "db": "metadata",
-                        "json": "metadata",
-                        "yaml": "metadata"
+                        "json": "metadata"
                       },
                       "oneOf": [
                         {
@@ -2237,7 +2210,7 @@ const AcademySchema: Record<string, unknown> = {
                               "description": "Short description of the curricula",
                               "example": "Learn how to configure your Kubernetes clusters and manage the lifecycle of your workloads"
                             },
-                            "detailed_description": {
+                            "detailedDescription": {
                               "type": "string",
                               "description": "Detailed description of the curricula",
                               "example": "This learning path covers everything from Kubernetes architecture to advanced deployment strategies, including hands-on labs and real-world scenarios."
@@ -2260,13 +2233,13 @@ const AcademySchema: Record<string, unknown> = {
                               "type": "object",
                               "required": [
                                 "id",
-                                "org_id",
+                                "orgId",
                                 "title",
                                 "description",
-                                "issuing_authorities",
-                                "issued_date",
-                                "recipient_id",
-                                "recipient_name"
+                                "issuingAuthorities",
+                                "issuedDate",
+                                "recipientId",
+                                "recipientName"
                               ],
                               "properties": {
                                 "id": {
@@ -2275,7 +2248,7 @@ const AcademySchema: Record<string, unknown> = {
                                   "example": "1234567890abcdef",
                                   "x-go-name": "ID"
                                 },
-                                "org_id": {
+                                "orgId": {
                                   "type": "string",
                                   "format": "uuid",
                                   "description": "A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.",
@@ -2284,12 +2257,12 @@ const AcademySchema: Record<string, unknown> = {
                                     "path": "github.com/gofrs/uuid"
                                   }
                                 },
-                                "recipient_id": {
+                                "recipientId": {
                                   "type": "string",
                                   "description": "ID of the recipient (user) who received the certificate",
                                   "example": "1234567890abcdef"
                                 },
-                                "recipient_name": {
+                                "recipientName": {
                                   "type": "string",
                                   "description": "Name of the recipient (user) who received the certificate",
                                   "example": "John Doe"
@@ -2304,7 +2277,7 @@ const AcademySchema: Record<string, unknown> = {
                                   "description": "Description of the certificate",
                                   "example": "Awarded for successfully completing the Kubernetes Expert course"
                                 },
-                                "issuing_authorities": {
+                                "issuingAuthorities": {
                                   "type": "array",
                                   "items": {
                                     "x-go-type": "CertificateIssuingAuthority",
@@ -2324,7 +2297,7 @@ const AcademySchema: Record<string, unknown> = {
                                         "description": "Role of the issuing authority",
                                         "example": "COO"
                                       },
-                                      "signature_url": {
+                                      "signatureUrl": {
                                         "type": "string",
                                         "format": "uri",
                                         "description": "URL to the signature image of the issuing authority should be a publicly accessible URL and transparent PNG or SVG format",
@@ -2334,19 +2307,19 @@ const AcademySchema: Record<string, unknown> = {
                                   },
                                   "description": "List of issuing authorities for the certificate"
                                 },
-                                "issued_date": {
+                                "issuedDate": {
                                   "type": "string",
                                   "format": "date-time",
                                   "description": "Date when the certificate was issued",
                                   "example": "2023-10-01T12:00:00Z"
                                 },
-                                "expiration_date": {
+                                "expirationDate": {
                                   "type": "string",
                                   "format": "date-time",
                                   "description": "Date when the certificate expires (optional)",
                                   "example": "2025-10-01T12:00:00Z"
                                 },
-                                "expires_in": {
+                                "expiresIn": {
                                   "type": "integer",
                                   "description": "Number of months after which the certificate expires",
                                   "example": 24
@@ -2367,8 +2340,7 @@ const AcademySchema: Record<string, unknown> = {
                                     "x-go-name": "ID",
                                     "x-oapi-codegen-extra-tags": {
                                       "db": "id",
-                                      "json": "id",
-                                      "yaml": "id"
+                                      "json": "id"
                                     }
                                   },
                                   "title": {
@@ -2456,6 +2428,26 @@ const AcademySchema: Record<string, unknown> = {
           "400": {
             "description": "Invalid request parameters"
           },
+          "401": {
+            "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Result not found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Server error"
           }
@@ -2479,15 +2471,15 @@ const AcademySchema: Record<string, unknown> = {
               "schema": {
                 "type": "object",
                 "required": [
-                  "content_id",
+                  "contentId",
                   "user_id"
                 ],
                 "properties": {
-                  "content_id": {
+                  "contentId": {
                     "type": "string",
                     "description": "ID of the academy content to register for"
                   },
-                  "content_type": {
+                  "contentType": {
                     "type": "string",
                     "enum": [
                       "learning-path",
@@ -2501,7 +2493,7 @@ const AcademySchema: Record<string, unknown> = {
           }
         },
         "responses": {
-          "200": {
+          "201": {
             "description": "registered content",
             "content": {
               "application/json": {
@@ -2531,8 +2523,7 @@ const AcademySchema: Record<string, unknown> = {
                       "x-go-name": "ID",
                       "x-oapi-codegen-extra-tags": {
                         "db": "id",
-                        "json": "id",
-                        "yaml": "id"
+                        "json": "id"
                       }
                     },
                     "org_id": {
@@ -2620,13 +2611,13 @@ const AcademySchema: Record<string, unknown> = {
                       "type": "object",
                       "required": [
                         "id",
-                        "org_id",
+                        "orgId",
                         "title",
                         "description",
-                        "issuing_authorities",
-                        "issued_date",
-                        "recipient_id",
-                        "recipient_name"
+                        "issuingAuthorities",
+                        "issuedDate",
+                        "recipientId",
+                        "recipientName"
                       ],
                       "properties": {
                         "id": {
@@ -2635,7 +2626,7 @@ const AcademySchema: Record<string, unknown> = {
                           "example": "1234567890abcdef",
                           "x-go-name": "ID"
                         },
-                        "org_id": {
+                        "orgId": {
                           "type": "string",
                           "format": "uuid",
                           "description": "A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.",
@@ -2644,12 +2635,12 @@ const AcademySchema: Record<string, unknown> = {
                             "path": "github.com/gofrs/uuid"
                           }
                         },
-                        "recipient_id": {
+                        "recipientId": {
                           "type": "string",
                           "description": "ID of the recipient (user) who received the certificate",
                           "example": "1234567890abcdef"
                         },
-                        "recipient_name": {
+                        "recipientName": {
                           "type": "string",
                           "description": "Name of the recipient (user) who received the certificate",
                           "example": "John Doe"
@@ -2664,7 +2655,7 @@ const AcademySchema: Record<string, unknown> = {
                           "description": "Description of the certificate",
                           "example": "Awarded for successfully completing the Kubernetes Expert course"
                         },
-                        "issuing_authorities": {
+                        "issuingAuthorities": {
                           "type": "array",
                           "items": {
                             "x-go-type": "CertificateIssuingAuthority",
@@ -2684,7 +2675,7 @@ const AcademySchema: Record<string, unknown> = {
                                 "description": "Role of the issuing authority",
                                 "example": "COO"
                               },
-                              "signature_url": {
+                              "signatureUrl": {
                                 "type": "string",
                                 "format": "uri",
                                 "description": "URL to the signature image of the issuing authority should be a publicly accessible URL and transparent PNG or SVG format",
@@ -2694,19 +2685,19 @@ const AcademySchema: Record<string, unknown> = {
                           },
                           "description": "List of issuing authorities for the certificate"
                         },
-                        "issued_date": {
+                        "issuedDate": {
                           "type": "string",
                           "format": "date-time",
                           "description": "Date when the certificate was issued",
                           "example": "2023-10-01T12:00:00Z"
                         },
-                        "expiration_date": {
+                        "expirationDate": {
                           "type": "string",
                           "format": "date-time",
                           "description": "Date when the certificate expires (optional)",
                           "example": "2025-10-01T12:00:00Z"
                         },
-                        "expires_in": {
+                        "expiresIn": {
                           "type": "integer",
                           "description": "Number of months after which the certificate expires",
                           "example": 24
@@ -2730,6 +2721,16 @@ const AcademySchema: Record<string, unknown> = {
           },
           "400": {
             "description": "Invalid request parameters"
+          },
+          "401": {
+            "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           },
           "500": {
             "description": "Server error"
@@ -2789,8 +2790,7 @@ const AcademySchema: Record<string, unknown> = {
                       "x-go-name": "ID",
                       "x-oapi-codegen-extra-tags": {
                         "db": "id",
-                        "json": "id",
-                        "yaml": "id"
+                        "json": "id"
                       }
                     },
                     "org_id": {
@@ -2878,13 +2878,13 @@ const AcademySchema: Record<string, unknown> = {
                       "type": "object",
                       "required": [
                         "id",
-                        "org_id",
+                        "orgId",
                         "title",
                         "description",
-                        "issuing_authorities",
-                        "issued_date",
-                        "recipient_id",
-                        "recipient_name"
+                        "issuingAuthorities",
+                        "issuedDate",
+                        "recipientId",
+                        "recipientName"
                       ],
                       "properties": {
                         "id": {
@@ -2893,7 +2893,7 @@ const AcademySchema: Record<string, unknown> = {
                           "example": "1234567890abcdef",
                           "x-go-name": "ID"
                         },
-                        "org_id": {
+                        "orgId": {
                           "type": "string",
                           "format": "uuid",
                           "description": "A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.",
@@ -2902,12 +2902,12 @@ const AcademySchema: Record<string, unknown> = {
                             "path": "github.com/gofrs/uuid"
                           }
                         },
-                        "recipient_id": {
+                        "recipientId": {
                           "type": "string",
                           "description": "ID of the recipient (user) who received the certificate",
                           "example": "1234567890abcdef"
                         },
-                        "recipient_name": {
+                        "recipientName": {
                           "type": "string",
                           "description": "Name of the recipient (user) who received the certificate",
                           "example": "John Doe"
@@ -2922,7 +2922,7 @@ const AcademySchema: Record<string, unknown> = {
                           "description": "Description of the certificate",
                           "example": "Awarded for successfully completing the Kubernetes Expert course"
                         },
-                        "issuing_authorities": {
+                        "issuingAuthorities": {
                           "type": "array",
                           "items": {
                             "x-go-type": "CertificateIssuingAuthority",
@@ -2942,7 +2942,7 @@ const AcademySchema: Record<string, unknown> = {
                                 "description": "Role of the issuing authority",
                                 "example": "COO"
                               },
-                              "signature_url": {
+                              "signatureUrl": {
                                 "type": "string",
                                 "format": "uri",
                                 "description": "URL to the signature image of the issuing authority should be a publicly accessible URL and transparent PNG or SVG format",
@@ -2952,19 +2952,19 @@ const AcademySchema: Record<string, unknown> = {
                           },
                           "description": "List of issuing authorities for the certificate"
                         },
-                        "issued_date": {
+                        "issuedDate": {
                           "type": "string",
                           "format": "date-time",
                           "description": "Date when the certificate was issued",
                           "example": "2023-10-01T12:00:00Z"
                         },
-                        "expiration_date": {
+                        "expirationDate": {
                           "type": "string",
                           "format": "date-time",
                           "description": "Date when the certificate expires (optional)",
                           "example": "2025-10-01T12:00:00Z"
                         },
-                        "expires_in": {
+                        "expiresIn": {
                           "type": "integer",
                           "description": "Number of months after which the certificate expires",
                           "example": 24
@@ -2989,6 +2989,26 @@ const AcademySchema: Record<string, unknown> = {
           "400": {
             "description": "Invalid request parameters"
           },
+          "401": {
+            "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Result not found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Server error"
           }
@@ -3003,7 +3023,7 @@ const AcademySchema: Record<string, unknown> = {
         "tags": [
           "Academy"
         ],
-        "operationId": "updateAcademyCurriculaByID",
+        "operationId": "updateAcademyCurriculaById",
         "summary": "Update an existing academy curricula by ID",
         "description": "Updates the details of an existing academy curricula identified by its ID.",
         "parameters": [
@@ -3053,8 +3073,7 @@ const AcademySchema: Record<string, unknown> = {
                     "example": "layer5",
                     "x-oapi-codegen-extra-tags": {
                       "db": "org_id",
-                      "json": "org_id",
-                      "yaml": "org_id"
+                      "json": "org_id"
                     }
                   },
                   "workspace_id": {
@@ -3072,8 +3091,7 @@ const AcademySchema: Record<string, unknown> = {
                     "description": "ID of the workspace to which this Curricula belongs",
                     "x-oapi-codegen-extra-tags": {
                       "db": "workspace_id",
-                      "json": "workspace_id",
-                      "yaml": "workspace_id"
+                      "json": "workspace_id"
                     }
                   },
                   "badge_id": {
@@ -3087,8 +3105,7 @@ const AcademySchema: Record<string, unknown> = {
                     },
                     "x-oapi-codegen-extra-tags": {
                       "db": "badge_id",
-                      "json": "badge_id",
-                      "yaml": "badge_id"
+                      "json": "badge_id"
                     }
                   },
                   "team_id": {
@@ -3102,11 +3119,10 @@ const AcademySchema: Record<string, unknown> = {
                     "x-go-name": "TeamId",
                     "x-oapi-codegen-extra-tags": {
                       "json": "team_id",
-                      "db": "team_id",
-                      "yaml": "team_id"
+                      "db": "team_id"
                     }
                   },
-                  "access_expires_at": {
+                  "accessExpiresAt": {
                     "allOf": [
                       {
                         "type": "string",
@@ -3117,9 +3133,8 @@ const AcademySchema: Record<string, unknown> = {
                     "description": "Expiry time for curricula access",
                     "x-go-type": "*time.Time",
                     "x-oapi-codegen-extra-tags": {
-                      "json": "access_expires_at",
-                      "db": "access_expires_at",
-                      "yaml": "access_expires_at"
+                      "json": "accessExpiresAt",
+                      "db": "access_expires_at"
                     }
                   },
                   "access_status": {
@@ -3132,8 +3147,7 @@ const AcademySchema: Record<string, unknown> = {
                     },
                     "x-oapi-codegen-extra-tags": {
                       "json": "access_status",
-                      "db": "access_status",
-                      "yaml": "access_status"
+                      "db": "access_status"
                     },
                     "type": "string",
                     "enum": [
@@ -3149,8 +3163,7 @@ const AcademySchema: Record<string, unknown> = {
                     "x-go-type-skip-optional-pointer": true,
                     "x-oapi-codegen-extra-tags": {
                       "db": "metadata",
-                      "json": "metadata",
-                      "yaml": "metadata"
+                      "json": "metadata"
                     },
                     "oneOf": [
                       {
@@ -3167,7 +3180,7 @@ const AcademySchema: Record<string, unknown> = {
                             "description": "Short description of the curricula",
                             "example": "Learn how to configure your Kubernetes clusters and manage the lifecycle of your workloads"
                           },
-                          "detailed_description": {
+                          "detailedDescription": {
                             "type": "string",
                             "description": "Detailed description of the curricula",
                             "example": "This learning path covers everything from Kubernetes architecture to advanced deployment strategies, including hands-on labs and real-world scenarios."
@@ -3190,13 +3203,13 @@ const AcademySchema: Record<string, unknown> = {
                             "type": "object",
                             "required": [
                               "id",
-                              "org_id",
+                              "orgId",
                               "title",
                               "description",
-                              "issuing_authorities",
-                              "issued_date",
-                              "recipient_id",
-                              "recipient_name"
+                              "issuingAuthorities",
+                              "issuedDate",
+                              "recipientId",
+                              "recipientName"
                             ],
                             "properties": {
                               "id": {
@@ -3205,7 +3218,7 @@ const AcademySchema: Record<string, unknown> = {
                                 "example": "1234567890abcdef",
                                 "x-go-name": "ID"
                               },
-                              "org_id": {
+                              "orgId": {
                                 "type": "string",
                                 "format": "uuid",
                                 "description": "A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.",
@@ -3214,12 +3227,12 @@ const AcademySchema: Record<string, unknown> = {
                                   "path": "github.com/gofrs/uuid"
                                 }
                               },
-                              "recipient_id": {
+                              "recipientId": {
                                 "type": "string",
                                 "description": "ID of the recipient (user) who received the certificate",
                                 "example": "1234567890abcdef"
                               },
-                              "recipient_name": {
+                              "recipientName": {
                                 "type": "string",
                                 "description": "Name of the recipient (user) who received the certificate",
                                 "example": "John Doe"
@@ -3234,7 +3247,7 @@ const AcademySchema: Record<string, unknown> = {
                                 "description": "Description of the certificate",
                                 "example": "Awarded for successfully completing the Kubernetes Expert course"
                               },
-                              "issuing_authorities": {
+                              "issuingAuthorities": {
                                 "type": "array",
                                 "items": {
                                   "x-go-type": "CertificateIssuingAuthority",
@@ -3254,7 +3267,7 @@ const AcademySchema: Record<string, unknown> = {
                                       "description": "Role of the issuing authority",
                                       "example": "COO"
                                     },
-                                    "signature_url": {
+                                    "signatureUrl": {
                                       "type": "string",
                                       "format": "uri",
                                       "description": "URL to the signature image of the issuing authority should be a publicly accessible URL and transparent PNG or SVG format",
@@ -3264,19 +3277,19 @@ const AcademySchema: Record<string, unknown> = {
                                 },
                                 "description": "List of issuing authorities for the certificate"
                               },
-                              "issued_date": {
+                              "issuedDate": {
                                 "type": "string",
                                 "format": "date-time",
                                 "description": "Date when the certificate was issued",
                                 "example": "2023-10-01T12:00:00Z"
                               },
-                              "expiration_date": {
+                              "expirationDate": {
                                 "type": "string",
                                 "format": "date-time",
                                 "description": "Date when the certificate expires (optional)",
                                 "example": "2025-10-01T12:00:00Z"
                               },
-                              "expires_in": {
+                              "expiresIn": {
                                 "type": "integer",
                                 "description": "Number of months after which the certificate expires",
                                 "example": 24
@@ -3297,8 +3310,7 @@ const AcademySchema: Record<string, unknown> = {
                                   "x-go-name": "ID",
                                   "x-oapi-codegen-extra-tags": {
                                     "db": "id",
-                                    "json": "id",
-                                    "yaml": "id"
+                                    "json": "id"
                                   }
                                 },
                                 "title": {
@@ -3397,8 +3409,7 @@ const AcademySchema: Record<string, unknown> = {
                           "x-go-name": "ID",
                           "x-oapi-codegen-extra-tags": {
                             "db": "id",
-                            "json": "id",
-                            "yaml": "id"
+                            "json": "id"
                           }
                         },
                         "type": {
@@ -3419,8 +3430,7 @@ const AcademySchema: Record<string, unknown> = {
                           "example": "layer5",
                           "x-oapi-codegen-extra-tags": {
                             "db": "org_id",
-                            "json": "org_id",
-                            "yaml": "org_id"
+                            "json": "org_id"
                           }
                         },
                         "visibility": {
@@ -3428,8 +3438,7 @@ const AcademySchema: Record<string, unknown> = {
                           "x-go-type": "Visibility",
                           "x-oapi-codegen-extra-tags": {
                             "db": "visibility",
-                            "json": "visibility",
-                            "yaml": "visibility"
+                            "json": "visibility"
                           },
                           "type": "string",
                           "enum": [
@@ -3443,8 +3452,7 @@ const AcademySchema: Record<string, unknown> = {
                           "x-go-type": "Status",
                           "x-oapi-codegen-extra-tags": {
                             "db": "status",
-                            "json": "status",
-                            "yaml": "status"
+                            "json": "status"
                           },
                           "type": "string",
                           "enum": [
@@ -3463,8 +3471,7 @@ const AcademySchema: Record<string, unknown> = {
                           "x-go-type": "Level",
                           "x-oapi-codegen-extra-tags": {
                             "db": "level",
-                            "json": "level",
-                            "yaml": "level"
+                            "json": "level"
                           },
                           "type": "string",
                           "enum": [
@@ -3484,11 +3491,10 @@ const AcademySchema: Record<string, unknown> = {
                           },
                           "x-oapi-codegen-extra-tags": {
                             "db": "badge_id",
-                            "json": "badge_id",
-                            "yaml": "badge_id"
+                            "json": "badge_id"
                           }
                         },
-                        "invite_id": {
+                        "inviteId": {
                           "allOf": [
                             {
                               "type": "string",
@@ -3503,8 +3509,7 @@ const AcademySchema: Record<string, unknown> = {
                           "description": "ID of the invite associated with this Curricula",
                           "x-oapi-codegen-extra-tags": {
                             "db": "invite_id",
-                            "json": "invite_id",
-                            "yaml": "invite_id"
+                            "json": "invite_id"
                           }
                         },
                         "workspace_id": {
@@ -3522,8 +3527,7 @@ const AcademySchema: Record<string, unknown> = {
                           "description": "ID of the workspace to which this Curricula belongs",
                           "x-oapi-codegen-extra-tags": {
                             "db": "workspace_id",
-                            "json": "workspace_id",
-                            "yaml": "workspace_id"
+                            "json": "workspace_id"
                           }
                         },
                         "createdAt": {
@@ -3537,8 +3541,7 @@ const AcademySchema: Record<string, unknown> = {
                           "description": "When the Curricula item was created",
                           "x-oapi-codegen-extra-tags": {
                             "db": "created_at",
-                            "json": "created_at",
-                            "yaml": "created_at"
+                            "json": "created_at"
                           }
                         },
                         "updatedAt": {
@@ -3553,8 +3556,7 @@ const AcademySchema: Record<string, unknown> = {
                           "x-go-type": "core.Time",
                           "x-oapi-codegen-extra-tags": {
                             "db": "updated_at",
-                            "json": "updated_at",
-                            "yaml": "updated_at"
+                            "json": "updated_at"
                           }
                         },
                         "deletedAt": {
@@ -3575,8 +3577,7 @@ const AcademySchema: Record<string, unknown> = {
                           "x-go-type": "core.NullTime",
                           "x-oapi-codegen-extra-tags": {
                             "db": "deleted_at",
-                            "json": "deleted_at",
-                            "yaml": "deleted_at"
+                            "json": "deleted_at"
                           }
                         },
                         "metadata": {
@@ -3587,8 +3588,7 @@ const AcademySchema: Record<string, unknown> = {
                           "x-go-type-skip-optional-pointer": true,
                           "x-oapi-codegen-extra-tags": {
                             "db": "metadata",
-                            "json": "metadata",
-                            "yaml": "metadata"
+                            "json": "metadata"
                           },
                           "oneOf": [
                             {
@@ -3605,7 +3605,7 @@ const AcademySchema: Record<string, unknown> = {
                                   "description": "Short description of the curricula",
                                   "example": "Learn how to configure your Kubernetes clusters and manage the lifecycle of your workloads"
                                 },
-                                "detailed_description": {
+                                "detailedDescription": {
                                   "type": "string",
                                   "description": "Detailed description of the curricula",
                                   "example": "This learning path covers everything from Kubernetes architecture to advanced deployment strategies, including hands-on labs and real-world scenarios."
@@ -3628,13 +3628,13 @@ const AcademySchema: Record<string, unknown> = {
                                   "type": "object",
                                   "required": [
                                     "id",
-                                    "org_id",
+                                    "orgId",
                                     "title",
                                     "description",
-                                    "issuing_authorities",
-                                    "issued_date",
-                                    "recipient_id",
-                                    "recipient_name"
+                                    "issuingAuthorities",
+                                    "issuedDate",
+                                    "recipientId",
+                                    "recipientName"
                                   ],
                                   "properties": {
                                     "id": {
@@ -3643,7 +3643,7 @@ const AcademySchema: Record<string, unknown> = {
                                       "example": "1234567890abcdef",
                                       "x-go-name": "ID"
                                     },
-                                    "org_id": {
+                                    "orgId": {
                                       "type": "string",
                                       "format": "uuid",
                                       "description": "A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.",
@@ -3652,12 +3652,12 @@ const AcademySchema: Record<string, unknown> = {
                                         "path": "github.com/gofrs/uuid"
                                       }
                                     },
-                                    "recipient_id": {
+                                    "recipientId": {
                                       "type": "string",
                                       "description": "ID of the recipient (user) who received the certificate",
                                       "example": "1234567890abcdef"
                                     },
-                                    "recipient_name": {
+                                    "recipientName": {
                                       "type": "string",
                                       "description": "Name of the recipient (user) who received the certificate",
                                       "example": "John Doe"
@@ -3672,7 +3672,7 @@ const AcademySchema: Record<string, unknown> = {
                                       "description": "Description of the certificate",
                                       "example": "Awarded for successfully completing the Kubernetes Expert course"
                                     },
-                                    "issuing_authorities": {
+                                    "issuingAuthorities": {
                                       "type": "array",
                                       "items": {
                                         "x-go-type": "CertificateIssuingAuthority",
@@ -3692,7 +3692,7 @@ const AcademySchema: Record<string, unknown> = {
                                             "description": "Role of the issuing authority",
                                             "example": "COO"
                                           },
-                                          "signature_url": {
+                                          "signatureUrl": {
                                             "type": "string",
                                             "format": "uri",
                                             "description": "URL to the signature image of the issuing authority should be a publicly accessible URL and transparent PNG or SVG format",
@@ -3702,19 +3702,19 @@ const AcademySchema: Record<string, unknown> = {
                                       },
                                       "description": "List of issuing authorities for the certificate"
                                     },
-                                    "issued_date": {
+                                    "issuedDate": {
                                       "type": "string",
                                       "format": "date-time",
                                       "description": "Date when the certificate was issued",
                                       "example": "2023-10-01T12:00:00Z"
                                     },
-                                    "expiration_date": {
+                                    "expirationDate": {
                                       "type": "string",
                                       "format": "date-time",
                                       "description": "Date when the certificate expires (optional)",
                                       "example": "2025-10-01T12:00:00Z"
                                     },
-                                    "expires_in": {
+                                    "expiresIn": {
                                       "type": "integer",
                                       "description": "Number of months after which the certificate expires",
                                       "example": 24
@@ -3735,8 +3735,7 @@ const AcademySchema: Record<string, unknown> = {
                                         "x-go-name": "ID",
                                         "x-oapi-codegen-extra-tags": {
                                           "db": "id",
-                                          "json": "id",
-                                          "yaml": "id"
+                                          "json": "id"
                                         }
                                       },
                                       "title": {
@@ -3828,11 +3827,10 @@ const AcademySchema: Record<string, unknown> = {
                           "type": "number",
                           "x-oapi-codegen-extra-tags": {
                             "db": "registration_count,omitempty",
-                            "json": "registration_count,omitempty",
-                            "yaml": "registration_count,omitempty"
+                            "json": "registration_count,omitempty"
                           }
                         },
-                        "Invitation": {
+                        "invitation": {
                           "x-go-type": "invitationv1beta1.Invitation",
                           "x-go-type-import": {
                             "path": "github.com/meshery/schemas/models/v1beta1/invitation",
@@ -4014,6 +4012,16 @@ const AcademySchema: Record<string, unknown> = {
           "400": {
             "description": "Invalid request parameters"
           },
+          "401": {
+            "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
           "404": {
             "description": "Curricula not found"
           },
@@ -4029,7 +4037,7 @@ const AcademySchema: Record<string, unknown> = {
         "tags": [
           "Academy"
         ],
-        "operationId": "deleteAcademyCurriculaByID",
+        "operationId": "deleteAcademyCurriculaById",
         "summary": "Delete an academy curricula by ID",
         "description": "Deletes an existing academy curricula identified by its ID.",
         "parameters": [
@@ -4045,10 +4053,20 @@ const AcademySchema: Record<string, unknown> = {
         ],
         "responses": {
           "204": {
-            "description": "Successfully deleted the curricula"
+            "description": "Curricula deleted"
           },
           "400": {
             "description": "Invalid request parameters"
+          },
+          "401": {
+            "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           },
           "404": {
             "description": "Curricula not found"
@@ -4065,7 +4083,7 @@ const AcademySchema: Record<string, unknown> = {
         "tags": [
           "Academy"
         ],
-        "operationId": "getAcademyCurriculaByID",
+        "operationId": "getAcademyCurriculaById",
         "summary": "Get a single academy curricula by ID",
         "description": "Returns a single academy curricula identified by its ID.",
         "parameters": [
@@ -4097,8 +4115,7 @@ const AcademySchema: Record<string, unknown> = {
                           "x-go-name": "ID",
                           "x-oapi-codegen-extra-tags": {
                             "db": "id",
-                            "json": "id",
-                            "yaml": "id"
+                            "json": "id"
                           }
                         },
                         "type": {
@@ -4119,8 +4136,7 @@ const AcademySchema: Record<string, unknown> = {
                           "example": "layer5",
                           "x-oapi-codegen-extra-tags": {
                             "db": "org_id",
-                            "json": "org_id",
-                            "yaml": "org_id"
+                            "json": "org_id"
                           }
                         },
                         "visibility": {
@@ -4128,8 +4144,7 @@ const AcademySchema: Record<string, unknown> = {
                           "x-go-type": "Visibility",
                           "x-oapi-codegen-extra-tags": {
                             "db": "visibility",
-                            "json": "visibility",
-                            "yaml": "visibility"
+                            "json": "visibility"
                           },
                           "type": "string",
                           "enum": [
@@ -4143,8 +4158,7 @@ const AcademySchema: Record<string, unknown> = {
                           "x-go-type": "Status",
                           "x-oapi-codegen-extra-tags": {
                             "db": "status",
-                            "json": "status",
-                            "yaml": "status"
+                            "json": "status"
                           },
                           "type": "string",
                           "enum": [
@@ -4163,8 +4177,7 @@ const AcademySchema: Record<string, unknown> = {
                           "x-go-type": "Level",
                           "x-oapi-codegen-extra-tags": {
                             "db": "level",
-                            "json": "level",
-                            "yaml": "level"
+                            "json": "level"
                           },
                           "type": "string",
                           "enum": [
@@ -4184,11 +4197,10 @@ const AcademySchema: Record<string, unknown> = {
                           },
                           "x-oapi-codegen-extra-tags": {
                             "db": "badge_id",
-                            "json": "badge_id",
-                            "yaml": "badge_id"
+                            "json": "badge_id"
                           }
                         },
-                        "invite_id": {
+                        "inviteId": {
                           "allOf": [
                             {
                               "type": "string",
@@ -4203,8 +4215,7 @@ const AcademySchema: Record<string, unknown> = {
                           "description": "ID of the invite associated with this Curricula",
                           "x-oapi-codegen-extra-tags": {
                             "db": "invite_id",
-                            "json": "invite_id",
-                            "yaml": "invite_id"
+                            "json": "invite_id"
                           }
                         },
                         "workspace_id": {
@@ -4222,8 +4233,7 @@ const AcademySchema: Record<string, unknown> = {
                           "description": "ID of the workspace to which this Curricula belongs",
                           "x-oapi-codegen-extra-tags": {
                             "db": "workspace_id",
-                            "json": "workspace_id",
-                            "yaml": "workspace_id"
+                            "json": "workspace_id"
                           }
                         },
                         "createdAt": {
@@ -4237,8 +4247,7 @@ const AcademySchema: Record<string, unknown> = {
                           "description": "When the Curricula item was created",
                           "x-oapi-codegen-extra-tags": {
                             "db": "created_at",
-                            "json": "created_at",
-                            "yaml": "created_at"
+                            "json": "created_at"
                           }
                         },
                         "updatedAt": {
@@ -4253,8 +4262,7 @@ const AcademySchema: Record<string, unknown> = {
                           "x-go-type": "core.Time",
                           "x-oapi-codegen-extra-tags": {
                             "db": "updated_at",
-                            "json": "updated_at",
-                            "yaml": "updated_at"
+                            "json": "updated_at"
                           }
                         },
                         "deletedAt": {
@@ -4275,8 +4283,7 @@ const AcademySchema: Record<string, unknown> = {
                           "x-go-type": "core.NullTime",
                           "x-oapi-codegen-extra-tags": {
                             "db": "deleted_at",
-                            "json": "deleted_at",
-                            "yaml": "deleted_at"
+                            "json": "deleted_at"
                           }
                         },
                         "metadata": {
@@ -4287,8 +4294,7 @@ const AcademySchema: Record<string, unknown> = {
                           "x-go-type-skip-optional-pointer": true,
                           "x-oapi-codegen-extra-tags": {
                             "db": "metadata",
-                            "json": "metadata",
-                            "yaml": "metadata"
+                            "json": "metadata"
                           },
                           "oneOf": [
                             {
@@ -4305,7 +4311,7 @@ const AcademySchema: Record<string, unknown> = {
                                   "description": "Short description of the curricula",
                                   "example": "Learn how to configure your Kubernetes clusters and manage the lifecycle of your workloads"
                                 },
-                                "detailed_description": {
+                                "detailedDescription": {
                                   "type": "string",
                                   "description": "Detailed description of the curricula",
                                   "example": "This learning path covers everything from Kubernetes architecture to advanced deployment strategies, including hands-on labs and real-world scenarios."
@@ -4328,13 +4334,13 @@ const AcademySchema: Record<string, unknown> = {
                                   "type": "object",
                                   "required": [
                                     "id",
-                                    "org_id",
+                                    "orgId",
                                     "title",
                                     "description",
-                                    "issuing_authorities",
-                                    "issued_date",
-                                    "recipient_id",
-                                    "recipient_name"
+                                    "issuingAuthorities",
+                                    "issuedDate",
+                                    "recipientId",
+                                    "recipientName"
                                   ],
                                   "properties": {
                                     "id": {
@@ -4343,7 +4349,7 @@ const AcademySchema: Record<string, unknown> = {
                                       "example": "1234567890abcdef",
                                       "x-go-name": "ID"
                                     },
-                                    "org_id": {
+                                    "orgId": {
                                       "type": "string",
                                       "format": "uuid",
                                       "description": "A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.",
@@ -4352,12 +4358,12 @@ const AcademySchema: Record<string, unknown> = {
                                         "path": "github.com/gofrs/uuid"
                                       }
                                     },
-                                    "recipient_id": {
+                                    "recipientId": {
                                       "type": "string",
                                       "description": "ID of the recipient (user) who received the certificate",
                                       "example": "1234567890abcdef"
                                     },
-                                    "recipient_name": {
+                                    "recipientName": {
                                       "type": "string",
                                       "description": "Name of the recipient (user) who received the certificate",
                                       "example": "John Doe"
@@ -4372,7 +4378,7 @@ const AcademySchema: Record<string, unknown> = {
                                       "description": "Description of the certificate",
                                       "example": "Awarded for successfully completing the Kubernetes Expert course"
                                     },
-                                    "issuing_authorities": {
+                                    "issuingAuthorities": {
                                       "type": "array",
                                       "items": {
                                         "x-go-type": "CertificateIssuingAuthority",
@@ -4392,7 +4398,7 @@ const AcademySchema: Record<string, unknown> = {
                                             "description": "Role of the issuing authority",
                                             "example": "COO"
                                           },
-                                          "signature_url": {
+                                          "signatureUrl": {
                                             "type": "string",
                                             "format": "uri",
                                             "description": "URL to the signature image of the issuing authority should be a publicly accessible URL and transparent PNG or SVG format",
@@ -4402,19 +4408,19 @@ const AcademySchema: Record<string, unknown> = {
                                       },
                                       "description": "List of issuing authorities for the certificate"
                                     },
-                                    "issued_date": {
+                                    "issuedDate": {
                                       "type": "string",
                                       "format": "date-time",
                                       "description": "Date when the certificate was issued",
                                       "example": "2023-10-01T12:00:00Z"
                                     },
-                                    "expiration_date": {
+                                    "expirationDate": {
                                       "type": "string",
                                       "format": "date-time",
                                       "description": "Date when the certificate expires (optional)",
                                       "example": "2025-10-01T12:00:00Z"
                                     },
-                                    "expires_in": {
+                                    "expiresIn": {
                                       "type": "integer",
                                       "description": "Number of months after which the certificate expires",
                                       "example": 24
@@ -4435,8 +4441,7 @@ const AcademySchema: Record<string, unknown> = {
                                         "x-go-name": "ID",
                                         "x-oapi-codegen-extra-tags": {
                                           "db": "id",
-                                          "json": "id",
-                                          "yaml": "id"
+                                          "json": "id"
                                         }
                                       },
                                       "title": {
@@ -4528,11 +4533,10 @@ const AcademySchema: Record<string, unknown> = {
                           "type": "number",
                           "x-oapi-codegen-extra-tags": {
                             "db": "registration_count,omitempty",
-                            "json": "registration_count,omitempty",
-                            "yaml": "registration_count,omitempty"
+                            "json": "registration_count,omitempty"
                           }
                         },
-                        "Invitation": {
+                        "invitation": {
                           "x-go-type": "invitationv1beta1.Invitation",
                           "x-go-type-import": {
                             "path": "github.com/meshery/schemas/models/v1beta1/invitation",
@@ -4713,6 +4717,16 @@ const AcademySchema: Record<string, unknown> = {
           },
           "400": {
             "description": "Invalid request parameters"
+          },
+          "401": {
+            "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           },
           "404": {
             "description": "Curricula not found"
@@ -4784,8 +4798,7 @@ const AcademySchema: Record<string, unknown> = {
                       "x-go-name": "ID",
                       "x-oapi-codegen-extra-tags": {
                         "db": "id",
-                        "json": "id",
-                        "yaml": "id"
+                        "json": "id"
                       }
                     },
                     "org_id": {
@@ -4873,13 +4886,13 @@ const AcademySchema: Record<string, unknown> = {
                       "type": "object",
                       "required": [
                         "id",
-                        "org_id",
+                        "orgId",
                         "title",
                         "description",
-                        "issuing_authorities",
-                        "issued_date",
-                        "recipient_id",
-                        "recipient_name"
+                        "issuingAuthorities",
+                        "issuedDate",
+                        "recipientId",
+                        "recipientName"
                       ],
                       "properties": {
                         "id": {
@@ -4888,7 +4901,7 @@ const AcademySchema: Record<string, unknown> = {
                           "example": "1234567890abcdef",
                           "x-go-name": "ID"
                         },
-                        "org_id": {
+                        "orgId": {
                           "type": "string",
                           "format": "uuid",
                           "description": "A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.",
@@ -4897,12 +4910,12 @@ const AcademySchema: Record<string, unknown> = {
                             "path": "github.com/gofrs/uuid"
                           }
                         },
-                        "recipient_id": {
+                        "recipientId": {
                           "type": "string",
                           "description": "ID of the recipient (user) who received the certificate",
                           "example": "1234567890abcdef"
                         },
-                        "recipient_name": {
+                        "recipientName": {
                           "type": "string",
                           "description": "Name of the recipient (user) who received the certificate",
                           "example": "John Doe"
@@ -4917,7 +4930,7 @@ const AcademySchema: Record<string, unknown> = {
                           "description": "Description of the certificate",
                           "example": "Awarded for successfully completing the Kubernetes Expert course"
                         },
-                        "issuing_authorities": {
+                        "issuingAuthorities": {
                           "type": "array",
                           "items": {
                             "x-go-type": "CertificateIssuingAuthority",
@@ -4937,7 +4950,7 @@ const AcademySchema: Record<string, unknown> = {
                                 "description": "Role of the issuing authority",
                                 "example": "COO"
                               },
-                              "signature_url": {
+                              "signatureUrl": {
                                 "type": "string",
                                 "format": "uri",
                                 "description": "URL to the signature image of the issuing authority should be a publicly accessible URL and transparent PNG or SVG format",
@@ -4947,19 +4960,19 @@ const AcademySchema: Record<string, unknown> = {
                           },
                           "description": "List of issuing authorities for the certificate"
                         },
-                        "issued_date": {
+                        "issuedDate": {
                           "type": "string",
                           "format": "date-time",
                           "description": "Date when the certificate was issued",
                           "example": "2023-10-01T12:00:00Z"
                         },
-                        "expiration_date": {
+                        "expirationDate": {
                           "type": "string",
                           "format": "date-time",
                           "description": "Date when the certificate expires (optional)",
                           "example": "2025-10-01T12:00:00Z"
                         },
-                        "expires_in": {
+                        "expiresIn": {
                           "type": "integer",
                           "description": "Number of months after which the certificate expires",
                           "example": 24
@@ -4983,6 +4996,16 @@ const AcademySchema: Record<string, unknown> = {
           },
           "400": {
             "description": "Invalid request parameters"
+          },
+          "401": {
+            "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           },
           "404": {
             "description": "Content not found"
@@ -5021,7 +5044,7 @@ const AcademySchema: Record<string, unknown> = {
               "schema": {
                 "type": "object",
                 "properties": {
-                  "content_type": {
+                  "contentType": {
                     "type": "string",
                     "enum": [
                       "learning-path",
@@ -5030,23 +5053,23 @@ const AcademySchema: Record<string, unknown> = {
                     ],
                     "x-go-type": "ContentType"
                   },
-                  "item_data": {
+                  "itemData": {
                     "x-go-type": "CurriculaCurrentItemData",
                     "type": "object",
                     "required": [
                       "id",
-                      "last_opened",
-                      "content_type"
+                      "lastOpened",
+                      "contentType"
                     ],
                     "properties": {
                       "id": {
                         "type": "string"
                       },
-                      "last_opened": {
+                      "lastOpened": {
                         "type": "string",
                         "format": "date-time"
                       },
-                      "content_type": {
+                      "contentType": {
                         "type": "string",
                         "enum": [
                           "learning-path",
@@ -5059,8 +5082,8 @@ const AcademySchema: Record<string, unknown> = {
                   }
                 },
                 "required": [
-                  "content_type",
-                  "item_data"
+                  "contentType",
+                  "itemData"
                 ]
               }
             }
@@ -5068,7 +5091,7 @@ const AcademySchema: Record<string, unknown> = {
         },
         "responses": {
           "200": {
-            "description": "Successfully updated the progress tracker",
+            "description": "Progress tracker updated",
             "content": {
               "application/json": {
                 "schema": {
@@ -5077,35 +5100,35 @@ const AcademySchema: Record<string, unknown> = {
                     "message": {
                       "type": "string"
                     },
-                    "progress_tracker": {
+                    "progressTracker": {
                       "type": "object",
                       "required": [
-                        "current_item",
+                        "currentItem",
                         "grades",
-                        "time_spent",
+                        "timeSpent",
                         "completed",
-                        "completed_items"
+                        "completedItems"
                       ],
                       "properties": {
-                        "current_item": {
+                        "currentItem": {
                           "type": "object",
                           "additionalProperties": {
                             "x-go-type": "CurriculaCurrentItemData",
                             "type": "object",
                             "required": [
                               "id",
-                              "last_opened",
-                              "content_type"
+                              "lastOpened",
+                              "contentType"
                             ],
                             "properties": {
                               "id": {
                                 "type": "string"
                               },
-                              "last_opened": {
+                              "lastOpened": {
                                 "type": "string",
                                 "format": "date-time"
                               },
-                              "content_type": {
+                              "contentType": {
                                 "type": "string",
                                 "enum": [
                                   "learning-path",
@@ -5125,13 +5148,13 @@ const AcademySchema: Record<string, unknown> = {
                             "required": [
                               "score",
                               "passed",
-                              "total_marks",
-                              "pass_percentage",
+                              "totalMarks",
+                              "passPercentage",
                               "quiz",
-                              "attempted_at",
+                              "attemptedAt",
                               "attempts",
-                              "percentage_scored",
-                              "correct_submissions"
+                              "percentageScored",
+                              "correctSubmissions"
                             ],
                             "properties": {
                               "score": {
@@ -5140,18 +5163,18 @@ const AcademySchema: Record<string, unknown> = {
                               "passed": {
                                 "type": "boolean"
                               },
-                              "percentage_scored": {
+                              "percentageScored": {
                                 "type": "number",
                                 "format": "float"
                               },
-                              "total_marks": {
+                              "totalMarks": {
                                 "type": "integer"
                               },
-                              "pass_percentage": {
+                              "passPercentage": {
                                 "type": "number",
                                 "format": "float"
                               },
-                              "correct_submissions": {
+                              "correctSubmissions": {
                                 "type": "object",
                                 "additionalProperties": {
                                   "type": "boolean"
@@ -5176,17 +5199,17 @@ const AcademySchema: Record<string, unknown> = {
                                   "final",
                                   "lastmod",
                                   "draft",
-                                  "file_path",
-                                  "pass_percentage",
-                                  "time_limit",
-                                  "max_attempts",
+                                  "filePath",
+                                  "passPercentage",
+                                  "timeLimit",
+                                  "maxAttempts",
                                   "questions",
-                                  "total_questions",
-                                  "total_questions_in_bank",
-                                  "total_question_sets",
-                                  "total_marks",
+                                  "totalQuestions",
+                                  "totalQuestionsInBank",
+                                  "totalQuestionSets",
+                                  "totalMarks",
                                   "prerequisites",
-                                  "next_page"
+                                  "nextPage"
                                 ],
                                 "properties": {
                                   "id": {
@@ -5202,8 +5225,7 @@ const AcademySchema: Record<string, unknown> = {
                                     "example": "layer5",
                                     "x-oapi-codegen-extra-tags": {
                                       "db": "org_id",
-                                      "json": "org_id",
-                                      "yaml": "org_id"
+                                      "json": "org_id"
                                     }
                                   },
                                   "final": {
@@ -5246,18 +5268,18 @@ const AcademySchema: Record<string, unknown> = {
                                   "draft": {
                                     "type": "boolean"
                                   },
-                                  "file_path": {
+                                  "filePath": {
                                     "type": "string"
                                   },
-                                  "pass_percentage": {
+                                  "passPercentage": {
                                     "type": "number",
                                     "format": "float"
                                   },
-                                  "time_limit": {
+                                  "timeLimit": {
                                     "description": "Time limit for the quiz in minutes. A value of 0 indicates no time limit.",
                                     "type": "string"
                                   },
-                                  "max_attempts": {
+                                  "maxAttempts": {
                                     "description": "Maximum number of attempts allowed for the quiz. A value of 0 indicates unlimited attempts.",
                                     "type": "integer"
                                   },
@@ -5272,7 +5294,7 @@ const AcademySchema: Record<string, unknown> = {
                                         "type",
                                         "marks",
                                         "options",
-                                        "correct_answer"
+                                        "correctAnswer"
                                       ],
                                       "properties": {
                                         "id": {
@@ -5300,7 +5322,7 @@ const AcademySchema: Record<string, unknown> = {
                                         "marks": {
                                           "type": "integer"
                                         },
-                                        "multiple_answers": {
+                                        "multipleAnswers": {
                                           "type": "boolean"
                                         },
                                         "options": {
@@ -5311,7 +5333,7 @@ const AcademySchema: Record<string, unknown> = {
                                             "required": [
                                               "id",
                                               "text",
-                                              "is_correct"
+                                              "isCorrect"
                                             ],
                                             "properties": {
                                               "id": {
@@ -5320,28 +5342,28 @@ const AcademySchema: Record<string, unknown> = {
                                               "text": {
                                                 "type": "string"
                                               },
-                                              "is_correct": {
+                                              "isCorrect": {
                                                 "type": "boolean"
                                               }
                                             }
                                           }
                                         },
-                                        "correct_answer": {
+                                        "correctAnswer": {
                                           "type": "string"
                                         }
                                       }
                                     }
                                   },
-                                  "total_questions": {
+                                  "totalQuestions": {
                                     "type": "integer"
                                   },
-                                  "total_questions_in_bank": {
+                                  "totalQuestionsInBank": {
                                     "type": "integer"
                                   },
-                                  "total_question_sets": {
+                                  "totalQuestionSets": {
                                     "type": "integer"
                                   },
-                                  "total_marks": {
+                                  "totalMarks": {
                                     "type": "integer"
                                   },
                                   "prerequisites": {
@@ -5395,7 +5417,7 @@ const AcademySchema: Record<string, unknown> = {
                                       }
                                     }
                                   },
-                                  "next_page": {
+                                  "nextPage": {
                                     "x-go-type": "Parent",
                                     "type": "object",
                                     "required": [
@@ -5421,7 +5443,7 @@ const AcademySchema: Record<string, unknown> = {
                                   }
                                 }
                               },
-                              "attempted_at": {
+                              "attemptedAt": {
                                 "type": "string",
                                 "format": "date-time"
                               },
@@ -5431,27 +5453,27 @@ const AcademySchema: Record<string, unknown> = {
                             }
                           }
                         },
-                        "time_spent": {
+                        "timeSpent": {
                           "type": "integer",
                           "description": "Total time spent in seconds"
                         },
-                        "completed_items": {
+                        "completedItems": {
                           "type": "object",
                           "description": "Items that have been completed (map of item IDs to item data)",
                           "additionalProperties": {
                             "x-go-type": "ProgressItemCompleted",
                             "type": "object",
                             "required": [
-                              "completed_at",
-                              "item_data"
+                              "completedAt",
+                              "itemData"
                             ],
                             "properties": {
-                              "completed_at": {
+                              "completedAt": {
                                 "type": "string",
                                 "format": "date-time",
                                 "description": "Timestamp when the item was completed"
                               },
-                              "item_data": {
+                              "itemData": {
                                 "x-go-type": "Parent",
                                 "type": "object",
                                 "required": [
@@ -5485,10 +5507,10 @@ const AcademySchema: Record<string, unknown> = {
                         }
                       }
                     },
-                    "registration_id": {
+                    "registrationId": {
                       "type": "string"
                     },
-                    "content_type": {
+                    "contentType": {
                       "type": "string",
                       "enum": [
                         "learning-path",
@@ -5496,22 +5518,22 @@ const AcademySchema: Record<string, unknown> = {
                         "certification"
                       ]
                     },
-                    "item_data": {
+                    "itemData": {
                       "type": "object",
                       "required": [
                         "id",
-                        "last_opened",
-                        "content_type"
+                        "lastOpened",
+                        "contentType"
                       ],
                       "properties": {
                         "id": {
                           "type": "string"
                         },
-                        "last_opened": {
+                        "lastOpened": {
                           "type": "string",
                           "format": "date-time"
                         },
-                        "content_type": {
+                        "contentType": {
                           "type": "string",
                           "enum": [
                             "learning-path",
@@ -5541,6 +5563,26 @@ const AcademySchema: Record<string, unknown> = {
                       "type": "string"
                     }
                   }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Result not found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
                 }
               }
             }
@@ -5611,17 +5653,17 @@ const AcademySchema: Record<string, unknown> = {
                     "final",
                     "lastmod",
                     "draft",
-                    "file_path",
-                    "pass_percentage",
-                    "time_limit",
-                    "max_attempts",
+                    "filePath",
+                    "passPercentage",
+                    "timeLimit",
+                    "maxAttempts",
                     "questions",
-                    "total_questions",
-                    "total_questions_in_bank",
-                    "total_question_sets",
-                    "total_marks",
+                    "totalQuestions",
+                    "totalQuestionsInBank",
+                    "totalQuestionSets",
+                    "totalMarks",
                     "prerequisites",
-                    "next_page"
+                    "nextPage"
                   ],
                   "properties": {
                     "id": {
@@ -5637,8 +5679,7 @@ const AcademySchema: Record<string, unknown> = {
                       "example": "layer5",
                       "x-oapi-codegen-extra-tags": {
                         "db": "org_id",
-                        "json": "org_id",
-                        "yaml": "org_id"
+                        "json": "org_id"
                       }
                     },
                     "final": {
@@ -5681,18 +5722,18 @@ const AcademySchema: Record<string, unknown> = {
                     "draft": {
                       "type": "boolean"
                     },
-                    "file_path": {
+                    "filePath": {
                       "type": "string"
                     },
-                    "pass_percentage": {
+                    "passPercentage": {
                       "type": "number",
                       "format": "float"
                     },
-                    "time_limit": {
+                    "timeLimit": {
                       "description": "Time limit for the quiz in minutes. A value of 0 indicates no time limit.",
                       "type": "string"
                     },
-                    "max_attempts": {
+                    "maxAttempts": {
                       "description": "Maximum number of attempts allowed for the quiz. A value of 0 indicates unlimited attempts.",
                       "type": "integer"
                     },
@@ -5707,7 +5748,7 @@ const AcademySchema: Record<string, unknown> = {
                           "type",
                           "marks",
                           "options",
-                          "correct_answer"
+                          "correctAnswer"
                         ],
                         "properties": {
                           "id": {
@@ -5735,7 +5776,7 @@ const AcademySchema: Record<string, unknown> = {
                           "marks": {
                             "type": "integer"
                           },
-                          "multiple_answers": {
+                          "multipleAnswers": {
                             "type": "boolean"
                           },
                           "options": {
@@ -5746,7 +5787,7 @@ const AcademySchema: Record<string, unknown> = {
                               "required": [
                                 "id",
                                 "text",
-                                "is_correct"
+                                "isCorrect"
                               ],
                               "properties": {
                                 "id": {
@@ -5755,28 +5796,28 @@ const AcademySchema: Record<string, unknown> = {
                                 "text": {
                                   "type": "string"
                                 },
-                                "is_correct": {
+                                "isCorrect": {
                                   "type": "boolean"
                                 }
                               }
                             }
                           },
-                          "correct_answer": {
+                          "correctAnswer": {
                             "type": "string"
                           }
                         }
                       }
                     },
-                    "total_questions": {
+                    "totalQuestions": {
                       "type": "integer"
                     },
-                    "total_questions_in_bank": {
+                    "totalQuestionsInBank": {
                       "type": "integer"
                     },
-                    "total_question_sets": {
+                    "totalQuestionSets": {
                       "type": "integer"
                     },
-                    "total_marks": {
+                    "totalMarks": {
                       "type": "integer"
                     },
                     "prerequisites": {
@@ -5830,7 +5871,7 @@ const AcademySchema: Record<string, unknown> = {
                         }
                       }
                     },
-                    "next_page": {
+                    "nextPage": {
                       "x-go-type": "Parent",
                       "type": "object",
                       "required": [
@@ -5862,6 +5903,16 @@ const AcademySchema: Record<string, unknown> = {
           "400": {
             "description": "Invalid request parameters"
           },
+          "401": {
+            "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
           "404": {
             "description": "Quiz not found"
           },
@@ -5879,7 +5930,7 @@ const AcademySchema: Record<string, unknown> = {
         "x-internal": [
           "cloud"
         ],
-        "operationId": "startTestByID",
+        "operationId": "startTestById",
         "summary": "Start a Test by ID",
         "description": "Starts a new test session for the quiz identified by its ID.",
         "requestBody": {
@@ -5889,14 +5940,14 @@ const AcademySchema: Record<string, unknown> = {
               "schema": {
                 "type": "object",
                 "required": [
-                  "test_abs_path",
-                  "registration_id"
+                  "testAbsPath",
+                  "registrationId"
                 ],
                 "properties": {
-                  "test_abs_path": {
+                  "testAbsPath": {
                     "type": "string"
                   },
-                  "registration_id": {
+                  "registrationId": {
                     "type": "string"
                   }
                 }
@@ -5927,17 +5978,17 @@ const AcademySchema: Record<string, unknown> = {
                     "final",
                     "lastmod",
                     "draft",
-                    "file_path",
-                    "pass_percentage",
-                    "time_limit",
-                    "max_attempts",
+                    "filePath",
+                    "passPercentage",
+                    "timeLimit",
+                    "maxAttempts",
                     "questions",
-                    "total_questions",
-                    "total_questions_in_bank",
-                    "total_question_sets",
-                    "total_marks",
+                    "totalQuestions",
+                    "totalQuestionsInBank",
+                    "totalQuestionSets",
+                    "totalMarks",
                     "prerequisites",
-                    "next_page"
+                    "nextPage"
                   ],
                   "properties": {
                     "id": {
@@ -5953,8 +6004,7 @@ const AcademySchema: Record<string, unknown> = {
                       "example": "layer5",
                       "x-oapi-codegen-extra-tags": {
                         "db": "org_id",
-                        "json": "org_id",
-                        "yaml": "org_id"
+                        "json": "org_id"
                       }
                     },
                     "final": {
@@ -5997,18 +6047,18 @@ const AcademySchema: Record<string, unknown> = {
                     "draft": {
                       "type": "boolean"
                     },
-                    "file_path": {
+                    "filePath": {
                       "type": "string"
                     },
-                    "pass_percentage": {
+                    "passPercentage": {
                       "type": "number",
                       "format": "float"
                     },
-                    "time_limit": {
+                    "timeLimit": {
                       "description": "Time limit for the quiz in minutes. A value of 0 indicates no time limit.",
                       "type": "string"
                     },
-                    "max_attempts": {
+                    "maxAttempts": {
                       "description": "Maximum number of attempts allowed for the quiz. A value of 0 indicates unlimited attempts.",
                       "type": "integer"
                     },
@@ -6023,7 +6073,7 @@ const AcademySchema: Record<string, unknown> = {
                           "type",
                           "marks",
                           "options",
-                          "correct_answer"
+                          "correctAnswer"
                         ],
                         "properties": {
                           "id": {
@@ -6051,7 +6101,7 @@ const AcademySchema: Record<string, unknown> = {
                           "marks": {
                             "type": "integer"
                           },
-                          "multiple_answers": {
+                          "multipleAnswers": {
                             "type": "boolean"
                           },
                           "options": {
@@ -6062,7 +6112,7 @@ const AcademySchema: Record<string, unknown> = {
                               "required": [
                                 "id",
                                 "text",
-                                "is_correct"
+                                "isCorrect"
                               ],
                               "properties": {
                                 "id": {
@@ -6071,28 +6121,28 @@ const AcademySchema: Record<string, unknown> = {
                                 "text": {
                                   "type": "string"
                                 },
-                                "is_correct": {
+                                "isCorrect": {
                                   "type": "boolean"
                                 }
                               }
                             }
                           },
-                          "correct_answer": {
+                          "correctAnswer": {
                             "type": "string"
                           }
                         }
                       }
                     },
-                    "total_questions": {
+                    "totalQuestions": {
                       "type": "integer"
                     },
-                    "total_questions_in_bank": {
+                    "totalQuestionsInBank": {
                       "type": "integer"
                     },
-                    "total_question_sets": {
+                    "totalQuestionSets": {
                       "type": "integer"
                     },
-                    "total_marks": {
+                    "totalMarks": {
                       "type": "integer"
                     },
                     "prerequisites": {
@@ -6146,7 +6196,7 @@ const AcademySchema: Record<string, unknown> = {
                         }
                       }
                     },
-                    "next_page": {
+                    "nextPage": {
                       "x-go-type": "Parent",
                       "type": "object",
                       "required": [
@@ -6177,6 +6227,16 @@ const AcademySchema: Record<string, unknown> = {
           },
           "400": {
             "description": "Invalid request parameters"
+          },
+          "401": {
+            "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           },
           "404": {
             "description": "Quiz not found"
@@ -6209,6 +6269,22 @@ const AcademySchema: Record<string, unknown> = {
             }
           },
           {
+            "name": "page",
+            "in": "query",
+            "description": "Get responses by page",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pagesize",
+            "in": "query",
+            "description": "Get responses by pagesize",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "testAbsPath",
             "in": "query",
             "required": false,
@@ -6233,13 +6309,13 @@ const AcademySchema: Record<string, unknown> = {
                       "required": [
                         "score",
                         "passed",
-                        "total_marks",
-                        "pass_percentage",
+                        "totalMarks",
+                        "passPercentage",
                         "quiz",
-                        "attempted_at",
+                        "attemptedAt",
                         "attempts",
-                        "percentage_scored",
-                        "correct_submissions"
+                        "percentageScored",
+                        "correctSubmissions"
                       ],
                       "properties": {
                         "score": {
@@ -6248,18 +6324,18 @@ const AcademySchema: Record<string, unknown> = {
                         "passed": {
                           "type": "boolean"
                         },
-                        "percentage_scored": {
+                        "percentageScored": {
                           "type": "number",
                           "format": "float"
                         },
-                        "total_marks": {
+                        "totalMarks": {
                           "type": "integer"
                         },
-                        "pass_percentage": {
+                        "passPercentage": {
                           "type": "number",
                           "format": "float"
                         },
-                        "correct_submissions": {
+                        "correctSubmissions": {
                           "type": "object",
                           "additionalProperties": {
                             "type": "boolean"
@@ -6284,17 +6360,17 @@ const AcademySchema: Record<string, unknown> = {
                             "final",
                             "lastmod",
                             "draft",
-                            "file_path",
-                            "pass_percentage",
-                            "time_limit",
-                            "max_attempts",
+                            "filePath",
+                            "passPercentage",
+                            "timeLimit",
+                            "maxAttempts",
                             "questions",
-                            "total_questions",
-                            "total_questions_in_bank",
-                            "total_question_sets",
-                            "total_marks",
+                            "totalQuestions",
+                            "totalQuestionsInBank",
+                            "totalQuestionSets",
+                            "totalMarks",
                             "prerequisites",
-                            "next_page"
+                            "nextPage"
                           ],
                           "properties": {
                             "id": {
@@ -6310,8 +6386,7 @@ const AcademySchema: Record<string, unknown> = {
                               "example": "layer5",
                               "x-oapi-codegen-extra-tags": {
                                 "db": "org_id",
-                                "json": "org_id",
-                                "yaml": "org_id"
+                                "json": "org_id"
                               }
                             },
                             "final": {
@@ -6354,18 +6429,18 @@ const AcademySchema: Record<string, unknown> = {
                             "draft": {
                               "type": "boolean"
                             },
-                            "file_path": {
+                            "filePath": {
                               "type": "string"
                             },
-                            "pass_percentage": {
+                            "passPercentage": {
                               "type": "number",
                               "format": "float"
                             },
-                            "time_limit": {
+                            "timeLimit": {
                               "description": "Time limit for the quiz in minutes. A value of 0 indicates no time limit.",
                               "type": "string"
                             },
-                            "max_attempts": {
+                            "maxAttempts": {
                               "description": "Maximum number of attempts allowed for the quiz. A value of 0 indicates unlimited attempts.",
                               "type": "integer"
                             },
@@ -6380,7 +6455,7 @@ const AcademySchema: Record<string, unknown> = {
                                   "type",
                                   "marks",
                                   "options",
-                                  "correct_answer"
+                                  "correctAnswer"
                                 ],
                                 "properties": {
                                   "id": {
@@ -6408,7 +6483,7 @@ const AcademySchema: Record<string, unknown> = {
                                   "marks": {
                                     "type": "integer"
                                   },
-                                  "multiple_answers": {
+                                  "multipleAnswers": {
                                     "type": "boolean"
                                   },
                                   "options": {
@@ -6419,7 +6494,7 @@ const AcademySchema: Record<string, unknown> = {
                                       "required": [
                                         "id",
                                         "text",
-                                        "is_correct"
+                                        "isCorrect"
                                       ],
                                       "properties": {
                                         "id": {
@@ -6428,28 +6503,28 @@ const AcademySchema: Record<string, unknown> = {
                                         "text": {
                                           "type": "string"
                                         },
-                                        "is_correct": {
+                                        "isCorrect": {
                                           "type": "boolean"
                                         }
                                       }
                                     }
                                   },
-                                  "correct_answer": {
+                                  "correctAnswer": {
                                     "type": "string"
                                   }
                                 }
                               }
                             },
-                            "total_questions": {
+                            "totalQuestions": {
                               "type": "integer"
                             },
-                            "total_questions_in_bank": {
+                            "totalQuestionsInBank": {
                               "type": "integer"
                             },
-                            "total_question_sets": {
+                            "totalQuestionSets": {
                               "type": "integer"
                             },
-                            "total_marks": {
+                            "totalMarks": {
                               "type": "integer"
                             },
                             "prerequisites": {
@@ -6503,7 +6578,7 @@ const AcademySchema: Record<string, unknown> = {
                                 }
                               }
                             },
-                            "next_page": {
+                            "nextPage": {
                               "x-go-type": "Parent",
                               "type": "object",
                               "required": [
@@ -6529,7 +6604,7 @@ const AcademySchema: Record<string, unknown> = {
                             }
                           }
                         },
-                        "attempted_at": {
+                        "attemptedAt": {
                           "type": "string",
                           "format": "date-time"
                         },
@@ -6545,6 +6620,16 @@ const AcademySchema: Record<string, unknown> = {
           },
           "400": {
             "description": "Invalid request parameters"
+          },
+          "401": {
+            "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           },
           "404": {
             "description": "Registration not found"
@@ -6572,14 +6657,14 @@ const AcademySchema: Record<string, unknown> = {
               "schema": {
                 "type": "object",
                 "required": [
-                  "quiz_abs_path",
-                  "registration_id",
-                  "test_session_id",
+                  "quizAbsPath",
+                  "registrationId",
+                  "testSessionId",
                   "user_id",
                   "answers"
                 ],
                 "properties": {
-                  "test_session_id": {
+                  "testSessionId": {
                     "type": "string",
                     "format": "uuid",
                     "description": "A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.",
@@ -6588,10 +6673,10 @@ const AcademySchema: Record<string, unknown> = {
                       "path": "github.com/gofrs/uuid"
                     }
                   },
-                  "quiz_abs_path": {
+                  "quizAbsPath": {
                     "type": "string"
                   },
-                  "registration_id": {
+                  "registrationId": {
                     "type": "string"
                   },
                   "user_id": {
@@ -6603,21 +6688,21 @@ const AcademySchema: Record<string, unknown> = {
                       "x-go-type": "SubmittedAnswer",
                       "type": "object",
                       "required": [
-                        "question_id",
-                        "selected_option_id",
-                        "answer_text"
+                        "questionId",
+                        "selectedOptionId",
+                        "answerText"
                       ],
                       "properties": {
-                        "question_id": {
+                        "questionId": {
                           "type": "string"
                         },
-                        "selected_option_id": {
+                        "selectedOptionId": {
                           "type": "object",
                           "additionalProperties": {
                             "type": "boolean"
                           }
                         },
-                        "answer_text": {
+                        "answerText": {
                           "type": "string"
                         }
                       }
@@ -6630,7 +6715,7 @@ const AcademySchema: Record<string, unknown> = {
         },
         "responses": {
           "200": {
-            "description": "Successfully updated the progress tracker",
+            "description": "Progress tracker updated",
             "content": {
               "application/json": {
                 "schema": {
@@ -6638,13 +6723,13 @@ const AcademySchema: Record<string, unknown> = {
                   "required": [
                     "score",
                     "passed",
-                    "total_marks",
-                    "pass_percentage",
+                    "totalMarks",
+                    "passPercentage",
                     "quiz",
-                    "attempted_at",
+                    "attemptedAt",
                     "attempts",
-                    "percentage_scored",
-                    "correct_submissions"
+                    "percentageScored",
+                    "correctSubmissions"
                   ],
                   "properties": {
                     "score": {
@@ -6653,18 +6738,18 @@ const AcademySchema: Record<string, unknown> = {
                     "passed": {
                       "type": "boolean"
                     },
-                    "percentage_scored": {
+                    "percentageScored": {
                       "type": "number",
                       "format": "float"
                     },
-                    "total_marks": {
+                    "totalMarks": {
                       "type": "integer"
                     },
-                    "pass_percentage": {
+                    "passPercentage": {
                       "type": "number",
                       "format": "float"
                     },
-                    "correct_submissions": {
+                    "correctSubmissions": {
                       "type": "object",
                       "additionalProperties": {
                         "type": "boolean"
@@ -6689,17 +6774,17 @@ const AcademySchema: Record<string, unknown> = {
                         "final",
                         "lastmod",
                         "draft",
-                        "file_path",
-                        "pass_percentage",
-                        "time_limit",
-                        "max_attempts",
+                        "filePath",
+                        "passPercentage",
+                        "timeLimit",
+                        "maxAttempts",
                         "questions",
-                        "total_questions",
-                        "total_questions_in_bank",
-                        "total_question_sets",
-                        "total_marks",
+                        "totalQuestions",
+                        "totalQuestionsInBank",
+                        "totalQuestionSets",
+                        "totalMarks",
                         "prerequisites",
-                        "next_page"
+                        "nextPage"
                       ],
                       "properties": {
                         "id": {
@@ -6715,8 +6800,7 @@ const AcademySchema: Record<string, unknown> = {
                           "example": "layer5",
                           "x-oapi-codegen-extra-tags": {
                             "db": "org_id",
-                            "json": "org_id",
-                            "yaml": "org_id"
+                            "json": "org_id"
                           }
                         },
                         "final": {
@@ -6759,18 +6843,18 @@ const AcademySchema: Record<string, unknown> = {
                         "draft": {
                           "type": "boolean"
                         },
-                        "file_path": {
+                        "filePath": {
                           "type": "string"
                         },
-                        "pass_percentage": {
+                        "passPercentage": {
                           "type": "number",
                           "format": "float"
                         },
-                        "time_limit": {
+                        "timeLimit": {
                           "description": "Time limit for the quiz in minutes. A value of 0 indicates no time limit.",
                           "type": "string"
                         },
-                        "max_attempts": {
+                        "maxAttempts": {
                           "description": "Maximum number of attempts allowed for the quiz. A value of 0 indicates unlimited attempts.",
                           "type": "integer"
                         },
@@ -6785,7 +6869,7 @@ const AcademySchema: Record<string, unknown> = {
                               "type",
                               "marks",
                               "options",
-                              "correct_answer"
+                              "correctAnswer"
                             ],
                             "properties": {
                               "id": {
@@ -6813,7 +6897,7 @@ const AcademySchema: Record<string, unknown> = {
                               "marks": {
                                 "type": "integer"
                               },
-                              "multiple_answers": {
+                              "multipleAnswers": {
                                 "type": "boolean"
                               },
                               "options": {
@@ -6824,7 +6908,7 @@ const AcademySchema: Record<string, unknown> = {
                                   "required": [
                                     "id",
                                     "text",
-                                    "is_correct"
+                                    "isCorrect"
                                   ],
                                   "properties": {
                                     "id": {
@@ -6833,28 +6917,28 @@ const AcademySchema: Record<string, unknown> = {
                                     "text": {
                                       "type": "string"
                                     },
-                                    "is_correct": {
+                                    "isCorrect": {
                                       "type": "boolean"
                                     }
                                   }
                                 }
                               },
-                              "correct_answer": {
+                              "correctAnswer": {
                                 "type": "string"
                               }
                             }
                           }
                         },
-                        "total_questions": {
+                        "totalQuestions": {
                           "type": "integer"
                         },
-                        "total_questions_in_bank": {
+                        "totalQuestionsInBank": {
                           "type": "integer"
                         },
-                        "total_question_sets": {
+                        "totalQuestionSets": {
                           "type": "integer"
                         },
-                        "total_marks": {
+                        "totalMarks": {
                           "type": "integer"
                         },
                         "prerequisites": {
@@ -6908,7 +6992,7 @@ const AcademySchema: Record<string, unknown> = {
                             }
                           }
                         },
-                        "next_page": {
+                        "nextPage": {
                           "x-go-type": "Parent",
                           "type": "object",
                           "required": [
@@ -6934,7 +7018,7 @@ const AcademySchema: Record<string, unknown> = {
                         }
                       }
                     },
-                    "attempted_at": {
+                    "attemptedAt": {
                       "type": "string",
                       "format": "date-time"
                     },
@@ -6960,6 +7044,16 @@ const AcademySchema: Record<string, unknown> = {
                       "type": "string"
                     }
                   }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
                 }
               }
             }
@@ -7010,6 +7104,16 @@ const AcademySchema: Record<string, unknown> = {
           "400": {
             "description": "Invalid request parameters"
           },
+          "401": {
+            "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Server error"
           }
@@ -7047,7 +7151,7 @@ const AcademySchema: Record<string, unknown> = {
             }
           },
           {
-            "name": "content_type",
+            "name": "contentType",
             "in": "query",
             "required": false,
             "description": "Filter by content types",
@@ -7232,6 +7336,16 @@ const AcademySchema: Record<string, unknown> = {
           "400": {
             "description": "Invalid request parameters"
           },
+          "401": {
+            "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Server error"
           }
@@ -7269,13 +7383,13 @@ const AcademySchema: Record<string, unknown> = {
                   "type": "object",
                   "required": [
                     "id",
-                    "org_id",
+                    "orgId",
                     "title",
                     "description",
-                    "issuing_authorities",
-                    "issued_date",
-                    "recipient_id",
-                    "recipient_name"
+                    "issuingAuthorities",
+                    "issuedDate",
+                    "recipientId",
+                    "recipientName"
                   ],
                   "properties": {
                     "id": {
@@ -7284,7 +7398,7 @@ const AcademySchema: Record<string, unknown> = {
                       "example": "1234567890abcdef",
                       "x-go-name": "ID"
                     },
-                    "org_id": {
+                    "orgId": {
                       "type": "string",
                       "format": "uuid",
                       "description": "A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.",
@@ -7293,12 +7407,12 @@ const AcademySchema: Record<string, unknown> = {
                         "path": "github.com/gofrs/uuid"
                       }
                     },
-                    "recipient_id": {
+                    "recipientId": {
                       "type": "string",
                       "description": "ID of the recipient (user) who received the certificate",
                       "example": "1234567890abcdef"
                     },
-                    "recipient_name": {
+                    "recipientName": {
                       "type": "string",
                       "description": "Name of the recipient (user) who received the certificate",
                       "example": "John Doe"
@@ -7313,7 +7427,7 @@ const AcademySchema: Record<string, unknown> = {
                       "description": "Description of the certificate",
                       "example": "Awarded for successfully completing the Kubernetes Expert course"
                     },
-                    "issuing_authorities": {
+                    "issuingAuthorities": {
                       "type": "array",
                       "items": {
                         "x-go-type": "CertificateIssuingAuthority",
@@ -7333,7 +7447,7 @@ const AcademySchema: Record<string, unknown> = {
                             "description": "Role of the issuing authority",
                             "example": "COO"
                           },
-                          "signature_url": {
+                          "signatureUrl": {
                             "type": "string",
                             "format": "uri",
                             "description": "URL to the signature image of the issuing authority should be a publicly accessible URL and transparent PNG or SVG format",
@@ -7343,19 +7457,19 @@ const AcademySchema: Record<string, unknown> = {
                       },
                       "description": "List of issuing authorities for the certificate"
                     },
-                    "issued_date": {
+                    "issuedDate": {
                       "type": "string",
                       "format": "date-time",
                       "description": "Date when the certificate was issued",
                       "example": "2023-10-01T12:00:00Z"
                     },
-                    "expiration_date": {
+                    "expirationDate": {
                       "type": "string",
                       "format": "date-time",
                       "description": "Date when the certificate expires (optional)",
                       "example": "2025-10-01T12:00:00Z"
                     },
-                    "expires_in": {
+                    "expiresIn": {
                       "type": "integer",
                       "description": "Number of months after which the certificate expires",
                       "example": 24
@@ -7368,6 +7482,16 @@ const AcademySchema: Record<string, unknown> = {
           "400": {
             "description": "Invalid request parameters"
           },
+          "401": {
+            "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
           "404": {
             "description": "Certificate not found"
           },
@@ -7379,6 +7503,55 @@ const AcademySchema: Record<string, unknown> = {
     }
   },
   "components": {
+    "responses": {
+      "400": {
+        "description": "Invalid request body or request param",
+        "content": {
+          "text/plain": {
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "401": {
+        "description": "Expired JWT token used or insufficient privilege",
+        "content": {
+          "text/plain": {
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "Result not found",
+        "content": {
+          "text/plain": {
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "500": {
+        "description": "Internal server error",
+        "content": {
+          "text/plain": {
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "jwt": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
     "parameters": {
       "id": {
         "name": "id",
@@ -7397,8 +7570,7 @@ const AcademySchema: Record<string, unknown> = {
         "example": "layer5",
         "x-oapi-codegen-extra-tags": {
           "db": "org_id",
-          "json": "org_id",
-          "yaml": "org_id"
+          "json": "org_id"
         }
       },
       "AcademyCurriculaBadgeId": {
@@ -7416,8 +7588,7 @@ const AcademySchema: Record<string, unknown> = {
         "description": "ID of the badge to be awarded on completion of this curricula",
         "x-oapi-codegen-extra-tags": {
           "db": "badge_id",
-          "json": "badge_id",
-          "yaml": "badge_id"
+          "json": "badge_id"
         }
       },
       "AcademyCurriculaInviteId": {
@@ -7435,8 +7606,7 @@ const AcademySchema: Record<string, unknown> = {
         "description": "ID of the invite associated with this Curricula",
         "x-oapi-codegen-extra-tags": {
           "db": "invite_id",
-          "json": "invite_id",
-          "yaml": "invite_id"
+          "json": "invite_id"
         }
       },
       "AcademyCurriculaWorkspaceId": {
@@ -7454,8 +7624,7 @@ const AcademySchema: Record<string, unknown> = {
         "description": "ID of the workspace to which this Curricula belongs",
         "x-oapi-codegen-extra-tags": {
           "db": "workspace_id",
-          "json": "workspace_id",
-          "yaml": "workspace_id"
+          "json": "workspace_id"
         }
       },
       "AcademyCurriculaCreatedAt": {
@@ -7469,8 +7638,7 @@ const AcademySchema: Record<string, unknown> = {
         "description": "When the Curricula item was created",
         "x-oapi-codegen-extra-tags": {
           "db": "created_at",
-          "json": "created_at",
-          "yaml": "created_at"
+          "json": "created_at"
         }
       },
       "AcademyCurriculaUpdatedAt": {
@@ -7485,8 +7653,7 @@ const AcademySchema: Record<string, unknown> = {
         "x-go-type": "core.Time",
         "x-oapi-codegen-extra-tags": {
           "db": "updated_at",
-          "json": "updated_at",
-          "yaml": "updated_at"
+          "json": "updated_at"
         }
       },
       "AcademyCurriculaDeletedAt": {
@@ -7507,8 +7674,7 @@ const AcademySchema: Record<string, unknown> = {
         "x-go-type": "core.NullTime",
         "x-oapi-codegen-extra-tags": {
           "db": "deleted_at",
-          "json": "deleted_at",
-          "yaml": "deleted_at"
+          "json": "deleted_at"
         }
       },
       "AcademyCurriculaMetadata": {
@@ -7519,8 +7685,7 @@ const AcademySchema: Record<string, unknown> = {
         "x-go-type-skip-optional-pointer": true,
         "x-oapi-codegen-extra-tags": {
           "db": "metadata",
-          "json": "metadata",
-          "yaml": "metadata"
+          "json": "metadata"
         },
         "oneOf": [
           {
@@ -7537,7 +7702,7 @@ const AcademySchema: Record<string, unknown> = {
                 "description": "Short description of the curricula",
                 "example": "Learn how to configure your Kubernetes clusters and manage the lifecycle of your workloads"
               },
-              "detailed_description": {
+              "detailedDescription": {
                 "type": "string",
                 "description": "Detailed description of the curricula",
                 "example": "This learning path covers everything from Kubernetes architecture to advanced deployment strategies, including hands-on labs and real-world scenarios."
@@ -7560,13 +7725,13 @@ const AcademySchema: Record<string, unknown> = {
                 "type": "object",
                 "required": [
                   "id",
-                  "org_id",
+                  "orgId",
                   "title",
                   "description",
-                  "issuing_authorities",
-                  "issued_date",
-                  "recipient_id",
-                  "recipient_name"
+                  "issuingAuthorities",
+                  "issuedDate",
+                  "recipientId",
+                  "recipientName"
                 ],
                 "properties": {
                   "id": {
@@ -7575,7 +7740,7 @@ const AcademySchema: Record<string, unknown> = {
                     "example": "1234567890abcdef",
                     "x-go-name": "ID"
                   },
-                  "org_id": {
+                  "orgId": {
                     "type": "string",
                     "format": "uuid",
                     "description": "A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.",
@@ -7584,12 +7749,12 @@ const AcademySchema: Record<string, unknown> = {
                       "path": "github.com/gofrs/uuid"
                     }
                   },
-                  "recipient_id": {
+                  "recipientId": {
                     "type": "string",
                     "description": "ID of the recipient (user) who received the certificate",
                     "example": "1234567890abcdef"
                   },
-                  "recipient_name": {
+                  "recipientName": {
                     "type": "string",
                     "description": "Name of the recipient (user) who received the certificate",
                     "example": "John Doe"
@@ -7604,7 +7769,7 @@ const AcademySchema: Record<string, unknown> = {
                     "description": "Description of the certificate",
                     "example": "Awarded for successfully completing the Kubernetes Expert course"
                   },
-                  "issuing_authorities": {
+                  "issuingAuthorities": {
                     "type": "array",
                     "items": {
                       "x-go-type": "CertificateIssuingAuthority",
@@ -7624,7 +7789,7 @@ const AcademySchema: Record<string, unknown> = {
                           "description": "Role of the issuing authority",
                           "example": "COO"
                         },
-                        "signature_url": {
+                        "signatureUrl": {
                           "type": "string",
                           "format": "uri",
                           "description": "URL to the signature image of the issuing authority should be a publicly accessible URL and transparent PNG or SVG format",
@@ -7634,19 +7799,19 @@ const AcademySchema: Record<string, unknown> = {
                     },
                     "description": "List of issuing authorities for the certificate"
                   },
-                  "issued_date": {
+                  "issuedDate": {
                     "type": "string",
                     "format": "date-time",
                     "description": "Date when the certificate was issued",
                     "example": "2023-10-01T12:00:00Z"
                   },
-                  "expiration_date": {
+                  "expirationDate": {
                     "type": "string",
                     "format": "date-time",
                     "description": "Date when the certificate expires (optional)",
                     "example": "2025-10-01T12:00:00Z"
                   },
-                  "expires_in": {
+                  "expiresIn": {
                     "type": "integer",
                     "description": "Number of months after which the certificate expires",
                     "example": 24
@@ -7667,8 +7832,7 @@ const AcademySchema: Record<string, unknown> = {
                       "x-go-name": "ID",
                       "x-oapi-codegen-extra-tags": {
                         "db": "id",
-                        "json": "id",
-                        "yaml": "id"
+                        "json": "id"
                       }
                     },
                     "title": {
@@ -7746,23 +7910,22 @@ const AcademySchema: Record<string, unknown> = {
         "description": "Expiry time for curricula access",
         "x-go-type": "*time.Time",
         "x-oapi-codegen-extra-tags": {
-          "json": "access_expires_at",
-          "db": "access_expires_at",
-          "yaml": "access_expires_at"
+          "json": "accessExpiresAt",
+          "db": "access_expires_at"
         }
       },
       "RegisterToAcademyContentRequest": {
         "type": "object",
         "required": [
-          "content_id",
+          "contentId",
           "user_id"
         ],
         "properties": {
-          "content_id": {
+          "contentId": {
             "type": "string",
             "description": "ID of the academy content to register for"
           },
-          "content_type": {
+          "contentType": {
             "type": "string",
             "enum": [
               "learning-path",
@@ -7813,8 +7976,7 @@ const AcademySchema: Record<string, unknown> = {
             "x-go-name": "ID",
             "x-oapi-codegen-extra-tags": {
               "db": "id",
-              "json": "id",
-              "yaml": "id"
+              "json": "id"
             }
           },
           "type": {
@@ -7835,8 +7997,7 @@ const AcademySchema: Record<string, unknown> = {
             "example": "layer5",
             "x-oapi-codegen-extra-tags": {
               "db": "org_id",
-              "json": "org_id",
-              "yaml": "org_id"
+              "json": "org_id"
             }
           },
           "visibility": {
@@ -7844,8 +8005,7 @@ const AcademySchema: Record<string, unknown> = {
             "x-go-type": "Visibility",
             "x-oapi-codegen-extra-tags": {
               "db": "visibility",
-              "json": "visibility",
-              "yaml": "visibility"
+              "json": "visibility"
             },
             "type": "string",
             "enum": [
@@ -7859,8 +8019,7 @@ const AcademySchema: Record<string, unknown> = {
             "x-go-type": "Status",
             "x-oapi-codegen-extra-tags": {
               "db": "status",
-              "json": "status",
-              "yaml": "status"
+              "json": "status"
             },
             "type": "string",
             "enum": [
@@ -7879,8 +8038,7 @@ const AcademySchema: Record<string, unknown> = {
             "x-go-type": "Level",
             "x-oapi-codegen-extra-tags": {
               "db": "level",
-              "json": "level",
-              "yaml": "level"
+              "json": "level"
             },
             "type": "string",
             "enum": [
@@ -7900,11 +8058,10 @@ const AcademySchema: Record<string, unknown> = {
             },
             "x-oapi-codegen-extra-tags": {
               "db": "badge_id",
-              "json": "badge_id",
-              "yaml": "badge_id"
+              "json": "badge_id"
             }
           },
-          "invite_id": {
+          "inviteId": {
             "allOf": [
               {
                 "type": "string",
@@ -7919,8 +8076,7 @@ const AcademySchema: Record<string, unknown> = {
             "description": "ID of the invite associated with this Curricula",
             "x-oapi-codegen-extra-tags": {
               "db": "invite_id",
-              "json": "invite_id",
-              "yaml": "invite_id"
+              "json": "invite_id"
             }
           },
           "workspace_id": {
@@ -7938,8 +8094,7 @@ const AcademySchema: Record<string, unknown> = {
             "description": "ID of the workspace to which this Curricula belongs",
             "x-oapi-codegen-extra-tags": {
               "db": "workspace_id",
-              "json": "workspace_id",
-              "yaml": "workspace_id"
+              "json": "workspace_id"
             }
           },
           "createdAt": {
@@ -7953,8 +8108,7 @@ const AcademySchema: Record<string, unknown> = {
             "description": "When the Curricula item was created",
             "x-oapi-codegen-extra-tags": {
               "db": "created_at",
-              "json": "created_at",
-              "yaml": "created_at"
+              "json": "created_at"
             }
           },
           "updatedAt": {
@@ -7969,8 +8123,7 @@ const AcademySchema: Record<string, unknown> = {
             "x-go-type": "core.Time",
             "x-oapi-codegen-extra-tags": {
               "db": "updated_at",
-              "json": "updated_at",
-              "yaml": "updated_at"
+              "json": "updated_at"
             }
           },
           "deletedAt": {
@@ -7991,8 +8144,7 @@ const AcademySchema: Record<string, unknown> = {
             "x-go-type": "core.NullTime",
             "x-oapi-codegen-extra-tags": {
               "db": "deleted_at",
-              "json": "deleted_at",
-              "yaml": "deleted_at"
+              "json": "deleted_at"
             }
           },
           "metadata": {
@@ -8003,8 +8155,7 @@ const AcademySchema: Record<string, unknown> = {
             "x-go-type-skip-optional-pointer": true,
             "x-oapi-codegen-extra-tags": {
               "db": "metadata",
-              "json": "metadata",
-              "yaml": "metadata"
+              "json": "metadata"
             },
             "oneOf": [
               {
@@ -8021,7 +8172,7 @@ const AcademySchema: Record<string, unknown> = {
                     "description": "Short description of the curricula",
                     "example": "Learn how to configure your Kubernetes clusters and manage the lifecycle of your workloads"
                   },
-                  "detailed_description": {
+                  "detailedDescription": {
                     "type": "string",
                     "description": "Detailed description of the curricula",
                     "example": "This learning path covers everything from Kubernetes architecture to advanced deployment strategies, including hands-on labs and real-world scenarios."
@@ -8044,13 +8195,13 @@ const AcademySchema: Record<string, unknown> = {
                     "type": "object",
                     "required": [
                       "id",
-                      "org_id",
+                      "orgId",
                       "title",
                       "description",
-                      "issuing_authorities",
-                      "issued_date",
-                      "recipient_id",
-                      "recipient_name"
+                      "issuingAuthorities",
+                      "issuedDate",
+                      "recipientId",
+                      "recipientName"
                     ],
                     "properties": {
                       "id": {
@@ -8059,7 +8210,7 @@ const AcademySchema: Record<string, unknown> = {
                         "example": "1234567890abcdef",
                         "x-go-name": "ID"
                       },
-                      "org_id": {
+                      "orgId": {
                         "type": "string",
                         "format": "uuid",
                         "description": "A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.",
@@ -8068,12 +8219,12 @@ const AcademySchema: Record<string, unknown> = {
                           "path": "github.com/gofrs/uuid"
                         }
                       },
-                      "recipient_id": {
+                      "recipientId": {
                         "type": "string",
                         "description": "ID of the recipient (user) who received the certificate",
                         "example": "1234567890abcdef"
                       },
-                      "recipient_name": {
+                      "recipientName": {
                         "type": "string",
                         "description": "Name of the recipient (user) who received the certificate",
                         "example": "John Doe"
@@ -8088,7 +8239,7 @@ const AcademySchema: Record<string, unknown> = {
                         "description": "Description of the certificate",
                         "example": "Awarded for successfully completing the Kubernetes Expert course"
                       },
-                      "issuing_authorities": {
+                      "issuingAuthorities": {
                         "type": "array",
                         "items": {
                           "x-go-type": "CertificateIssuingAuthority",
@@ -8108,7 +8259,7 @@ const AcademySchema: Record<string, unknown> = {
                               "description": "Role of the issuing authority",
                               "example": "COO"
                             },
-                            "signature_url": {
+                            "signatureUrl": {
                               "type": "string",
                               "format": "uri",
                               "description": "URL to the signature image of the issuing authority should be a publicly accessible URL and transparent PNG or SVG format",
@@ -8118,19 +8269,19 @@ const AcademySchema: Record<string, unknown> = {
                         },
                         "description": "List of issuing authorities for the certificate"
                       },
-                      "issued_date": {
+                      "issuedDate": {
                         "type": "string",
                         "format": "date-time",
                         "description": "Date when the certificate was issued",
                         "example": "2023-10-01T12:00:00Z"
                       },
-                      "expiration_date": {
+                      "expirationDate": {
                         "type": "string",
                         "format": "date-time",
                         "description": "Date when the certificate expires (optional)",
                         "example": "2025-10-01T12:00:00Z"
                       },
-                      "expires_in": {
+                      "expiresIn": {
                         "type": "integer",
                         "description": "Number of months after which the certificate expires",
                         "example": 24
@@ -8151,8 +8302,7 @@ const AcademySchema: Record<string, unknown> = {
                           "x-go-name": "ID",
                           "x-oapi-codegen-extra-tags": {
                             "db": "id",
-                            "json": "id",
-                            "yaml": "id"
+                            "json": "id"
                           }
                         },
                         "title": {
@@ -8247,8 +8397,7 @@ const AcademySchema: Record<string, unknown> = {
                 "x-go-name": "ID",
                 "x-oapi-codegen-extra-tags": {
                   "db": "id",
-                  "json": "id",
-                  "yaml": "id"
+                  "json": "id"
                 }
               },
               "type": {
@@ -8269,8 +8418,7 @@ const AcademySchema: Record<string, unknown> = {
                 "example": "layer5",
                 "x-oapi-codegen-extra-tags": {
                   "db": "org_id",
-                  "json": "org_id",
-                  "yaml": "org_id"
+                  "json": "org_id"
                 }
               },
               "visibility": {
@@ -8278,8 +8426,7 @@ const AcademySchema: Record<string, unknown> = {
                 "x-go-type": "Visibility",
                 "x-oapi-codegen-extra-tags": {
                   "db": "visibility",
-                  "json": "visibility",
-                  "yaml": "visibility"
+                  "json": "visibility"
                 },
                 "type": "string",
                 "enum": [
@@ -8293,8 +8440,7 @@ const AcademySchema: Record<string, unknown> = {
                 "x-go-type": "Status",
                 "x-oapi-codegen-extra-tags": {
                   "db": "status",
-                  "json": "status",
-                  "yaml": "status"
+                  "json": "status"
                 },
                 "type": "string",
                 "enum": [
@@ -8313,8 +8459,7 @@ const AcademySchema: Record<string, unknown> = {
                 "x-go-type": "Level",
                 "x-oapi-codegen-extra-tags": {
                   "db": "level",
-                  "json": "level",
-                  "yaml": "level"
+                  "json": "level"
                 },
                 "type": "string",
                 "enum": [
@@ -8334,11 +8479,10 @@ const AcademySchema: Record<string, unknown> = {
                 },
                 "x-oapi-codegen-extra-tags": {
                   "db": "badge_id",
-                  "json": "badge_id",
-                  "yaml": "badge_id"
+                  "json": "badge_id"
                 }
               },
-              "invite_id": {
+              "inviteId": {
                 "allOf": [
                   {
                     "type": "string",
@@ -8353,8 +8497,7 @@ const AcademySchema: Record<string, unknown> = {
                 "description": "ID of the invite associated with this Curricula",
                 "x-oapi-codegen-extra-tags": {
                   "db": "invite_id",
-                  "json": "invite_id",
-                  "yaml": "invite_id"
+                  "json": "invite_id"
                 }
               },
               "workspace_id": {
@@ -8372,8 +8515,7 @@ const AcademySchema: Record<string, unknown> = {
                 "description": "ID of the workspace to which this Curricula belongs",
                 "x-oapi-codegen-extra-tags": {
                   "db": "workspace_id",
-                  "json": "workspace_id",
-                  "yaml": "workspace_id"
+                  "json": "workspace_id"
                 }
               },
               "createdAt": {
@@ -8387,8 +8529,7 @@ const AcademySchema: Record<string, unknown> = {
                 "description": "When the Curricula item was created",
                 "x-oapi-codegen-extra-tags": {
                   "db": "created_at",
-                  "json": "created_at",
-                  "yaml": "created_at"
+                  "json": "created_at"
                 }
               },
               "updatedAt": {
@@ -8403,8 +8544,7 @@ const AcademySchema: Record<string, unknown> = {
                 "x-go-type": "core.Time",
                 "x-oapi-codegen-extra-tags": {
                   "db": "updated_at",
-                  "json": "updated_at",
-                  "yaml": "updated_at"
+                  "json": "updated_at"
                 }
               },
               "deletedAt": {
@@ -8425,8 +8565,7 @@ const AcademySchema: Record<string, unknown> = {
                 "x-go-type": "core.NullTime",
                 "x-oapi-codegen-extra-tags": {
                   "db": "deleted_at",
-                  "json": "deleted_at",
-                  "yaml": "deleted_at"
+                  "json": "deleted_at"
                 }
               },
               "metadata": {
@@ -8437,8 +8576,7 @@ const AcademySchema: Record<string, unknown> = {
                 "x-go-type-skip-optional-pointer": true,
                 "x-oapi-codegen-extra-tags": {
                   "db": "metadata",
-                  "json": "metadata",
-                  "yaml": "metadata"
+                  "json": "metadata"
                 },
                 "oneOf": [
                   {
@@ -8455,7 +8593,7 @@ const AcademySchema: Record<string, unknown> = {
                         "description": "Short description of the curricula",
                         "example": "Learn how to configure your Kubernetes clusters and manage the lifecycle of your workloads"
                       },
-                      "detailed_description": {
+                      "detailedDescription": {
                         "type": "string",
                         "description": "Detailed description of the curricula",
                         "example": "This learning path covers everything from Kubernetes architecture to advanced deployment strategies, including hands-on labs and real-world scenarios."
@@ -8478,13 +8616,13 @@ const AcademySchema: Record<string, unknown> = {
                         "type": "object",
                         "required": [
                           "id",
-                          "org_id",
+                          "orgId",
                           "title",
                           "description",
-                          "issuing_authorities",
-                          "issued_date",
-                          "recipient_id",
-                          "recipient_name"
+                          "issuingAuthorities",
+                          "issuedDate",
+                          "recipientId",
+                          "recipientName"
                         ],
                         "properties": {
                           "id": {
@@ -8493,7 +8631,7 @@ const AcademySchema: Record<string, unknown> = {
                             "example": "1234567890abcdef",
                             "x-go-name": "ID"
                           },
-                          "org_id": {
+                          "orgId": {
                             "type": "string",
                             "format": "uuid",
                             "description": "A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.",
@@ -8502,12 +8640,12 @@ const AcademySchema: Record<string, unknown> = {
                               "path": "github.com/gofrs/uuid"
                             }
                           },
-                          "recipient_id": {
+                          "recipientId": {
                             "type": "string",
                             "description": "ID of the recipient (user) who received the certificate",
                             "example": "1234567890abcdef"
                           },
-                          "recipient_name": {
+                          "recipientName": {
                             "type": "string",
                             "description": "Name of the recipient (user) who received the certificate",
                             "example": "John Doe"
@@ -8522,7 +8660,7 @@ const AcademySchema: Record<string, unknown> = {
                             "description": "Description of the certificate",
                             "example": "Awarded for successfully completing the Kubernetes Expert course"
                           },
-                          "issuing_authorities": {
+                          "issuingAuthorities": {
                             "type": "array",
                             "items": {
                               "x-go-type": "CertificateIssuingAuthority",
@@ -8542,7 +8680,7 @@ const AcademySchema: Record<string, unknown> = {
                                   "description": "Role of the issuing authority",
                                   "example": "COO"
                                 },
-                                "signature_url": {
+                                "signatureUrl": {
                                   "type": "string",
                                   "format": "uri",
                                   "description": "URL to the signature image of the issuing authority should be a publicly accessible URL and transparent PNG or SVG format",
@@ -8552,19 +8690,19 @@ const AcademySchema: Record<string, unknown> = {
                             },
                             "description": "List of issuing authorities for the certificate"
                           },
-                          "issued_date": {
+                          "issuedDate": {
                             "type": "string",
                             "format": "date-time",
                             "description": "Date when the certificate was issued",
                             "example": "2023-10-01T12:00:00Z"
                           },
-                          "expiration_date": {
+                          "expirationDate": {
                             "type": "string",
                             "format": "date-time",
                             "description": "Date when the certificate expires (optional)",
                             "example": "2025-10-01T12:00:00Z"
                           },
-                          "expires_in": {
+                          "expiresIn": {
                             "type": "integer",
                             "description": "Number of months after which the certificate expires",
                             "example": 24
@@ -8585,8 +8723,7 @@ const AcademySchema: Record<string, unknown> = {
                               "x-go-name": "ID",
                               "x-oapi-codegen-extra-tags": {
                                 "db": "id",
-                                "json": "id",
-                                "yaml": "id"
+                                "json": "id"
                               }
                             },
                             "title": {
@@ -8678,11 +8815,10 @@ const AcademySchema: Record<string, unknown> = {
                 "type": "number",
                 "x-oapi-codegen-extra-tags": {
                   "db": "registration_count,omitempty",
-                  "json": "registration_count,omitempty",
-                  "yaml": "registration_count,omitempty"
+                  "json": "registration_count,omitempty"
                 }
               },
-              "Invitation": {
+              "invitation": {
                 "x-go-type": "invitationv1beta1.Invitation",
                 "x-go-type-import": {
                   "path": "github.com/meshery/schemas/models/v1beta1/invitation",
@@ -8890,8 +9026,7 @@ const AcademySchema: Record<string, unknown> = {
             "example": "layer5",
             "x-oapi-codegen-extra-tags": {
               "db": "org_id",
-              "json": "org_id",
-              "yaml": "org_id"
+              "json": "org_id"
             }
           },
           "workspace_id": {
@@ -8909,8 +9044,7 @@ const AcademySchema: Record<string, unknown> = {
             "description": "ID of the workspace to which this Curricula belongs",
             "x-oapi-codegen-extra-tags": {
               "db": "workspace_id",
-              "json": "workspace_id",
-              "yaml": "workspace_id"
+              "json": "workspace_id"
             }
           },
           "badge_id": {
@@ -8924,8 +9058,7 @@ const AcademySchema: Record<string, unknown> = {
             },
             "x-oapi-codegen-extra-tags": {
               "db": "badge_id",
-              "json": "badge_id",
-              "yaml": "badge_id"
+              "json": "badge_id"
             }
           },
           "team_id": {
@@ -8939,11 +9072,10 @@ const AcademySchema: Record<string, unknown> = {
             "x-go-name": "TeamId",
             "x-oapi-codegen-extra-tags": {
               "json": "team_id",
-              "db": "team_id",
-              "yaml": "team_id"
+              "db": "team_id"
             }
           },
-          "access_expires_at": {
+          "accessExpiresAt": {
             "allOf": [
               {
                 "type": "string",
@@ -8954,9 +9086,8 @@ const AcademySchema: Record<string, unknown> = {
             "description": "Expiry time for curricula access",
             "x-go-type": "*time.Time",
             "x-oapi-codegen-extra-tags": {
-              "json": "access_expires_at",
-              "db": "access_expires_at",
-              "yaml": "access_expires_at"
+              "json": "accessExpiresAt",
+              "db": "access_expires_at"
             }
           },
           "access_status": {
@@ -8969,8 +9100,7 @@ const AcademySchema: Record<string, unknown> = {
             },
             "x-oapi-codegen-extra-tags": {
               "json": "access_status",
-              "db": "access_status",
-              "yaml": "access_status"
+              "db": "access_status"
             },
             "type": "string",
             "enum": [
@@ -8986,8 +9116,7 @@ const AcademySchema: Record<string, unknown> = {
             "x-go-type-skip-optional-pointer": true,
             "x-oapi-codegen-extra-tags": {
               "db": "metadata",
-              "json": "metadata",
-              "yaml": "metadata"
+              "json": "metadata"
             },
             "oneOf": [
               {
@@ -9004,7 +9133,7 @@ const AcademySchema: Record<string, unknown> = {
                     "description": "Short description of the curricula",
                     "example": "Learn how to configure your Kubernetes clusters and manage the lifecycle of your workloads"
                   },
-                  "detailed_description": {
+                  "detailedDescription": {
                     "type": "string",
                     "description": "Detailed description of the curricula",
                     "example": "This learning path covers everything from Kubernetes architecture to advanced deployment strategies, including hands-on labs and real-world scenarios."
@@ -9027,13 +9156,13 @@ const AcademySchema: Record<string, unknown> = {
                     "type": "object",
                     "required": [
                       "id",
-                      "org_id",
+                      "orgId",
                       "title",
                       "description",
-                      "issuing_authorities",
-                      "issued_date",
-                      "recipient_id",
-                      "recipient_name"
+                      "issuingAuthorities",
+                      "issuedDate",
+                      "recipientId",
+                      "recipientName"
                     ],
                     "properties": {
                       "id": {
@@ -9042,7 +9171,7 @@ const AcademySchema: Record<string, unknown> = {
                         "example": "1234567890abcdef",
                         "x-go-name": "ID"
                       },
-                      "org_id": {
+                      "orgId": {
                         "type": "string",
                         "format": "uuid",
                         "description": "A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.",
@@ -9051,12 +9180,12 @@ const AcademySchema: Record<string, unknown> = {
                           "path": "github.com/gofrs/uuid"
                         }
                       },
-                      "recipient_id": {
+                      "recipientId": {
                         "type": "string",
                         "description": "ID of the recipient (user) who received the certificate",
                         "example": "1234567890abcdef"
                       },
-                      "recipient_name": {
+                      "recipientName": {
                         "type": "string",
                         "description": "Name of the recipient (user) who received the certificate",
                         "example": "John Doe"
@@ -9071,7 +9200,7 @@ const AcademySchema: Record<string, unknown> = {
                         "description": "Description of the certificate",
                         "example": "Awarded for successfully completing the Kubernetes Expert course"
                       },
-                      "issuing_authorities": {
+                      "issuingAuthorities": {
                         "type": "array",
                         "items": {
                           "x-go-type": "CertificateIssuingAuthority",
@@ -9091,7 +9220,7 @@ const AcademySchema: Record<string, unknown> = {
                               "description": "Role of the issuing authority",
                               "example": "COO"
                             },
-                            "signature_url": {
+                            "signatureUrl": {
                               "type": "string",
                               "format": "uri",
                               "description": "URL to the signature image of the issuing authority should be a publicly accessible URL and transparent PNG or SVG format",
@@ -9101,19 +9230,19 @@ const AcademySchema: Record<string, unknown> = {
                         },
                         "description": "List of issuing authorities for the certificate"
                       },
-                      "issued_date": {
+                      "issuedDate": {
                         "type": "string",
                         "format": "date-time",
                         "description": "Date when the certificate was issued",
                         "example": "2023-10-01T12:00:00Z"
                       },
-                      "expiration_date": {
+                      "expirationDate": {
                         "type": "string",
                         "format": "date-time",
                         "description": "Date when the certificate expires (optional)",
                         "example": "2025-10-01T12:00:00Z"
                       },
-                      "expires_in": {
+                      "expiresIn": {
                         "type": "integer",
                         "description": "Number of months after which the certificate expires",
                         "example": 24
@@ -9134,8 +9263,7 @@ const AcademySchema: Record<string, unknown> = {
                           "x-go-name": "ID",
                           "x-oapi-codegen-extra-tags": {
                             "db": "id",
-                            "json": "id",
-                            "yaml": "id"
+                            "json": "id"
                           }
                         },
                         "title": {
@@ -9225,8 +9353,7 @@ const AcademySchema: Record<string, unknown> = {
                 "x-go-name": "ID",
                 "x-oapi-codegen-extra-tags": {
                   "db": "id",
-                  "json": "id",
-                  "yaml": "id"
+                  "json": "id"
                 }
               },
               "type": {
@@ -9247,8 +9374,7 @@ const AcademySchema: Record<string, unknown> = {
                 "example": "layer5",
                 "x-oapi-codegen-extra-tags": {
                   "db": "org_id",
-                  "json": "org_id",
-                  "yaml": "org_id"
+                  "json": "org_id"
                 }
               },
               "visibility": {
@@ -9256,8 +9382,7 @@ const AcademySchema: Record<string, unknown> = {
                 "x-go-type": "Visibility",
                 "x-oapi-codegen-extra-tags": {
                   "db": "visibility",
-                  "json": "visibility",
-                  "yaml": "visibility"
+                  "json": "visibility"
                 },
                 "type": "string",
                 "enum": [
@@ -9271,8 +9396,7 @@ const AcademySchema: Record<string, unknown> = {
                 "x-go-type": "Status",
                 "x-oapi-codegen-extra-tags": {
                   "db": "status",
-                  "json": "status",
-                  "yaml": "status"
+                  "json": "status"
                 },
                 "type": "string",
                 "enum": [
@@ -9291,8 +9415,7 @@ const AcademySchema: Record<string, unknown> = {
                 "x-go-type": "Level",
                 "x-oapi-codegen-extra-tags": {
                   "db": "level",
-                  "json": "level",
-                  "yaml": "level"
+                  "json": "level"
                 },
                 "type": "string",
                 "enum": [
@@ -9312,11 +9435,10 @@ const AcademySchema: Record<string, unknown> = {
                 },
                 "x-oapi-codegen-extra-tags": {
                   "db": "badge_id",
-                  "json": "badge_id",
-                  "yaml": "badge_id"
+                  "json": "badge_id"
                 }
               },
-              "invite_id": {
+              "inviteId": {
                 "allOf": [
                   {
                     "type": "string",
@@ -9331,8 +9453,7 @@ const AcademySchema: Record<string, unknown> = {
                 "description": "ID of the invite associated with this Curricula",
                 "x-oapi-codegen-extra-tags": {
                   "db": "invite_id",
-                  "json": "invite_id",
-                  "yaml": "invite_id"
+                  "json": "invite_id"
                 }
               },
               "workspace_id": {
@@ -9350,8 +9471,7 @@ const AcademySchema: Record<string, unknown> = {
                 "description": "ID of the workspace to which this Curricula belongs",
                 "x-oapi-codegen-extra-tags": {
                   "db": "workspace_id",
-                  "json": "workspace_id",
-                  "yaml": "workspace_id"
+                  "json": "workspace_id"
                 }
               },
               "createdAt": {
@@ -9365,8 +9485,7 @@ const AcademySchema: Record<string, unknown> = {
                 "description": "When the Curricula item was created",
                 "x-oapi-codegen-extra-tags": {
                   "db": "created_at",
-                  "json": "created_at",
-                  "yaml": "created_at"
+                  "json": "created_at"
                 }
               },
               "updatedAt": {
@@ -9381,8 +9500,7 @@ const AcademySchema: Record<string, unknown> = {
                 "x-go-type": "core.Time",
                 "x-oapi-codegen-extra-tags": {
                   "db": "updated_at",
-                  "json": "updated_at",
-                  "yaml": "updated_at"
+                  "json": "updated_at"
                 }
               },
               "deletedAt": {
@@ -9403,8 +9521,7 @@ const AcademySchema: Record<string, unknown> = {
                 "x-go-type": "core.NullTime",
                 "x-oapi-codegen-extra-tags": {
                   "db": "deleted_at",
-                  "json": "deleted_at",
-                  "yaml": "deleted_at"
+                  "json": "deleted_at"
                 }
               },
               "metadata": {
@@ -9415,8 +9532,7 @@ const AcademySchema: Record<string, unknown> = {
                 "x-go-type-skip-optional-pointer": true,
                 "x-oapi-codegen-extra-tags": {
                   "db": "metadata",
-                  "json": "metadata",
-                  "yaml": "metadata"
+                  "json": "metadata"
                 },
                 "oneOf": [
                   {
@@ -9433,7 +9549,7 @@ const AcademySchema: Record<string, unknown> = {
                         "description": "Short description of the curricula",
                         "example": "Learn how to configure your Kubernetes clusters and manage the lifecycle of your workloads"
                       },
-                      "detailed_description": {
+                      "detailedDescription": {
                         "type": "string",
                         "description": "Detailed description of the curricula",
                         "example": "This learning path covers everything from Kubernetes architecture to advanced deployment strategies, including hands-on labs and real-world scenarios."
@@ -9456,13 +9572,13 @@ const AcademySchema: Record<string, unknown> = {
                         "type": "object",
                         "required": [
                           "id",
-                          "org_id",
+                          "orgId",
                           "title",
                           "description",
-                          "issuing_authorities",
-                          "issued_date",
-                          "recipient_id",
-                          "recipient_name"
+                          "issuingAuthorities",
+                          "issuedDate",
+                          "recipientId",
+                          "recipientName"
                         ],
                         "properties": {
                           "id": {
@@ -9471,7 +9587,7 @@ const AcademySchema: Record<string, unknown> = {
                             "example": "1234567890abcdef",
                             "x-go-name": "ID"
                           },
-                          "org_id": {
+                          "orgId": {
                             "type": "string",
                             "format": "uuid",
                             "description": "A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.",
@@ -9480,12 +9596,12 @@ const AcademySchema: Record<string, unknown> = {
                               "path": "github.com/gofrs/uuid"
                             }
                           },
-                          "recipient_id": {
+                          "recipientId": {
                             "type": "string",
                             "description": "ID of the recipient (user) who received the certificate",
                             "example": "1234567890abcdef"
                           },
-                          "recipient_name": {
+                          "recipientName": {
                             "type": "string",
                             "description": "Name of the recipient (user) who received the certificate",
                             "example": "John Doe"
@@ -9500,7 +9616,7 @@ const AcademySchema: Record<string, unknown> = {
                             "description": "Description of the certificate",
                             "example": "Awarded for successfully completing the Kubernetes Expert course"
                           },
-                          "issuing_authorities": {
+                          "issuingAuthorities": {
                             "type": "array",
                             "items": {
                               "x-go-type": "CertificateIssuingAuthority",
@@ -9520,7 +9636,7 @@ const AcademySchema: Record<string, unknown> = {
                                   "description": "Role of the issuing authority",
                                   "example": "COO"
                                 },
-                                "signature_url": {
+                                "signatureUrl": {
                                   "type": "string",
                                   "format": "uri",
                                   "description": "URL to the signature image of the issuing authority should be a publicly accessible URL and transparent PNG or SVG format",
@@ -9530,19 +9646,19 @@ const AcademySchema: Record<string, unknown> = {
                             },
                             "description": "List of issuing authorities for the certificate"
                           },
-                          "issued_date": {
+                          "issuedDate": {
                             "type": "string",
                             "format": "date-time",
                             "description": "Date when the certificate was issued",
                             "example": "2023-10-01T12:00:00Z"
                           },
-                          "expiration_date": {
+                          "expirationDate": {
                             "type": "string",
                             "format": "date-time",
                             "description": "Date when the certificate expires (optional)",
                             "example": "2025-10-01T12:00:00Z"
                           },
-                          "expires_in": {
+                          "expiresIn": {
                             "type": "integer",
                             "description": "Number of months after which the certificate expires",
                             "example": 24
@@ -9563,8 +9679,7 @@ const AcademySchema: Record<string, unknown> = {
                               "x-go-name": "ID",
                               "x-oapi-codegen-extra-tags": {
                                 "db": "id",
-                                "json": "id",
-                                "yaml": "id"
+                                "json": "id"
                               }
                             },
                             "title": {
@@ -9656,8 +9771,7 @@ const AcademySchema: Record<string, unknown> = {
                 "type": "number",
                 "x-oapi-codegen-extra-tags": {
                   "db": "registration_count,omitempty",
-                  "json": "registration_count,omitempty",
-                  "yaml": "registration_count,omitempty"
+                  "json": "registration_count,omitempty"
                 }
               }
             }
@@ -9685,8 +9799,7 @@ const AcademySchema: Record<string, unknown> = {
                   "x-go-name": "ID",
                   "x-oapi-codegen-extra-tags": {
                     "db": "id",
-                    "json": "id",
-                    "yaml": "id"
+                    "json": "id"
                   }
                 },
                 "type": {
@@ -9707,8 +9820,7 @@ const AcademySchema: Record<string, unknown> = {
                   "example": "layer5",
                   "x-oapi-codegen-extra-tags": {
                     "db": "org_id",
-                    "json": "org_id",
-                    "yaml": "org_id"
+                    "json": "org_id"
                   }
                 },
                 "visibility": {
@@ -9716,8 +9828,7 @@ const AcademySchema: Record<string, unknown> = {
                   "x-go-type": "Visibility",
                   "x-oapi-codegen-extra-tags": {
                     "db": "visibility",
-                    "json": "visibility",
-                    "yaml": "visibility"
+                    "json": "visibility"
                   },
                   "type": "string",
                   "enum": [
@@ -9731,8 +9842,7 @@ const AcademySchema: Record<string, unknown> = {
                   "x-go-type": "Status",
                   "x-oapi-codegen-extra-tags": {
                     "db": "status",
-                    "json": "status",
-                    "yaml": "status"
+                    "json": "status"
                   },
                   "type": "string",
                   "enum": [
@@ -9751,8 +9861,7 @@ const AcademySchema: Record<string, unknown> = {
                   "x-go-type": "Level",
                   "x-oapi-codegen-extra-tags": {
                     "db": "level",
-                    "json": "level",
-                    "yaml": "level"
+                    "json": "level"
                   },
                   "type": "string",
                   "enum": [
@@ -9772,11 +9881,10 @@ const AcademySchema: Record<string, unknown> = {
                   },
                   "x-oapi-codegen-extra-tags": {
                     "db": "badge_id",
-                    "json": "badge_id",
-                    "yaml": "badge_id"
+                    "json": "badge_id"
                   }
                 },
-                "invite_id": {
+                "inviteId": {
                   "allOf": [
                     {
                       "type": "string",
@@ -9791,8 +9899,7 @@ const AcademySchema: Record<string, unknown> = {
                   "description": "ID of the invite associated with this Curricula",
                   "x-oapi-codegen-extra-tags": {
                     "db": "invite_id",
-                    "json": "invite_id",
-                    "yaml": "invite_id"
+                    "json": "invite_id"
                   }
                 },
                 "workspace_id": {
@@ -9810,8 +9917,7 @@ const AcademySchema: Record<string, unknown> = {
                   "description": "ID of the workspace to which this Curricula belongs",
                   "x-oapi-codegen-extra-tags": {
                     "db": "workspace_id",
-                    "json": "workspace_id",
-                    "yaml": "workspace_id"
+                    "json": "workspace_id"
                   }
                 },
                 "createdAt": {
@@ -9825,8 +9931,7 @@ const AcademySchema: Record<string, unknown> = {
                   "description": "When the Curricula item was created",
                   "x-oapi-codegen-extra-tags": {
                     "db": "created_at",
-                    "json": "created_at",
-                    "yaml": "created_at"
+                    "json": "created_at"
                   }
                 },
                 "updatedAt": {
@@ -9841,8 +9946,7 @@ const AcademySchema: Record<string, unknown> = {
                   "x-go-type": "core.Time",
                   "x-oapi-codegen-extra-tags": {
                     "db": "updated_at",
-                    "json": "updated_at",
-                    "yaml": "updated_at"
+                    "json": "updated_at"
                   }
                 },
                 "deletedAt": {
@@ -9863,8 +9967,7 @@ const AcademySchema: Record<string, unknown> = {
                   "x-go-type": "core.NullTime",
                   "x-oapi-codegen-extra-tags": {
                     "db": "deleted_at",
-                    "json": "deleted_at",
-                    "yaml": "deleted_at"
+                    "json": "deleted_at"
                   }
                 },
                 "metadata": {
@@ -9875,8 +9978,7 @@ const AcademySchema: Record<string, unknown> = {
                   "x-go-type-skip-optional-pointer": true,
                   "x-oapi-codegen-extra-tags": {
                     "db": "metadata",
-                    "json": "metadata",
-                    "yaml": "metadata"
+                    "json": "metadata"
                   },
                   "oneOf": [
                     {
@@ -9893,7 +9995,7 @@ const AcademySchema: Record<string, unknown> = {
                           "description": "Short description of the curricula",
                           "example": "Learn how to configure your Kubernetes clusters and manage the lifecycle of your workloads"
                         },
-                        "detailed_description": {
+                        "detailedDescription": {
                           "type": "string",
                           "description": "Detailed description of the curricula",
                           "example": "This learning path covers everything from Kubernetes architecture to advanced deployment strategies, including hands-on labs and real-world scenarios."
@@ -9916,13 +10018,13 @@ const AcademySchema: Record<string, unknown> = {
                           "type": "object",
                           "required": [
                             "id",
-                            "org_id",
+                            "orgId",
                             "title",
                             "description",
-                            "issuing_authorities",
-                            "issued_date",
-                            "recipient_id",
-                            "recipient_name"
+                            "issuingAuthorities",
+                            "issuedDate",
+                            "recipientId",
+                            "recipientName"
                           ],
                           "properties": {
                             "id": {
@@ -9931,7 +10033,7 @@ const AcademySchema: Record<string, unknown> = {
                               "example": "1234567890abcdef",
                               "x-go-name": "ID"
                             },
-                            "org_id": {
+                            "orgId": {
                               "type": "string",
                               "format": "uuid",
                               "description": "A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.",
@@ -9940,12 +10042,12 @@ const AcademySchema: Record<string, unknown> = {
                                 "path": "github.com/gofrs/uuid"
                               }
                             },
-                            "recipient_id": {
+                            "recipientId": {
                               "type": "string",
                               "description": "ID of the recipient (user) who received the certificate",
                               "example": "1234567890abcdef"
                             },
-                            "recipient_name": {
+                            "recipientName": {
                               "type": "string",
                               "description": "Name of the recipient (user) who received the certificate",
                               "example": "John Doe"
@@ -9960,7 +10062,7 @@ const AcademySchema: Record<string, unknown> = {
                               "description": "Description of the certificate",
                               "example": "Awarded for successfully completing the Kubernetes Expert course"
                             },
-                            "issuing_authorities": {
+                            "issuingAuthorities": {
                               "type": "array",
                               "items": {
                                 "x-go-type": "CertificateIssuingAuthority",
@@ -9980,7 +10082,7 @@ const AcademySchema: Record<string, unknown> = {
                                     "description": "Role of the issuing authority",
                                     "example": "COO"
                                   },
-                                  "signature_url": {
+                                  "signatureUrl": {
                                     "type": "string",
                                     "format": "uri",
                                     "description": "URL to the signature image of the issuing authority should be a publicly accessible URL and transparent PNG or SVG format",
@@ -9990,19 +10092,19 @@ const AcademySchema: Record<string, unknown> = {
                               },
                               "description": "List of issuing authorities for the certificate"
                             },
-                            "issued_date": {
+                            "issuedDate": {
                               "type": "string",
                               "format": "date-time",
                               "description": "Date when the certificate was issued",
                               "example": "2023-10-01T12:00:00Z"
                             },
-                            "expiration_date": {
+                            "expirationDate": {
                               "type": "string",
                               "format": "date-time",
                               "description": "Date when the certificate expires (optional)",
                               "example": "2025-10-01T12:00:00Z"
                             },
-                            "expires_in": {
+                            "expiresIn": {
                               "type": "integer",
                               "description": "Number of months after which the certificate expires",
                               "example": 24
@@ -10023,8 +10125,7 @@ const AcademySchema: Record<string, unknown> = {
                                 "x-go-name": "ID",
                                 "x-oapi-codegen-extra-tags": {
                                   "db": "id",
-                                  "json": "id",
-                                  "yaml": "id"
+                                  "json": "id"
                                 }
                               },
                               "title": {
@@ -10137,8 +10238,7 @@ const AcademySchema: Record<string, unknown> = {
                       "x-go-name": "ID",
                       "x-oapi-codegen-extra-tags": {
                         "db": "id",
-                        "json": "id",
-                        "yaml": "id"
+                        "json": "id"
                       }
                     },
                     "type": {
@@ -10159,8 +10259,7 @@ const AcademySchema: Record<string, unknown> = {
                       "example": "layer5",
                       "x-oapi-codegen-extra-tags": {
                         "db": "org_id",
-                        "json": "org_id",
-                        "yaml": "org_id"
+                        "json": "org_id"
                       }
                     },
                     "visibility": {
@@ -10168,8 +10267,7 @@ const AcademySchema: Record<string, unknown> = {
                       "x-go-type": "Visibility",
                       "x-oapi-codegen-extra-tags": {
                         "db": "visibility",
-                        "json": "visibility",
-                        "yaml": "visibility"
+                        "json": "visibility"
                       },
                       "type": "string",
                       "enum": [
@@ -10183,8 +10281,7 @@ const AcademySchema: Record<string, unknown> = {
                       "x-go-type": "Status",
                       "x-oapi-codegen-extra-tags": {
                         "db": "status",
-                        "json": "status",
-                        "yaml": "status"
+                        "json": "status"
                       },
                       "type": "string",
                       "enum": [
@@ -10203,8 +10300,7 @@ const AcademySchema: Record<string, unknown> = {
                       "x-go-type": "Level",
                       "x-oapi-codegen-extra-tags": {
                         "db": "level",
-                        "json": "level",
-                        "yaml": "level"
+                        "json": "level"
                       },
                       "type": "string",
                       "enum": [
@@ -10224,11 +10320,10 @@ const AcademySchema: Record<string, unknown> = {
                       },
                       "x-oapi-codegen-extra-tags": {
                         "db": "badge_id",
-                        "json": "badge_id",
-                        "yaml": "badge_id"
+                        "json": "badge_id"
                       }
                     },
-                    "invite_id": {
+                    "inviteId": {
                       "allOf": [
                         {
                           "type": "string",
@@ -10243,8 +10338,7 @@ const AcademySchema: Record<string, unknown> = {
                       "description": "ID of the invite associated with this Curricula",
                       "x-oapi-codegen-extra-tags": {
                         "db": "invite_id",
-                        "json": "invite_id",
-                        "yaml": "invite_id"
+                        "json": "invite_id"
                       }
                     },
                     "workspace_id": {
@@ -10262,8 +10356,7 @@ const AcademySchema: Record<string, unknown> = {
                       "description": "ID of the workspace to which this Curricula belongs",
                       "x-oapi-codegen-extra-tags": {
                         "db": "workspace_id",
-                        "json": "workspace_id",
-                        "yaml": "workspace_id"
+                        "json": "workspace_id"
                       }
                     },
                     "createdAt": {
@@ -10277,8 +10370,7 @@ const AcademySchema: Record<string, unknown> = {
                       "description": "When the Curricula item was created",
                       "x-oapi-codegen-extra-tags": {
                         "db": "created_at",
-                        "json": "created_at",
-                        "yaml": "created_at"
+                        "json": "created_at"
                       }
                     },
                     "updatedAt": {
@@ -10293,8 +10385,7 @@ const AcademySchema: Record<string, unknown> = {
                       "x-go-type": "core.Time",
                       "x-oapi-codegen-extra-tags": {
                         "db": "updated_at",
-                        "json": "updated_at",
-                        "yaml": "updated_at"
+                        "json": "updated_at"
                       }
                     },
                     "deletedAt": {
@@ -10315,8 +10406,7 @@ const AcademySchema: Record<string, unknown> = {
                       "x-go-type": "core.NullTime",
                       "x-oapi-codegen-extra-tags": {
                         "db": "deleted_at",
-                        "json": "deleted_at",
-                        "yaml": "deleted_at"
+                        "json": "deleted_at"
                       }
                     },
                     "metadata": {
@@ -10327,8 +10417,7 @@ const AcademySchema: Record<string, unknown> = {
                       "x-go-type-skip-optional-pointer": true,
                       "x-oapi-codegen-extra-tags": {
                         "db": "metadata",
-                        "json": "metadata",
-                        "yaml": "metadata"
+                        "json": "metadata"
                       },
                       "oneOf": [
                         {
@@ -10345,7 +10434,7 @@ const AcademySchema: Record<string, unknown> = {
                               "description": "Short description of the curricula",
                               "example": "Learn how to configure your Kubernetes clusters and manage the lifecycle of your workloads"
                             },
-                            "detailed_description": {
+                            "detailedDescription": {
                               "type": "string",
                               "description": "Detailed description of the curricula",
                               "example": "This learning path covers everything from Kubernetes architecture to advanced deployment strategies, including hands-on labs and real-world scenarios."
@@ -10368,13 +10457,13 @@ const AcademySchema: Record<string, unknown> = {
                               "type": "object",
                               "required": [
                                 "id",
-                                "org_id",
+                                "orgId",
                                 "title",
                                 "description",
-                                "issuing_authorities",
-                                "issued_date",
-                                "recipient_id",
-                                "recipient_name"
+                                "issuingAuthorities",
+                                "issuedDate",
+                                "recipientId",
+                                "recipientName"
                               ],
                               "properties": {
                                 "id": {
@@ -10383,7 +10472,7 @@ const AcademySchema: Record<string, unknown> = {
                                   "example": "1234567890abcdef",
                                   "x-go-name": "ID"
                                 },
-                                "org_id": {
+                                "orgId": {
                                   "type": "string",
                                   "format": "uuid",
                                   "description": "A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.",
@@ -10392,12 +10481,12 @@ const AcademySchema: Record<string, unknown> = {
                                     "path": "github.com/gofrs/uuid"
                                   }
                                 },
-                                "recipient_id": {
+                                "recipientId": {
                                   "type": "string",
                                   "description": "ID of the recipient (user) who received the certificate",
                                   "example": "1234567890abcdef"
                                 },
-                                "recipient_name": {
+                                "recipientName": {
                                   "type": "string",
                                   "description": "Name of the recipient (user) who received the certificate",
                                   "example": "John Doe"
@@ -10412,7 +10501,7 @@ const AcademySchema: Record<string, unknown> = {
                                   "description": "Description of the certificate",
                                   "example": "Awarded for successfully completing the Kubernetes Expert course"
                                 },
-                                "issuing_authorities": {
+                                "issuingAuthorities": {
                                   "type": "array",
                                   "items": {
                                     "x-go-type": "CertificateIssuingAuthority",
@@ -10432,7 +10521,7 @@ const AcademySchema: Record<string, unknown> = {
                                         "description": "Role of the issuing authority",
                                         "example": "COO"
                                       },
-                                      "signature_url": {
+                                      "signatureUrl": {
                                         "type": "string",
                                         "format": "uri",
                                         "description": "URL to the signature image of the issuing authority should be a publicly accessible URL and transparent PNG or SVG format",
@@ -10442,19 +10531,19 @@ const AcademySchema: Record<string, unknown> = {
                                   },
                                   "description": "List of issuing authorities for the certificate"
                                 },
-                                "issued_date": {
+                                "issuedDate": {
                                   "type": "string",
                                   "format": "date-time",
                                   "description": "Date when the certificate was issued",
                                   "example": "2023-10-01T12:00:00Z"
                                 },
-                                "expiration_date": {
+                                "expirationDate": {
                                   "type": "string",
                                   "format": "date-time",
                                   "description": "Date when the certificate expires (optional)",
                                   "example": "2025-10-01T12:00:00Z"
                                 },
-                                "expires_in": {
+                                "expiresIn": {
                                   "type": "integer",
                                   "description": "Number of months after which the certificate expires",
                                   "example": 24
@@ -10475,8 +10564,7 @@ const AcademySchema: Record<string, unknown> = {
                                     "x-go-name": "ID",
                                     "x-oapi-codegen-extra-tags": {
                                       "db": "id",
-                                      "json": "id",
-                                      "yaml": "id"
+                                      "json": "id"
                                     }
                                   },
                                   "title": {
@@ -10568,8 +10656,7 @@ const AcademySchema: Record<string, unknown> = {
                       "type": "number",
                       "x-oapi-codegen-extra-tags": {
                         "db": "registration_count,omitempty",
-                        "json": "registration_count,omitempty",
-                        "yaml": "registration_count,omitempty"
+                        "json": "registration_count,omitempty"
                       }
                     }
                   }
@@ -10597,7 +10684,7 @@ const AcademySchema: Record<string, unknown> = {
             "description": "Short description of the curricula",
             "example": "Learn how to configure your Kubernetes clusters and manage the lifecycle of your workloads"
           },
-          "detailed_description": {
+          "detailedDescription": {
             "type": "string",
             "description": "Detailed description of the curricula",
             "example": "This learning path covers everything from Kubernetes architecture to advanced deployment strategies, including hands-on labs and real-world scenarios."
@@ -10620,13 +10707,13 @@ const AcademySchema: Record<string, unknown> = {
             "type": "object",
             "required": [
               "id",
-              "org_id",
+              "orgId",
               "title",
               "description",
-              "issuing_authorities",
-              "issued_date",
-              "recipient_id",
-              "recipient_name"
+              "issuingAuthorities",
+              "issuedDate",
+              "recipientId",
+              "recipientName"
             ],
             "properties": {
               "id": {
@@ -10635,7 +10722,7 @@ const AcademySchema: Record<string, unknown> = {
                 "example": "1234567890abcdef",
                 "x-go-name": "ID"
               },
-              "org_id": {
+              "orgId": {
                 "type": "string",
                 "format": "uuid",
                 "description": "A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.",
@@ -10644,12 +10731,12 @@ const AcademySchema: Record<string, unknown> = {
                   "path": "github.com/gofrs/uuid"
                 }
               },
-              "recipient_id": {
+              "recipientId": {
                 "type": "string",
                 "description": "ID of the recipient (user) who received the certificate",
                 "example": "1234567890abcdef"
               },
-              "recipient_name": {
+              "recipientName": {
                 "type": "string",
                 "description": "Name of the recipient (user) who received the certificate",
                 "example": "John Doe"
@@ -10664,7 +10751,7 @@ const AcademySchema: Record<string, unknown> = {
                 "description": "Description of the certificate",
                 "example": "Awarded for successfully completing the Kubernetes Expert course"
               },
-              "issuing_authorities": {
+              "issuingAuthorities": {
                 "type": "array",
                 "items": {
                   "x-go-type": "CertificateIssuingAuthority",
@@ -10684,7 +10771,7 @@ const AcademySchema: Record<string, unknown> = {
                       "description": "Role of the issuing authority",
                       "example": "COO"
                     },
-                    "signature_url": {
+                    "signatureUrl": {
                       "type": "string",
                       "format": "uri",
                       "description": "URL to the signature image of the issuing authority should be a publicly accessible URL and transparent PNG or SVG format",
@@ -10694,19 +10781,19 @@ const AcademySchema: Record<string, unknown> = {
                 },
                 "description": "List of issuing authorities for the certificate"
               },
-              "issued_date": {
+              "issuedDate": {
                 "type": "string",
                 "format": "date-time",
                 "description": "Date when the certificate was issued",
                 "example": "2023-10-01T12:00:00Z"
               },
-              "expiration_date": {
+              "expirationDate": {
                 "type": "string",
                 "format": "date-time",
                 "description": "Date when the certificate expires (optional)",
                 "example": "2025-10-01T12:00:00Z"
               },
-              "expires_in": {
+              "expiresIn": {
                 "type": "integer",
                 "description": "Number of months after which the certificate expires",
                 "example": 24
@@ -10727,8 +10814,7 @@ const AcademySchema: Record<string, unknown> = {
                   "x-go-name": "ID",
                   "x-oapi-codegen-extra-tags": {
                     "db": "id",
-                    "json": "id",
-                    "yaml": "id"
+                    "json": "id"
                   }
                 },
                 "title": {
@@ -10807,7 +10893,7 @@ const AcademySchema: Record<string, unknown> = {
             "description": "Short description of the curricula",
             "example": "Learn how to configure your Kubernetes clusters and manage the lifecycle of your workloads"
           },
-          "detailed_description": {
+          "detailedDescription": {
             "type": "string",
             "description": "Detailed description of the curricula",
             "example": "This learning path covers everything from Kubernetes architecture to advanced deployment strategies, including hands-on labs and real-world scenarios."
@@ -10830,13 +10916,13 @@ const AcademySchema: Record<string, unknown> = {
             "type": "object",
             "required": [
               "id",
-              "org_id",
+              "orgId",
               "title",
               "description",
-              "issuing_authorities",
-              "issued_date",
-              "recipient_id",
-              "recipient_name"
+              "issuingAuthorities",
+              "issuedDate",
+              "recipientId",
+              "recipientName"
             ],
             "properties": {
               "id": {
@@ -10845,7 +10931,7 @@ const AcademySchema: Record<string, unknown> = {
                 "example": "1234567890abcdef",
                 "x-go-name": "ID"
               },
-              "org_id": {
+              "orgId": {
                 "type": "string",
                 "format": "uuid",
                 "description": "A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.",
@@ -10854,12 +10940,12 @@ const AcademySchema: Record<string, unknown> = {
                   "path": "github.com/gofrs/uuid"
                 }
               },
-              "recipient_id": {
+              "recipientId": {
                 "type": "string",
                 "description": "ID of the recipient (user) who received the certificate",
                 "example": "1234567890abcdef"
               },
-              "recipient_name": {
+              "recipientName": {
                 "type": "string",
                 "description": "Name of the recipient (user) who received the certificate",
                 "example": "John Doe"
@@ -10874,7 +10960,7 @@ const AcademySchema: Record<string, unknown> = {
                 "description": "Description of the certificate",
                 "example": "Awarded for successfully completing the Kubernetes Expert course"
               },
-              "issuing_authorities": {
+              "issuingAuthorities": {
                 "type": "array",
                 "items": {
                   "x-go-type": "CertificateIssuingAuthority",
@@ -10894,7 +10980,7 @@ const AcademySchema: Record<string, unknown> = {
                       "description": "Role of the issuing authority",
                       "example": "COO"
                     },
-                    "signature_url": {
+                    "signatureUrl": {
                       "type": "string",
                       "format": "uri",
                       "description": "URL to the signature image of the issuing authority should be a publicly accessible URL and transparent PNG or SVG format",
@@ -10904,19 +10990,19 @@ const AcademySchema: Record<string, unknown> = {
                 },
                 "description": "List of issuing authorities for the certificate"
               },
-              "issued_date": {
+              "issuedDate": {
                 "type": "string",
                 "format": "date-time",
                 "description": "Date when the certificate was issued",
                 "example": "2023-10-01T12:00:00Z"
               },
-              "expiration_date": {
+              "expirationDate": {
                 "type": "string",
                 "format": "date-time",
                 "description": "Date when the certificate expires (optional)",
                 "example": "2025-10-01T12:00:00Z"
               },
-              "expires_in": {
+              "expiresIn": {
                 "type": "integer",
                 "description": "Number of months after which the certificate expires",
                 "example": 24
@@ -10937,8 +11023,7 @@ const AcademySchema: Record<string, unknown> = {
                   "x-go-name": "ID",
                   "x-oapi-codegen-extra-tags": {
                     "db": "id",
-                    "json": "id",
-                    "yaml": "id"
+                    "json": "id"
                   }
                 },
                 "title": {
@@ -11020,7 +11105,7 @@ const AcademySchema: Record<string, unknown> = {
             "description": "Role of the issuing authority",
             "example": "COO"
           },
-          "signature_url": {
+          "signatureUrl": {
             "type": "string",
             "format": "uri",
             "description": "URL to the signature image of the issuing authority should be a publicly accessible URL and transparent PNG or SVG format",
@@ -11032,13 +11117,13 @@ const AcademySchema: Record<string, unknown> = {
         "type": "object",
         "required": [
           "id",
-          "org_id",
+          "orgId",
           "title",
           "description",
-          "issuing_authorities",
-          "issued_date",
-          "recipient_id",
-          "recipient_name"
+          "issuingAuthorities",
+          "issuedDate",
+          "recipientId",
+          "recipientName"
         ],
         "properties": {
           "id": {
@@ -11047,7 +11132,7 @@ const AcademySchema: Record<string, unknown> = {
             "example": "1234567890abcdef",
             "x-go-name": "ID"
           },
-          "org_id": {
+          "orgId": {
             "type": "string",
             "format": "uuid",
             "description": "A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.",
@@ -11056,12 +11141,12 @@ const AcademySchema: Record<string, unknown> = {
               "path": "github.com/gofrs/uuid"
             }
           },
-          "recipient_id": {
+          "recipientId": {
             "type": "string",
             "description": "ID of the recipient (user) who received the certificate",
             "example": "1234567890abcdef"
           },
-          "recipient_name": {
+          "recipientName": {
             "type": "string",
             "description": "Name of the recipient (user) who received the certificate",
             "example": "John Doe"
@@ -11076,7 +11161,7 @@ const AcademySchema: Record<string, unknown> = {
             "description": "Description of the certificate",
             "example": "Awarded for successfully completing the Kubernetes Expert course"
           },
-          "issuing_authorities": {
+          "issuingAuthorities": {
             "type": "array",
             "items": {
               "x-go-type": "CertificateIssuingAuthority",
@@ -11096,7 +11181,7 @@ const AcademySchema: Record<string, unknown> = {
                   "description": "Role of the issuing authority",
                   "example": "COO"
                 },
-                "signature_url": {
+                "signatureUrl": {
                   "type": "string",
                   "format": "uri",
                   "description": "URL to the signature image of the issuing authority should be a publicly accessible URL and transparent PNG or SVG format",
@@ -11106,19 +11191,19 @@ const AcademySchema: Record<string, unknown> = {
             },
             "description": "List of issuing authorities for the certificate"
           },
-          "issued_date": {
+          "issuedDate": {
             "type": "string",
             "format": "date-time",
             "description": "Date when the certificate was issued",
             "example": "2023-10-01T12:00:00Z"
           },
-          "expiration_date": {
+          "expirationDate": {
             "type": "string",
             "format": "date-time",
             "description": "Date when the certificate expires (optional)",
             "example": "2025-10-01T12:00:00Z"
           },
-          "expires_in": {
+          "expiresIn": {
             "type": "integer",
             "description": "Number of months after which the certificate expires",
             "example": 24
@@ -11138,7 +11223,7 @@ const AcademySchema: Record<string, unknown> = {
             "description": "Short description of the curricula",
             "example": "Learn how to configure your Kubernetes clusters and manage the lifecycle of your workloads"
           },
-          "detailed_description": {
+          "detailedDescription": {
             "type": "string",
             "description": "Detailed description of the curricula",
             "example": "This learning path covers everything from Kubernetes architecture to advanced deployment strategies, including hands-on labs and real-world scenarios."
@@ -11161,13 +11246,13 @@ const AcademySchema: Record<string, unknown> = {
             "type": "object",
             "required": [
               "id",
-              "org_id",
+              "orgId",
               "title",
               "description",
-              "issuing_authorities",
-              "issued_date",
-              "recipient_id",
-              "recipient_name"
+              "issuingAuthorities",
+              "issuedDate",
+              "recipientId",
+              "recipientName"
             ],
             "properties": {
               "id": {
@@ -11176,7 +11261,7 @@ const AcademySchema: Record<string, unknown> = {
                 "example": "1234567890abcdef",
                 "x-go-name": "ID"
               },
-              "org_id": {
+              "orgId": {
                 "type": "string",
                 "format": "uuid",
                 "description": "A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.",
@@ -11185,12 +11270,12 @@ const AcademySchema: Record<string, unknown> = {
                   "path": "github.com/gofrs/uuid"
                 }
               },
-              "recipient_id": {
+              "recipientId": {
                 "type": "string",
                 "description": "ID of the recipient (user) who received the certificate",
                 "example": "1234567890abcdef"
               },
-              "recipient_name": {
+              "recipientName": {
                 "type": "string",
                 "description": "Name of the recipient (user) who received the certificate",
                 "example": "John Doe"
@@ -11205,7 +11290,7 @@ const AcademySchema: Record<string, unknown> = {
                 "description": "Description of the certificate",
                 "example": "Awarded for successfully completing the Kubernetes Expert course"
               },
-              "issuing_authorities": {
+              "issuingAuthorities": {
                 "type": "array",
                 "items": {
                   "x-go-type": "CertificateIssuingAuthority",
@@ -11225,7 +11310,7 @@ const AcademySchema: Record<string, unknown> = {
                       "description": "Role of the issuing authority",
                       "example": "COO"
                     },
-                    "signature_url": {
+                    "signatureUrl": {
                       "type": "string",
                       "format": "uri",
                       "description": "URL to the signature image of the issuing authority should be a publicly accessible URL and transparent PNG or SVG format",
@@ -11235,19 +11320,19 @@ const AcademySchema: Record<string, unknown> = {
                 },
                 "description": "List of issuing authorities for the certificate"
               },
-              "issued_date": {
+              "issuedDate": {
                 "type": "string",
                 "format": "date-time",
                 "description": "Date when the certificate was issued",
                 "example": "2023-10-01T12:00:00Z"
               },
-              "expiration_date": {
+              "expirationDate": {
                 "type": "string",
                 "format": "date-time",
                 "description": "Date when the certificate expires (optional)",
                 "example": "2025-10-01T12:00:00Z"
               },
-              "expires_in": {
+              "expiresIn": {
                 "type": "integer",
                 "description": "Number of months after which the certificate expires",
                 "example": 24
@@ -11268,8 +11353,7 @@ const AcademySchema: Record<string, unknown> = {
                   "x-go-name": "ID",
                   "x-oapi-codegen-extra-tags": {
                     "db": "id",
-                    "json": "id",
-                    "yaml": "id"
+                    "json": "id"
                   }
                 },
                 "title": {
@@ -11373,8 +11457,7 @@ const AcademySchema: Record<string, unknown> = {
             "x-go-name": "ID",
             "x-oapi-codegen-extra-tags": {
               "db": "id",
-              "json": "id",
-              "yaml": "id"
+              "json": "id"
             }
           },
           "org_id": {
@@ -11462,13 +11545,13 @@ const AcademySchema: Record<string, unknown> = {
             "type": "object",
             "required": [
               "id",
-              "org_id",
+              "orgId",
               "title",
               "description",
-              "issuing_authorities",
-              "issued_date",
-              "recipient_id",
-              "recipient_name"
+              "issuingAuthorities",
+              "issuedDate",
+              "recipientId",
+              "recipientName"
             ],
             "properties": {
               "id": {
@@ -11477,7 +11560,7 @@ const AcademySchema: Record<string, unknown> = {
                 "example": "1234567890abcdef",
                 "x-go-name": "ID"
               },
-              "org_id": {
+              "orgId": {
                 "type": "string",
                 "format": "uuid",
                 "description": "A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.",
@@ -11486,12 +11569,12 @@ const AcademySchema: Record<string, unknown> = {
                   "path": "github.com/gofrs/uuid"
                 }
               },
-              "recipient_id": {
+              "recipientId": {
                 "type": "string",
                 "description": "ID of the recipient (user) who received the certificate",
                 "example": "1234567890abcdef"
               },
-              "recipient_name": {
+              "recipientName": {
                 "type": "string",
                 "description": "Name of the recipient (user) who received the certificate",
                 "example": "John Doe"
@@ -11506,7 +11589,7 @@ const AcademySchema: Record<string, unknown> = {
                 "description": "Description of the certificate",
                 "example": "Awarded for successfully completing the Kubernetes Expert course"
               },
-              "issuing_authorities": {
+              "issuingAuthorities": {
                 "type": "array",
                 "items": {
                   "x-go-type": "CertificateIssuingAuthority",
@@ -11526,7 +11609,7 @@ const AcademySchema: Record<string, unknown> = {
                       "description": "Role of the issuing authority",
                       "example": "COO"
                     },
-                    "signature_url": {
+                    "signatureUrl": {
                       "type": "string",
                       "format": "uri",
                       "description": "URL to the signature image of the issuing authority should be a publicly accessible URL and transparent PNG or SVG format",
@@ -11536,19 +11619,19 @@ const AcademySchema: Record<string, unknown> = {
                 },
                 "description": "List of issuing authorities for the certificate"
               },
-              "issued_date": {
+              "issuedDate": {
                 "type": "string",
                 "format": "date-time",
                 "description": "Date when the certificate was issued",
                 "example": "2023-10-01T12:00:00Z"
               },
-              "expiration_date": {
+              "expirationDate": {
                 "type": "string",
                 "format": "date-time",
                 "description": "Date when the certificate expires (optional)",
                 "example": "2025-10-01T12:00:00Z"
               },
-              "expires_in": {
+              "expiresIn": {
                 "type": "integer",
                 "description": "Number of months after which the certificate expires",
                 "example": 24
@@ -11578,13 +11661,13 @@ const AcademySchema: Record<string, unknown> = {
             "required": [
               "score",
               "passed",
-              "total_marks",
-              "pass_percentage",
+              "totalMarks",
+              "passPercentage",
               "quiz",
-              "attempted_at",
+              "attemptedAt",
               "attempts",
-              "percentage_scored",
-              "correct_submissions"
+              "percentageScored",
+              "correctSubmissions"
             ],
             "properties": {
               "score": {
@@ -11593,18 +11676,18 @@ const AcademySchema: Record<string, unknown> = {
               "passed": {
                 "type": "boolean"
               },
-              "percentage_scored": {
+              "percentageScored": {
                 "type": "number",
                 "format": "float"
               },
-              "total_marks": {
+              "totalMarks": {
                 "type": "integer"
               },
-              "pass_percentage": {
+              "passPercentage": {
                 "type": "number",
                 "format": "float"
               },
-              "correct_submissions": {
+              "correctSubmissions": {
                 "type": "object",
                 "additionalProperties": {
                   "type": "boolean"
@@ -11629,17 +11712,17 @@ const AcademySchema: Record<string, unknown> = {
                   "final",
                   "lastmod",
                   "draft",
-                  "file_path",
-                  "pass_percentage",
-                  "time_limit",
-                  "max_attempts",
+                  "filePath",
+                  "passPercentage",
+                  "timeLimit",
+                  "maxAttempts",
                   "questions",
-                  "total_questions",
-                  "total_questions_in_bank",
-                  "total_question_sets",
-                  "total_marks",
+                  "totalQuestions",
+                  "totalQuestionsInBank",
+                  "totalQuestionSets",
+                  "totalMarks",
                   "prerequisites",
-                  "next_page"
+                  "nextPage"
                 ],
                 "properties": {
                   "id": {
@@ -11655,8 +11738,7 @@ const AcademySchema: Record<string, unknown> = {
                     "example": "layer5",
                     "x-oapi-codegen-extra-tags": {
                       "db": "org_id",
-                      "json": "org_id",
-                      "yaml": "org_id"
+                      "json": "org_id"
                     }
                   },
                   "final": {
@@ -11699,18 +11781,18 @@ const AcademySchema: Record<string, unknown> = {
                   "draft": {
                     "type": "boolean"
                   },
-                  "file_path": {
+                  "filePath": {
                     "type": "string"
                   },
-                  "pass_percentage": {
+                  "passPercentage": {
                     "type": "number",
                     "format": "float"
                   },
-                  "time_limit": {
+                  "timeLimit": {
                     "description": "Time limit for the quiz in minutes. A value of 0 indicates no time limit.",
                     "type": "string"
                   },
-                  "max_attempts": {
+                  "maxAttempts": {
                     "description": "Maximum number of attempts allowed for the quiz. A value of 0 indicates unlimited attempts.",
                     "type": "integer"
                   },
@@ -11725,7 +11807,7 @@ const AcademySchema: Record<string, unknown> = {
                         "type",
                         "marks",
                         "options",
-                        "correct_answer"
+                        "correctAnswer"
                       ],
                       "properties": {
                         "id": {
@@ -11753,7 +11835,7 @@ const AcademySchema: Record<string, unknown> = {
                         "marks": {
                           "type": "integer"
                         },
-                        "multiple_answers": {
+                        "multipleAnswers": {
                           "type": "boolean"
                         },
                         "options": {
@@ -11764,7 +11846,7 @@ const AcademySchema: Record<string, unknown> = {
                             "required": [
                               "id",
                               "text",
-                              "is_correct"
+                              "isCorrect"
                             ],
                             "properties": {
                               "id": {
@@ -11773,28 +11855,28 @@ const AcademySchema: Record<string, unknown> = {
                               "text": {
                                 "type": "string"
                               },
-                              "is_correct": {
+                              "isCorrect": {
                                 "type": "boolean"
                               }
                             }
                           }
                         },
-                        "correct_answer": {
+                        "correctAnswer": {
                           "type": "string"
                         }
                       }
                     }
                   },
-                  "total_questions": {
+                  "totalQuestions": {
                     "type": "integer"
                   },
-                  "total_questions_in_bank": {
+                  "totalQuestionsInBank": {
                     "type": "integer"
                   },
-                  "total_question_sets": {
+                  "totalQuestionSets": {
                     "type": "integer"
                   },
-                  "total_marks": {
+                  "totalMarks": {
                     "type": "integer"
                   },
                   "prerequisites": {
@@ -11848,7 +11930,7 @@ const AcademySchema: Record<string, unknown> = {
                       }
                     }
                   },
-                  "next_page": {
+                  "nextPage": {
                     "x-go-type": "Parent",
                     "type": "object",
                     "required": [
@@ -11874,7 +11956,7 @@ const AcademySchema: Record<string, unknown> = {
                   }
                 }
               },
-              "attempted_at": {
+              "attemptedAt": {
                 "type": "string",
                 "format": "date-time"
               },
@@ -11894,13 +11976,13 @@ const AcademySchema: Record<string, unknown> = {
           "required": [
             "score",
             "passed",
-            "total_marks",
-            "pass_percentage",
+            "totalMarks",
+            "passPercentage",
             "quiz",
-            "attempted_at",
+            "attemptedAt",
             "attempts",
-            "percentage_scored",
-            "correct_submissions"
+            "percentageScored",
+            "correctSubmissions"
           ],
           "properties": {
             "score": {
@@ -11909,18 +11991,18 @@ const AcademySchema: Record<string, unknown> = {
             "passed": {
               "type": "boolean"
             },
-            "percentage_scored": {
+            "percentageScored": {
               "type": "number",
               "format": "float"
             },
-            "total_marks": {
+            "totalMarks": {
               "type": "integer"
             },
-            "pass_percentage": {
+            "passPercentage": {
               "type": "number",
               "format": "float"
             },
-            "correct_submissions": {
+            "correctSubmissions": {
               "type": "object",
               "additionalProperties": {
                 "type": "boolean"
@@ -11945,17 +12027,17 @@ const AcademySchema: Record<string, unknown> = {
                 "final",
                 "lastmod",
                 "draft",
-                "file_path",
-                "pass_percentage",
-                "time_limit",
-                "max_attempts",
+                "filePath",
+                "passPercentage",
+                "timeLimit",
+                "maxAttempts",
                 "questions",
-                "total_questions",
-                "total_questions_in_bank",
-                "total_question_sets",
-                "total_marks",
+                "totalQuestions",
+                "totalQuestionsInBank",
+                "totalQuestionSets",
+                "totalMarks",
                 "prerequisites",
-                "next_page"
+                "nextPage"
               ],
               "properties": {
                 "id": {
@@ -11971,8 +12053,7 @@ const AcademySchema: Record<string, unknown> = {
                   "example": "layer5",
                   "x-oapi-codegen-extra-tags": {
                     "db": "org_id",
-                    "json": "org_id",
-                    "yaml": "org_id"
+                    "json": "org_id"
                   }
                 },
                 "final": {
@@ -12015,18 +12096,18 @@ const AcademySchema: Record<string, unknown> = {
                 "draft": {
                   "type": "boolean"
                 },
-                "file_path": {
+                "filePath": {
                   "type": "string"
                 },
-                "pass_percentage": {
+                "passPercentage": {
                   "type": "number",
                   "format": "float"
                 },
-                "time_limit": {
+                "timeLimit": {
                   "description": "Time limit for the quiz in minutes. A value of 0 indicates no time limit.",
                   "type": "string"
                 },
-                "max_attempts": {
+                "maxAttempts": {
                   "description": "Maximum number of attempts allowed for the quiz. A value of 0 indicates unlimited attempts.",
                   "type": "integer"
                 },
@@ -12041,7 +12122,7 @@ const AcademySchema: Record<string, unknown> = {
                       "type",
                       "marks",
                       "options",
-                      "correct_answer"
+                      "correctAnswer"
                     ],
                     "properties": {
                       "id": {
@@ -12069,7 +12150,7 @@ const AcademySchema: Record<string, unknown> = {
                       "marks": {
                         "type": "integer"
                       },
-                      "multiple_answers": {
+                      "multipleAnswers": {
                         "type": "boolean"
                       },
                       "options": {
@@ -12080,7 +12161,7 @@ const AcademySchema: Record<string, unknown> = {
                           "required": [
                             "id",
                             "text",
-                            "is_correct"
+                            "isCorrect"
                           ],
                           "properties": {
                             "id": {
@@ -12089,28 +12170,28 @@ const AcademySchema: Record<string, unknown> = {
                             "text": {
                               "type": "string"
                             },
-                            "is_correct": {
+                            "isCorrect": {
                               "type": "boolean"
                             }
                           }
                         }
                       },
-                      "correct_answer": {
+                      "correctAnswer": {
                         "type": "string"
                       }
                     }
                   }
                 },
-                "total_questions": {
+                "totalQuestions": {
                   "type": "integer"
                 },
-                "total_questions_in_bank": {
+                "totalQuestionsInBank": {
                   "type": "integer"
                 },
-                "total_question_sets": {
+                "totalQuestionSets": {
                   "type": "integer"
                 },
-                "total_marks": {
+                "totalMarks": {
                   "type": "integer"
                 },
                 "prerequisites": {
@@ -12164,7 +12245,7 @@ const AcademySchema: Record<string, unknown> = {
                     }
                   }
                 },
-                "next_page": {
+                "nextPage": {
                   "x-go-type": "Parent",
                   "type": "object",
                   "required": [
@@ -12190,7 +12271,7 @@ const AcademySchema: Record<string, unknown> = {
                 }
               }
             },
-            "attempted_at": {
+            "attemptedAt": {
               "type": "string",
               "format": "date-time"
             },
@@ -12210,8 +12291,7 @@ const AcademySchema: Record<string, unknown> = {
             "x-go-name": "ID",
             "x-oapi-codegen-extra-tags": {
               "db": "id",
-              "json": "id",
-              "yaml": "id"
+              "json": "id"
             }
           },
           "title": {
@@ -12304,8 +12384,7 @@ const AcademySchema: Record<string, unknown> = {
                   "x-go-name": "ID",
                   "x-oapi-codegen-extra-tags": {
                     "db": "id",
-                    "json": "id",
-                    "yaml": "id"
+                    "json": "id"
                   }
                 },
                 "org_id": {
@@ -12393,13 +12472,13 @@ const AcademySchema: Record<string, unknown> = {
                   "type": "object",
                   "required": [
                     "id",
-                    "org_id",
+                    "orgId",
                     "title",
                     "description",
-                    "issuing_authorities",
-                    "issued_date",
-                    "recipient_id",
-                    "recipient_name"
+                    "issuingAuthorities",
+                    "issuedDate",
+                    "recipientId",
+                    "recipientName"
                   ],
                   "properties": {
                     "id": {
@@ -12408,7 +12487,7 @@ const AcademySchema: Record<string, unknown> = {
                       "example": "1234567890abcdef",
                       "x-go-name": "ID"
                     },
-                    "org_id": {
+                    "orgId": {
                       "type": "string",
                       "format": "uuid",
                       "description": "A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.",
@@ -12417,12 +12496,12 @@ const AcademySchema: Record<string, unknown> = {
                         "path": "github.com/gofrs/uuid"
                       }
                     },
-                    "recipient_id": {
+                    "recipientId": {
                       "type": "string",
                       "description": "ID of the recipient (user) who received the certificate",
                       "example": "1234567890abcdef"
                     },
-                    "recipient_name": {
+                    "recipientName": {
                       "type": "string",
                       "description": "Name of the recipient (user) who received the certificate",
                       "example": "John Doe"
@@ -12437,7 +12516,7 @@ const AcademySchema: Record<string, unknown> = {
                       "description": "Description of the certificate",
                       "example": "Awarded for successfully completing the Kubernetes Expert course"
                     },
-                    "issuing_authorities": {
+                    "issuingAuthorities": {
                       "type": "array",
                       "items": {
                         "x-go-type": "CertificateIssuingAuthority",
@@ -12457,7 +12536,7 @@ const AcademySchema: Record<string, unknown> = {
                             "description": "Role of the issuing authority",
                             "example": "COO"
                           },
-                          "signature_url": {
+                          "signatureUrl": {
                             "type": "string",
                             "format": "uri",
                             "description": "URL to the signature image of the issuing authority should be a publicly accessible URL and transparent PNG or SVG format",
@@ -12467,19 +12546,19 @@ const AcademySchema: Record<string, unknown> = {
                       },
                       "description": "List of issuing authorities for the certificate"
                     },
-                    "issued_date": {
+                    "issuedDate": {
                       "type": "string",
                       "format": "date-time",
                       "description": "Date when the certificate was issued",
                       "example": "2023-10-01T12:00:00Z"
                     },
-                    "expiration_date": {
+                    "expirationDate": {
                       "type": "string",
                       "format": "date-time",
                       "description": "Date when the certificate expires (optional)",
                       "example": "2025-10-01T12:00:00Z"
                     },
-                    "expires_in": {
+                    "expiresIn": {
                       "type": "integer",
                       "description": "Number of months after which the certificate expires",
                       "example": 24
@@ -12510,18 +12589,18 @@ const AcademySchema: Record<string, unknown> = {
         "type": "object",
         "required": [
           "id",
-          "last_opened",
-          "content_type"
+          "lastOpened",
+          "contentType"
         ],
         "properties": {
           "id": {
             "type": "string"
           },
-          "last_opened": {
+          "lastOpened": {
             "type": "string",
             "format": "date-time"
           },
-          "content_type": {
+          "contentType": {
             "type": "string",
             "enum": [
               "learning-path",
@@ -12535,32 +12614,32 @@ const AcademySchema: Record<string, unknown> = {
       "CurriculaProgressTracker": {
         "type": "object",
         "required": [
-          "current_item",
+          "currentItem",
           "grades",
-          "time_spent",
+          "timeSpent",
           "completed",
-          "completed_items"
+          "completedItems"
         ],
         "properties": {
-          "current_item": {
+          "currentItem": {
             "type": "object",
             "additionalProperties": {
               "x-go-type": "CurriculaCurrentItemData",
               "type": "object",
               "required": [
                 "id",
-                "last_opened",
-                "content_type"
+                "lastOpened",
+                "contentType"
               ],
               "properties": {
                 "id": {
                   "type": "string"
                 },
-                "last_opened": {
+                "lastOpened": {
                   "type": "string",
                   "format": "date-time"
                 },
-                "content_type": {
+                "contentType": {
                   "type": "string",
                   "enum": [
                     "learning-path",
@@ -12580,13 +12659,13 @@ const AcademySchema: Record<string, unknown> = {
               "required": [
                 "score",
                 "passed",
-                "total_marks",
-                "pass_percentage",
+                "totalMarks",
+                "passPercentage",
                 "quiz",
-                "attempted_at",
+                "attemptedAt",
                 "attempts",
-                "percentage_scored",
-                "correct_submissions"
+                "percentageScored",
+                "correctSubmissions"
               ],
               "properties": {
                 "score": {
@@ -12595,18 +12674,18 @@ const AcademySchema: Record<string, unknown> = {
                 "passed": {
                   "type": "boolean"
                 },
-                "percentage_scored": {
+                "percentageScored": {
                   "type": "number",
                   "format": "float"
                 },
-                "total_marks": {
+                "totalMarks": {
                   "type": "integer"
                 },
-                "pass_percentage": {
+                "passPercentage": {
                   "type": "number",
                   "format": "float"
                 },
-                "correct_submissions": {
+                "correctSubmissions": {
                   "type": "object",
                   "additionalProperties": {
                     "type": "boolean"
@@ -12631,17 +12710,17 @@ const AcademySchema: Record<string, unknown> = {
                     "final",
                     "lastmod",
                     "draft",
-                    "file_path",
-                    "pass_percentage",
-                    "time_limit",
-                    "max_attempts",
+                    "filePath",
+                    "passPercentage",
+                    "timeLimit",
+                    "maxAttempts",
                     "questions",
-                    "total_questions",
-                    "total_questions_in_bank",
-                    "total_question_sets",
-                    "total_marks",
+                    "totalQuestions",
+                    "totalQuestionsInBank",
+                    "totalQuestionSets",
+                    "totalMarks",
                     "prerequisites",
-                    "next_page"
+                    "nextPage"
                   ],
                   "properties": {
                     "id": {
@@ -12657,8 +12736,7 @@ const AcademySchema: Record<string, unknown> = {
                       "example": "layer5",
                       "x-oapi-codegen-extra-tags": {
                         "db": "org_id",
-                        "json": "org_id",
-                        "yaml": "org_id"
+                        "json": "org_id"
                       }
                     },
                     "final": {
@@ -12701,18 +12779,18 @@ const AcademySchema: Record<string, unknown> = {
                     "draft": {
                       "type": "boolean"
                     },
-                    "file_path": {
+                    "filePath": {
                       "type": "string"
                     },
-                    "pass_percentage": {
+                    "passPercentage": {
                       "type": "number",
                       "format": "float"
                     },
-                    "time_limit": {
+                    "timeLimit": {
                       "description": "Time limit for the quiz in minutes. A value of 0 indicates no time limit.",
                       "type": "string"
                     },
-                    "max_attempts": {
+                    "maxAttempts": {
                       "description": "Maximum number of attempts allowed for the quiz. A value of 0 indicates unlimited attempts.",
                       "type": "integer"
                     },
@@ -12727,7 +12805,7 @@ const AcademySchema: Record<string, unknown> = {
                           "type",
                           "marks",
                           "options",
-                          "correct_answer"
+                          "correctAnswer"
                         ],
                         "properties": {
                           "id": {
@@ -12755,7 +12833,7 @@ const AcademySchema: Record<string, unknown> = {
                           "marks": {
                             "type": "integer"
                           },
-                          "multiple_answers": {
+                          "multipleAnswers": {
                             "type": "boolean"
                           },
                           "options": {
@@ -12766,7 +12844,7 @@ const AcademySchema: Record<string, unknown> = {
                               "required": [
                                 "id",
                                 "text",
-                                "is_correct"
+                                "isCorrect"
                               ],
                               "properties": {
                                 "id": {
@@ -12775,28 +12853,28 @@ const AcademySchema: Record<string, unknown> = {
                                 "text": {
                                   "type": "string"
                                 },
-                                "is_correct": {
+                                "isCorrect": {
                                   "type": "boolean"
                                 }
                               }
                             }
                           },
-                          "correct_answer": {
+                          "correctAnswer": {
                             "type": "string"
                           }
                         }
                       }
                     },
-                    "total_questions": {
+                    "totalQuestions": {
                       "type": "integer"
                     },
-                    "total_questions_in_bank": {
+                    "totalQuestionsInBank": {
                       "type": "integer"
                     },
-                    "total_question_sets": {
+                    "totalQuestionSets": {
                       "type": "integer"
                     },
-                    "total_marks": {
+                    "totalMarks": {
                       "type": "integer"
                     },
                     "prerequisites": {
@@ -12850,7 +12928,7 @@ const AcademySchema: Record<string, unknown> = {
                         }
                       }
                     },
-                    "next_page": {
+                    "nextPage": {
                       "x-go-type": "Parent",
                       "type": "object",
                       "required": [
@@ -12876,7 +12954,7 @@ const AcademySchema: Record<string, unknown> = {
                     }
                   }
                 },
-                "attempted_at": {
+                "attemptedAt": {
                   "type": "string",
                   "format": "date-time"
                 },
@@ -12886,27 +12964,27 @@ const AcademySchema: Record<string, unknown> = {
               }
             }
           },
-          "time_spent": {
+          "timeSpent": {
             "type": "integer",
             "description": "Total time spent in seconds"
           },
-          "completed_items": {
+          "completedItems": {
             "type": "object",
             "description": "Items that have been completed (map of item IDs to item data)",
             "additionalProperties": {
               "x-go-type": "ProgressItemCompleted",
               "type": "object",
               "required": [
-                "completed_at",
-                "item_data"
+                "completedAt",
+                "itemData"
               ],
               "properties": {
-                "completed_at": {
+                "completedAt": {
                   "type": "string",
                   "format": "date-time",
                   "description": "Timestamp when the item was completed"
                 },
-                "item_data": {
+                "itemData": {
                   "x-go-type": "Parent",
                   "type": "object",
                   "required": [
@@ -12943,16 +13021,16 @@ const AcademySchema: Record<string, unknown> = {
       "ProgressItemCompleted": {
         "type": "object",
         "required": [
-          "completed_at",
-          "item_data"
+          "completedAt",
+          "itemData"
         ],
         "properties": {
-          "completed_at": {
+          "completedAt": {
             "type": "string",
             "format": "date-time",
             "description": "Timestamp when the item was completed"
           },
-          "item_data": {
+          "itemData": {
             "x-go-type": "Parent",
             "type": "object",
             "required": [
@@ -12981,7 +13059,7 @@ const AcademySchema: Record<string, unknown> = {
       "UpdateCurrentItemRequest": {
         "type": "object",
         "properties": {
-          "content_type": {
+          "contentType": {
             "type": "string",
             "enum": [
               "learning-path",
@@ -12990,23 +13068,23 @@ const AcademySchema: Record<string, unknown> = {
             ],
             "x-go-type": "ContentType"
           },
-          "item_data": {
+          "itemData": {
             "x-go-type": "CurriculaCurrentItemData",
             "type": "object",
             "required": [
               "id",
-              "last_opened",
-              "content_type"
+              "lastOpened",
+              "contentType"
             ],
             "properties": {
               "id": {
                 "type": "string"
               },
-              "last_opened": {
+              "lastOpened": {
                 "type": "string",
                 "format": "date-time"
               },
-              "content_type": {
+              "contentType": {
                 "type": "string",
                 "enum": [
                   "learning-path",
@@ -13019,8 +13097,8 @@ const AcademySchema: Record<string, unknown> = {
           }
         },
         "required": [
-          "content_type",
-          "item_data"
+          "contentType",
+          "itemData"
         ]
       },
       "ErrorResponse": {
@@ -13052,17 +13130,17 @@ const AcademySchema: Record<string, unknown> = {
           "final",
           "lastmod",
           "draft",
-          "file_path",
-          "pass_percentage",
-          "time_limit",
-          "max_attempts",
+          "filePath",
+          "passPercentage",
+          "timeLimit",
+          "maxAttempts",
           "questions",
-          "total_questions",
-          "total_questions_in_bank",
-          "total_question_sets",
-          "total_marks",
+          "totalQuestions",
+          "totalQuestionsInBank",
+          "totalQuestionSets",
+          "totalMarks",
           "prerequisites",
-          "next_page"
+          "nextPage"
         ],
         "properties": {
           "id": {
@@ -13078,8 +13156,7 @@ const AcademySchema: Record<string, unknown> = {
             "example": "layer5",
             "x-oapi-codegen-extra-tags": {
               "db": "org_id",
-              "json": "org_id",
-              "yaml": "org_id"
+              "json": "org_id"
             }
           },
           "final": {
@@ -13122,18 +13199,18 @@ const AcademySchema: Record<string, unknown> = {
           "draft": {
             "type": "boolean"
           },
-          "file_path": {
+          "filePath": {
             "type": "string"
           },
-          "pass_percentage": {
+          "passPercentage": {
             "type": "number",
             "format": "float"
           },
-          "time_limit": {
+          "timeLimit": {
             "description": "Time limit for the quiz in minutes. A value of 0 indicates no time limit.",
             "type": "string"
           },
-          "max_attempts": {
+          "maxAttempts": {
             "description": "Maximum number of attempts allowed for the quiz. A value of 0 indicates unlimited attempts.",
             "type": "integer"
           },
@@ -13148,7 +13225,7 @@ const AcademySchema: Record<string, unknown> = {
                 "type",
                 "marks",
                 "options",
-                "correct_answer"
+                "correctAnswer"
               ],
               "properties": {
                 "id": {
@@ -13176,7 +13253,7 @@ const AcademySchema: Record<string, unknown> = {
                 "marks": {
                   "type": "integer"
                 },
-                "multiple_answers": {
+                "multipleAnswers": {
                   "type": "boolean"
                 },
                 "options": {
@@ -13187,7 +13264,7 @@ const AcademySchema: Record<string, unknown> = {
                     "required": [
                       "id",
                       "text",
-                      "is_correct"
+                      "isCorrect"
                     ],
                     "properties": {
                       "id": {
@@ -13196,28 +13273,28 @@ const AcademySchema: Record<string, unknown> = {
                       "text": {
                         "type": "string"
                       },
-                      "is_correct": {
+                      "isCorrect": {
                         "type": "boolean"
                       }
                     }
                   }
                 },
-                "correct_answer": {
+                "correctAnswer": {
                   "type": "string"
                 }
               }
             }
           },
-          "total_questions": {
+          "totalQuestions": {
             "type": "integer"
           },
-          "total_questions_in_bank": {
+          "totalQuestionsInBank": {
             "type": "integer"
           },
-          "total_question_sets": {
+          "totalQuestionSets": {
             "type": "integer"
           },
-          "total_marks": {
+          "totalMarks": {
             "type": "integer"
           },
           "prerequisites": {
@@ -13271,7 +13348,7 @@ const AcademySchema: Record<string, unknown> = {
               }
             }
           },
-          "next_page": {
+          "nextPage": {
             "x-go-type": "Parent",
             "type": "object",
             "required": [
@@ -13343,7 +13420,7 @@ const AcademySchema: Record<string, unknown> = {
           "type",
           "marks",
           "options",
-          "correct_answer"
+          "correctAnswer"
         ],
         "properties": {
           "id": {
@@ -13371,7 +13448,7 @@ const AcademySchema: Record<string, unknown> = {
           "marks": {
             "type": "integer"
           },
-          "multiple_answers": {
+          "multipleAnswers": {
             "type": "boolean"
           },
           "options": {
@@ -13382,7 +13459,7 @@ const AcademySchema: Record<string, unknown> = {
               "required": [
                 "id",
                 "text",
-                "is_correct"
+                "isCorrect"
               ],
               "properties": {
                 "id": {
@@ -13391,13 +13468,13 @@ const AcademySchema: Record<string, unknown> = {
                 "text": {
                   "type": "string"
                 },
-                "is_correct": {
+                "isCorrect": {
                   "type": "boolean"
                 }
               }
             }
           },
-          "correct_answer": {
+          "correctAnswer": {
             "type": "string"
           }
         }
@@ -13407,7 +13484,7 @@ const AcademySchema: Record<string, unknown> = {
         "required": [
           "id",
           "text",
-          "is_correct"
+          "isCorrect"
         ],
         "properties": {
           "id": {
@@ -13416,7 +13493,7 @@ const AcademySchema: Record<string, unknown> = {
           "text": {
             "type": "string"
           },
-          "is_correct": {
+          "isCorrect": {
             "type": "boolean"
           }
         }
@@ -13424,14 +13501,14 @@ const AcademySchema: Record<string, unknown> = {
       "StartTestRequest": {
         "type": "object",
         "required": [
-          "test_abs_path",
-          "registration_id"
+          "testAbsPath",
+          "registrationId"
         ],
         "properties": {
-          "test_abs_path": {
+          "testAbsPath": {
             "type": "string"
           },
-          "registration_id": {
+          "registrationId": {
             "type": "string"
           }
         }
@@ -13439,14 +13516,14 @@ const AcademySchema: Record<string, unknown> = {
       "QuizSubmission": {
         "type": "object",
         "required": [
-          "quiz_abs_path",
-          "registration_id",
-          "test_session_id",
+          "quizAbsPath",
+          "registrationId",
+          "testSessionId",
           "user_id",
           "answers"
         ],
         "properties": {
-          "test_session_id": {
+          "testSessionId": {
             "type": "string",
             "format": "uuid",
             "description": "A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.",
@@ -13455,10 +13532,10 @@ const AcademySchema: Record<string, unknown> = {
               "path": "github.com/gofrs/uuid"
             }
           },
-          "quiz_abs_path": {
+          "quizAbsPath": {
             "type": "string"
           },
-          "registration_id": {
+          "registrationId": {
             "type": "string"
           },
           "user_id": {
@@ -13470,21 +13547,21 @@ const AcademySchema: Record<string, unknown> = {
               "x-go-type": "SubmittedAnswer",
               "type": "object",
               "required": [
-                "question_id",
-                "selected_option_id",
-                "answer_text"
+                "questionId",
+                "selectedOptionId",
+                "answerText"
               ],
               "properties": {
-                "question_id": {
+                "questionId": {
                   "type": "string"
                 },
-                "selected_option_id": {
+                "selectedOptionId": {
                   "type": "object",
                   "additionalProperties": {
                     "type": "boolean"
                   }
                 },
-                "answer_text": {
+                "answerText": {
                   "type": "string"
                 }
               }
@@ -13495,21 +13572,21 @@ const AcademySchema: Record<string, unknown> = {
       "SubmittedAnswer": {
         "type": "object",
         "required": [
-          "question_id",
-          "selected_option_id",
-          "answer_text"
+          "questionId",
+          "selectedOptionId",
+          "answerText"
         ],
         "properties": {
-          "question_id": {
+          "questionId": {
             "type": "string"
           },
-          "selected_option_id": {
+          "selectedOptionId": {
             "type": "object",
             "additionalProperties": {
               "type": "boolean"
             }
           },
-          "answer_text": {
+          "answerText": {
             "type": "string"
           }
         }
@@ -13550,8 +13627,7 @@ const AcademySchema: Record<string, unknown> = {
             "x-go-name": "ID",
             "x-oapi-codegen-extra-tags": {
               "db": "id",
-              "json": "id",
-              "yaml": "id"
+              "json": "id"
             }
           },
           "registration_id": {
@@ -13564,8 +13640,7 @@ const AcademySchema: Record<string, unknown> = {
             },
             "x-oapi-codegen-extra-tags": {
               "db": "registration_id",
-              "json": "registration_id",
-              "yaml": "registration_id"
+              "json": "registration_id"
             }
           },
           "test_abs_path": {
@@ -13624,14 +13699,14 @@ const AcademySchema: Record<string, unknown> = {
           "submission_data": {
             "type": "object",
             "required": [
-              "quiz_abs_path",
-              "registration_id",
-              "test_session_id",
+              "quizAbsPath",
+              "registrationId",
+              "testSessionId",
               "user_id",
               "answers"
             ],
             "properties": {
-              "test_session_id": {
+              "testSessionId": {
                 "type": "string",
                 "format": "uuid",
                 "description": "A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.",
@@ -13640,10 +13715,10 @@ const AcademySchema: Record<string, unknown> = {
                   "path": "github.com/gofrs/uuid"
                 }
               },
-              "quiz_abs_path": {
+              "quizAbsPath": {
                 "type": "string"
               },
-              "registration_id": {
+              "registrationId": {
                 "type": "string"
               },
               "user_id": {
@@ -13655,21 +13730,21 @@ const AcademySchema: Record<string, unknown> = {
                   "x-go-type": "SubmittedAnswer",
                   "type": "object",
                   "required": [
-                    "question_id",
-                    "selected_option_id",
-                    "answer_text"
+                    "questionId",
+                    "selectedOptionId",
+                    "answerText"
                   ],
                   "properties": {
-                    "question_id": {
+                    "questionId": {
                       "type": "string"
                     },
-                    "selected_option_id": {
+                    "selectedOptionId": {
                       "type": "object",
                       "additionalProperties": {
                         "type": "boolean"
                       }
                     },
-                    "answer_text": {
+                    "answerText": {
                       "type": "string"
                     }
                   }
@@ -13708,13 +13783,13 @@ const AcademySchema: Record<string, unknown> = {
             "required": [
               "score",
               "passed",
-              "total_marks",
-              "pass_percentage",
+              "totalMarks",
+              "passPercentage",
               "quiz",
-              "attempted_at",
+              "attemptedAt",
               "attempts",
-              "percentage_scored",
-              "correct_submissions"
+              "percentageScored",
+              "correctSubmissions"
             ],
             "properties": {
               "score": {
@@ -13723,18 +13798,18 @@ const AcademySchema: Record<string, unknown> = {
               "passed": {
                 "type": "boolean"
               },
-              "percentage_scored": {
+              "percentageScored": {
                 "type": "number",
                 "format": "float"
               },
-              "total_marks": {
+              "totalMarks": {
                 "type": "integer"
               },
-              "pass_percentage": {
+              "passPercentage": {
                 "type": "number",
                 "format": "float"
               },
-              "correct_submissions": {
+              "correctSubmissions": {
                 "type": "object",
                 "additionalProperties": {
                   "type": "boolean"
@@ -13759,17 +13834,17 @@ const AcademySchema: Record<string, unknown> = {
                   "final",
                   "lastmod",
                   "draft",
-                  "file_path",
-                  "pass_percentage",
-                  "time_limit",
-                  "max_attempts",
+                  "filePath",
+                  "passPercentage",
+                  "timeLimit",
+                  "maxAttempts",
                   "questions",
-                  "total_questions",
-                  "total_questions_in_bank",
-                  "total_question_sets",
-                  "total_marks",
+                  "totalQuestions",
+                  "totalQuestionsInBank",
+                  "totalQuestionSets",
+                  "totalMarks",
                   "prerequisites",
-                  "next_page"
+                  "nextPage"
                 ],
                 "properties": {
                   "id": {
@@ -13785,8 +13860,7 @@ const AcademySchema: Record<string, unknown> = {
                     "example": "layer5",
                     "x-oapi-codegen-extra-tags": {
                       "db": "org_id",
-                      "json": "org_id",
-                      "yaml": "org_id"
+                      "json": "org_id"
                     }
                   },
                   "final": {
@@ -13829,18 +13903,18 @@ const AcademySchema: Record<string, unknown> = {
                   "draft": {
                     "type": "boolean"
                   },
-                  "file_path": {
+                  "filePath": {
                     "type": "string"
                   },
-                  "pass_percentage": {
+                  "passPercentage": {
                     "type": "number",
                     "format": "float"
                   },
-                  "time_limit": {
+                  "timeLimit": {
                     "description": "Time limit for the quiz in minutes. A value of 0 indicates no time limit.",
                     "type": "string"
                   },
-                  "max_attempts": {
+                  "maxAttempts": {
                     "description": "Maximum number of attempts allowed for the quiz. A value of 0 indicates unlimited attempts.",
                     "type": "integer"
                   },
@@ -13855,7 +13929,7 @@ const AcademySchema: Record<string, unknown> = {
                         "type",
                         "marks",
                         "options",
-                        "correct_answer"
+                        "correctAnswer"
                       ],
                       "properties": {
                         "id": {
@@ -13883,7 +13957,7 @@ const AcademySchema: Record<string, unknown> = {
                         "marks": {
                           "type": "integer"
                         },
-                        "multiple_answers": {
+                        "multipleAnswers": {
                           "type": "boolean"
                         },
                         "options": {
@@ -13894,7 +13968,7 @@ const AcademySchema: Record<string, unknown> = {
                             "required": [
                               "id",
                               "text",
-                              "is_correct"
+                              "isCorrect"
                             ],
                             "properties": {
                               "id": {
@@ -13903,28 +13977,28 @@ const AcademySchema: Record<string, unknown> = {
                               "text": {
                                 "type": "string"
                               },
-                              "is_correct": {
+                              "isCorrect": {
                                 "type": "boolean"
                               }
                             }
                           }
                         },
-                        "correct_answer": {
+                        "correctAnswer": {
                           "type": "string"
                         }
                       }
                     }
                   },
-                  "total_questions": {
+                  "totalQuestions": {
                     "type": "integer"
                   },
-                  "total_questions_in_bank": {
+                  "totalQuestionsInBank": {
                     "type": "integer"
                   },
-                  "total_question_sets": {
+                  "totalQuestionSets": {
                     "type": "integer"
                   },
-                  "total_marks": {
+                  "totalMarks": {
                     "type": "integer"
                   },
                   "prerequisites": {
@@ -13978,7 +14052,7 @@ const AcademySchema: Record<string, unknown> = {
                       }
                     }
                   },
-                  "next_page": {
+                  "nextPage": {
                     "x-go-type": "Parent",
                     "type": "object",
                     "required": [
@@ -14004,7 +14078,7 @@ const AcademySchema: Record<string, unknown> = {
                   }
                 }
               },
-              "attempted_at": {
+              "attemptedAt": {
                 "type": "string",
                 "format": "date-time"
               },
@@ -14035,17 +14109,17 @@ const AcademySchema: Record<string, unknown> = {
               "final",
               "lastmod",
               "draft",
-              "file_path",
-              "pass_percentage",
-              "time_limit",
-              "max_attempts",
+              "filePath",
+              "passPercentage",
+              "timeLimit",
+              "maxAttempts",
               "questions",
-              "total_questions",
-              "total_questions_in_bank",
-              "total_question_sets",
-              "total_marks",
+              "totalQuestions",
+              "totalQuestionsInBank",
+              "totalQuestionSets",
+              "totalMarks",
               "prerequisites",
-              "next_page"
+              "nextPage"
             ],
             "properties": {
               "id": {
@@ -14061,8 +14135,7 @@ const AcademySchema: Record<string, unknown> = {
                 "example": "layer5",
                 "x-oapi-codegen-extra-tags": {
                   "db": "org_id",
-                  "json": "org_id",
-                  "yaml": "org_id"
+                  "json": "org_id"
                 }
               },
               "final": {
@@ -14105,18 +14178,18 @@ const AcademySchema: Record<string, unknown> = {
               "draft": {
                 "type": "boolean"
               },
-              "file_path": {
+              "filePath": {
                 "type": "string"
               },
-              "pass_percentage": {
+              "passPercentage": {
                 "type": "number",
                 "format": "float"
               },
-              "time_limit": {
+              "timeLimit": {
                 "description": "Time limit for the quiz in minutes. A value of 0 indicates no time limit.",
                 "type": "string"
               },
-              "max_attempts": {
+              "maxAttempts": {
                 "description": "Maximum number of attempts allowed for the quiz. A value of 0 indicates unlimited attempts.",
                 "type": "integer"
               },
@@ -14131,7 +14204,7 @@ const AcademySchema: Record<string, unknown> = {
                     "type",
                     "marks",
                     "options",
-                    "correct_answer"
+                    "correctAnswer"
                   ],
                   "properties": {
                     "id": {
@@ -14159,7 +14232,7 @@ const AcademySchema: Record<string, unknown> = {
                     "marks": {
                       "type": "integer"
                     },
-                    "multiple_answers": {
+                    "multipleAnswers": {
                       "type": "boolean"
                     },
                     "options": {
@@ -14170,7 +14243,7 @@ const AcademySchema: Record<string, unknown> = {
                         "required": [
                           "id",
                           "text",
-                          "is_correct"
+                          "isCorrect"
                         ],
                         "properties": {
                           "id": {
@@ -14179,28 +14252,28 @@ const AcademySchema: Record<string, unknown> = {
                           "text": {
                             "type": "string"
                           },
-                          "is_correct": {
+                          "isCorrect": {
                             "type": "boolean"
                           }
                         }
                       }
                     },
-                    "correct_answer": {
+                    "correctAnswer": {
                       "type": "string"
                     }
                   }
                 }
               },
-              "total_questions": {
+              "totalQuestions": {
                 "type": "integer"
               },
-              "total_questions_in_bank": {
+              "totalQuestionsInBank": {
                 "type": "integer"
               },
-              "total_question_sets": {
+              "totalQuestionSets": {
                 "type": "integer"
               },
-              "total_marks": {
+              "totalMarks": {
                 "type": "integer"
               },
               "prerequisites": {
@@ -14254,7 +14327,7 @@ const AcademySchema: Record<string, unknown> = {
                   }
                 }
               },
-              "next_page": {
+              "nextPage": {
                 "x-go-type": "Parent",
                 "type": "object",
                 "required": [
@@ -14288,13 +14361,13 @@ const AcademySchema: Record<string, unknown> = {
         "required": [
           "score",
           "passed",
-          "total_marks",
-          "pass_percentage",
+          "totalMarks",
+          "passPercentage",
           "quiz",
-          "attempted_at",
+          "attemptedAt",
           "attempts",
-          "percentage_scored",
-          "correct_submissions"
+          "percentageScored",
+          "correctSubmissions"
         ],
         "properties": {
           "score": {
@@ -14303,18 +14376,18 @@ const AcademySchema: Record<string, unknown> = {
           "passed": {
             "type": "boolean"
           },
-          "percentage_scored": {
+          "percentageScored": {
             "type": "number",
             "format": "float"
           },
-          "total_marks": {
+          "totalMarks": {
             "type": "integer"
           },
-          "pass_percentage": {
+          "passPercentage": {
             "type": "number",
             "format": "float"
           },
-          "correct_submissions": {
+          "correctSubmissions": {
             "type": "object",
             "additionalProperties": {
               "type": "boolean"
@@ -14339,17 +14412,17 @@ const AcademySchema: Record<string, unknown> = {
               "final",
               "lastmod",
               "draft",
-              "file_path",
-              "pass_percentage",
-              "time_limit",
-              "max_attempts",
+              "filePath",
+              "passPercentage",
+              "timeLimit",
+              "maxAttempts",
               "questions",
-              "total_questions",
-              "total_questions_in_bank",
-              "total_question_sets",
-              "total_marks",
+              "totalQuestions",
+              "totalQuestionsInBank",
+              "totalQuestionSets",
+              "totalMarks",
               "prerequisites",
-              "next_page"
+              "nextPage"
             ],
             "properties": {
               "id": {
@@ -14365,8 +14438,7 @@ const AcademySchema: Record<string, unknown> = {
                 "example": "layer5",
                 "x-oapi-codegen-extra-tags": {
                   "db": "org_id",
-                  "json": "org_id",
-                  "yaml": "org_id"
+                  "json": "org_id"
                 }
               },
               "final": {
@@ -14409,18 +14481,18 @@ const AcademySchema: Record<string, unknown> = {
               "draft": {
                 "type": "boolean"
               },
-              "file_path": {
+              "filePath": {
                 "type": "string"
               },
-              "pass_percentage": {
+              "passPercentage": {
                 "type": "number",
                 "format": "float"
               },
-              "time_limit": {
+              "timeLimit": {
                 "description": "Time limit for the quiz in minutes. A value of 0 indicates no time limit.",
                 "type": "string"
               },
-              "max_attempts": {
+              "maxAttempts": {
                 "description": "Maximum number of attempts allowed for the quiz. A value of 0 indicates unlimited attempts.",
                 "type": "integer"
               },
@@ -14435,7 +14507,7 @@ const AcademySchema: Record<string, unknown> = {
                     "type",
                     "marks",
                     "options",
-                    "correct_answer"
+                    "correctAnswer"
                   ],
                   "properties": {
                     "id": {
@@ -14463,7 +14535,7 @@ const AcademySchema: Record<string, unknown> = {
                     "marks": {
                       "type": "integer"
                     },
-                    "multiple_answers": {
+                    "multipleAnswers": {
                       "type": "boolean"
                     },
                     "options": {
@@ -14474,7 +14546,7 @@ const AcademySchema: Record<string, unknown> = {
                         "required": [
                           "id",
                           "text",
-                          "is_correct"
+                          "isCorrect"
                         ],
                         "properties": {
                           "id": {
@@ -14483,28 +14555,28 @@ const AcademySchema: Record<string, unknown> = {
                           "text": {
                             "type": "string"
                           },
-                          "is_correct": {
+                          "isCorrect": {
                             "type": "boolean"
                           }
                         }
                       }
                     },
-                    "correct_answer": {
+                    "correctAnswer": {
                       "type": "string"
                     }
                   }
                 }
               },
-              "total_questions": {
+              "totalQuestions": {
                 "type": "integer"
               },
-              "total_questions_in_bank": {
+              "totalQuestionsInBank": {
                 "type": "integer"
               },
-              "total_question_sets": {
+              "totalQuestionSets": {
                 "type": "integer"
               },
-              "total_marks": {
+              "totalMarks": {
                 "type": "integer"
               },
               "prerequisites": {
@@ -14558,7 +14630,7 @@ const AcademySchema: Record<string, unknown> = {
                   }
                 }
               },
-              "next_page": {
+              "nextPage": {
                 "x-go-type": "Parent",
                 "type": "object",
                 "required": [
@@ -14584,7 +14656,7 @@ const AcademySchema: Record<string, unknown> = {
               }
             }
           },
-          "attempted_at": {
+          "attemptedAt": {
             "type": "string",
             "format": "date-time"
           },
@@ -14719,7 +14791,7 @@ const AcademySchema: Record<string, unknown> = {
         "required": [
           "pagesize",
           "page",
-          "content_type",
+          "contentType",
           "status"
         ],
         "properties": {
@@ -14729,7 +14801,7 @@ const AcademySchema: Record<string, unknown> = {
           "page": {
             "type": "integer"
           },
-          "content_type": {
+          "contentType": {
             "type": "array",
             "items": {
               "type": "string"
@@ -14886,6 +14958,458 @@ const AcademySchema: Record<string, unknown> = {
           },
           "page": {
             "type": "integer"
+          }
+        }
+      },
+      "UpdateCurrentItemProgressResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "progressTracker": {
+            "type": "object",
+            "required": [
+              "currentItem",
+              "grades",
+              "timeSpent",
+              "completed",
+              "completedItems"
+            ],
+            "properties": {
+              "currentItem": {
+                "type": "object",
+                "additionalProperties": {
+                  "x-go-type": "CurriculaCurrentItemData",
+                  "type": "object",
+                  "required": [
+                    "id",
+                    "lastOpened",
+                    "contentType"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "lastOpened": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "contentType": {
+                      "type": "string",
+                      "enum": [
+                        "learning-path",
+                        "challenge",
+                        "certification"
+                      ],
+                      "x-go-type": "ContentType"
+                    }
+                  }
+                }
+              },
+              "grades": {
+                "type": "object",
+                "additionalProperties": {
+                  "x-go-type": "QuizEvaluationResult",
+                  "type": "object",
+                  "required": [
+                    "score",
+                    "passed",
+                    "totalMarks",
+                    "passPercentage",
+                    "quiz",
+                    "attemptedAt",
+                    "attempts",
+                    "percentageScored",
+                    "correctSubmissions"
+                  ],
+                  "properties": {
+                    "score": {
+                      "type": "integer"
+                    },
+                    "passed": {
+                      "type": "boolean"
+                    },
+                    "percentageScored": {
+                      "type": "number",
+                      "format": "float"
+                    },
+                    "totalMarks": {
+                      "type": "integer"
+                    },
+                    "passPercentage": {
+                      "type": "number",
+                      "format": "float"
+                    },
+                    "correctSubmissions": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "boolean"
+                      }
+                    },
+                    "quiz": {
+                      "x-go-type": "Quiz",
+                      "x-generate-db-helpers": true,
+                      "type": "object",
+                      "required": [
+                        "id",
+                        "title",
+                        "org_id",
+                        "description",
+                        "slug",
+                        "relPermalink",
+                        "permalink",
+                        "type",
+                        "section",
+                        "layout",
+                        "date",
+                        "final",
+                        "lastmod",
+                        "draft",
+                        "filePath",
+                        "passPercentage",
+                        "timeLimit",
+                        "maxAttempts",
+                        "questions",
+                        "totalQuestions",
+                        "totalQuestionsInBank",
+                        "totalQuestionSets",
+                        "totalMarks",
+                        "prerequisites",
+                        "nextPage"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "x-go-name": "ID",
+                          "x-oapi-codegen-extra-tags": {
+                            "json": "id"
+                          }
+                        },
+                        "org_id": {
+                          "type": "string",
+                          "description": "Organization ID that owns this quiz",
+                          "example": "layer5",
+                          "x-oapi-codegen-extra-tags": {
+                            "db": "org_id",
+                            "json": "org_id"
+                          }
+                        },
+                        "final": {
+                          "type": "boolean",
+                          "description": "Indicates if the quiz is final . i.e this quiz will used to evaluate the completion of parent section eg course , module , learning path",
+                          "example": true
+                        },
+                        "title": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        },
+                        "slug": {
+                          "type": "string"
+                        },
+                        "relPermalink": {
+                          "type": "string"
+                        },
+                        "permalink": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string"
+                        },
+                        "section": {
+                          "type": "string"
+                        },
+                        "layout": {
+                          "type": "string"
+                        },
+                        "date": {
+                          "type": "string",
+                          "format": "date"
+                        },
+                        "lastmod": {
+                          "type": "string",
+                          "format": "date"
+                        },
+                        "draft": {
+                          "type": "boolean"
+                        },
+                        "filePath": {
+                          "type": "string"
+                        },
+                        "passPercentage": {
+                          "type": "number",
+                          "format": "float"
+                        },
+                        "timeLimit": {
+                          "description": "Time limit for the quiz in minutes. A value of 0 indicates no time limit.",
+                          "type": "string"
+                        },
+                        "maxAttempts": {
+                          "description": "Maximum number of attempts allowed for the quiz. A value of 0 indicates unlimited attempts.",
+                          "type": "integer"
+                        },
+                        "questions": {
+                          "type": "array",
+                          "items": {
+                            "x-go-type": "Question",
+                            "type": "object",
+                            "required": [
+                              "id",
+                              "text",
+                              "type",
+                              "marks",
+                              "options",
+                              "correctAnswer"
+                            ],
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "text": {
+                                "type": "string"
+                              },
+                              "type": {
+                                "x-go-type": "QuestionType",
+                                "type": "string",
+                                "x-enum-varnames": [
+                                  "QuestionTypeMultipleAnswers",
+                                  "QuestionTypeSingleAnswer",
+                                  "QuestionTypeShortAnswer",
+                                  "QuestionTypeEssay"
+                                ],
+                                "enum": [
+                                  "multiple-answers",
+                                  "single-answer",
+                                  "short-answer",
+                                  "essay"
+                                ]
+                              },
+                              "marks": {
+                                "type": "integer"
+                              },
+                              "multipleAnswers": {
+                                "type": "boolean"
+                              },
+                              "options": {
+                                "type": "array",
+                                "items": {
+                                  "x-go-type": "QuestionOption",
+                                  "type": "object",
+                                  "required": [
+                                    "id",
+                                    "text",
+                                    "isCorrect"
+                                  ],
+                                  "properties": {
+                                    "id": {
+                                      "type": "string"
+                                    },
+                                    "text": {
+                                      "type": "string"
+                                    },
+                                    "isCorrect": {
+                                      "type": "boolean"
+                                    }
+                                  }
+                                }
+                              },
+                              "correctAnswer": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        },
+                        "totalQuestions": {
+                          "type": "integer"
+                        },
+                        "totalQuestionsInBank": {
+                          "type": "integer"
+                        },
+                        "totalQuestionSets": {
+                          "type": "integer"
+                        },
+                        "totalMarks": {
+                          "type": "integer"
+                        },
+                        "prerequisites": {
+                          "type": "array",
+                          "items": {
+                            "x-go-type": "Parent",
+                            "type": "object",
+                            "required": [
+                              "id",
+                              "title",
+                              "relPermalink",
+                              "type"
+                            ],
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "title": {
+                                "type": "string"
+                              },
+                              "relPermalink": {
+                                "type": "string"
+                              },
+                              "type": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        },
+                        "parent": {
+                          "x-go-type": "Parent",
+                          "type": "object",
+                          "required": [
+                            "id",
+                            "title",
+                            "relPermalink",
+                            "type"
+                          ],
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "title": {
+                              "type": "string"
+                            },
+                            "relPermalink": {
+                              "type": "string"
+                            },
+                            "type": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "nextPage": {
+                          "x-go-type": "Parent",
+                          "type": "object",
+                          "required": [
+                            "id",
+                            "title",
+                            "relPermalink",
+                            "type"
+                          ],
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "title": {
+                              "type": "string"
+                            },
+                            "relPermalink": {
+                              "type": "string"
+                            },
+                            "type": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "attemptedAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "attempts": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              },
+              "timeSpent": {
+                "type": "integer",
+                "description": "Total time spent in seconds"
+              },
+              "completedItems": {
+                "type": "object",
+                "description": "Items that have been completed (map of item IDs to item data)",
+                "additionalProperties": {
+                  "x-go-type": "ProgressItemCompleted",
+                  "type": "object",
+                  "required": [
+                    "completedAt",
+                    "itemData"
+                  ],
+                  "properties": {
+                    "completedAt": {
+                      "type": "string",
+                      "format": "date-time",
+                      "description": "Timestamp when the item was completed"
+                    },
+                    "itemData": {
+                      "x-go-type": "Parent",
+                      "type": "object",
+                      "required": [
+                        "id",
+                        "title",
+                        "relPermalink",
+                        "type"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "title": {
+                          "type": "string"
+                        },
+                        "relPermalink": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "completed": {
+                "type": "string",
+                "format": "date-time",
+                "x-go-type": "core.NullTime"
+              }
+            }
+          },
+          "registrationId": {
+            "type": "string"
+          },
+          "contentType": {
+            "type": "string",
+            "enum": [
+              "learning-path",
+              "challenge",
+              "certification"
+            ]
+          },
+          "itemData": {
+            "type": "object",
+            "required": [
+              "id",
+              "lastOpened",
+              "contentType"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "lastOpened": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "contentType": {
+                "type": "string",
+                "enum": [
+                  "learning-path",
+                  "challenge",
+                  "certification"
+                ],
+                "x-go-type": "ContentType"
+              }
+            }
           }
         }
       }

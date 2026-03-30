@@ -137,7 +137,7 @@ export interface components {
        */
       email: string;
       /** @description List of role names to assign. */
-      role_names: string[];
+      roleNames: string[];
     };
     /** @description Request to update role assignments for a user. */
     UserRoleUpdateRequest: {
@@ -154,10 +154,10 @@ export interface components {
       username?: string;
       /** Format: email */
       email?: string;
-      first_name?: string;
-      last_name?: string;
+      firstName?: string;
+      lastName?: string;
       status?: string;
-      role_names?: string[];
+      roleNames?: string[];
       /** Format: date-time */
       created_at?: string;
       /** Format: date-time */
@@ -171,9 +171,9 @@ export interface components {
     /** @description User notification preferences. */
     Preference: {
       /** @description Whether to send a welcome email to new users. */
-      welcome_email: boolean;
+      welcomeEmail: boolean;
       /** @description Whether to notify the user of role changes. */
-      notify_role_change: boolean;
+      notifyRoleChange: boolean;
     };
   };
   responses: {
@@ -224,7 +224,7 @@ export interface components {
     /** @description Role grouping selector such as provider, organization, or team. */
     selector: string;
     /** @description Team ID used when selector is team. */
-    teamID: string;
+    teamId: string;
   };
 }
 
@@ -232,8 +232,8 @@ export interface operations {
   /** Assigns a role to a user identified by email. */
   addRoleHolder: {
     responses: {
-      /** Role holder added successfully */
-      200: unknown;
+      /** Role holder added */
+      201: unknown;
       /** Invalid request body or request param */
       400: {
         content: {
@@ -262,7 +262,7 @@ export interface operations {
            */
           email: string;
           /** @description List of role names to assign. */
-          role_names: string[];
+          roleNames: string[];
         };
       };
     };
@@ -276,7 +276,7 @@ export interface operations {
       };
     };
     responses: {
-      /** Role deleted successfully */
+      /** Role deleted */
       204: never;
       /** Invalid request body or request param */
       400: {
@@ -325,11 +325,11 @@ export interface operations {
         /** Role grouping selector such as provider, organization, or team. */
         selector?: string;
         /** Team ID used when selector is team. */
-        teamID?: string;
+        teamId?: string;
       };
     };
     responses: {
-      /** Roles fetched successfully */
+      /** Roles response */
       200: {
         content: {
           "application/json": {
@@ -374,6 +374,12 @@ export interface operations {
           "text/plain": string;
         };
       };
+      /** Result not found */
+      404: {
+        content: {
+          "text/plain": string;
+        };
+      };
       /** Internal server error */
       500: {
         content: {
@@ -391,7 +397,7 @@ export interface operations {
       };
     };
     responses: {
-      /** Role holders updated successfully */
+      /** Role holders updated */
       200: unknown;
       /** Invalid request body or request param */
       400: {
@@ -401,6 +407,12 @@ export interface operations {
       };
       /** Expired JWT token used or insufficient privilege */
       401: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Result not found */
+      404: {
         content: {
           "text/plain": string;
         };
@@ -428,10 +440,10 @@ export interface operations {
           username?: string;
           /** Format: email */
           email?: string;
-          first_name?: string;
-          last_name?: string;
+          firstName?: string;
+          lastName?: string;
           status?: string;
-          role_names?: string[];
+          roleNames?: string[];
           /** Format: date-time */
           created_at?: string;
           /** Format: date-time */
@@ -454,7 +466,7 @@ export interface operations {
       };
     };
     responses: {
-      /** Role upserted successfully */
+      /** Role upserted */
       200: {
         content: {
           "application/json": {
@@ -493,6 +505,12 @@ export interface operations {
       };
       /** Expired JWT token used or insufficient privilege */
       401: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Result not found */
+      404: {
         content: {
           "text/plain": string;
         };
@@ -556,7 +574,7 @@ export interface operations {
       };
     };
     responses: {
-      /** Keychains fetched successfully */
+      /** Keychains response */
       200: {
         content: {
           "application/json": {
@@ -607,6 +625,12 @@ export interface operations {
           "text/plain": string;
         };
       };
+      /** Result not found */
+      404: {
+        content: {
+          "text/plain": string;
+        };
+      };
       /** Internal server error */
       500: {
         content: {
@@ -628,7 +652,7 @@ export interface operations {
       };
     };
     responses: {
-      /** Keychain assigned to role successfully */
+      /** Keychain assigned to role */
       200: unknown;
       /** Invalid request body or request param */
       400: {
@@ -638,6 +662,12 @@ export interface operations {
       };
       /** Expired JWT token used or insufficient privilege */
       401: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Result not found */
+      404: {
         content: {
           "text/plain": string;
         };
@@ -663,7 +693,7 @@ export interface operations {
       };
     };
     responses: {
-      /** Keychain unassigned from role successfully */
+      /** Keychain unassigned from role */
       204: never;
       /** Invalid request body or request param */
       400: {

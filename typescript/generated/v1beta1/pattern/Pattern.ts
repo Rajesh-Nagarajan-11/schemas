@@ -1595,7 +1595,7 @@ export interface components {
       }[];
     };
     MesheryPattern: {
-      catalog_data?: {
+      catalogData?: {
         /** @description Tracks the specific content version that has been made available in the Catalog. */
         publishedVersion?: string;
         /** @description Published content is classifed by its support level. Content classes help you understand the origin and expected support level for each piece of content. It is important to note that the level of support may vary within each class, and you should exercise discretion when using community-contributed content. Content produced and fully supported by Meshery maintainers. This represents the highest level of support and is considered the most reliable. Content produced by partners and verified by Meshery maintainers. While not directly maintained by Meshery, it has undergone a verification process to ensure quality and compatibility. Content produced and supported by the respective project or organization responsible for the specific technology. This class offers a level of support from the project maintainers themselves. Content produced and shared by Meshery users. This includes a wide range of content, such as performance profiles, test results, filters, patterns, and applications. Community content may have varying levels of support and reliability. */
@@ -1643,7 +1643,7 @@ export interface components {
        * Design Schema
        * @description Designs are your primary tool for collaborative authorship of your infrastructure, workflow, and processes.
        */
-      pattern_file?: {
+      patternFile?: {
         /**
          * Format: uuid
          * @description A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.
@@ -3153,7 +3153,7 @@ export interface components {
       page?: number;
       page_size?: number;
       patterns?: {
-        catalog_data?: {
+        catalogData?: {
           /** @description Tracks the specific content version that has been made available in the Catalog. */
           publishedVersion?: string;
           /** @description Published content is classifed by its support level. Content classes help you understand the origin and expected support level for each piece of content. It is important to note that the level of support may vary within each class, and you should exercise discretion when using community-contributed content. Content produced and fully supported by Meshery maintainers. This represents the highest level of support and is considered the most reliable. Content produced by partners and verified by Meshery maintainers. While not directly maintained by Meshery, it has undergone a verification process to ensure quality and compatibility. Content produced and supported by the respective project or organization responsible for the specific technology. This class offers a level of support from the project maintainers themselves. Content produced and shared by Meshery users. This includes a wide range of content, such as performance profiles, test results, filters, patterns, and applications. Community content may have varying levels of support and reliability. */
@@ -3201,7 +3201,7 @@ export interface components {
          * Design Schema
          * @description Designs are your primary tool for collaborative authorship of your infrastructure, workflow, and processes.
          */
-        pattern_file?: {
+        patternFile?: {
           /**
            * Format: uuid
            * @description A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.
@@ -4719,8 +4719,8 @@ export interface components {
     };
     MesheryPatternRequestBody: {
       path?: string;
-      pattern_data?: {
-        catalog_data?: {
+      patternData?: {
+        catalogData?: {
           /** @description Tracks the specific content version that has been made available in the Catalog. */
           publishedVersion?: string;
           /** @description Published content is classifed by its support level. Content classes help you understand the origin and expected support level for each piece of content. It is important to note that the level of support may vary within each class, and you should exercise discretion when using community-contributed content. Content produced and fully supported by Meshery maintainers. This represents the highest level of support and is considered the most reliable. Content produced by partners and verified by Meshery maintainers. While not directly maintained by Meshery, it has undergone a verification process to ensure quality and compatibility. Content produced and supported by the respective project or organization responsible for the specific technology. This class offers a level of support from the project maintainers themselves. Content produced and shared by Meshery users. This includes a wide range of content, such as performance profiles, test results, filters, patterns, and applications. Community content may have varying levels of support and reliability. */
@@ -4768,7 +4768,7 @@ export interface components {
          * Design Schema
          * @description Designs are your primary tool for collaborative authorship of your infrastructure, workflow, and processes.
          */
-        pattern_file?: {
+        patternFile?: {
           /**
            * Format: uuid
            * @description A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.
@@ -6295,7 +6295,7 @@ export interface components {
       page_size?: number;
       total_count?: number;
       patterns?: {
-        catalog_data?: {
+        catalogData?: {
           /** @description Tracks the specific content version that has been made available in the Catalog. */
           publishedVersion?: string;
           /** @description Published content is classifed by its support level. Content classes help you understand the origin and expected support level for each piece of content. It is important to note that the level of support may vary within each class, and you should exercise discretion when using community-contributed content. Content produced and fully supported by Meshery maintainers. This represents the highest level of support and is considered the most reliable. Content produced by partners and verified by Meshery maintainers. While not directly maintained by Meshery, it has undergone a verification process to ensure quality and compatibility. Content produced and supported by the respective project or organization responsible for the specific technology. This class offers a level of support from the project maintainers themselves. Content produced and shared by Meshery users. This includes a wide range of content, such as performance profiles, test results, filters, patterns, and applications. Community content may have varying levels of support and reliability. */
@@ -6343,7 +6343,7 @@ export interface components {
          * Design Schema
          * @description Designs are your primary tool for collaborative authorship of your infrastructure, workflow, and processes.
          */
-        pattern_file?: {
+        patternFile?: {
           /**
            * Format: uuid
            * @description A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.
@@ -7850,8 +7850,8 @@ export interface components {
         visibility?: string;
       }[];
       filters?: { [key: string]: unknown }[];
-      models_count?: { [key: string]: unknown }[];
-      category_count?: { [key: string]: unknown }[];
+      modelsCount?: { [key: string]: unknown }[];
+      categoryCount?: { [key: string]: unknown }[];
     };
     CatalogRequest: { [key: string]: unknown };
     CatalogRequestsPage: {
@@ -7949,10 +7949,10 @@ export interface operations {
         order?: string;
         /** Filter by visibility (public, private, published) */
         visibility?: string;
-        /** UUID of User. Pass user_id for fetching public and published designs. */
-        user_id?: string;
+        /** UUID of User. Pass userId for fetching public and published designs. */
+        userId?: string;
         /** User's organization ID. */
-        orgID?: string;
+        orgId?: string;
         metrics?: boolean;
         workspaceid?: string;
         populate?: boolean;
@@ -7960,14 +7960,14 @@ export interface operations {
       };
     };
     responses: {
-      /** Designs fetched successfully */
+      /** Designs response */
       200: {
         content: {
           "application/json": {
             page?: number;
             page_size?: number;
             patterns?: {
-              catalog_data?: {
+              catalogData?: {
                 /** @description Tracks the specific content version that has been made available in the Catalog. */
                 publishedVersion?: string;
                 /** @description Published content is classifed by its support level. Content classes help you understand the origin and expected support level for each piece of content. It is important to note that the level of support may vary within each class, and you should exercise discretion when using community-contributed content. Content produced and fully supported by Meshery maintainers. This represents the highest level of support and is considered the most reliable. Content produced by partners and verified by Meshery maintainers. While not directly maintained by Meshery, it has undergone a verification process to ensure quality and compatibility. Content produced and supported by the respective project or organization responsible for the specific technology. This class offers a level of support from the project maintainers themselves. Content produced and shared by Meshery users. This includes a wide range of content, such as performance profiles, test results, filters, patterns, and applications. Community content may have varying levels of support and reliability. */
@@ -8015,7 +8015,7 @@ export interface operations {
                * Design Schema
                * @description Designs are your primary tool for collaborative authorship of your infrastructure, workflow, and processes.
                */
-              pattern_file?: {
+              patternFile?: {
                 /**
                  * Format: uuid
                  * @description A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.
@@ -9553,11 +9553,11 @@ export interface operations {
   /** Creates or updates an infrastructure design. */
   upsertPattern: {
     responses: {
-      /** Design saved successfully */
+      /** Design saved */
       200: {
         content: {
           "application/json": {
-            catalog_data?: {
+            catalogData?: {
               /** @description Tracks the specific content version that has been made available in the Catalog. */
               publishedVersion?: string;
               /** @description Published content is classifed by its support level. Content classes help you understand the origin and expected support level for each piece of content. It is important to note that the level of support may vary within each class, and you should exercise discretion when using community-contributed content. Content produced and fully supported by Meshery maintainers. This represents the highest level of support and is considered the most reliable. Content produced by partners and verified by Meshery maintainers. While not directly maintained by Meshery, it has undergone a verification process to ensure quality and compatibility. Content produced and supported by the respective project or organization responsible for the specific technology. This class offers a level of support from the project maintainers themselves. Content produced and shared by Meshery users. This includes a wide range of content, such as performance profiles, test results, filters, patterns, and applications. Community content may have varying levels of support and reliability. */
@@ -9605,7 +9605,7 @@ export interface operations {
              * Design Schema
              * @description Designs are your primary tool for collaborative authorship of your infrastructure, workflow, and processes.
              */
-            pattern_file?: {
+            patternFile?: {
               /**
                * Format: uuid
                * @description A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.
@@ -11146,8 +11146,8 @@ export interface operations {
       content: {
         "application/json": {
           path?: string;
-          pattern_data?: {
-            catalog_data?: {
+          patternData?: {
+            catalogData?: {
               /** @description Tracks the specific content version that has been made available in the Catalog. */
               publishedVersion?: string;
               /** @description Published content is classifed by its support level. Content classes help you understand the origin and expected support level for each piece of content. It is important to note that the level of support may vary within each class, and you should exercise discretion when using community-contributed content. Content produced and fully supported by Meshery maintainers. This represents the highest level of support and is considered the most reliable. Content produced by partners and verified by Meshery maintainers. While not directly maintained by Meshery, it has undergone a verification process to ensure quality and compatibility. Content produced and supported by the respective project or organization responsible for the specific technology. This class offers a level of support from the project maintainers themselves. Content produced and shared by Meshery users. This includes a wide range of content, such as performance profiles, test results, filters, patterns, and applications. Community content may have varying levels of support and reliability. */
@@ -11195,7 +11195,7 @@ export interface operations {
              * Design Schema
              * @description Designs are your primary tool for collaborative authorship of your infrastructure, workflow, and processes.
              */
-            pattern_file?: {
+            patternFile?: {
               /**
                * Format: uuid
                * @description A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.
@@ -12722,7 +12722,7 @@ export interface operations {
   /** Deletes multiple designs by ID. */
   deletePatterns: {
     responses: {
-      /** Designs deleted successfully */
+      /** Designs deleted */
       200: unknown;
       /** Invalid request body or request param */
       400: {
@@ -12770,7 +12770,7 @@ export interface operations {
       };
     };
     responses: {
-      /** Pattern resources fetched successfully */
+      /** Pattern resources response */
       200: unknown;
       /** Expired JWT token used or insufficient privilege */
       401: {
@@ -12789,7 +12789,7 @@ export interface operations {
   /** Creates or updates a pattern resource definition. */
   upsertPatternResource: {
     responses: {
-      /** Pattern resource saved successfully */
+      /** Pattern resource saved */
       200: unknown;
       /** Invalid request body or request param */
       400: {
@@ -12819,7 +12819,7 @@ export interface operations {
       };
     };
     responses: {
-      /** Pattern resource fetched successfully */
+      /** Pattern resource response */
       200: unknown;
       /** Expired JWT token used or insufficient privilege */
       401: {
@@ -12849,7 +12849,7 @@ export interface operations {
       };
     };
     responses: {
-      /** Pattern resource deleted successfully */
+      /** Pattern resource deleted */
       204: never;
       /** Expired JWT token used or insufficient privilege */
       401: {
@@ -12879,11 +12879,11 @@ export interface operations {
       };
     };
     responses: {
-      /** Design fetched successfully */
+      /** Design response */
       200: {
         content: {
           "application/json": {
-            catalog_data?: {
+            catalogData?: {
               /** @description Tracks the specific content version that has been made available in the Catalog. */
               publishedVersion?: string;
               /** @description Published content is classifed by its support level. Content classes help you understand the origin and expected support level for each piece of content. It is important to note that the level of support may vary within each class, and you should exercise discretion when using community-contributed content. Content produced and fully supported by Meshery maintainers. This represents the highest level of support and is considered the most reliable. Content produced by partners and verified by Meshery maintainers. While not directly maintained by Meshery, it has undergone a verification process to ensure quality and compatibility. Content produced and supported by the respective project or organization responsible for the specific technology. This class offers a level of support from the project maintainers themselves. Content produced and shared by Meshery users. This includes a wide range of content, such as performance profiles, test results, filters, patterns, and applications. Community content may have varying levels of support and reliability. */
@@ -12931,7 +12931,7 @@ export interface operations {
              * Design Schema
              * @description Designs are your primary tool for collaborative authorship of your infrastructure, workflow, and processes.
              */
-            pattern_file?: {
+            patternFile?: {
               /**
                * Format: uuid
                * @description A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.
@@ -14477,7 +14477,7 @@ export interface operations {
       };
     };
     responses: {
-      /** Design deleted successfully */
+      /** Design deleted */
       204: never;
       /** Expired JWT token used or insufficient privilege */
       401: {
@@ -14508,11 +14508,11 @@ export interface operations {
       };
     };
     responses: {
-      /** Design cloned successfully */
+      /** Design cloned */
       200: {
         content: {
           "application/json": {
-            catalog_data?: {
+            catalogData?: {
               /** @description Tracks the specific content version that has been made available in the Catalog. */
               publishedVersion?: string;
               /** @description Published content is classifed by its support level. Content classes help you understand the origin and expected support level for each piece of content. It is important to note that the level of support may vary within each class, and you should exercise discretion when using community-contributed content. Content produced and fully supported by Meshery maintainers. This represents the highest level of support and is considered the most reliable. Content produced by partners and verified by Meshery maintainers. While not directly maintained by Meshery, it has undergone a verification process to ensure quality and compatibility. Content produced and supported by the respective project or organization responsible for the specific technology. This class offers a level of support from the project maintainers themselves. Content produced and shared by Meshery users. This includes a wide range of content, such as performance profiles, test results, filters, patterns, and applications. Community content may have varying levels of support and reliability. */
@@ -14560,7 +14560,7 @@ export interface operations {
              * Design Schema
              * @description Designs are your primary tool for collaborative authorship of your infrastructure, workflow, and processes.
              */
-            pattern_file?: {
+            patternFile?: {
               /**
                * Format: uuid
                * @description A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.
@@ -16078,6 +16078,12 @@ export interface operations {
           };
         };
       };
+      /** Invalid request body or request param */
+      400: {
+        content: {
+          "text/plain": string;
+        };
+      };
       /** Expired JWT token used or insufficient privilege */
       401: {
         content: {
@@ -16142,7 +16148,7 @@ export interface operations {
       };
     };
     responses: {
-      /** Design source content uploaded successfully */
+      /** Design source content uploaded */
       200: unknown;
       /** Invalid request body or request param */
       400: {
@@ -16152,6 +16158,12 @@ export interface operations {
       };
       /** Expired JWT token used or insufficient privilege */
       401: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Result not found */
+      404: {
         content: {
           "text/plain": string;
         };
@@ -16181,6 +16193,12 @@ export interface operations {
       };
       /** Invalid request format */
       400: unknown;
+      /** Expired JWT token used or insufficient privilege */
+      401: {
+        content: {
+          "text/plain": string;
+        };
+      };
       /** Internal server error */
       500: unknown;
     };
@@ -16209,7 +16227,7 @@ export interface operations {
         metrics?: boolean;
         class?: string;
         userid?: string;
-        orgID?: string;
+        orgId?: string;
         workspaceid?: string;
         teamId?: string;
         populate?: boolean;
@@ -16224,7 +16242,7 @@ export interface operations {
             page_size?: number;
             total_count?: number;
             patterns?: {
-              catalog_data?: {
+              catalogData?: {
                 /** @description Tracks the specific content version that has been made available in the Catalog. */
                 publishedVersion?: string;
                 /** @description Published content is classifed by its support level. Content classes help you understand the origin and expected support level for each piece of content. It is important to note that the level of support may vary within each class, and you should exercise discretion when using community-contributed content. Content produced and fully supported by Meshery maintainers. This represents the highest level of support and is considered the most reliable. Content produced by partners and verified by Meshery maintainers. While not directly maintained by Meshery, it has undergone a verification process to ensure quality and compatibility. Content produced and supported by the respective project or organization responsible for the specific technology. This class offers a level of support from the project maintainers themselves. Content produced and shared by Meshery users. This includes a wide range of content, such as performance profiles, test results, filters, patterns, and applications. Community content may have varying levels of support and reliability. */
@@ -16272,7 +16290,7 @@ export interface operations {
                * Design Schema
                * @description Designs are your primary tool for collaborative authorship of your infrastructure, workflow, and processes.
                */
-              pattern_file?: {
+              patternFile?: {
                 /**
                  * Format: uuid
                  * @description A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.
@@ -17789,9 +17807,15 @@ export interface operations {
               visibility?: string;
             }[];
             filters?: { [key: string]: unknown }[];
-            models_count?: { [key: string]: unknown }[];
-            category_count?: { [key: string]: unknown }[];
+            modelsCount?: { [key: string]: unknown }[];
+            categoryCount?: { [key: string]: unknown }[];
           };
+        };
+      };
+      /** Result not found */
+      404: {
+        content: {
+          "text/plain": string;
         };
       };
       /** Internal server error */
@@ -17815,8 +17839,20 @@ export interface operations {
           "application/json": { [key: string]: unknown };
         };
       };
+      /** Invalid request body or request param */
+      400: {
+        content: {
+          "text/plain": string;
+        };
+      };
       /** Expired JWT token used or insufficient privilege */
       401: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Result not found */
+      404: {
         content: {
           "text/plain": string;
         };
@@ -17849,8 +17885,20 @@ export interface operations {
           "application/json": { [key: string]: unknown };
         };
       };
+      /** Invalid request body or request param */
+      400: {
+        content: {
+          "text/plain": string;
+        };
+      };
       /** Expired JWT token used or insufficient privilege */
       401: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Result not found */
+      404: {
         content: {
           "text/plain": string;
         };
@@ -17871,6 +17919,14 @@ export interface operations {
     };
   };
   getCatalogContentClasses: {
+    parameters: {
+      query: {
+        /** Get responses by page */
+        page?: string;
+        /** Get responses by pagesize */
+        pagesize?: string;
+      };
+    };
     responses: {
       /** Catalog content classes */
       200: {
@@ -17903,6 +17959,12 @@ export interface operations {
           "application/json": { [key: string]: unknown };
         };
       };
+      /** Invalid request body or request param */
+      400: {
+        content: {
+          "text/plain": string;
+        };
+      };
       /** Expired JWT token used or insufficient privilege */
       401: {
         content: {
@@ -17930,6 +17992,12 @@ export interface operations {
       201: {
         content: {
           "application/json": { [key: string]: unknown };
+        };
+      };
+      /** Invalid request body or request param */
+      400: {
+        content: {
+          "text/plain": string;
         };
       };
       /** Expired JWT token used or insufficient privilege */
@@ -18019,6 +18087,12 @@ export interface operations {
           "text/plain": string;
         };
       };
+      /** Result not found */
+      404: {
+        content: {
+          "text/plain": string;
+        };
+      };
       /** Internal server error */
       500: {
         content: {
@@ -18096,6 +18170,12 @@ export interface operations {
           "text/plain": string;
         };
       };
+      /** Result not found */
+      404: {
+        content: {
+          "text/plain": string;
+        };
+      };
       /** Internal server error */
       500: {
         content: {
@@ -18123,8 +18203,8 @@ export interface operations {
         filter?: string;
         shared?: boolean;
         visibility?: string;
-        orgID?: string;
-        user_id?: string;
+        orgId?: string;
+        userId?: string;
       };
     };
     responses: {
@@ -18167,8 +18247,20 @@ export interface operations {
           "application/json": { [key: string]: unknown };
         };
       };
+      /** Invalid request body or request param */
+      400: {
+        content: {
+          "text/plain": string;
+        };
+      };
       /** Expired JWT token used or insufficient privilege */
       401: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Result not found */
+      404: {
         content: {
           "text/plain": string;
         };
@@ -18205,6 +18297,12 @@ export interface operations {
       };
       /** Expired JWT token used or insufficient privilege */
       401: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Result not found */
+      404: {
         content: {
           "text/plain": string;
         };

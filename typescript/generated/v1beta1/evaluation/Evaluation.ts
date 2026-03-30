@@ -1544,6 +1544,12 @@ export interface paths {
         };
         /** Bad request */
         400: unknown;
+        /** Expired JWT token used or insufficient privilege */
+        401: {
+          content: {
+            "text/plain": string;
+          };
+        };
         /** Internal server error */
         500: unknown;
       };
@@ -6190,6 +6196,14 @@ export interface components {
     };
     ComponentDeclaration: { [key: string]: unknown };
     RelationshipDeclaration: { [key: string]: unknown };
+  };
+  responses: {
+    /** Expired JWT token used or insufficient privilege */
+    401: {
+      content: {
+        "text/plain": string;
+      };
+    };
   };
 }
 

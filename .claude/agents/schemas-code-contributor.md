@@ -25,7 +25,10 @@ You are an expert-level engineering agent specialized in OpenAPI schema developm
 - **Avoid Redundant Tags**: Do not include `x-oapi-codegen-extra-tags` when using core schema references.
 - **Prefer Implicit Generator Rules**: When extending generation, derive behavior from schema metadata, generated type shapes, or stable naming conventions. Do not add hand-maintained package/type manifests when the rule can be inferred.
 - **Dual-Schema Pattern**: Every entity `<construct>.yaml` is a response schema only — it must have `additionalProperties: false` and include all server-generated fields in `required`. Every `POST`/`PUT` operation must use a separate `{Construct}Payload` schema defined in `api.yml`. Never use the full entity schema as a `requestBody`. See AGENTS.md § "The Dual-Schema Pattern" for full rules and canonical examples.
+- **DB-Backed Field Names Are Authoritative**: If a property has `x-oapi-codegen-extra-tags.db` and that `db` value is snake_case, the schema property name and JSON tag must use that exact snake_case name. Do not rename DB-backed fields from snake_case to camelCase within the same API version. Pagination envelopes must use `page`, `page_size`, and `total_count`.
+- **Enum Wire Values Are Compatibility-Sensitive**: New enum values must be lowercase. Do not recase published enum literals in-place within the same API version; legacy enum values are grandfathered and the validator only flags newly introduced non-lowercase values.
 - **SQL Driver Nil Handling**: Manual `Value()` implementations must always marshal — never return `(nil, nil)`. Manual `Scan()` implementations must set `*m = nil` (not bare `return nil`) when `src` is nil. Auto-generated helpers from `x-generate-db-helpers` already follow these rules.
+- **Response Wording**: Never use the word `successfully` in OpenAPI response descriptions or response message text. Prefer neutral wording such as `deleted`, `updated`, `processed`, or `response`.
 
 ## Technology Stack Expertise
 

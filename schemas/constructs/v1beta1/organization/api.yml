@@ -53,6 +53,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/OrganizationPage"
+        "400":
+          $ref: "#/components/responses/400"
         "401":
           $ref: "#/components/responses/401"
         "500":
@@ -75,10 +77,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Organization"
-
+        "401":
+          $ref: "#/components/responses/401"
         "404":
           description: Organization not found
-
         "500":
           description: Internal server error
   /api/identity/orgs/{orgId}:
@@ -99,6 +101,8 @@ paths:
                 $ref: "#/components/schemas/OrganizationPage"
         "401":
           $ref: "#/components/responses/401"
+        "404":
+          $ref: "#/components/responses/404"
         "500":
           $ref: "#/components/responses/500"
     delete:
@@ -110,12 +114,8 @@ paths:
       parameters:
         - $ref: "#/components/parameters/orgId"
       responses:
-        "200":
-          description: Single-organization page response for the deleted organization
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/OrganizationPage"
+        "204":
+          description: Organization deleted
         "400":
           $ref: "#/components/responses/400"
         "401":
@@ -145,6 +145,8 @@ paths:
           $ref: "#/components/responses/400"
         "401":
           $ref: "#/components/responses/401"
+        "404":
+          $ref: "#/components/responses/404"
         "500":
           $ref: "#/components/responses/500"
   /api/identity/orgs/{orgId}/preferences:
@@ -165,6 +167,8 @@ paths:
                 $ref: "#/components/schemas/OrgMetadata"
         "401":
           $ref: "#/components/responses/401"
+        "404":
+          $ref: "#/components/responses/404"
         "500":
           $ref: "#/components/responses/500"
 
@@ -185,7 +189,7 @@ paths:
             schema:
               $ref: "#/components/schemas/OrgTeamActionPayload"
       responses:
-        "200":
+        "201":
           description: Team added to organization or team tombstoned
           content:
             application/json:
@@ -240,17 +244,21 @@ paths:
           in: path
           required: true
           schema:
-            $ref: "../../v1alpha1/core/api.yml#/components/schemas/user_id"
+            $ref: "../core/api.yml#/components/schemas/user_id"
       responses:
-        "200":
+        "201":
           description: User added to organization
           content:
             application/json:
               schema:
                 type: object
                 additionalProperties: true
+        "400":
+          $ref: "#/components/responses/400"
         "401":
           description: Unauthorized
+        "404":
+          $ref: "#/components/responses/404"
         "500":
           description: Internal server error
     delete:
@@ -264,17 +272,14 @@ paths:
           in: path
           required: true
           schema:
-            $ref: "../../v1alpha1/core/api.yml#/components/schemas/user_id"
+            $ref: "../core/api.yml#/components/schemas/user_id"
       responses:
-        "200":
+        "204":
           description: User removed from organization
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
         "401":
           description: Unauthorized
+        "404":
+          $ref: "#/components/responses/404"
         "500":
           description: Internal server error
 
@@ -287,13 +292,13 @@ components:
 
   responses:
     400:
-      $ref: "../../v1alpha1/core/api.yml#/components/responses/400"
+      $ref: "../core/api.yml#/components/responses/400"
     401:
-      $ref: "../../v1alpha1/core/api.yml#/components/responses/401"
+      $ref: "../core/api.yml#/components/responses/401"
     404:
-      $ref: "../../v1alpha1/core/api.yml#/components/responses/404"
+      $ref: "../core/api.yml#/components/responses/404"
     500:
-      $ref: "../../v1alpha1/core/api.yml#/components/responses/500"
+      $ref: "../core/api.yml#/components/responses/500"
 
   parameters:
     orgId:
@@ -301,29 +306,29 @@ components:
       in: path
       required: true
       schema:
-        $ref: "../../v1alpha1/core/api.yml#/components/schemas/organization_id"
+        $ref: "../core/api.yml#/components/schemas/organization_id"
 
     page:
-      $ref: "../../v1alpha1/core/api.yml#/components/parameters/page"
+      $ref: "../core/api.yml#/components/parameters/page"
 
     pagesize:
-      $ref: "../../v1alpha1/core/api.yml#/components/parameters/pagesize"
+      $ref: "../core/api.yml#/components/parameters/pagesize"
 
     search:
-      $ref: "../../v1alpha1/core/api.yml#/components/parameters/search"
+      $ref: "../core/api.yml#/components/parameters/search"
 
     order:
-      $ref: "../../v1alpha1/core/api.yml#/components/parameters/order"
+      $ref: "../core/api.yml#/components/parameters/order"
 
     all:
-      $ref: "../../v1alpha1/core/api.yml#/components/parameters/all"
+      $ref: "../core/api.yml#/components/parameters/all"
 
     teamId:
       name: teamId
       in: path
       required: true
       schema:
-        $ref: "../../v1alpha1/core/api.yml#/components/schemas/team_id"
+        $ref: "../core/api.yml#/components/schemas/team_id"
   requestBodies:
     organizationPayload:
       description: Body for creating or updating an organization
@@ -335,19 +340,19 @@ components:
 
   schemas:
     UUID:
-      $ref: "../../v1alpha1/core/api.yml#/components/schemas/uuid"
+      $ref: "../core/api.yml#/components/schemas/uuid"
 
     NullableTime:
-      $ref: "../../v1alpha1/core/api.yml#/components/schemas/SqlNullTime"
+      $ref: "../core/api.yml#/components/schemas/SqlNullTime"
 
     Time:
-      $ref: "../../v1alpha1/core/api.yml#/components/schemas/Time"
+      $ref: "../core/api.yml#/components/schemas/Time"
 
     Text:
-      $ref: "../../v1alpha1/core/api.yml#/components/schemas/Text"
+      $ref: "../core/api.yml#/components/schemas/Text"
 
     MapObject:
-      $ref: "../../v1alpha1/core/api.yml#/components/schemas/MapObject"
+      $ref: "../core/api.yml#/components/schemas/MapObject"
 
     OrgTeamActionPayload:
       type: object
@@ -373,21 +378,21 @@ components:
     Logo:
       type: object
       required:
-        - desktop_view
-        - mobile_view
-        - dark_desktop_view
-        - dark_mobile_view
+        - desktopView
+        - mobileView
+        - darkDesktopView
+        - darkMobileView
       properties:
-        desktop_view:
+        desktopView:
           x-go-type: "Location"
           $ref: "#/components/schemas/Location"
-        mobile_view:
+        mobileView:
           x-go-type: "Location"
           $ref: "#/components/schemas/Location"
-        dark_desktop_view:
+        darkDesktopView:
           x-go-type: "Location"
           $ref: "#/components/schemas/Location"
-        dark_mobile_view:
+        darkMobileView:
           x-go-type: "Location"
           $ref: "#/components/schemas/Location"
 
@@ -560,7 +565,7 @@ components:
           $ref: "#/components/schemas/Text"
         description:
           $ref: "#/components/schemas/Text"
-        notify_org_update:
+        notifyOrgUpdate:
           type: boolean
         preferences:
           $ref: "#/components/schemas/Preferences"
@@ -568,8 +573,8 @@ components:
     AvailableTeam:
       type: object
       properties:
-        ID:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/general_id"
+        id:
+          $ref: "../core/api.yml#/components/schemas/general_id"
         name:
           $ref: "#/components/schemas/Text"
         description:
@@ -602,12 +607,12 @@ components:
     TeamsOrganizationsMapping:
       type: object
       properties:
-        ID:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/general_id"
-        org_id:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/organization_id"
+        id:
+          $ref: "../core/api.yml#/components/schemas/general_id"
+        orgId:
+          $ref: "../core/api.yml#/components/schemas/organization_id"
         team_id:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/team_id"
+          $ref: "../core/api.yml#/components/schemas/team_id"
         created_at:
           $ref: "#/components/schemas/Time"
         updated_at:
@@ -624,7 +629,7 @@ components:
           type: integer
         total_count:
           type: integer
-        teams_organizations_mapping:
+        teamsOrganizationsMapping:
           type: array
           items:
             $ref: "#/components/schemas/TeamsOrganizationsMapping"

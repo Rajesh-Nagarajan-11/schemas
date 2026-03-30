@@ -106,7 +106,7 @@ export interface components {
         /** Format: date-time */
         updated_at: string;
         dashboardPreferences: { [key: string]: unknown };
-        selectedOrganizationID: string;
+        selectedOrganizationId: string;
         selectedWorkspaceForOrganizations: { [key: string]: string };
         usersExtensionPreferences: { [key: string]: unknown };
         remoteProviderPreferences: { [key: string]: unknown };
@@ -263,7 +263,7 @@ export interface components {
           /** Format: date-time */
           updated_at: string;
           dashboardPreferences: { [key: string]: unknown };
-          selectedOrganizationID: string;
+          selectedOrganizationId: string;
           selectedWorkspaceForOrganizations: { [key: string]: string };
           usersExtensionPreferences: { [key: string]: unknown };
           remoteProviderPreferences: { [key: string]: unknown };
@@ -421,7 +421,7 @@ export interface components {
           /** Format: date-time */
           updated_at: string;
           dashboardPreferences: { [key: string]: unknown };
-          selectedOrganizationID: string;
+          selectedOrganizationId: string;
           selectedWorkspaceForOrganizations: { [key: string]: string };
           usersExtensionPreferences: { [key: string]: unknown };
           remoteProviderPreferences: { [key: string]: unknown };
@@ -527,7 +527,7 @@ export interface components {
       /** Format: date-time */
       updated_at: string;
       dashboardPreferences: { [key: string]: unknown };
-      selectedOrganizationID: string;
+      selectedOrganizationId: string;
       selectedWorkspaceForOrganizations: { [key: string]: string };
       usersExtensionPreferences: { [key: string]: unknown };
       remoteProviderPreferences: { [key: string]: unknown };
@@ -622,7 +622,7 @@ export interface components {
     /** @description Get filtered reponses */
     filter: string;
     /** @description Optional team filter when listing organization users */
-    teamID: string;
+    teamId: string;
   };
 }
 
@@ -646,7 +646,7 @@ export interface operations {
         /** Get filtered reponses */
         filter?: string;
         /** Optional team filter when listing organization users */
-        teamID?: string;
+        teamId?: string;
       };
     };
     responses: {
@@ -740,7 +740,7 @@ export interface operations {
                 /** Format: date-time */
                 updated_at: string;
                 dashboardPreferences: { [key: string]: unknown };
-                selectedOrganizationID: string;
+                selectedOrganizationId: string;
                 selectedWorkspaceForOrganizations: { [key: string]: string };
                 usersExtensionPreferences: { [key: string]: unknown };
                 remoteProviderPreferences: { [key: string]: unknown };
@@ -820,6 +820,12 @@ export interface operations {
       };
       /** Expired JWT token used or insufficient privilege */
       401: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Result not found */
+      404: {
         content: {
           "text/plain": string;
         };
@@ -939,7 +945,7 @@ export interface operations {
                 /** Format: date-time */
                 updated_at: string;
                 dashboardPreferences: { [key: string]: unknown };
-                selectedOrganizationID: string;
+                selectedOrganizationId: string;
                 selectedWorkspaceForOrganizations: { [key: string]: string };
                 usersExtensionPreferences: { [key: string]: unknown };
                 remoteProviderPreferences: { [key: string]: unknown };
@@ -1125,7 +1131,7 @@ export interface operations {
               /** Format: date-time */
               updated_at: string;
               dashboardPreferences: { [key: string]: unknown };
-              selectedOrganizationID: string;
+              selectedOrganizationId: string;
               selectedWorkspaceForOrganizations: { [key: string]: string };
               usersExtensionPreferences: { [key: string]: unknown };
               remoteProviderPreferences: { [key: string]: unknown };
@@ -1198,6 +1204,18 @@ export interface operations {
       };
       /** Invalid request body or request param */
       400: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Expired JWT token used or insufficient privilege */
+      401: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Result not found */
+      404: {
         content: {
           "text/plain": string;
         };
@@ -1298,7 +1316,7 @@ export interface operations {
               /** Format: date-time */
               updated_at: string;
               dashboardPreferences: { [key: string]: unknown };
-              selectedOrganizationID: string;
+              selectedOrganizationId: string;
               selectedWorkspaceForOrganizations: { [key: string]: string };
               usersExtensionPreferences: { [key: string]: unknown };
               remoteProviderPreferences: { [key: string]: unknown };

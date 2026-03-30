@@ -15,9 +15,10 @@
  *   Rule  3 — `operationId` must be lower camelCase verbNoun.
  *   Rule  4 — Path parameters must be camelCase with "Id" suffix.
  *   Rule  5 — DELETE operations must not have a requestBody.
- *   Rule  6 — Schema property names must be camelCase (except DB-mirrored fields).
+ *   Rule  6 — Schema property names must preserve published casing: DB-backed properties
+ *              use exact snake_case db names; new non-DB properties use camelCase.
  *   Rule  7 — Schema component names (components/schemas keys) must be PascalCase.
- *   Rule  8 — Enum values must be lowercase.
+ *   Rule  8 — Newly introduced enum values must be lowercase.
  *   Rule  9 — Query/header parameter names must be camelCase.
  *   Rule 10 — Path segments must be kebab-case.
  *   Rule 11 — x-generate-db-helpers must be at schema component level, not per-property.
@@ -40,10 +41,17 @@
  *   Rule 28 — HTTP response codes must match method semantics (201 for create, 204 for delete).
  *   Rule 29 — Duplicate component schemas across constructs should use $ref instead.
  *   Rule 30 — Response schemas should use $ref to components/schemas, not inline definitions.
+ *   Rule 31 — Response descriptions and inline response message text must not include the word "successfully".
+ *   Rule 32 — DB-backed property names must exactly match snake_case db tags.
+ *   Rule 33 — Pagination envelopes must use page, page_size, total_count.
  *
  * USAGE:
  *   node build/validate-schemas.js          # exits 0 if no blocking violations found
  *   node build/validate-schemas.js --warn   # also prints non-blocking advisories and exits 0
+ *   node build/validate-schemas.js --warn --no-baseline   # prints full actionable advisory backlog
+ *   node build/validate-schemas.js --warn --no-baseline --style-debt   # includes legacy style debt too
+ *   node build/validate-schemas.js --warn --no-baseline --style-debt --contract-debt   # includes all legacy debt
+ *   node build/validate-schemas.js --strict-consistency --style-debt --contract-debt   # fails on all style/design/contract debt
  *
  * DEPENDENCIES:
  *   js-yaml (already a project dependency)
@@ -51,21 +59,30 @@
 
 "use strict";
 
+const { execFileSync } = require("child_process");
 const fs = require("fs");
 const path = require("path");
 const yaml = require("js-yaml");
 
+const {
+  classifyContractIssue,
+  classifyDesignIssue,
+  classifyStyleIssue,
+} = require("./lib/consistency-policy");
+const { findNewNonLowercaseEnumValues } = require("./lib/enum-validation");
+const { detectPostCreate, isSingleResourceDelete } = require("./lib/response-code-semantics");
+
 const ROOT = path.resolve(__dirname, "..");
 const CONSTRUCTS_DIR = path.join(ROOT, "schemas", "constructs");
+const ADVISORY_BASELINE_FILE = path.join(ROOT, "build", "validate-schemas.advisory-baseline.txt");
 
 // Fields that are always server-generated and should never be required in write payloads.
 const SERVER_GENERATED_FIELDS = new Set(["id", "created_at", "updated_at", "deleted_at"]);
 
-// Only validate these versions (alpha schemas predate the pattern).
-const VALIDATED_VERSIONS = ["v1beta1", "v1beta2-draft"];
+// Validated API versions. Alpha schemas are legacy (kept for backward compat).
+const VALIDATED_VERSIONS = ["v1beta1", "v1beta2", "v1beta2-draft"];
 
-// DB-mirrored fields that are allowed to use snake_case.
-// These map directly to database column names and are the ONLY exception to camelCase.
+// Known contract-stable snake_case fields that may not carry explicit db tags.
 const DB_MIRRORED_FIELDS = new Set([
   "created_at",
   "updated_at",
@@ -84,19 +101,74 @@ const DB_MIRRORED_FIELDS = new Set([
   "general_id",
   "avatar_url",
   "accepted_terms_at",
+  "page_size",
+  "total_count",
 ]);
+
+const DB_TAG_PATTERN = /^(?:-|[a-z][a-z0-9]*(?:_[a-z0-9]+)*)$/;
 
 // HTTP methods checked when iterating over path-item operations.
 const HTTP_METHODS = ["get", "post", "put", "patch", "delete"];
 
 const warnOnly = process.argv.includes("--warn");
+const noAdvisoryBaseline = process.argv.includes("--no-baseline");
+const includeLegacyStyleDebt = process.argv.includes("--style-debt") || process.argv.includes("--legacy-style");
+const includeLegacyContractDebt =
+  process.argv.includes("--contract-debt") || process.argv.includes("--compat-debt");
+const strictConsistency =
+  process.argv.includes("--strict-consistency") || process.argv.includes("--strict-debt");
 const blockingViolations = [];
 const advisoryViolations = [];
 const refDocCache = new Map();
+const baselineDocCache = new Map();
+const enumBaselineRef = detectEnumBaselineRef();
+const advisoryBaseline = loadAdvisoryBaseline();
+
+function detectEnumBaselineRef() {
+  const candidates = ["master", "origin/master", "refs/heads/master", "refs/remotes/origin/master", "HEAD^1"];
+
+  for (const ref of candidates) {
+    try {
+      execFileSync("git", ["rev-parse", "--verify", ref], { cwd: ROOT, stdio: "ignore" });
+      return ref;
+    } catch (e) {
+      continue;
+    }
+  }
+
+  return null;
+}
+
+function loadAdvisoryBaseline() {
+  if (!warnOnly || noAdvisoryBaseline) {
+    return new Set();
+  }
+
+  if (!fs.existsSync(ADVISORY_BASELINE_FILE)) {
+    return new Set();
+  }
+
+  return new Set(
+    fs
+      .readFileSync(ADVISORY_BASELINE_FILE, "utf-8")
+      .split("\n")
+      .map((line) => line.trim())
+      .filter((line) => line.length > 0 && !line.startsWith("#"))
+  );
+}
 
 function recordIssue(file, message, severity = "error") {
   const bucket = severity === "warning" ? advisoryViolations : blockingViolations;
-  bucket.push({ file: path.relative(ROOT, file), message });
+  const relativeFile = path.relative(ROOT, file).split(path.sep).join("/");
+
+  if (severity === "warning") {
+    const baselineKey = `${relativeFile}\t${message}`;
+    if (advisoryBaseline.has(baselineKey)) {
+      return;
+    }
+  }
+
+  bucket.push({ file: relativeFile, message });
 }
 
 function warn(file, message) {
@@ -112,16 +184,35 @@ function isStrictStyleFile(filePath) {
 }
 
 function reportStyleIssue(filePath, message) {
-  if (isStrictStyleFile(filePath)) {
-    warn(filePath, message);
+  const severity = classifyStyleIssue({
+    strictConsistency,
+    strictStyleFile: isStrictStyleFile(filePath),
+    includeLegacyStyleDebt,
+  });
+
+  if (!severity) {
     return;
   }
 
-  advisory(filePath, message);
+  recordIssue(filePath, message, severity);
 }
 
 function reportDesignAdvisory(filePath, message) {
-  advisory(filePath, message);
+  recordIssue(filePath, message, classifyDesignIssue({ strictConsistency }));
+}
+
+function reportContractAdvisory(filePath, message) {
+  const severity = classifyContractIssue({
+    strictConsistency,
+    strictStyleFile: isStrictStyleFile(filePath),
+    includeLegacyContractDebt,
+  });
+
+  if (!severity) {
+    return;
+  }
+
+  recordIssue(filePath, message, severity);
 }
 
 // ─── Casing helpers ───────────────────────────────────────────────────────────
@@ -139,11 +230,6 @@ function isPascalCase(s) {
 /** Returns true if the string is valid kebab-case (lowercase + hyphens only). */
 function isKebabCase(s) {
   return /^[a-z][a-z0-9]*(-[a-z0-9]+)*$/.test(s);
-}
-
-/** Returns true if all characters are lowercase (for enum values). */
-function isLowercase(s) {
-  return s === s.toLowerCase() && !/[A-Z]/.test(s);
 }
 
 /** Returns true if the property name contains an underscore (potential snake_case). */
@@ -174,12 +260,39 @@ function getCamelCaseSuggestion(name) {
   return isCamelCase(suggestion) ? suggestion : null;
 }
 
-function getCamelCaseIssues(name, { allowDbMirrored = false } = {}) {
-  if (allowDbMirrored && DB_MIRRORED_FIELDS.has(name)) return [];
+function getTagBaseValue(value) {
+  if (value === undefined || value === null) return null;
+  return String(value).replace(/,.*$/, "");
+}
+
+function getExtraTags(definition) {
+  const extraTags = definition?.["x-oapi-codegen-extra-tags"];
+  return extraTags && typeof extraTags === "object" ? extraTags : null;
+}
+
+function getDbTagValue(definition) {
+  return getTagBaseValue(getExtraTags(definition)?.db);
+}
+
+function getJsonTagValue(definition) {
+  return getTagBaseValue(getExtraTags(definition)?.json);
+}
+
+function isDbBackedSnakeCaseProperty(name, definition) {
+  const dbTag = getDbTagValue(definition);
+  return Boolean(dbTag && DB_TAG_PATTERN.test(dbTag) && hasUnderscore(dbTag) && name === dbTag);
+}
+
+function isAllowedSnakeCaseProperty(name, definition) {
+  return DB_MIRRORED_FIELDS.has(name) || isDbBackedSnakeCaseProperty(name, definition);
+}
+
+function getCamelCaseIssues(name, { allowDbMirrored = false, definition = null } = {}) {
+  if (allowDbMirrored && isAllowedSnakeCaseProperty(name, definition)) return [];
 
   const issues = [];
   if (hasUnderscore(name)) {
-    issues.push("uses snake_case (only DB-mirrored fields may use underscores)");
+    issues.push("uses snake_case (only DB-backed contract fields may use underscores)");
   }
   if (/^[A-Z]/.test(name)) {
     issues.push("starts with uppercase (must be camelCase, not PascalCase)");
@@ -213,6 +326,33 @@ function loadYamlDoc(filePath) {
   }
 
   refDocCache.set(filePath, doc);
+  return doc;
+}
+
+function loadBaselineYamlDoc(filePath) {
+  if (baselineDocCache.has(filePath)) {
+    return baselineDocCache.get(filePath);
+  }
+
+  if (!enumBaselineRef) {
+    baselineDocCache.set(filePath, null);
+    return null;
+  }
+
+  const relativeFile = path.relative(ROOT, filePath).split(path.sep).join("/");
+  let doc = null;
+
+  try {
+    const source = execFileSync("git", ["show", `${enumBaselineRef}:${relativeFile}`], {
+      cwd: ROOT,
+      encoding: "utf8",
+    });
+    doc = yaml.load(source);
+  } catch (e) {
+    doc = null;
+  }
+
+  baselineDocCache.set(filePath, doc);
   return doc;
 }
 
@@ -290,6 +430,8 @@ function validateEntitySchema(filePath) {
   if (doc.properties) {
     validatePropertyNames(filePath, "(entity root)", doc.properties);
   }
+
+  validateDbBackedPropertyNames(filePath, doc);
 }
 
 // ─── Rule 2: POST/PUT requestBody must not use the full entity schema ─────────
@@ -455,18 +597,18 @@ function validateDeleteNoBody(filePath, doc) {
 
 /**
  * Validates that all property names in a schema object follow casing rules:
- * - camelCase for regular properties
- * - snake_case ONLY for DB-mirrored fields in the allowlist
- * - Flags PascalCase, SCREAMING_CASE, and non-allowlisted snake_case
+ * - camelCase for new non-DB properties
+ * - exact snake_case DB names for DB-backed contract fields
+ * - Flags PascalCase, SCREAMING_CASE, and non-authoritative snake_case
  */
 function validatePropertyNames(filePath, schemaName, properties) {
   if (!properties || typeof properties !== "object") return;
 
-  for (const propName of Object.keys(properties)) {
+  for (const [propName, propDef] of Object.entries(properties)) {
     // Skip $ref-only properties (no name to validate)
     if (propName.startsWith("$")) continue;
 
-    const issues = getCamelCaseIssues(propName, { allowDbMirrored: true });
+    const issues = getCamelCaseIssues(propName, { allowDbMirrored: true, definition: propDef });
     if (issues.length > 0) {
       const suggestion = getCamelCaseSuggestion(propName);
       reportStyleIssue(
@@ -503,6 +645,122 @@ function validateAllSchemaProperties(filePath, doc) {
   }
 }
 
+// ─── Rule 32: DB-backed property names must match db tags exactly ────────────
+
+function validateDbBackedPropertyNames(filePath, doc) {
+  if (!doc || typeof doc !== "object") return;
+
+  if (doc.properties) {
+    validateDbBackedPropertyTree(filePath, "(root)", doc);
+  }
+
+  if (!doc?.components?.schemas) return;
+
+  for (const [schemaName, schemaDef] of Object.entries(doc.components.schemas)) {
+    validateDbBackedPropertyTree(filePath, schemaName, schemaDef);
+  }
+}
+
+function validateDbBackedPropertyTree(filePath, scope, schema) {
+  if (!schema || typeof schema !== "object") return;
+
+  if (schema.properties && typeof schema.properties === "object") {
+    for (const [propName, propDef] of Object.entries(schema.properties)) {
+      if (!propDef || typeof propDef !== "object") continue;
+
+      const dbValue = getDbTagValue(propDef);
+      const jsonValue = getJsonTagValue(propDef);
+      if (dbValue && DB_TAG_PATTERN.test(dbValue) && hasUnderscore(dbValue) && propName !== dbValue) {
+        warn(
+          filePath,
+          `Schema "${scope}" — property "${propName}" maps to database column "${dbValue}". ` +
+            `DB-backed property names are stable wire-format fields and must use the exact snake_case db name. ` +
+            `Rename the schema property to "${dbValue}" or introduce a new API version for a full casing migration.`,
+        );
+      }
+
+      if (dbValue && DB_TAG_PATTERN.test(dbValue) && hasUnderscore(dbValue) && jsonValue && jsonValue !== "-" && jsonValue !== dbValue) {
+        warn(
+          filePath,
+          `Schema "${scope}" — property "${propName}" has json tag "${jsonValue}" but db tag "${dbValue}". ` +
+            `DB-backed property names and JSON tags must both use the exact snake_case db name in this API version.`,
+        );
+      }
+
+      validateDbBackedPropertyTree(filePath, `${scope}.${propName}`, propDef);
+    }
+  }
+
+  for (const combiner of ["allOf", "oneOf", "anyOf"]) {
+    if (Array.isArray(schema[combiner])) {
+      schema[combiner].forEach((subSchema, index) => {
+        validateDbBackedPropertyTree(filePath, `${scope}.${combiner}[${index}]`, subSchema);
+      });
+    }
+  }
+
+  if (schema.items) {
+    validateDbBackedPropertyTree(filePath, `${scope}.items`, schema.items);
+  }
+}
+
+// ─── Rule 33: pagination envelopes use page_size / total_count ───────────────
+
+function validatePaginationEnvelopeFieldNames(filePath, doc) {
+  if (!doc?.components?.schemas) return;
+
+  for (const [schemaName, schemaDef] of Object.entries(doc.components.schemas)) {
+    validatePaginationEnvelopeTree(filePath, schemaName, schemaDef);
+  }
+}
+
+function validatePaginationEnvelopeTree(filePath, scope, schema) {
+  if (!schema || typeof schema !== "object") return;
+
+  if (schema.properties && typeof schema.properties === "object") {
+    const propertyNames = new Set(Object.keys(schema.properties));
+    const looksPaginated =
+      propertyNames.has("page") ||
+      propertyNames.has("pageSize") ||
+      propertyNames.has("page_size") ||
+      propertyNames.has("totalCount") ||
+      propertyNames.has("total_count");
+
+    if (looksPaginated) {
+      if (propertyNames.has("pageSize")) {
+        warn(
+          filePath,
+          `Schema "${scope}" — pagination envelopes must use "page_size", not "pageSize". ` +
+            `These response fields are part of the published API contract.`,
+        );
+      }
+      if (propertyNames.has("totalCount")) {
+        warn(
+          filePath,
+          `Schema "${scope}" — pagination envelopes must use "total_count", not "totalCount". ` +
+            `These response fields are part of the published API contract.`,
+        );
+      }
+    }
+
+    for (const [propName, propDef] of Object.entries(schema.properties)) {
+      validatePaginationEnvelopeTree(filePath, `${scope}.${propName}`, propDef);
+    }
+  }
+
+  for (const combiner of ["allOf", "oneOf", "anyOf"]) {
+    if (Array.isArray(schema[combiner])) {
+      schema[combiner].forEach((subSchema, index) => {
+        validatePaginationEnvelopeTree(filePath, `${scope}.${combiner}[${index}]`, subSchema);
+      });
+    }
+  }
+
+  if (schema.items) {
+    validatePaginationEnvelopeTree(filePath, `${scope}.items`, schema.items);
+  }
+}
+
 // ─── Rule 7: components/schemas names must be PascalCase ──────────────────────
 
 function validateSchemaComponentNames(filePath, doc) {
@@ -521,51 +779,19 @@ function validateSchemaComponentNames(filePath, doc) {
   }
 }
 
-// ─── Rule 8: enum values must be lowercase ────────────────────────────────────
+// ─── Rule 8: newly introduced enum values must be lowercase ──────────────────
 
 function validateEnumValues(filePath, doc) {
   if (!doc?.components?.schemas) return;
+  const findings = findNewNonLowercaseEnumValues(doc, loadBaselineYamlDoc(filePath));
 
-  function checkEnums(schemaName, schema, propPath) {
-    if (!schema || typeof schema !== "object") return;
-
-    if (Array.isArray(schema.enum)) {
-      for (const val of schema.enum) {
-        if (typeof val === "string" && !isLowercase(val)) {
-          reportStyleIssue(
-            filePath,
-            `${propPath} — enum value "${val}" must be lowercase. ` +
-              `Use "${val.toLowerCase()}" instead. ` +
-              `See AGENTS.md § "Casing rules at a glance".`,
-          );
-        }
-      }
-    }
-
-    // Recurse into properties
-    if (schema.properties) {
-      for (const [propName, propDef] of Object.entries(schema.properties)) {
-        checkEnums(schemaName, propDef, `${propPath}.${propName}`);
-      }
-    }
-
-    // Recurse into combiners
-    for (const combiner of ["allOf", "oneOf", "anyOf"]) {
-      if (Array.isArray(schema[combiner])) {
-        for (let i = 0; i < schema[combiner].length; i++) {
-          checkEnums(schemaName, schema[combiner][i], `${propPath}.${combiner}[${i}]`);
-        }
-      }
-    }
-
-    // Recurse into items (arrays)
-    if (schema.items) {
-      checkEnums(schemaName, schema.items, `${propPath}.items`);
-    }
-  }
-
-  for (const [schemaName, schemaDef] of Object.entries(doc.components.schemas)) {
-    checkEnums(schemaName, schemaDef, `Schema "${schemaName}"`);
+  for (const finding of findings) {
+    reportStyleIssue(
+      filePath,
+      `${finding.path} — new enum value "${finding.value}" must be lowercase. ` +
+        `Existing published enum values are exempt for compatibility; use "${finding.suggestedValue}" for new additions. ` +
+        `See AGENTS.md § "Casing rules at a glance".`,
+    );
   }
 }
 
@@ -759,17 +985,28 @@ function validateXInternal(filePath, doc) {
 // ─── Rules 15-16: cross-construct $ref must have x-go-type + matching alias ──
 
 /**
+ * Shared base schemas that are bundled into each construct's OpenAPI spec
+ * by the build pipeline. Refs to these are resolved inline by oapi-codegen
+ * and do NOT require x-go-type / x-go-type-import annotations.
+ */
+const BUNDLED_BASE_SCHEMAS = new Set(["core", "capability", "selector"]);
+
+/**
  * Checks whether a $ref points to a different construct (sibling package),
- * as opposed to the same api.yml or to v1alpha1/core.
+ * as opposed to the same api.yml or to a shared base schema.
  */
 function isCrossConstructRef(ref) {
   if (!ref || typeof ref !== "string") return false;
   // Local refs within same file
   if (ref.startsWith("#/")) return false;
-  // Refs to core schemas (v1alpha1/core) are handled by the generator automatically
+  // Legacy refs to v1alpha1/core (backward compat — still present in alpha dirs)
   if (ref.includes("v1alpha1/core/")) return false;
+  // Refs to bundled base schemas (core, capability, selector) are resolved
+  // inline by the generator and don't need Go type annotations.
+  const siblingMatch = ref.match(/\.\.\/([a-z_-]+)\/api\.yml/);
+  if (siblingMatch && BUNDLED_BASE_SCHEMAS.has(siblingMatch[1])) return false;
   // Refs to sibling constructs: "../<construct>/api.yml#/..."
-  if (/\.\.\/[a-z]+\/api\.yml#\/components\/schemas\//.test(ref)) return true;
+  if (/\.\.\/[a-z_-]+\/api\.yml#\/components\/schemas\//.test(ref)) return true;
   return false;
 }
 
@@ -1119,9 +1356,14 @@ function validateErrorResponses(filePath, doc) {
       const responses = op.responses ?? {};
       const responseCodes = new Set(Object.keys(responses));
       const opLabel = `${method.toUpperCase()} ${routePath}`;
+      const operationSecurity = op.security;
+      const rootSecurity = doc.security;
+      const isExplicitlyPublic =
+        (Array.isArray(operationSecurity) && operationSecurity.length === 0) ||
+        (operationSecurity === undefined && Array.isArray(rootSecurity) && rootSecurity.length === 0);
 
       // All operations need 401 and 500
-      if (!responseCodes.has("401")) {
+      if (!isExplicitlyPublic && !responseCodes.has("401")) {
         reportDesignAdvisory(
           filePath,
           `${opLabel} — missing \`401\` (Unauthorized) response. ` +
@@ -1263,9 +1505,29 @@ function validatePaginationParams(filePath, doc) {
   if (!doc?.paths) return;
   const components = doc.components ?? {};
 
+  function hasArrayProperty(schemaLike) {
+    if (!schemaLike?.properties) return false;
+
+    return Object.values(schemaLike.properties).some((property) => {
+      if (!property || typeof property !== "object") return false;
+      if (property.type === "array") return true;
+      if (property.$ref) return false;
+      return false;
+    });
+  }
+
   for (const [routePath, pathItem] of Object.entries(doc.paths)) {
     const op = pathItem["get"];
     if (!op) continue;
+    if (op.operationId && !/^(get|list|search|find)/i.test(op.operationId)) {
+      continue;
+    }
+    if (/\/\{[^/]+\}$/.test(routePath) && op.operationId) {
+      const isSingularRead = /ById$/i.test(op.operationId) || /^get[A-Z][a-zA-Z0-9]*$/.test(op.operationId);
+      if (isSingularRead) {
+        continue;
+      }
+    }
 
     // Check if this is a list endpoint (returns array or page wrapper)
     const response200 = op.responses?.["200"];
@@ -1292,6 +1554,9 @@ function validatePaginationParams(filePath, doc) {
           if (resolved.properties.page !== undefined ||
               resolved.properties.total_count !== undefined ||
               resolved.properties.page_size !== undefined) {
+            if (!hasArrayProperty(resolved)) {
+              continue;
+            }
             isList = true;
             break;
           }
@@ -1303,6 +1568,9 @@ function validatePaginationParams(filePath, doc) {
         if (schema.properties.page !== undefined ||
             schema.properties.total_count !== undefined ||
             schema.properties.page_size !== undefined) {
+          if (!hasArrayProperty(schema)) {
+            continue;
+          }
           isList = true;
           break;
         }
@@ -1427,8 +1695,8 @@ function checkExtraTagsInProps(filePath, schemaName, properties) {
 
     // Check db: tag uses snake_case
     if (extraTags.db !== undefined) {
-      const dbVal = String(extraTags.db).replace(/,.*$/, ""); // strip options like ,omitempty
-      if (!/^(?:-|[a-z][a-z0-9]*(?:_[a-z0-9]+)*)$/.test(dbVal)) {
+      const dbVal = getTagBaseValue(extraTags.db);
+      if (!DB_TAG_PATTERN.test(dbVal)) {
         warn(
           filePath,
           `Schema "${schemaName}" — property "${propName}" has \`db: "${extraTags.db}"\` ` +
@@ -1440,7 +1708,7 @@ function checkExtraTagsInProps(filePath, schemaName, properties) {
 
     // Check json: tag matches property name
     if (extraTags.json !== undefined) {
-      const jsonVal = String(extraTags.json).replace(/,.*$/, ""); // strip ,omitempty
+      const jsonVal = getTagBaseValue(extraTags.json);
       if (jsonVal !== propName && jsonVal !== "-") {
         warn(
           filePath,
@@ -1476,19 +1744,14 @@ function validateResponseCodeSemantics(filePath, doc) {
   for (const [routePath, pathItem] of Object.entries(doc.paths)) {
     // POST create → 201
     const postOp = pathItem["post"];
-    if (postOp?.operationId && postOp.responses) {
-      const opId = postOp.operationId.toLowerCase();
-      const isCreate = opId.startsWith("create") || opId.startsWith("add") || opId.startsWith("register");
-      // Exclude bulk-delete sub-resources and action paths
-      const isBulkDelete = routePath.endsWith("/delete");
-      const isAction = routePath.match(/\/(accept|reject|approve|deny|revoke|verify|start|stop)$/);
-
-      if (isCreate && !isBulkDelete && !isAction) {
+    if (postOp) {
+      const { isCreate, detector } = detectPostCreate(postOp, routePath);
+      if (isCreate) {
         const codes = new Set(Object.keys(postOp.responses));
         if (codes.has("200") && !codes.has("201")) {
-          reportDesignAdvisory(
+          reportContractAdvisory(
             filePath,
-            `POST ${routePath} — operationId "${postOp.operationId}" appears to create a resource ` +
+            `POST ${routePath} — ${detector} appears to create a resource ` +
               `but uses 200 instead of 201 (Created). ` +
               `Use 201 for POST endpoints that exclusively create new resources.`,
           );
@@ -1498,17 +1761,14 @@ function validateResponseCodeSemantics(filePath, doc) {
 
     // DELETE single-resource → 204
     const deleteOp = pathItem["delete"];
-    if (deleteOp?.responses) {
-      const hasSingleResourceParam = routePath.match(/\{[^}]+\}$/);
-      if (hasSingleResourceParam) {
-        const codes = new Set(Object.keys(deleteOp.responses));
-        if (codes.has("200") && !codes.has("204")) {
-          reportDesignAdvisory(
-            filePath,
-            `DELETE ${routePath} — single-resource DELETE should return 204 (No Content) ` +
-              `instead of 200. Use 204 when the response body is empty after deletion.`,
-          );
-        }
+    if (deleteOp?.responses && isSingleResourceDelete(routePath)) {
+      const codes = new Set(Object.keys(deleteOp.responses));
+      if (codes.has("200") && !codes.has("204")) {
+        reportContractAdvisory(
+          filePath,
+          `DELETE ${routePath} — single-resource DELETE should return 204 (No Content) ` +
+            `instead of 200. Use 204 when the response body is empty after deletion.`,
+        );
       }
     }
   }
@@ -1533,6 +1793,20 @@ function fingerprint(schema) {
   const propTypes = propKeys.map((k) => {
     const p = schema.properties[k];
     if (p?.$ref) return `$ref:${p.$ref.split("/").pop()}`;
+    if (p?.type === "array") {
+      if (p.items?.$ref) {
+        return `${k}:array:$ref:${p.items.$ref.split("/").pop()}`;
+      }
+      return `${k}:array:${p.items?.type || "unknown"}`;
+    }
+    if (p?.type === "object" && p.additionalProperties) {
+      if (p.additionalProperties?.$ref) {
+        return `${k}:object:$ref:${p.additionalProperties.$ref.split("/").pop()}`;
+      }
+      if (p.additionalProperties?.type) {
+        return `${k}:object:${p.additionalProperties.type}`;
+      }
+    }
     return `${k}:${p?.type || "unknown"}`;
   });
   return propTypes.join("|");
@@ -1565,7 +1839,7 @@ function reportDuplicateSchemas() {
 
     const locations = entries.map((e) => `${e.schemaName} (${e.file})`).join(", ");
     // Use first entry's file for the warning
-    reportDesignAdvisory(
+    reportContractAdvisory(
       path.join(ROOT, entries[0].file),
       `Duplicate schema structure detected across constructs: ${locations}. ` +
         `Consider using a cross-construct \`$ref\` to a single canonical definition ` +
@@ -1602,6 +1876,59 @@ function validateResponseSchemaRefs(filePath, doc) {
                 `${method.toUpperCase()} ${routePath} — response ${statusCode} returns an array ` +
                   `with inline item schema (${Object.keys(schema.items.properties).length} properties). ` +
                   `Extract item type to \`components/schemas\` for reuse in TypeScript types and Go structs.`,
+              );
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// ─── Rule 31: forbid "successfully" in response text ───────────────────────
+
+function containsForbiddenSuccessfully(value) {
+  return typeof value === "string" && /\bsuccessfully\b/i.test(value);
+}
+
+function validateResponseText(filePath, doc) {
+  if (!doc?.paths) return;
+
+  for (const [routePath, pathItem] of Object.entries(doc.paths)) {
+    for (const method of HTTP_METHODS) {
+      const op = pathItem[method];
+      if (!op?.responses) continue;
+
+      for (const [statusCode, response] of Object.entries(op.responses)) {
+        if (containsForbiddenSuccessfully(response?.description)) {
+          reportDesignAdvisory(
+            filePath,
+            `${method.toUpperCase()} ${routePath} — response ${statusCode} description contains the word ` +
+              `"successfully". Use neutral wording such as "deleted", "updated", or "response" instead.`,
+          );
+        }
+
+        const contentMap = response?.content;
+        if (!contentMap) continue;
+
+        for (const [mediaType, mediaObj] of Object.entries(contentMap)) {
+          if (containsForbiddenSuccessfully(mediaObj?.example)) {
+            reportDesignAdvisory(
+              filePath,
+              `${method.toUpperCase()} ${routePath} — response ${statusCode} ${mediaType} example contains the word ` +
+                `"successfully". Avoid that term in response message text.`,
+            );
+          }
+
+          const examples = mediaObj?.examples;
+          if (!examples || typeof examples !== "object") continue;
+
+          for (const [exampleName, exampleDef] of Object.entries(examples)) {
+            if (containsForbiddenSuccessfully(exampleDef?.value)) {
+              reportDesignAdvisory(
+                filePath,
+                `${method.toUpperCase()} ${routePath} — response ${statusCode} ${mediaType} example ` +
+                  `"${exampleName}" contains the word "successfully". Avoid that term in response message text.`,
               );
             }
           }
@@ -1688,15 +2015,18 @@ function walk(dir) {
           validateCoreMapAnnotation(apiYml, doc);
           validateNoUnnecessaryAllOf(apiYml, doc);
           validateGetResponseSchemas(apiYml, doc);
-          // New rules 23-30
+          // New rules 23-31
           validateErrorResponses(apiYml, doc);
           validateSecurityScheme(apiYml, doc);
           validatePaginationParams(apiYml, doc);
           validateInlineSchemaExtraction(apiYml, doc);
           validateExtraTagsConsistency(apiYml, doc);
+          validateDbBackedPropertyNames(apiYml, doc);
+          validatePaginationEnvelopeFieldNames(apiYml, doc);
           validateResponseCodeSemantics(apiYml, doc);
           collectSchemaFingerprints(apiYml, doc);
           validateResponseSchemaRefs(apiYml, doc);
+          validateResponseText(apiYml, doc);
         }
       }
     }
@@ -1741,6 +2071,12 @@ if (blockingViolations.length === 0) {
     console.error(`\nvalidate-schemas: ${advisoryViolations.length} advisory issue(s) found:\n`);
     for (const { file, message } of advisoryViolations) {
       console.error(`  ${file}\n    → ${message}\n`);
+    }
+  } else if (warnOnly) {
+    if (noAdvisoryBaseline) {
+      console.log("✓ validate-schemas: no advisory issues found.");
+    } else {
+      console.log("✓ validate-schemas: no unbaselined advisory issues found.");
     }
   } else {
     console.log("✓ validate-schemas: no blocking violations found.");

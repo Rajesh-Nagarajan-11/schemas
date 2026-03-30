@@ -44,7 +44,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/workspacePage"
+                $ref: "#/components/schemas/WorkspacePage"
         "401":
           $ref: "#/components/responses/401"
         "500":
@@ -64,9 +64,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/workspace"
+                $ref: "#/components/schemas/Workspace"
         "400":
           $ref: "#/components/responses/400"
+        "401":
+          $ref: "#/components/responses/401"
         "500":
           $ref: "#/components/responses/500"
 
@@ -86,7 +88,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/workspace"
+                $ref: "#/components/schemas/Workspace"
         "400":
           $ref: "#/components/responses/400"
         "401":
@@ -112,11 +114,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/workspace"
+                $ref: "#/components/schemas/Workspace"
         "400":
           $ref: "#/components/responses/400"
         "401":
           $ref: "#/components/responses/401"
+        "404":
+          $ref: "#/components/responses/404"
         "500":
           $ref: "#/components/responses/500"
     delete:
@@ -129,12 +133,8 @@ paths:
       parameters:
         - $ref: "#/components/parameters/workspaceId"
       responses:
-        "200":
-          description: Workspace
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/workspace"
+        "204":
+          description: Workspace deleted
         "400":
           $ref: "#/components/responses/400"
         "401":
@@ -165,7 +165,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "../../v1beta1/team/api.yml#/components/schemas/teamPage"
+                $ref: "../../v1beta1/team/api.yml#/components/schemas/TeamPage"
         "400":
           $ref: "#/components/responses/400"
         "401":
@@ -192,11 +192,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/workspacesTeamsMappingPage"
+                $ref: "#/components/schemas/WorkspacesTeamsMappingPage"
         "400":
           $ref: "#/components/responses/400"
         "401":
           $ref: "#/components/responses/401"
+        "404":
+          $ref: "#/components/responses/404"
         "500":
           $ref: "#/components/responses/500"
     delete:
@@ -210,12 +212,8 @@ paths:
         - $ref: "#/components/parameters/workspaceId"
         - $ref: "#/components/parameters/teamId"
       responses:
-        "200":
-          description: Workspace team mappings
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/workspacesTeamsMappingPage"
+        "204":
+          description: Workspace team mapping removed
         "400":
           $ref: "#/components/responses/400"
         "401":
@@ -246,7 +244,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "../../v1beta1/environment/api.yml#/components/schemas/environmentPage"
+                $ref: "../../v1beta1/environment/api.yml#/components/schemas/EnvironmentPage"
         "400":
           $ref: "#/components/responses/400"
         "401":
@@ -273,11 +271,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/workspacesEnvironmentsMappingPage"
+                $ref: "#/components/schemas/WorkspacesEnvironmentsMappingPage"
         "400":
           $ref: "#/components/responses/400"
         "401":
           $ref: "#/components/responses/401"
+        "404":
+          $ref: "#/components/responses/404"
         "500":
           $ref: "#/components/responses/500"
     delete:
@@ -291,12 +291,8 @@ paths:
         - $ref: "#/components/parameters/workspaceId"
         - $ref: "#/components/parameters/environmentId"
       responses:
-        "200":
-          description: Workspace environment mappings
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/workspacesEnvironmentsMappingPage"
+        "204":
+          description: Workspace environment mapping removed
         "400":
           $ref: "#/components/responses/400"
         "401":
@@ -328,7 +324,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/mesheryDesignPage"
+                $ref: "#/components/schemas/MesheryDesignPage"
         "400":
           $ref: "#/components/responses/400"
         "401":
@@ -356,11 +352,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/workspacesDesignsMappingPage"
+                $ref: "#/components/schemas/WorkspacesDesignsMappingPage"
         "400":
           $ref: "#/components/responses/400"
         "401":
           $ref: "#/components/responses/401"
+        "404":
+          $ref: "#/components/responses/404"
         "500":
           $ref: "#/components/responses/500"
     delete:
@@ -375,12 +373,8 @@ paths:
         - $ref: "#/components/parameters/workspaceId"
         - $ref: "#/components/parameters/designId"
       responses:
-        "200":
-          description: Workspace design mappings
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/workspacesDesignsMappingPage"
+        "204":
+          description: Workspace design mapping removed
         "400":
           $ref: "#/components/responses/400"
         "401":
@@ -412,7 +406,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/mesheryViewPage"
+                $ref: "#/components/schemas/MesheryViewPage"
         "400":
           $ref: "#/components/responses/400"
         "401":
@@ -440,11 +434,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/workspacesViewsMappingPage"
+                $ref: "#/components/schemas/WorkspacesViewsMappingPage"
         "400":
           $ref: "#/components/responses/400"
         "401":
           $ref: "#/components/responses/401"
+        "404":
+          $ref: "#/components/responses/404"
         "500":
           $ref: "#/components/responses/500"
     delete:
@@ -459,12 +455,8 @@ paths:
         - $ref: "#/components/parameters/workspaceId"
         - $ref: "#/components/parameters/viewId"
       responses:
-        "200":
-          description: Workspace view mappings
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/workspacesViewsMappingPage"
+        "204":
+          description: Workspace view mapping removed
         "400":
           $ref: "#/components/responses/400"
         "401":
@@ -477,15 +469,15 @@ paths:
 components:
   responses:
     200:
-      $ref: "../../v1alpha1/core/api.yml#/components/responses/200"
+      $ref: "../core/api.yml#/components/responses/200"
     400:
-      $ref: "../../v1alpha1/core/api.yml#/components/responses/400"
+      $ref: "../core/api.yml#/components/responses/400"
     401:
-      $ref: "../../v1alpha1/core/api.yml#/components/responses/401"
+      $ref: "../core/api.yml#/components/responses/401"
     404:
-      $ref: "../../v1alpha1/core/api.yml#/components/responses/404"
+      $ref: "../core/api.yml#/components/responses/404"
     500:
-      $ref: "../../v1alpha1/core/api.yml#/components/responses/500"
+      $ref: "../core/api.yml#/components/responses/500"
 
   parameters:
     workspaceId:
@@ -493,44 +485,44 @@ components:
       in: path
       description: Workspace ID
       schema:
-        $ref: "../../v1alpha1/core/api.yml#/components/schemas/workspace_id"
+        $ref: "../core/api.yml#/components/schemas/workspace_id"
       required: true
     teamId:
       name: teamId
       in: path
       description: Team ID
       schema:
-        $ref: "../../v1alpha1/core/api.yml#/components/schemas/team_id"
+        $ref: "../core/api.yml#/components/schemas/team_id"
       required: true
     environmentId:
       name: environmentId
       in: path
       description: Environment ID
       schema:
-        $ref: "../../v1alpha1/core/api.yml#/components/schemas/environment_id"
+        $ref: "../core/api.yml#/components/schemas/environment_id"
       required: true
     designId:
       name: designId
       in: path
       description: Design ID
       schema:
-        $ref: "../../v1alpha1/core/api.yml#/components/schemas/design_id"
+        $ref: "../core/api.yml#/components/schemas/design_id"
       required: true
     viewId:
       name: viewId
       in: path
       description: View ID
       schema:
-        $ref: "../../v1alpha1/core/api.yml#/components/schemas/view_id"
+        $ref: "../core/api.yml#/components/schemas/view_id"
       required: true
     search:
-      $ref: "../../v1alpha1/core/api.yml#/components/parameters/search"
+      $ref: "../core/api.yml#/components/parameters/search"
     order:
-      $ref: "../../v1alpha1/core/api.yml#/components/parameters/order"
+      $ref: "../core/api.yml#/components/parameters/order"
     page:
-      $ref: "../../v1alpha1/core/api.yml#/components/parameters/page"
+      $ref: "../core/api.yml#/components/parameters/page"
     pagesize:
-      $ref: "../../v1alpha1/core/api.yml#/components/parameters/pagesize"
+      $ref: "../core/api.yml#/components/parameters/pagesize"
     filter:
       name: filter
       in: query
@@ -545,271 +537,268 @@ components:
       bearerFormat: JWT
 
   schemas:
-    workspace:
+    Workspace:
       type: object
       properties:
-        ID:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/general_id"
+        id:
+          $ref: "../core/api.yml#/components/schemas/general_id"
         name:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/Text"
+          $ref: "../core/api.yml#/components/schemas/Text"
         description:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/Text"
+          $ref: "../core/api.yml#/components/schemas/Text"
         organization_id:
           x-go-name: OrganizationID
           x-go-type-skip-optional-pointer: true
           x-oapi-codegen-extra-tags:
             db: organization_id
-            yaml: organization_id
             json: organization_id
-          $ref: ../../v1alpha1/core/api.yml#/components/schemas/uuid
+          $ref: ../core/api.yml#/components/schemas/uuid
           description: Workspace organization ID
         owner:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/Text"
+          $ref: "../core/api.yml#/components/schemas/Text"
         metadata:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/MapObject"
+          $ref: "../core/api.yml#/components/schemas/MapObject"
         created_at:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/created_at"
+          $ref: "../core/api.yml#/components/schemas/created_at"
         updated_at:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/updated_at"
+          $ref: "../core/api.yml#/components/schemas/updated_at"
         deleted_at:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/deleted_at"
+          $ref: "../core/api.yml#/components/schemas/deleted_at"
 
-    workspacesTeamsMapping:
+    WorkspacesTeamsMapping:
       type: object
       properties:
-        ID:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/general_id"
+        id:
+          $ref: "../core/api.yml#/components/schemas/general_id"
         team_id:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/team_id"
+          $ref: "../core/api.yml#/components/schemas/team_id"
         workspace_id:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/workspace_id"
+          $ref: "../core/api.yml#/components/schemas/workspace_id"
         created_at:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/created_at"
+          $ref: "../core/api.yml#/components/schemas/created_at"
         updated_at:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/updated_at"
+          $ref: "../core/api.yml#/components/schemas/updated_at"
         deleted_at:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/deleted_at"
+          $ref: "../core/api.yml#/components/schemas/deleted_at"
 
-    workspacesEnvironmentsMapping:
+    WorkspacesEnvironmentsMapping:
       type: object
       properties:
-        ID:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/general_id"
+        id:
+          $ref: "../core/api.yml#/components/schemas/general_id"
         environment_id:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/environment_id"
+          $ref: "../core/api.yml#/components/schemas/environment_id"
         workspace_id:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/workspace_id"
+          $ref: "../core/api.yml#/components/schemas/workspace_id"
         created_at:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/created_at"
+          $ref: "../core/api.yml#/components/schemas/created_at"
         updated_at:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/updated_at"
+          $ref: "../core/api.yml#/components/schemas/updated_at"
         deleted_at:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/deleted_at"
+          $ref: "../core/api.yml#/components/schemas/deleted_at"
 
-    workspacesViewsMapping:
+    WorkspacesViewsMapping:
       type: object
       properties:
-        ID:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/general_id"
+        id:
+          $ref: "../core/api.yml#/components/schemas/general_id"
         view_id:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/view_id"
+          $ref: "../core/api.yml#/components/schemas/view_id"
         workspace_id:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/workspace_id"
+          $ref: "../core/api.yml#/components/schemas/workspace_id"
         created_at:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/created_at"
+          $ref: "../core/api.yml#/components/schemas/created_at"
         updated_at:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/updated_at"
+          $ref: "../core/api.yml#/components/schemas/updated_at"
         deleted_at:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/deleted_at"
+          $ref: "../core/api.yml#/components/schemas/deleted_at"
 
-    workspacesDesignsMapping:
+    WorkspacesDesignsMapping:
       type: object
       properties:
-        ID:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/general_id"
+        id:
+          $ref: "../core/api.yml#/components/schemas/general_id"
         design_id:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/design_id"
+          $ref: "../core/api.yml#/components/schemas/design_id"
         workspace_id:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/workspace_id"
+          $ref: "../core/api.yml#/components/schemas/workspace_id"
         created_at:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/created_at"
+          $ref: "../core/api.yml#/components/schemas/created_at"
         updated_at:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/updated_at"
+          $ref: "../core/api.yml#/components/schemas/updated_at"
         deleted_at:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/deleted_at"
-    workspacePayload:
+          $ref: "../core/api.yml#/components/schemas/deleted_at"
+    WorkspacePayload:
       type: object
       required:
         - name
         - organization_id
       properties:
         name:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/Text"
+          $ref: "../core/api.yml#/components/schemas/Text"
           description: Name of the workspace.
         description:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/Text"
+          $ref: "../core/api.yml#/components/schemas/Text"
           description: Description of the workspace.
         organization_id:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/uuid"
+          $ref: "../core/api.yml#/components/schemas/uuid"
           description: Organization ID.
           x-go-type-skip-optional-pointer: true
           x-go-name: OrganizationID
           x-oapi-codegen-extra-tags:
             json: organization_id
-            yaml: organization_id
 
-    workspaceUpdatePayload:
+    WorkspaceUpdatePayload:
       type: object
       required:
         - organization_id
       properties:
         name:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/Text"
+          $ref: "../core/api.yml#/components/schemas/Text"
           description: Name of the workspace.
         description:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/Text"
+          $ref: "../core/api.yml#/components/schemas/Text"
           description: Description of the workspace.
         organization_id:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/uuid"
+          $ref: "../core/api.yml#/components/schemas/uuid"
           description: Organization ID.
           x-go-type-skip-optional-pointer: true
           x-go-name: OrganizationID
           x-oapi-codegen-extra-tags:
             json: organization_id
-            yaml: organization_id
 
-    workspacePage:
+    WorkspacePage:
       type: object
       properties:
         page:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/number"
+          $ref: "../core/api.yml#/components/schemas/number"
         page_size:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/number"
+          $ref: "../core/api.yml#/components/schemas/number"
         total_count:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/number"
+          $ref: "../core/api.yml#/components/schemas/number"
         workspaces:
           type: array
           x-go-type-skip-optional-pointer: true
           items:
             x-go-type: Workspace
-            $ref: "#/components/schemas/workspace"
+            $ref: "#/components/schemas/Workspace"
 
-    workspacesTeamsMappingPage:
+    WorkspacesTeamsMappingPage:
       type: object
       properties:
         page:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/number"
+          $ref: "../core/api.yml#/components/schemas/number"
         page_size:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/number"
+          $ref: "../core/api.yml#/components/schemas/number"
         total_count:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/number"
-        workspaces_teams_mapping:
+          $ref: "../core/api.yml#/components/schemas/number"
+        workspacesTeamsMapping:
           type: array
           x-go-type-skip-optional-pointer: true
           items:
             x-go-type: WorkspacesTeamsMapping
-            $ref: "#/components/schemas/workspacesTeamsMapping"
+            $ref: "#/components/schemas/WorkspacesTeamsMapping"
 
-    workspacesEnvironmentsMappingPage:
+    WorkspacesEnvironmentsMappingPage:
       type: object
       properties:
         page:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/number"
+          $ref: "../core/api.yml#/components/schemas/number"
         page_size:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/number"
+          $ref: "../core/api.yml#/components/schemas/number"
         total_count:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/number"
-        workspaces_environments_mapping:
+          $ref: "../core/api.yml#/components/schemas/number"
+        workspacesEnvironmentsMapping:
           type: array
           x-go-type-skip-optional-pointer: true
           items:
             x-go-type: WorkspacesEnvironmentsMapping
-            $ref: "#/components/schemas/workspacesEnvironmentsMapping"
+            $ref: "#/components/schemas/WorkspacesEnvironmentsMapping"
 
-    workspacesDesignsMappingPage:
+    WorkspacesDesignsMappingPage:
       type: object
       properties:
         page:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/number"
+          $ref: "../core/api.yml#/components/schemas/number"
         page_size:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/number"
+          $ref: "../core/api.yml#/components/schemas/number"
         total_count:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/number"
-        workspaces_designs_mapping:
+          $ref: "../core/api.yml#/components/schemas/number"
+        workspacesDesignsMapping:
           type: array
           x-go-type-skip-optional-pointer: true
           items:
             x-go-type: WorkspacesDesignsMapping
-            $ref: "#/components/schemas/workspacesDesignsMapping"
+            $ref: "#/components/schemas/WorkspacesDesignsMapping"
 
-    workspacesViewsMappingPage:
+    WorkspacesViewsMappingPage:
       type: object
       properties:
         page:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/number"
+          $ref: "../core/api.yml#/components/schemas/number"
         page_size:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/number"
+          $ref: "../core/api.yml#/components/schemas/number"
         total_count:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/number"
-        workspaces_views_mapping:
+          $ref: "../core/api.yml#/components/schemas/number"
+        workspacesViewsMapping:
           type: array
           x-go-type-skip-optional-pointer: true
           items:
             x-go-type: WorkspacesViewsMapping
-            $ref: "#/components/schemas/workspacesViewsMapping"
+            $ref: "#/components/schemas/WorkspacesViewsMapping"
 
-    mesheryDesignPage:
+    MesheryDesignPage:
       type: object
       properties:
         page:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/number"
+          $ref: "../core/api.yml#/components/schemas/number"
         page_size:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/number"
+          $ref: "../core/api.yml#/components/schemas/number"
         total_count:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/number"
+          $ref: "../core/api.yml#/components/schemas/number"
         designs:
           type: array
           x-go-type-skip-optional-pointer: true
           items:
             $ref: "../../v1beta1/design/api.yml#/components/schemas/MesheryPattern"
 
-    mesheryView:
+    MesheryView:
       type: object
       properties:
-        ID:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/general_id"
+        id:
+          $ref: "../core/api.yml#/components/schemas/general_id"
         name:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/Text"
+          $ref: "../core/api.yml#/components/schemas/Text"
         filters:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/MapObject"
+          $ref: "../core/api.yml#/components/schemas/MapObject"
         visibility:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/Text"
+          $ref: "../core/api.yml#/components/schemas/Text"
         metadata:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/MapObject"
+          $ref: "../core/api.yml#/components/schemas/MapObject"
         user_id:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/Text"
+          $ref: "../core/api.yml#/components/schemas/Text"
         created_at:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/created_at"
+          $ref: "../core/api.yml#/components/schemas/created_at"
         updated_at:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/updated_at"
+          $ref: "../core/api.yml#/components/schemas/updated_at"
         deleted_at:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/deleted_at"
+          $ref: "../core/api.yml#/components/schemas/deleted_at"
 
-    mesheryViewPage:
+    MesheryViewPage:
       type: object
       properties:
         page:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/number"
+          $ref: "../core/api.yml#/components/schemas/number"
         page_size:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/number"
+          $ref: "../core/api.yml#/components/schemas/number"
         total_count:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/number"
+          $ref: "../core/api.yml#/components/schemas/number"
         views:
           type: array
           x-go-type-skip-optional-pointer: true
           items:
             x-go-type: MesheryView
-            $ref: "#/components/schemas/mesheryView"
+            $ref: "#/components/schemas/MesheryView"
 
   requestBodies:
     workspacePayload:
@@ -818,11 +807,11 @@ components:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/workspacePayload"
+            $ref: "#/components/schemas/WorkspacePayload"
     workspaceUpdatePayload:
       description: Body for updating a workspace
       required: true
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/workspaceUpdatePayload"
+            $ref: "#/components/schemas/WorkspaceUpdatePayload"

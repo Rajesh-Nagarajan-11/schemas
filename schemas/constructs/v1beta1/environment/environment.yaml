@@ -23,7 +23,7 @@ required:
   - organization_id
 properties:
   id:
-    $ref: ../../v1alpha1/core/api.yml#/components/schemas/uuid
+    $ref: ../core/api.yml#/components/schemas/uuid
     description: ID
     x-order: 1
     x-go-name: ID
@@ -31,7 +31,7 @@ properties:
       db: id
       yaml: id
   schemaVersion:
-    $ref: ../../v1alpha1/core/api.yml#/components/schemas/versionString
+    $ref: ../core/api.yml#/components/schemas/versionString
     description: Specifies the version of the schema to which the environment conforms.
     x-order: 2
     x-oapi-codegen-extra-tags:
@@ -61,17 +61,17 @@ properties:
       db: organization_id
       yaml: organization_id
     x-order: 5
-    $ref: ../../v1alpha1/core/api.yml#/components/schemas/uuid
+    $ref: ../core/api.yml#/components/schemas/uuid
     description: Environment organization ID
   owner:
     x-oapi-codegen-extra-tags:
       db: owner
       yaml: owner
     x-order: 6
-    $ref: ../../v1alpha1/core/api.yml#/components/schemas/uuid
+    $ref: ../core/api.yml#/components/schemas/uuid
     description: Environment owner
   created_at:
-    $ref: ../../v1alpha1/core/api.yml#/components/schemas/created_at
+    $ref: ../core/api.yml#/components/schemas/created_at
     x-order: 7
   metadata:
     description: Additional metadata associated with the environment.
@@ -83,10 +83,10 @@ properties:
     x-go-type-skip-optional-pointer: true
     type: object
   updated_at:
-    $ref: ../../v1alpha1/core/api.yml#/components/schemas/updated_at
+    $ref: ../core/api.yml#/components/schemas/updated_at
     x-order: 9
   deleted_at:
-    $ref: ../../v1alpha1/core/api.yml#/components/schemas/nullTime
+    $ref: ../core/api.yml#/components/schemas/nullTime
     description: Timestamp when the environment was soft deleted. Null while the environment remains active.
     nullable: true
     x-oapi-codegen-extra-tags:

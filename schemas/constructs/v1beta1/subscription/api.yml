@@ -33,6 +33,8 @@ paths:
       description: Returns all subscriptions for the organization
       operationId: getSubscriptions
       summary: Read subscriptions
+      security:
+        - jwt: []
       parameters:
         - $ref: "#/components/parameters/page"
         - $ref: "#/components/parameters/pagesize"
@@ -66,6 +68,8 @@ paths:
     post:
       x-internal: ["cloud"]
       summary: Cancel an existing subscription . The subscription will remain active until the end of the billing period and then it will be canceled.
+      security:
+        - jwt: []
 
       parameters:
         - $ref: "#/components/parameters/subscriptionId"
@@ -76,13 +80,19 @@ paths:
               schema:
                 $ref: "#/components/schemas/SubscriptionPage"
         "400":
-          description: Invalid request
+          $ref: "#/components/responses/400"
+        "401":
+          $ref: "#/components/responses/401"
+        "404":
+          $ref: "#/components/responses/404"
         "500":
-          description: Internal server error
+          $ref: "#/components/responses/500"
   /api/entitlement/subscriptions/create:
     post:
       x-internal: ["cloud"]
       summary: Create a new subscription for an organization
+      security:
+        - jwt: []
       requestBody:
         required: true
         content:
@@ -97,13 +107,17 @@ paths:
               schema:
                 $ref: "#/components/schemas/CreateSubscriptionResponse"
         "400":
-          description: Invalid request
+          $ref: "#/components/responses/400"
+        "401":
+          $ref: "#/components/responses/401"
         "500":
-          description: Internal server error
+          $ref: "#/components/responses/500"
   /api/entitlement/subscriptions/{subscriptionId}/upgrade:
     post:
       x-internal: ["cloud"]
       summary: Upgrade or downgrade an existing subscription by changing one of the plans in the subscription
+      security:
+        - jwt: []
       parameters:
         - $ref: "#/components/parameters/subscriptionId"
       requestBody:
@@ -119,13 +133,19 @@ paths:
               schema:
                 $ref: "#/components/schemas/Subscription"
         "400":
-          description: Invalid request
+          $ref: "#/components/responses/400"
+        "401":
+          $ref: "#/components/responses/401"
+        "404":
+          $ref: "#/components/responses/404"
         "500":
-          description: Internal server error
+          $ref: "#/components/responses/500"
   /api/entitlement/subscriptions/{subscriptionId}/upgradePreview:
     post:
       x-internal: ["cloud"]
       summary: Preview the invoice for upgrading or downgrading an existing subscription by changing one of the plans in the subscription
+      security:
+        - jwt: []
       parameters:
         - $ref: "#/components/parameters/subscriptionId"
       requestBody:
@@ -142,14 +162,19 @@ paths:
               schema:
                 type: object
         "400":
-          description: Invalid request
+          $ref: "#/components/responses/400"
+        "401":
+          $ref: "#/components/responses/401"
+        "404":
+          $ref: "#/components/responses/404"
         "500":
-          description: Internal server error
+          $ref: "#/components/responses/500"
 
   /api/entitlement/subscriptions/webhooks:
     post:
       x-internal: ["cloud"]
       summary: Handle webhook events from payment processors
+      security: []
       requestBody:
         required: true
         content:
@@ -158,20 +183,33 @@ paths:
               $ref: "#/components/schemas/WebhookEvent"
       responses:
         "200":
-          description: Webhook processed successfully
+          description: Webhook processed
         "400":
-          description: Invalid webhook event
+          $ref: "#/components/responses/400"
+        "401":
+          $ref: "#/components/responses/401"
+        "500":
+          $ref: "#/components/responses/500"
 
 components:
   responses:
     400:
-      $ref: "../../v1alpha1/core/api.yml#/components/responses/400"
+      $ref: "../core/api.yml#/components/responses/400"
 
     401:
-      $ref: "../../v1alpha1/core/api.yml#/components/responses/401"
+      $ref: "../core/api.yml#/components/responses/401"
+
+    404:
+      $ref: "../core/api.yml#/components/responses/404"
 
     500:
-      $ref: "../../v1alpha1/core/api.yml#/components/responses/500"
+      $ref: "../core/api.yml#/components/responses/500"
+
+  securitySchemes:
+    jwt:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
 
   parameters:
     subscriptionId:
@@ -183,14 +221,14 @@ components:
         type: string
 
     page:
-      $ref: "../../v1alpha1/core/api.yml#/components/parameters/page"
+      $ref: "../core/api.yml#/components/parameters/page"
     pagesize:
-      $ref: "../../v1alpha1/core/api.yml#/components/parameters/pagesize"
+      $ref: "../core/api.yml#/components/parameters/pagesize"
 
     pagesizeWithAll:
-      $ref: "../../v1alpha1/core/api.yml#/components/parameters/pagesizeWithAll"
+      $ref: "../core/api.yml#/components/parameters/pagesizeWithAll"
     order:
-      $ref: "../../v1alpha1/core/api.yml#/components/parameters/order"
+      $ref: "../core/api.yml#/components/parameters/order"
 
   schemas:
     PaymentProcessor:
@@ -204,39 +242,39 @@ components:
     CreateSubscriptionRequest:
       type: object
       properties:
-        org_id:
+        orgId:
           type: string
           description: Organization ID
-        plan_id:
+        planId:
           type: string
           description: Price ID from the payment processor
-        coupon_id:
+        couponId:
           type: string
           description: Coupon ID to apply
-        user_count:
+        userCount:
           type: integer
           description: Number of users in the organization
         email:
           type: string
           format: email
           description: Email of the customer
-        payment_processor:
+        paymentProcessor:
           $ref: "#/components/schemas/PaymentProcessor"
 
     UpgradeSubscriptionRequest:
       type: object
       properties:
-        old_plan_id:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/uuid"
+        oldPlanId:
+          $ref: "../core/api.yml#/components/schemas/uuid"
           description: Old Plan id that is being changed
-        new_plan_id:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/uuid"
+        newPlanId:
+          $ref: "../core/api.yml#/components/schemas/uuid"
           description: New Plan id that is being changed to
 
     CreateSubscriptionResponse:
       type: object
       properties:
-        subscription_id:
+        subscriptionId:
           type: string
         clientSecret:
           type: string
@@ -244,16 +282,16 @@ components:
     UpdateUsersRequest:
       type: object
       properties:
-        payment_processor:
+        paymentProcessor:
           $ref: "#/components/schemas/PaymentProcessor"
 
     CancelSubscriptionRequest:
       type: object
       properties:
-        subscription_id:
+        subscriptionId:
           type: string
           description: Subscription ID from the payment processor
-        payment_processor:
+        paymentProcessor:
           $ref: "#/components/schemas/PaymentProcessor"
 
     WebhookEvent:
@@ -282,16 +320,16 @@ components:
     Subscription:
       type: object
       properties:
-        ID:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/uuid"
+        id:
+          $ref: "../core/api.yml#/components/schemas/uuid"
           x-oapi-codegen-extra-tags:
             db: "id"
         org_id:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/uuid"
+          $ref: "../core/api.yml#/components/schemas/uuid"
           x-oapi-codegen-extra-tags:
             db: "org_id"
         plan_id:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/uuid"
+          $ref: "../core/api.yml#/components/schemas/uuid"
           x-oapi-codegen-extra-tags:
             db: "plan_id"
         plan:
@@ -303,7 +341,6 @@ components:
           x-oapi-codegen-extra-tags:
             belongs_to: "plans"
             fk_id: "PlanId"
-            yaml: "plan,omitempty"
             json: "plan,omitempty"
 
         quantity:
@@ -312,11 +349,11 @@ components:
           x-oapi-codegen-extra-tags:
             db: "quantity"
         start_date:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/Time"
+          $ref: "../core/api.yml#/components/schemas/Time"
           x-oapi-codegen-extra-tags:
             db: "start_date"
         end_date:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/Time"
+          $ref: "../core/api.yml#/components/schemas/Time"
           x-oapi-codegen-extra-tags:
             db: "end_date"
         status:
@@ -325,15 +362,15 @@ components:
           x-oapi-codegen-extra-tags:
             db: "status"
         created_at:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/Time"
+          $ref: "../core/api.yml#/components/schemas/Time"
           x-oapi-codegen-extra-tags:
             db: "created_at"
         updated_at:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/Time"
+          $ref: "../core/api.yml#/components/schemas/Time"
           x-oapi-codegen-extra-tags:
             db: "updated_at"
         deleted_at:
-          $ref: "../../v1alpha1/core/api.yml#/components/schemas/SqlNullTime"
+          $ref: "../core/api.yml#/components/schemas/SqlNullTime"
           x-oapi-codegen-extra-tags:
             db: "deleted_at"
         billing_id:
@@ -343,7 +380,7 @@ components:
             db: "billing_id"
 
       required:
-        - ID
+        - id
         - org_id
         - plan_id
         - billing_id

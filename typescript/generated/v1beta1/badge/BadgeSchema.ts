@@ -19,6 +19,11 @@ const BadgeSchema: Record<string, unknown> = {
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     }
   },
+  "security": [
+    {
+      "jwt": []
+    }
+  ],
   "tags": [
     {
       "name": "Badge"
@@ -30,7 +35,7 @@ const BadgeSchema: Record<string, unknown> = {
         "x-internal": [
           "cloud"
         ],
-        "operationId": "deleteBadgeByID",
+        "operationId": "deleteBadgeById",
         "tags": [
           "Badge"
         ],
@@ -54,7 +59,37 @@ const BadgeSchema: Record<string, unknown> = {
         ],
         "responses": {
           "204": {
-            "description": "Badge deleted successfully"
+            "description": "Badge deleted"
+          },
+          "401": {
+            "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Result not found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       },
@@ -62,7 +97,7 @@ const BadgeSchema: Record<string, unknown> = {
         "x-internal": [
           "cloud"
         ],
-        "operationId": "getBadgeByID",
+        "operationId": "getBadgeById",
         "tags": [
           "Badge"
         ],
@@ -201,6 +236,36 @@ const BadgeSchema: Record<string, unknown> = {
                       }
                     }
                   }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Result not found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
                 }
               }
             }
@@ -419,6 +484,36 @@ const BadgeSchema: Record<string, unknown> = {
                       }
                     }
                   }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request body or request param",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
                 }
               }
             }
@@ -701,6 +796,16 @@ const BadgeSchema: Record<string, unknown> = {
           }
         }
       },
+      "404": {
+        "description": "Result not found",
+        "content": {
+          "text/plain": {
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
       "500": {
         "description": "Internal server error",
         "content": {
@@ -710,6 +815,13 @@ const BadgeSchema: Record<string, unknown> = {
             }
           }
         }
+      }
+    },
+    "securitySchemes": {
+      "jwt": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     },
     "schemas": {

@@ -40,7 +40,7 @@ export interface components {
      * Format: uuid
      * @description A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.
      */
-    uuid: string;
+    Uuid: string;
     InvitationsPage: {
       /** @description List of invitations */
       data: {
@@ -200,12 +200,30 @@ export interface components {
     };
   };
   responses: {
-    /** Bad Request */
-    400: unknown;
-    /** Unauthorized */
-    401: unknown;
-    /** Internal Server Error */
-    500: unknown;
+    /** Invalid request body or request param */
+    400: {
+      content: {
+        "text/plain": string;
+      };
+    };
+    /** Expired JWT token used or insufficient privilege */
+    401: {
+      content: {
+        "text/plain": string;
+      };
+    };
+    /** Result not found */
+    404: {
+      content: {
+        "text/plain": string;
+      };
+    };
+    /** Internal server error */
+    500: {
+      content: {
+        "text/plain": string;
+      };
+    };
   };
   parameters: {
     /** @description The ID of the organization */
@@ -280,12 +298,30 @@ export interface operations {
           };
         };
       };
-      /** Bad Request */
-      400: unknown;
-      /** Unauthorized */
-      401: unknown;
-      /** Internal Server Error */
-      500: unknown;
+      /** Invalid request body or request param */
+      400: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Expired JWT token used or insufficient privilege */
+      401: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Result not found */
+      404: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Internal server error */
+      500: {
+        content: {
+          "text/plain": string;
+        };
+      };
     };
   };
   updateInvitation: {
@@ -352,12 +388,30 @@ export interface operations {
           };
         };
       };
-      /** Bad Request */
-      400: unknown;
-      /** Unauthorized */
-      401: unknown;
-      /** Internal Server Error */
-      500: unknown;
+      /** Invalid request body or request param */
+      400: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Expired JWT token used or insufficient privilege */
+      401: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Result not found */
+      404: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Internal server error */
+      500: {
+        content: {
+          "text/plain": string;
+        };
+      };
     };
     requestBody: {
       content: {
@@ -407,14 +461,32 @@ export interface operations {
       };
     };
     responses: {
-      /** Invitation deleted successfully */
+      /** Invitation deleted */
       204: never;
-      /** Bad Request */
-      400: unknown;
-      /** Unauthorized */
-      401: unknown;
-      /** Internal Server Error */
-      500: unknown;
+      /** Invalid request body or request param */
+      400: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Expired JWT token used or insufficient privilege */
+      401: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Result not found */
+      404: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Internal server error */
+      500: {
+        content: {
+          "text/plain": string;
+        };
+      };
     };
   };
   getInvitations: {
@@ -480,12 +552,24 @@ export interface operations {
           };
         };
       };
-      /** Bad Request */
-      400: unknown;
-      /** Unauthorized */
-      401: unknown;
-      /** Internal Server Error */
-      500: unknown;
+      /** Invalid request body or request param */
+      400: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Expired JWT token used or insufficient privilege */
+      401: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Internal server error */
+      500: {
+        content: {
+          "text/plain": string;
+        };
+      };
     };
   };
   createInvitation: {
@@ -546,12 +630,24 @@ export interface operations {
           };
         };
       };
-      /** Bad Request */
-      400: unknown;
-      /** Unauthorized */
-      401: unknown;
-      /** Internal Server Error */
-      500: unknown;
+      /** Invalid request body or request param */
+      400: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Expired JWT token used or insufficient privilege */
+      401: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Internal server error */
+      500: {
+        content: {
+          "text/plain": string;
+        };
+      };
     };
     requestBody: {
       content: {
@@ -657,12 +753,30 @@ export interface operations {
           };
         };
       };
-      /** Bad Request */
-      400: unknown;
-      /** Unauthorized */
-      401: unknown;
-      /** Internal Server Error */
-      500: unknown;
+      /** Invalid request body or request param */
+      400: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Expired JWT token used or insufficient privilege */
+      401: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Result not found */
+      404: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Internal server error */
+      500: {
+        content: {
+          "text/plain": string;
+        };
+      };
     };
   };
   handleUserInvite: {
@@ -679,10 +793,30 @@ export interface operations {
           "application/json": { [key: string]: unknown };
         };
       };
-      /** Unauthorized */
-      401: unknown;
-      /** Internal Server Error */
-      500: unknown;
+      /** Invalid request body or request param */
+      400: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Expired JWT token used or insufficient privilege */
+      401: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Result not found */
+      404: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Internal server error */
+      500: {
+        content: {
+          "text/plain": string;
+        };
+      };
     };
     requestBody: {
       content: {
@@ -717,10 +851,18 @@ export interface operations {
           };
         };
       };
-      /** Unauthorized */
-      401: unknown;
-      /** Internal Server Error */
-      500: unknown;
+      /** Expired JWT token used or insufficient privilege */
+      401: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Internal server error */
+      500: {
+        content: {
+          "text/plain": string;
+        };
+      };
     };
   };
   signupRequest: {
@@ -731,10 +873,24 @@ export interface operations {
           "application/json": { [key: string]: unknown };
         };
       };
-      /** Unauthorized */
-      401: unknown;
-      /** Internal Server Error */
-      500: unknown;
+      /** Invalid request body or request param */
+      400: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Expired JWT token used or insufficient privilege */
+      401: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Internal server error */
+      500: {
+        content: {
+          "text/plain": string;
+        };
+      };
     };
     requestBody: {
       content: {
@@ -750,12 +906,24 @@ export interface operations {
           "application/json": { [key: string]: unknown };
         };
       };
-      /** Bad Request */
-      400: unknown;
-      /** Unauthorized */
-      401: unknown;
-      /** Internal Server Error */
-      500: unknown;
+      /** Invalid request body or request param */
+      400: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Expired JWT token used or insufficient privilege */
+      401: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Internal server error */
+      500: {
+        content: {
+          "text/plain": string;
+        };
+      };
     };
   };
   denySignupRequest: {
@@ -766,12 +934,24 @@ export interface operations {
           "application/json": { [key: string]: unknown };
         };
       };
-      /** Bad Request */
-      400: unknown;
-      /** Unauthorized */
-      401: unknown;
-      /** Internal Server Error */
-      500: unknown;
+      /** Invalid request body or request param */
+      400: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Expired JWT token used or insufficient privilege */
+      401: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Internal server error */
+      500: {
+        content: {
+          "text/plain": string;
+        };
+      };
     };
   };
   getSignupRequestNotification: {
@@ -784,8 +964,18 @@ export interface operations {
       };
       /** No pending signup request notifications */
       204: never;
-      /** Unauthorized */
-      401: unknown;
+      /** Expired JWT token used or insufficient privilege */
+      401: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Internal server error */
+      500: {
+        content: {
+          "text/plain": string;
+        };
+      };
     };
   };
 }

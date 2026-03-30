@@ -54,6 +54,22 @@ const KeySchema: Record<string, unknown> = {
                 "path": "github.com/gofrs/uuid"
               }
             }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Get responses by page",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pagesize",
+            "in": "query",
+            "description": "Get responses by pagesize",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -214,6 +230,16 @@ const KeySchema: Record<string, unknown> = {
           },
           "401": {
             "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Result not found",
             "content": {
               "text/plain": {
                 "schema": {
@@ -521,7 +547,7 @@ const KeySchema: Record<string, unknown> = {
         },
         "responses": {
           "200": {
-            "description": "Key upserted successfully",
+            "description": "Key upserted",
             "content": {
               "application/json": {
                 "schema": {
@@ -707,7 +733,7 @@ const KeySchema: Record<string, unknown> = {
         ],
         "responses": {
           "200": {
-            "description": "Key fetched successfully",
+            "description": "Key response",
             "content": {
               "application/json": {
                 "schema": {
@@ -901,7 +927,7 @@ const KeySchema: Record<string, unknown> = {
         ],
         "responses": {
           "204": {
-            "description": "Key deleted successfully"
+            "description": "Key deleted"
           },
           "400": {
             "description": "Invalid request body or request param",

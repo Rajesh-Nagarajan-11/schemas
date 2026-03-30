@@ -38,7 +38,7 @@ export interface components {
      *   "deleted_at": null
      * }
      */
-    environment: {
+    Environment: {
       /**
        * Format: uuid
        * @description ID
@@ -89,7 +89,7 @@ export interface components {
        */
       deleted_at?: string | null;
     };
-    environmentConnectionMapping: {
+    EnvironmentConnectionMapping: {
       /** Format: uuid */
       id?: string;
       /** Format: uuid */
@@ -106,7 +106,7 @@ export interface components {
        */
       deleted_at?: string;
     };
-    environmentPayload: {
+    EnvironmentPayload: {
       /** @description An environment is a collection of resources. Provide a name that meaningfully represents these resources. You can change the name of the environment even after its creation. */
       name: string;
       /** @description An environment is a collection of resources, such as connections & credentail. Provide a detailed description to clarify the purpose of this environment and the types of resources it encompasses. You can modify the description at any Time. Learn more about environments [here](https://docs.meshery.io/concepts/logical/environments). */
@@ -114,7 +114,7 @@ export interface components {
       /** @description Select an organization in which you want to create this new environment. Keep in mind that the organization cannot be changed after creation. */
       organization_id: string;
     };
-    environmentPage: {
+    EnvironmentPage: {
       page?: number;
       page_size?: number;
       total_count?: number;
@@ -170,7 +170,7 @@ export interface components {
         deleted_at?: string | null;
       }[];
     };
-    environmentConnectionsPage: {
+    EnvironmentConnectionsPage: {
       page?: number;
       page_size?: number;
       total_count?: number;
@@ -196,6 +196,12 @@ export interface components {
         "text/plain": string;
       };
     };
+    /** Result not found */
+    404: {
+      content: {
+        "text/plain": string;
+      };
+    };
     /** Internal server error */
     500: {
       content: {
@@ -215,7 +221,7 @@ export interface components {
     /** @description Get responses by pagesize */
     pagesize: string;
     /** @description User's organization ID */
-    orgIDQuery: string;
+    orgIdQuery: string;
   };
   requestBodies: {
     /** Body for creating environment */
@@ -248,7 +254,7 @@ export interface operations {
         /** Get responses by pagesize */
         pagesize?: string;
         /** User's organization ID */
-        orgID: string;
+        orgId: string;
       };
     };
     responses: {
@@ -392,6 +398,12 @@ export interface operations {
           "text/plain": string;
         };
       };
+      /** Expired JWT token used or insufficient privilege */
+      401: {
+        content: {
+          "text/plain": string;
+        };
+      };
       /** Internal server error */
       500: {
         content: {
@@ -421,7 +433,7 @@ export interface operations {
       };
       query: {
         /** User's organization ID */
-        orgID: string;
+        orgId: string;
       };
     };
     responses: {
@@ -498,7 +510,7 @@ export interface operations {
           "text/plain": string;
         };
       };
-      /** Expired JWT token used or insufficient privilege */
+      /** Result not found */
       404: {
         content: {
           "text/plain": string;
@@ -593,6 +605,12 @@ export interface operations {
           "text/plain": string;
         };
       };
+      /** Result not found */
+      404: {
+        content: {
+          "text/plain": string;
+        };
+      };
       /** Internal server error */
       500: {
         content: {
@@ -622,67 +640,8 @@ export interface operations {
       };
     };
     responses: {
-      /** Environment page */
-      200: {
-        content: {
-          "application/json": {
-            page?: number;
-            page_size?: number;
-            total_count?: number;
-            environments?: {
-              /**
-               * Format: uuid
-               * @description ID
-               */
-              id: string;
-              /**
-               * @description Specifies the version of the schema to which the environment conforms.
-               * @default environments.meshery.io/v1beta1
-               * @example [
-               *   "v1",
-               *   "v1alpha1",
-               *   "v2beta3",
-               *   "v1.custom-suffix",
-               *   "models.meshery.io/v1beta1",
-               *   "capability.meshery.io/v1alpha1"
-               * ]
-               */
-              schemaVersion: string;
-              /** @description Environment name */
-              name: string;
-              /** @description Environment description */
-              description: string;
-              /**
-               * Format: uuid
-               * @description Environment organization ID
-               */
-              organization_id: string;
-              /**
-               * Format: uuid
-               * @description Environment owner
-               */
-              owner?: string;
-              /**
-               * Format: date-time
-               * @description Timestamp when the resource was created.
-               */
-              created_at?: string;
-              /** @description Additional metadata associated with the environment. */
-              metadata?: { [key: string]: unknown };
-              /**
-               * Format: date-time
-               * @description Timestamp when the resource was updated.
-               */
-              updated_at?: string;
-              /**
-               * Format: date-time
-               * @description Timestamp when the environment was soft deleted. Null while the environment remains active.
-               */
-              deleted_at?: string | null;
-            }[];
-          };
-        };
-      };
+      /** Environment deleted */
+      204: never;
       /** Invalid request body or request param */
       400: {
         content: {
@@ -691,6 +650,12 @@ export interface operations {
       };
       /** Expired JWT token used or insufficient privilege */
       401: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Result not found */
+      404: {
         content: {
           "text/plain": string;
         };
@@ -741,6 +706,12 @@ export interface operations {
       };
       /** Expired JWT token used or insufficient privilege */
       401: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Result not found */
+      404: {
         content: {
           "text/plain": string;
         };

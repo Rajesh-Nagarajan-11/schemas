@@ -304,9 +304,9 @@ export interface components {
       /** @description Connection type */
       type: string;
       /** @description Connection sub-type */
-      sub_type: string;
+      subType: string;
       /** @description Credential secret data */
-      credential_secret?: { [key: string]: unknown };
+      credentialSecret?: { [key: string]: unknown };
       /** @description Connection metadata */
       metadata?: { [key: string]: unknown };
       /** @description Connection status */
@@ -333,7 +333,7 @@ export interface components {
       /** @description Number of items per page */
       page_size: number;
       /** @description List of status counts */
-      connections_status: {
+      connectionsStatus: {
         /** @description Status value */
         status: string;
         /** @description Number of connections with this status */
@@ -364,7 +364,7 @@ export interface components {
     /** @description Paginated list of Meshery instances */
     MesheryInstancePage: {
       /** @description List of Meshery instances */
-      meshery_instances: {
+      mesheryInstances: {
         /** @description Instance ID */
         id?: string;
         /** @description Instance name */
@@ -394,9 +394,35 @@ export interface components {
     /** @description Meshery version compatibility check */
     MesheryCompatibility: {
       /** @description Meshery version string */
-      meshery_version?: string;
+      mesheryVersion?: string;
       /** @description Whether to check compatibility */
-      check_compatibility?: boolean;
+      checkCompatibility?: boolean;
+    };
+  };
+  responses: {
+    /** Invalid request body or request param */
+    400: {
+      content: {
+        "text/plain": string;
+      };
+    };
+    /** Expired JWT token used or insufficient privilege */
+    401: {
+      content: {
+        "text/plain": string;
+      };
+    };
+    /** Result not found */
+    404: {
+      content: {
+        "text/plain": string;
+      };
+    };
+    /** Internal server error */
+    500: {
+      content: {
+        "text/plain": string;
+      };
     };
   };
   parameters: {
@@ -582,14 +608,24 @@ export interface operations {
           };
         };
       };
-      /** Server error */
-      500: unknown;
+      /** Expired JWT token used or insufficient privilege */
+      401: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Internal server error */
+      500: {
+        content: {
+          "text/plain": string;
+        };
+      };
     };
   };
   /** Register a new connection with credentials */
   registerConnection: {
     responses: {
-      /** Connection registered successfully */
+      /** Connection registered */
       201: {
         content: {
           "application/json": {
@@ -708,10 +744,24 @@ export interface operations {
           };
         };
       };
-      /** Invalid request parameters */
-      400: unknown;
-      /** Server error */
-      500: unknown;
+      /** Invalid request body or request param */
+      400: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Expired JWT token used or insufficient privilege */
+      401: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Internal server error */
+      500: {
+        content: {
+          "text/plain": string;
+        };
+      };
     };
     requestBody: {
       content: {
@@ -728,9 +778,9 @@ export interface operations {
           /** @description Connection type */
           type: string;
           /** @description Connection sub-type */
-          sub_type: string;
+          subType: string;
           /** @description Credential secret data */
-          credential_secret?: { [key: string]: unknown };
+          credentialSecret?: { [key: string]: unknown };
           /** @description Connection metadata */
           metadata?: { [key: string]: unknown };
           /** @description Connection status */
@@ -872,10 +922,24 @@ export interface operations {
           };
         };
       };
-      /** Connection not found */
-      404: unknown;
-      /** Server error */
-      500: unknown;
+      /** Expired JWT token used or insufficient privilege */
+      401: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Result not found */
+      404: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Internal server error */
+      500: {
+        content: {
+          "text/plain": string;
+        };
+      };
     };
   };
   /** Update an existing connection */
@@ -887,7 +951,7 @@ export interface operations {
       };
     };
     responses: {
-      /** Connection updated successfully */
+      /** Connection updated */
       200: {
         content: {
           "application/json": {
@@ -1006,10 +1070,30 @@ export interface operations {
           };
         };
       };
-      /** Connection not found */
-      404: unknown;
-      /** Server error */
-      500: unknown;
+      /** Invalid request body or request param */
+      400: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Expired JWT token used or insufficient privilege */
+      401: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Result not found */
+      404: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Internal server error */
+      500: {
+        content: {
+          "text/plain": string;
+        };
+      };
     };
     requestBody: {
       content: {
@@ -1026,9 +1110,9 @@ export interface operations {
           /** @description Connection type */
           type: string;
           /** @description Connection sub-type */
-          sub_type: string;
+          subType: string;
           /** @description Credential secret data */
-          credential_secret?: { [key: string]: unknown };
+          credentialSecret?: { [key: string]: unknown };
           /** @description Connection metadata */
           metadata?: { [key: string]: unknown };
           /** @description Connection status */
@@ -1051,12 +1135,26 @@ export interface operations {
       };
     };
     responses: {
-      /** Connection deleted successfully */
+      /** Connection deleted */
       204: never;
-      /** Connection not found */
-      404: unknown;
-      /** Server error */
-      500: unknown;
+      /** Expired JWT token used or insufficient privilege */
+      401: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Result not found */
+      404: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Internal server error */
+      500: {
+        content: {
+          "text/plain": string;
+        };
+      };
     };
   };
   /** Delete a Meshery server connection by server ID */
@@ -1068,12 +1166,26 @@ export interface operations {
       };
     };
     responses: {
-      /** Meshery connection deleted successfully */
+      /** Meshery connection deleted */
       204: never;
-      /** Connection not found */
-      404: unknown;
-      /** Server error */
-      500: unknown;
+      /** Expired JWT token used or insufficient privilege */
+      401: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Result not found */
+      404: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Internal server error */
+      500: {
+        content: {
+          "text/plain": string;
+        };
+      };
     };
   };
   /** Get Kubernetes context for a specific connection */
@@ -1091,10 +1203,24 @@ export interface operations {
           "application/json": { [key: string]: unknown };
         };
       };
-      /** Connection not found */
-      404: unknown;
-      /** Server error */
-      500: unknown;
+      /** Expired JWT token used or insufficient privilege */
+      401: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Result not found */
+      404: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Internal server error */
+      500: {
+        content: {
+          "text/plain": string;
+        };
+      };
     };
   };
   /** Associate a connection with an environment */
@@ -1108,12 +1234,32 @@ export interface operations {
       };
     };
     responses: {
-      /** Connection added to environment successfully */
-      200: unknown;
-      /** Connection or environment not found */
-      404: unknown;
-      /** Server error */
-      500: unknown;
+      /** Connection added to environment */
+      201: unknown;
+      /** Invalid request body or request param */
+      400: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Expired JWT token used or insufficient privilege */
+      401: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Result not found */
+      404: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Internal server error */
+      500: {
+        content: {
+          "text/plain": string;
+        };
+      };
     };
   };
   /** Disassociate a connection from an environment */
@@ -1127,12 +1273,26 @@ export interface operations {
       };
     };
     responses: {
-      /** Connection removed from environment successfully */
+      /** Connection removed from environment */
       204: never;
-      /** Connection or environment not found */
-      404: unknown;
-      /** Server error */
-      500: unknown;
+      /** Expired JWT token used or insufficient privilege */
+      401: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Result not found */
+      404: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Internal server error */
+      500: {
+        content: {
+          "text/plain": string;
+        };
+      };
     };
   };
 }

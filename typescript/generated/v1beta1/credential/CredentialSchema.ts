@@ -92,7 +92,7 @@ const CredentialSchema: Record<string, unknown> = {
         ],
         "responses": {
           "200": {
-            "description": "Credentials fetched successfully",
+            "description": "Credentials response",
             "content": {
               "application/json": {
                 "schema": {
@@ -383,7 +383,7 @@ const CredentialSchema: Record<string, unknown> = {
         },
         "responses": {
           "201": {
-            "description": "Credential saved successfully",
+            "description": "Credential saved",
             "content": {
               "application/json": {
                 "schema": {
@@ -652,7 +652,7 @@ const CredentialSchema: Record<string, unknown> = {
         },
         "responses": {
           "200": {
-            "description": "Credential updated successfully",
+            "description": "Credential updated",
             "content": {
               "application/json": {
                 "schema": {
@@ -818,7 +818,7 @@ const CredentialSchema: Record<string, unknown> = {
         "description": "Deletes a credential belonging to the authenticated user.",
         "parameters": [
           {
-            "name": "credential_id",
+            "name": "credentialId",
             "in": "query",
             "description": "Credential ID",
             "required": true,
@@ -835,7 +835,7 @@ const CredentialSchema: Record<string, unknown> = {
         ],
         "responses": {
           "204": {
-            "description": "Credential deleted successfully"
+            "description": "Credential deleted"
           },
           "400": {
             "description": "Invalid request body or request param",
@@ -889,7 +889,7 @@ const CredentialSchema: Record<string, unknown> = {
           "credentials"
         ],
         "summary": "Get credential by ID",
-        "operationId": "getCredentialByID",
+        "operationId": "getCredentialById",
         "description": "Retrieves a specific credential by its ID.",
         "parameters": [
           {
@@ -910,7 +910,7 @@ const CredentialSchema: Record<string, unknown> = {
         ],
         "responses": {
           "200": {
-            "description": "Credential fetched successfully",
+            "description": "Credential response",
             "content": {
               "application/json": {
                 "schema": {
@@ -1123,7 +1123,7 @@ const CredentialSchema: Record<string, unknown> = {
         }
       },
       "credentialId": {
-        "name": "credential_id",
+        "name": "credentialId",
         "in": "query",
         "description": "Credential ID",
         "required": true,

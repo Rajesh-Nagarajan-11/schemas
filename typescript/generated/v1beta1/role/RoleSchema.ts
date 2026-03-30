@@ -65,7 +65,7 @@ const RoleSchema: Record<string, unknown> = {
                 "description": "Request body for assigning a role to a user.",
                 "required": [
                   "email",
-                  "role_names"
+                  "roleNames"
                 ],
                 "properties": {
                   "email": {
@@ -74,7 +74,7 @@ const RoleSchema: Record<string, unknown> = {
                     "description": "Email of the user to assign roles to.",
                     "x-order": 1
                   },
-                  "role_names": {
+                  "roleNames": {
                     "type": "array",
                     "items": {
                       "type": "string"
@@ -88,8 +88,8 @@ const RoleSchema: Record<string, unknown> = {
           }
         },
         "responses": {
-          "200": {
-            "description": "Role holder added successfully"
+          "201": {
+            "description": "Role holder added"
           },
           "400": {
             "description": "Invalid request body or request param",
@@ -154,7 +154,7 @@ const RoleSchema: Record<string, unknown> = {
         ],
         "responses": {
           "204": {
-            "description": "Role deleted successfully"
+            "description": "Role deleted"
           },
           "400": {
             "description": "Invalid request body or request param",
@@ -275,7 +275,7 @@ const RoleSchema: Record<string, unknown> = {
             }
           },
           {
-            "name": "teamID",
+            "name": "teamId",
             "in": "query",
             "description": "Team ID used when selector is team.",
             "schema": {
@@ -291,7 +291,7 @@ const RoleSchema: Record<string, unknown> = {
         ],
         "responses": {
           "200": {
-            "description": "Roles fetched successfully",
+            "description": "Roles response",
             "content": {
               "application/json": {
                 "schema": {
@@ -411,6 +411,16 @@ const RoleSchema: Record<string, unknown> = {
           },
           "401": {
             "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Result not found",
             "content": {
               "text/plain": {
                 "schema": {
@@ -547,7 +557,7 @@ const RoleSchema: Record<string, unknown> = {
         },
         "responses": {
           "200": {
-            "description": "Role upserted successfully",
+            "description": "Role upserted",
             "content": {
               "application/json": {
                 "schema": {
@@ -653,6 +663,16 @@ const RoleSchema: Record<string, unknown> = {
               }
             }
           },
+          "404": {
+            "description": "Result not found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Internal server error",
             "content": {
@@ -731,11 +751,11 @@ const RoleSchema: Record<string, unknown> = {
                       "format": "email",
                       "x-order": 4
                     },
-                    "first_name": {
+                    "firstName": {
                       "type": "string",
                       "x-order": 5
                     },
-                    "last_name": {
+                    "lastName": {
                       "type": "string",
                       "x-order": 6
                     },
@@ -743,7 +763,7 @@ const RoleSchema: Record<string, unknown> = {
                       "type": "string",
                       "x-order": 7
                     },
-                    "role_names": {
+                    "roleNames": {
                       "type": "array",
                       "items": {
                         "type": "string"
@@ -782,7 +802,7 @@ const RoleSchema: Record<string, unknown> = {
         },
         "responses": {
           "200": {
-            "description": "Role holders updated successfully"
+            "description": "Role holders updated"
           },
           "400": {
             "description": "Invalid request body or request param",
@@ -796,6 +816,16 @@ const RoleSchema: Record<string, unknown> = {
           },
           "401": {
             "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Result not found",
             "content": {
               "text/plain": {
                 "schema": {
@@ -894,7 +924,7 @@ const RoleSchema: Record<string, unknown> = {
         ],
         "responses": {
           "200": {
-            "description": "Keychains fetched successfully",
+            "description": "Keychains response",
             "content": {
               "application/json": {
                 "schema": {
@@ -1045,6 +1075,16 @@ const RoleSchema: Record<string, unknown> = {
               }
             }
           },
+          "404": {
+            "description": "Result not found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Internal server error",
             "content": {
@@ -1118,7 +1158,7 @@ const RoleSchema: Record<string, unknown> = {
         ],
         "responses": {
           "200": {
-            "description": "Keychain assigned to role successfully"
+            "description": "Keychain assigned to role"
           },
           "400": {
             "description": "Invalid request body or request param",
@@ -1132,6 +1172,16 @@ const RoleSchema: Record<string, unknown> = {
           },
           "401": {
             "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Result not found",
             "content": {
               "text/plain": {
                 "schema": {
@@ -1211,7 +1261,7 @@ const RoleSchema: Record<string, unknown> = {
         ],
         "responses": {
           "204": {
-            "description": "Keychain unassigned from role successfully"
+            "description": "Keychain unassigned from role"
           },
           "400": {
             "description": "Invalid request body or request param",
@@ -1416,8 +1466,8 @@ const RoleSchema: Record<string, unknown> = {
           "type": "string"
         }
       },
-      "teamID": {
-        "name": "teamID",
+      "teamId": {
+        "name": "teamId",
         "in": "query",
         "description": "Team ID used when selector is team.",
         "schema": {
@@ -1722,7 +1772,7 @@ const RoleSchema: Record<string, unknown> = {
         "description": "Request body for assigning a role to a user.",
         "required": [
           "email",
-          "role_names"
+          "roleNames"
         ],
         "properties": {
           "email": {
@@ -1731,7 +1781,7 @@ const RoleSchema: Record<string, unknown> = {
             "description": "Email of the user to assign roles to.",
             "x-order": 1
           },
-          "role_names": {
+          "roleNames": {
             "type": "array",
             "items": {
               "type": "string"
@@ -1774,11 +1824,11 @@ const RoleSchema: Record<string, unknown> = {
             "format": "email",
             "x-order": 4
           },
-          "first_name": {
+          "firstName": {
             "type": "string",
             "x-order": 5
           },
-          "last_name": {
+          "lastName": {
             "type": "string",
             "x-order": 6
           },
@@ -1786,7 +1836,7 @@ const RoleSchema: Record<string, unknown> = {
             "type": "string",
             "x-order": 7
           },
-          "role_names": {
+          "roleNames": {
             "type": "array",
             "items": {
               "type": "string"
@@ -1823,16 +1873,16 @@ const RoleSchema: Record<string, unknown> = {
         "type": "object",
         "description": "User notification preferences.",
         "required": [
-          "welcome_email",
-          "notify_role_change"
+          "welcomeEmail",
+          "notifyRoleChange"
         ],
         "properties": {
-          "welcome_email": {
+          "welcomeEmail": {
             "type": "boolean",
             "description": "Whether to send a welcome email to new users.",
             "x-order": 1
           },
-          "notify_role_change": {
+          "notifyRoleChange": {
             "type": "boolean",
             "description": "Whether to notify the user of role changes.",
             "x-order": 2

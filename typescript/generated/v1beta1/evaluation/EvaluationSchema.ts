@@ -19,6 +19,11 @@ const EvaluationSchema: Record<string, unknown> = {
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     }
   },
+  "security": [
+    {
+      "jwt": []
+    }
+  ],
   "paths": {
     "/evaluate": {
       "post": {
@@ -1280,7 +1285,6 @@ const EvaluationSchema: Record<string, unknown> = {
                                         "version": {
                                           "description": "Version of the model as defined by the registrant.",
                                           "x-oapi-codegen-extra-tags": {
-                                            "yaml": "version",
                                             "json": "version"
                                           },
                                           "x-order": 1,
@@ -1443,7 +1447,6 @@ const EvaluationSchema: Record<string, unknown> = {
                                         "version": {
                                           "description": "Version of the model as defined by the registrant.",
                                           "x-oapi-codegen-extra-tags": {
-                                            "yaml": "version",
                                             "json": "version"
                                           },
                                           "x-order": 1,
@@ -1457,7 +1460,6 @@ const EvaluationSchema: Record<string, unknown> = {
                                     "registrant": {
                                       "x-go-type": "RegistrantReference",
                                       "x-oapi-codegen-extra-tags": {
-                                        "yaml": "registrant",
                                         "json": "registrant"
                                       },
                                       "type": "object",
@@ -3112,7 +3114,6 @@ const EvaluationSchema: Record<string, unknown> = {
                                         "version": {
                                           "description": "Version of the model as defined by the registrant.",
                                           "x-oapi-codegen-extra-tags": {
-                                            "yaml": "version",
                                             "json": "version"
                                           },
                                           "x-order": 1,
@@ -3126,7 +3127,6 @@ const EvaluationSchema: Record<string, unknown> = {
                                     "registrant": {
                                       "x-go-type": "RegistrantReference",
                                       "x-oapi-codegen-extra-tags": {
-                                        "yaml": "registrant",
                                         "json": "registrant"
                                       },
                                       "type": "object",
@@ -3460,7 +3460,6 @@ const EvaluationSchema: Record<string, unknown> = {
                                                         "version": {
                                                           "description": "Version of the model as defined by the registrant.",
                                                           "x-oapi-codegen-extra-tags": {
-                                                            "yaml": "version",
                                                             "json": "version"
                                                           },
                                                           "x-order": 1,
@@ -3474,7 +3473,6 @@ const EvaluationSchema: Record<string, unknown> = {
                                                     "registrant": {
                                                       "x-go-type": "RegistrantReference",
                                                       "x-oapi-codegen-extra-tags": {
-                                                        "yaml": "registrant",
                                                         "json": "registrant"
                                                       },
                                                       "type": "object",
@@ -3816,7 +3814,6 @@ const EvaluationSchema: Record<string, unknown> = {
                                                         "version": {
                                                           "description": "Version of the model as defined by the registrant.",
                                                           "x-oapi-codegen-extra-tags": {
-                                                            "yaml": "version",
                                                             "json": "version"
                                                           },
                                                           "x-order": 1,
@@ -3830,7 +3827,6 @@ const EvaluationSchema: Record<string, unknown> = {
                                                     "registrant": {
                                                       "x-go-type": "RegistrantReference",
                                                       "x-oapi-codegen-extra-tags": {
-                                                        "yaml": "registrant",
                                                         "json": "registrant"
                                                       },
                                                       "type": "object",
@@ -4187,7 +4183,6 @@ const EvaluationSchema: Record<string, unknown> = {
                                                         "version": {
                                                           "description": "Version of the model as defined by the registrant.",
                                                           "x-oapi-codegen-extra-tags": {
-                                                            "yaml": "version",
                                                             "json": "version"
                                                           },
                                                           "x-order": 1,
@@ -4201,7 +4196,6 @@ const EvaluationSchema: Record<string, unknown> = {
                                                     "registrant": {
                                                       "x-go-type": "RegistrantReference",
                                                       "x-oapi-codegen-extra-tags": {
-                                                        "yaml": "registrant",
                                                         "json": "registrant"
                                                       },
                                                       "type": "object",
@@ -4543,7 +4537,6 @@ const EvaluationSchema: Record<string, unknown> = {
                                                         "version": {
                                                           "description": "Version of the model as defined by the registrant.",
                                                           "x-oapi-codegen-extra-tags": {
-                                                            "yaml": "version",
                                                             "json": "version"
                                                           },
                                                           "x-order": 1,
@@ -4557,7 +4550,6 @@ const EvaluationSchema: Record<string, unknown> = {
                                                     "registrant": {
                                                       "x-go-type": "RegistrantReference",
                                                       "x-oapi-codegen-extra-tags": {
-                                                        "yaml": "registrant",
                                                         "json": "registrant"
                                                       },
                                                       "type": "object",
@@ -5935,7 +5927,6 @@ const EvaluationSchema: Record<string, unknown> = {
                                           "version": {
                                             "description": "Version of the model as defined by the registrant.",
                                             "x-oapi-codegen-extra-tags": {
-                                              "yaml": "version",
                                               "json": "version"
                                             },
                                             "x-order": 1,
@@ -6098,7 +6089,6 @@ const EvaluationSchema: Record<string, unknown> = {
                                           "version": {
                                             "description": "Version of the model as defined by the registrant.",
                                             "x-oapi-codegen-extra-tags": {
-                                              "yaml": "version",
                                               "json": "version"
                                             },
                                             "x-order": 1,
@@ -6112,7 +6102,6 @@ const EvaluationSchema: Record<string, unknown> = {
                                       "registrant": {
                                         "x-go-type": "RegistrantReference",
                                         "x-oapi-codegen-extra-tags": {
-                                          "yaml": "registrant",
                                           "json": "registrant"
                                         },
                                         "type": "object",
@@ -7767,7 +7756,6 @@ const EvaluationSchema: Record<string, unknown> = {
                                           "version": {
                                             "description": "Version of the model as defined by the registrant.",
                                             "x-oapi-codegen-extra-tags": {
-                                              "yaml": "version",
                                               "json": "version"
                                             },
                                             "x-order": 1,
@@ -7781,7 +7769,6 @@ const EvaluationSchema: Record<string, unknown> = {
                                       "registrant": {
                                         "x-go-type": "RegistrantReference",
                                         "x-oapi-codegen-extra-tags": {
-                                          "yaml": "registrant",
                                           "json": "registrant"
                                         },
                                         "type": "object",
@@ -8115,7 +8102,6 @@ const EvaluationSchema: Record<string, unknown> = {
                                                           "version": {
                                                             "description": "Version of the model as defined by the registrant.",
                                                             "x-oapi-codegen-extra-tags": {
-                                                              "yaml": "version",
                                                               "json": "version"
                                                             },
                                                             "x-order": 1,
@@ -8129,7 +8115,6 @@ const EvaluationSchema: Record<string, unknown> = {
                                                       "registrant": {
                                                         "x-go-type": "RegistrantReference",
                                                         "x-oapi-codegen-extra-tags": {
-                                                          "yaml": "registrant",
                                                           "json": "registrant"
                                                         },
                                                         "type": "object",
@@ -8471,7 +8456,6 @@ const EvaluationSchema: Record<string, unknown> = {
                                                           "version": {
                                                             "description": "Version of the model as defined by the registrant.",
                                                             "x-oapi-codegen-extra-tags": {
-                                                              "yaml": "version",
                                                               "json": "version"
                                                             },
                                                             "x-order": 1,
@@ -8485,7 +8469,6 @@ const EvaluationSchema: Record<string, unknown> = {
                                                       "registrant": {
                                                         "x-go-type": "RegistrantReference",
                                                         "x-oapi-codegen-extra-tags": {
-                                                          "yaml": "registrant",
                                                           "json": "registrant"
                                                         },
                                                         "type": "object",
@@ -8842,7 +8825,6 @@ const EvaluationSchema: Record<string, unknown> = {
                                                           "version": {
                                                             "description": "Version of the model as defined by the registrant.",
                                                             "x-oapi-codegen-extra-tags": {
-                                                              "yaml": "version",
                                                               "json": "version"
                                                             },
                                                             "x-order": 1,
@@ -8856,7 +8838,6 @@ const EvaluationSchema: Record<string, unknown> = {
                                                       "registrant": {
                                                         "x-go-type": "RegistrantReference",
                                                         "x-oapi-codegen-extra-tags": {
-                                                          "yaml": "registrant",
                                                           "json": "registrant"
                                                         },
                                                         "type": "object",
@@ -9198,7 +9179,6 @@ const EvaluationSchema: Record<string, unknown> = {
                                                           "version": {
                                                             "description": "Version of the model as defined by the registrant.",
                                                             "x-oapi-codegen-extra-tags": {
-                                                              "yaml": "version",
                                                               "json": "version"
                                                             },
                                                             "x-order": 1,
@@ -9212,7 +9192,6 @@ const EvaluationSchema: Record<string, unknown> = {
                                                       "registrant": {
                                                         "x-go-type": "RegistrantReference",
                                                         "x-oapi-codegen-extra-tags": {
-                                                          "yaml": "registrant",
                                                           "json": "registrant"
                                                         },
                                                         "type": "object",
@@ -9356,6 +9335,16 @@ const EvaluationSchema: Record<string, unknown> = {
           "400": {
             "description": "Bad request"
           },
+          "401": {
+            "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Internal server error"
           }
@@ -9364,6 +9353,25 @@ const EvaluationSchema: Record<string, unknown> = {
     }
   },
   "components": {
+    "responses": {
+      "401": {
+        "description": "Expired JWT token used or insufficient privilege",
+        "content": {
+          "text/plain": {
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "jwt": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
     "schemas": {
       "EvaluationRequest": {
         "type": "object",
@@ -10614,7 +10622,6 @@ const EvaluationSchema: Record<string, unknown> = {
                                 "version": {
                                   "description": "Version of the model as defined by the registrant.",
                                   "x-oapi-codegen-extra-tags": {
-                                    "yaml": "version",
                                     "json": "version"
                                   },
                                   "x-order": 1,
@@ -10777,7 +10784,6 @@ const EvaluationSchema: Record<string, unknown> = {
                                 "version": {
                                   "description": "Version of the model as defined by the registrant.",
                                   "x-oapi-codegen-extra-tags": {
-                                    "yaml": "version",
                                     "json": "version"
                                   },
                                   "x-order": 1,
@@ -10791,7 +10797,6 @@ const EvaluationSchema: Record<string, unknown> = {
                             "registrant": {
                               "x-go-type": "RegistrantReference",
                               "x-oapi-codegen-extra-tags": {
-                                "yaml": "registrant",
                                 "json": "registrant"
                               },
                               "type": "object",
@@ -12446,7 +12451,6 @@ const EvaluationSchema: Record<string, unknown> = {
                                 "version": {
                                   "description": "Version of the model as defined by the registrant.",
                                   "x-oapi-codegen-extra-tags": {
-                                    "yaml": "version",
                                     "json": "version"
                                   },
                                   "x-order": 1,
@@ -12460,7 +12464,6 @@ const EvaluationSchema: Record<string, unknown> = {
                             "registrant": {
                               "x-go-type": "RegistrantReference",
                               "x-oapi-codegen-extra-tags": {
-                                "yaml": "registrant",
                                 "json": "registrant"
                               },
                               "type": "object",
@@ -12794,7 +12797,6 @@ const EvaluationSchema: Record<string, unknown> = {
                                                 "version": {
                                                   "description": "Version of the model as defined by the registrant.",
                                                   "x-oapi-codegen-extra-tags": {
-                                                    "yaml": "version",
                                                     "json": "version"
                                                   },
                                                   "x-order": 1,
@@ -12808,7 +12810,6 @@ const EvaluationSchema: Record<string, unknown> = {
                                             "registrant": {
                                               "x-go-type": "RegistrantReference",
                                               "x-oapi-codegen-extra-tags": {
-                                                "yaml": "registrant",
                                                 "json": "registrant"
                                               },
                                               "type": "object",
@@ -13150,7 +13151,6 @@ const EvaluationSchema: Record<string, unknown> = {
                                                 "version": {
                                                   "description": "Version of the model as defined by the registrant.",
                                                   "x-oapi-codegen-extra-tags": {
-                                                    "yaml": "version",
                                                     "json": "version"
                                                   },
                                                   "x-order": 1,
@@ -13164,7 +13164,6 @@ const EvaluationSchema: Record<string, unknown> = {
                                             "registrant": {
                                               "x-go-type": "RegistrantReference",
                                               "x-oapi-codegen-extra-tags": {
-                                                "yaml": "registrant",
                                                 "json": "registrant"
                                               },
                                               "type": "object",
@@ -13521,7 +13520,6 @@ const EvaluationSchema: Record<string, unknown> = {
                                                 "version": {
                                                   "description": "Version of the model as defined by the registrant.",
                                                   "x-oapi-codegen-extra-tags": {
-                                                    "yaml": "version",
                                                     "json": "version"
                                                   },
                                                   "x-order": 1,
@@ -13535,7 +13533,6 @@ const EvaluationSchema: Record<string, unknown> = {
                                             "registrant": {
                                               "x-go-type": "RegistrantReference",
                                               "x-oapi-codegen-extra-tags": {
-                                                "yaml": "registrant",
                                                 "json": "registrant"
                                               },
                                               "type": "object",
@@ -13877,7 +13874,6 @@ const EvaluationSchema: Record<string, unknown> = {
                                                 "version": {
                                                   "description": "Version of the model as defined by the registrant.",
                                                   "x-oapi-codegen-extra-tags": {
-                                                    "yaml": "version",
                                                     "json": "version"
                                                   },
                                                   "x-order": 1,
@@ -13891,7 +13887,6 @@ const EvaluationSchema: Record<string, unknown> = {
                                             "registrant": {
                                               "x-go-type": "RegistrantReference",
                                               "x-oapi-codegen-extra-tags": {
-                                                "yaml": "registrant",
                                                 "json": "registrant"
                                               },
                                               "type": "object",
@@ -15261,7 +15256,6 @@ const EvaluationSchema: Record<string, unknown> = {
                                 "version": {
                                   "description": "Version of the model as defined by the registrant.",
                                   "x-oapi-codegen-extra-tags": {
-                                    "yaml": "version",
                                     "json": "version"
                                   },
                                   "x-order": 1,
@@ -15424,7 +15418,6 @@ const EvaluationSchema: Record<string, unknown> = {
                                 "version": {
                                   "description": "Version of the model as defined by the registrant.",
                                   "x-oapi-codegen-extra-tags": {
-                                    "yaml": "version",
                                     "json": "version"
                                   },
                                   "x-order": 1,
@@ -15438,7 +15431,6 @@ const EvaluationSchema: Record<string, unknown> = {
                             "registrant": {
                               "x-go-type": "RegistrantReference",
                               "x-oapi-codegen-extra-tags": {
-                                "yaml": "registrant",
                                 "json": "registrant"
                               },
                               "type": "object",
@@ -17093,7 +17085,6 @@ const EvaluationSchema: Record<string, unknown> = {
                                 "version": {
                                   "description": "Version of the model as defined by the registrant.",
                                   "x-oapi-codegen-extra-tags": {
-                                    "yaml": "version",
                                     "json": "version"
                                   },
                                   "x-order": 1,
@@ -17107,7 +17098,6 @@ const EvaluationSchema: Record<string, unknown> = {
                             "registrant": {
                               "x-go-type": "RegistrantReference",
                               "x-oapi-codegen-extra-tags": {
-                                "yaml": "registrant",
                                 "json": "registrant"
                               },
                               "type": "object",
@@ -17441,7 +17431,6 @@ const EvaluationSchema: Record<string, unknown> = {
                                                 "version": {
                                                   "description": "Version of the model as defined by the registrant.",
                                                   "x-oapi-codegen-extra-tags": {
-                                                    "yaml": "version",
                                                     "json": "version"
                                                   },
                                                   "x-order": 1,
@@ -17455,7 +17444,6 @@ const EvaluationSchema: Record<string, unknown> = {
                                             "registrant": {
                                               "x-go-type": "RegistrantReference",
                                               "x-oapi-codegen-extra-tags": {
-                                                "yaml": "registrant",
                                                 "json": "registrant"
                                               },
                                               "type": "object",
@@ -17797,7 +17785,6 @@ const EvaluationSchema: Record<string, unknown> = {
                                                 "version": {
                                                   "description": "Version of the model as defined by the registrant.",
                                                   "x-oapi-codegen-extra-tags": {
-                                                    "yaml": "version",
                                                     "json": "version"
                                                   },
                                                   "x-order": 1,
@@ -17811,7 +17798,6 @@ const EvaluationSchema: Record<string, unknown> = {
                                             "registrant": {
                                               "x-go-type": "RegistrantReference",
                                               "x-oapi-codegen-extra-tags": {
-                                                "yaml": "registrant",
                                                 "json": "registrant"
                                               },
                                               "type": "object",
@@ -18168,7 +18154,6 @@ const EvaluationSchema: Record<string, unknown> = {
                                                 "version": {
                                                   "description": "Version of the model as defined by the registrant.",
                                                   "x-oapi-codegen-extra-tags": {
-                                                    "yaml": "version",
                                                     "json": "version"
                                                   },
                                                   "x-order": 1,
@@ -18182,7 +18167,6 @@ const EvaluationSchema: Record<string, unknown> = {
                                             "registrant": {
                                               "x-go-type": "RegistrantReference",
                                               "x-oapi-codegen-extra-tags": {
-                                                "yaml": "registrant",
                                                 "json": "registrant"
                                               },
                                               "type": "object",
@@ -18524,7 +18508,6 @@ const EvaluationSchema: Record<string, unknown> = {
                                                 "version": {
                                                   "description": "Version of the model as defined by the registrant.",
                                                   "x-oapi-codegen-extra-tags": {
-                                                    "yaml": "version",
                                                     "json": "version"
                                                   },
                                                   "x-order": 1,
@@ -18538,7 +18521,6 @@ const EvaluationSchema: Record<string, unknown> = {
                                             "registrant": {
                                               "x-go-type": "RegistrantReference",
                                               "x-oapi-codegen-extra-tags": {
-                                                "yaml": "registrant",
                                                 "json": "registrant"
                                               },
                                               "type": "object",

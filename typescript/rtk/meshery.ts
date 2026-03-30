@@ -101,7 +101,7 @@ const injectedRtkApi = api
             order: queryArg.order,
             page: queryArg.page,
             pagesize: queryArg.pagesize,
-            orgID: queryArg.orgId,
+            orgId: queryArg.orgId,
           },
         }),
         providesTags: ["Environment_environments"],
@@ -110,7 +110,7 @@ const injectedRtkApi = api
         query: (queryArg) => ({
           url: `/api/environments/${queryArg.environmentId}`,
           params: {
-            orgID: queryArg.orgId,
+            orgId: queryArg.orgId,
           },
         }),
         providesTags: ["Environment_environments"],
@@ -165,7 +165,13 @@ const injectedRtkApi = api
         invalidatesTags: ["Events_events"],
       }),
       getUserKeys: build.query<GetUserKeysApiResponse, GetUserKeysApiArg>({
-        query: (queryArg) => ({ url: `/api/identity/orgs/${queryArg.orgId}/users/keys` }),
+        query: (queryArg) => ({
+          url: `/api/identity/orgs/${queryArg.orgId}/users/keys`,
+          params: {
+            page: queryArg.page,
+            pagesize: queryArg.pagesize,
+          },
+        }),
         providesTags: ["Key_users"],
       }),
       registerMeshmodels: build.mutation<RegisterMeshmodelsApiResponse, RegisterMeshmodelsApiArg>({
@@ -326,7 +332,7 @@ const injectedRtkApi = api
             search: queryArg.search,
             order: queryArg.order,
             filter: queryArg.filter,
-            teamID: queryArg.teamId,
+            teamId: queryArg.teamId,
           },
         }),
         providesTags: ["User_users"],
@@ -455,7 +461,7 @@ export type GetConnectionsApiArg = {
   /** Filter by connection name (partial match supported) */
   name?: string;
 };
-export type RegisterConnectionApiResponse = /** status 201 Connection registered successfully */ {
+export type RegisterConnectionApiResponse = /** status 201 Connection registered */ {
   /** Connection ID */
   id: string;
   /** Connection Name */
@@ -523,9 +529,9 @@ export type RegisterConnectionApiArg = {
     /** Connection type */
     type: string;
     /** Connection sub-type */
-    sub_type: string;
+    subType: string;
     /** Credential secret data */
-    credential_secret?: object;
+    credentialSecret?: object;
     /** Connection metadata */
     metadata?: object;
     /** Connection status */
@@ -595,7 +601,7 @@ export type GetConnectionByIdApiArg = {
   /** Connection ID */
   connectionId: string;
 };
-export type UpdateConnectionApiResponse = /** status 200 Connection updated successfully */ {
+export type UpdateConnectionApiResponse = /** status 200 Connection updated */ {
   /** Connection ID */
   id: string;
   /** Connection Name */
@@ -665,9 +671,9 @@ export type UpdateConnectionApiArg = {
     /** Connection type */
     type: string;
     /** Connection sub-type */
-    sub_type: string;
+    subType: string;
     /** Credential secret data */
-    credential_secret?: object;
+    credentialSecret?: object;
     /** Connection metadata */
     metadata?: object;
     /** Connection status */
@@ -713,7 +719,7 @@ export type ImportDesignApiArg = {
     /** Supported formats: Kubernetes Manifests, Helm Charts, Docker Compose, and Meshery Designs. See [Import Designs Documentation](https://docs.meshery.io/guides/configuration-management/importing-designs#import-designs-using-meshery-ui) for details */
     file?: string;
     /** The name of the pattern file being imported. */
-    file_name?: string;
+    fileName?: string;
     /** Provide a name for your design file. This name will help you identify the file more easily. You can also change the name of your design after importing it. */
     name?: string;
     /** Provide the URL of the file you want to import. This should be a direct URL to a single file, for example: https://raw.github.com/your-design-file.yaml. Also, ensure that design is in a supported format: Kubernetes Manifest, Helm Chart, Docker Compose, or Meshery Design. See [Import Designs Documentation](https://docs.meshery.io/guides/configuration-management/importing-designs#import-designs-using-meshery-ui) for details */
@@ -865,33 +871,7 @@ export type UpdateEnvironmentApiArg = {
     organization_id: string;
   };
 };
-export type DeleteEnvironmentApiResponse = /** status 200 Environment page */ {
-  page?: number;
-  page_size?: number;
-  total_count?: number;
-  environments?: {
-    /** ID */
-    id: string;
-    /** Specifies the version of the schema to which the environment conforms. */
-    schemaVersion: string;
-    /** Environment name */
-    name: string;
-    /** Environment description */
-    description: string;
-    /** Environment organization ID */
-    organization_id: string;
-    /** Environment owner */
-    owner?: string;
-    /** Timestamp when the resource was created. */
-    created_at?: string;
-    /** Additional metadata associated with the environment. */
-    metadata?: object;
-    /** Timestamp when the resource was updated. */
-    updated_at?: string;
-    /** Timestamp when the environment was soft deleted. Null while the environment remains active. */
-    deleted_at?: string | null;
-  }[];
-};
+export type DeleteEnvironmentApiResponse = unknown;
 export type DeleteEnvironmentApiArg = {
   /** Environment ID */
   environmentId: string;
@@ -2870,10 +2850,7 @@ export type PostEvaluateApiArg = {
     };
   };
 };
-export type DeleteEventsByIdApiResponse = /** status 200 Event deleted successfully */ {
-  message?: string;
-  event_id?: string;
-};
+export type DeleteEventsByIdApiResponse = unknown;
 export type DeleteEventsByIdApiArg = {
   /** ID of the event to delete */
   id: string;
@@ -2890,7 +2867,7 @@ export type PostEventsDeleteApiArg = {
     ids: string[];
   };
 };
-export type PutEventsStatusApiResponse = /** status 200 Events updated successfully */ {
+export type PutEventsStatusApiResponse = /** status 200 Events updated */ {
   updated?: string[];
 };
 export type PutEventsStatusApiArg = {
@@ -2899,7 +2876,7 @@ export type PutEventsStatusApiArg = {
     status: string;
   };
 };
-export type PutEventsByIdStatusApiResponse = /** status 200 Event status updated successfully */ {
+export type PutEventsByIdStatusApiResponse = /** status 200 Event status updated */ {
   message?: string;
   event_id?: string;
   status?: string;
@@ -2939,8 +2916,12 @@ export type GetUserKeysApiResponse = /** status 200 Returns user keys based on r
 export type GetUserKeysApiArg = {
   /** Organization ID */
   orgId: string;
+  /** Get responses by page */
+  page?: string;
+  /** Get responses by pagesize */
+  pagesize?: string;
 };
-export type RegisterMeshmodelsApiResponse = /** status 200 Successful registration */ {
+export type RegisterMeshmodelsApiResponse = /** status 201 Successful registration */ {
   message?: string;
 };
 export type RegisterMeshmodelsApiArg = {
@@ -2990,19 +2971,19 @@ export type GetOrgsApiResponse = /** status 200 Organizations response */ {
         theme: {
           id: string;
           logo: {
-            desktop_view: {
+            desktopView: {
               svg: string;
               location: string;
             };
-            mobile_view: {
+            mobileView: {
               svg: string;
               location: string;
             };
-            dark_desktop_view: {
+            darkDesktopView: {
               svg: string;
               location: string;
             };
-            dark_mobile_view: {
+            darkMobileView: {
               svg: string;
               location: string;
             };
@@ -3051,19 +3032,19 @@ export type CreateOrgApiResponse = /** status 201 Single-organization page respo
         theme: {
           id: string;
           logo: {
-            desktop_view: {
+            desktopView: {
               svg: string;
               location: string;
             };
-            mobile_view: {
+            mobileView: {
               svg: string;
               location: string;
             };
-            dark_desktop_view: {
+            darkDesktopView: {
               svg: string;
               location: string;
             };
-            dark_mobile_view: {
+            darkMobileView: {
               svg: string;
               location: string;
             };
@@ -3090,24 +3071,24 @@ export type CreateOrgApiArg = {
     country?: string;
     region?: string;
     description?: string;
-    notify_org_update?: boolean;
+    notifyOrgUpdate?: boolean;
     preferences?: {
       theme: {
         id: string;
         logo: {
-          desktop_view: {
+          desktopView: {
             svg: string;
             location: string;
           };
-          mobile_view: {
+          mobileView: {
             svg: string;
             location: string;
           };
-          dark_desktop_view: {
+          darkDesktopView: {
             svg: string;
             location: string;
           };
-          dark_mobile_view: {
+          darkMobileView: {
             svg: string;
             location: string;
           };
@@ -3137,19 +3118,19 @@ export type GetOrgByDomainApiResponse = /** status 200 Successful response */ {
       theme: {
         id: string;
         logo: {
-          desktop_view: {
+          desktopView: {
             svg: string;
             location: string;
           };
-          mobile_view: {
+          mobileView: {
             svg: string;
             location: string;
           };
-          dark_desktop_view: {
+          darkDesktopView: {
             svg: string;
             location: string;
           };
-          dark_mobile_view: {
+          darkMobileView: {
             svg: string;
             location: string;
           };
@@ -3189,19 +3170,19 @@ export type GetOrgApiResponse = /** status 200 Single-organization page response
         theme: {
           id: string;
           logo: {
-            desktop_view: {
+            desktopView: {
               svg: string;
               location: string;
             };
-            mobile_view: {
+            mobileView: {
               svg: string;
               location: string;
             };
-            dark_desktop_view: {
+            darkDesktopView: {
               svg: string;
               location: string;
             };
-            dark_mobile_view: {
+            darkMobileView: {
               svg: string;
               location: string;
             };
@@ -3224,55 +3205,7 @@ export type GetOrgApiResponse = /** status 200 Single-organization page response
 export type GetOrgApiArg = {
   orgId: string;
 };
-export type DeleteOrgApiResponse = /** status 200 Single-organization page response for the deleted organization */ {
-  page?: number;
-  page_size?: number;
-  total_count?: number;
-  organizations?: {
-    /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
-    id?: string;
-    name?: string;
-    description?: string;
-    country?: string;
-    region?: string;
-    owner?: string;
-    metadata?: {
-      preferences: {
-        theme: {
-          id: string;
-          logo: {
-            desktop_view: {
-              svg: string;
-              location: string;
-            };
-            mobile_view: {
-              svg: string;
-              location: string;
-            };
-            dark_desktop_view: {
-              svg: string;
-              location: string;
-            };
-            dark_mobile_view: {
-              svg: string;
-              location: string;
-            };
-          };
-          vars?: {
-            [key: string]: any;
-          };
-        };
-        /** Preferences specific to dashboard behavior */
-        dashboard: {
-          [key: string]: any;
-        };
-      };
-    };
-    created_at?: string;
-    updated_at?: string;
-    deleted_at?: string;
-  }[];
-};
+export type DeleteOrgApiResponse = unknown;
 export type DeleteOrgApiArg = {
   orgId: string;
 };
@@ -3294,19 +3227,19 @@ export type HandleUpdateOrgApiResponse =
           theme: {
             id: string;
             logo: {
-              desktop_view: {
+              desktopView: {
                 svg: string;
                 location: string;
               };
-              mobile_view: {
+              mobileView: {
                 svg: string;
                 location: string;
               };
-              dark_desktop_view: {
+              darkDesktopView: {
                 svg: string;
                 location: string;
               };
-              dark_mobile_view: {
+              darkMobileView: {
                 svg: string;
                 location: string;
               };
@@ -3334,24 +3267,24 @@ export type HandleUpdateOrgApiArg = {
     country?: string;
     region?: string;
     description?: string;
-    notify_org_update?: boolean;
+    notifyOrgUpdate?: boolean;
     preferences?: {
       theme: {
         id: string;
         logo: {
-          desktop_view: {
+          desktopView: {
             svg: string;
             location: string;
           };
-          mobile_view: {
+          mobileView: {
             svg: string;
             location: string;
           };
-          dark_desktop_view: {
+          darkDesktopView: {
             svg: string;
             location: string;
           };
-          dark_mobile_view: {
+          darkMobileView: {
             svg: string;
             location: string;
           };
@@ -3372,19 +3305,19 @@ export type GetOrgPreferencesApiResponse = /** status 200 Organization metadata,
     theme: {
       id: string;
       logo: {
-        desktop_view: {
+        desktopView: {
           svg: string;
           location: string;
         };
-        mobile_view: {
+        mobileView: {
           svg: string;
           location: string;
         };
-        dark_desktop_view: {
+        darkDesktopView: {
           svg: string;
           location: string;
         };
-        dark_mobile_view: {
+        darkMobileView: {
           svg: string;
           location: string;
         };
@@ -3402,14 +3335,14 @@ export type GetOrgPreferencesApiResponse = /** status 200 Organization metadata,
 export type GetOrgPreferencesApiArg = {
   orgId: string;
 };
-export type AddTeamToOrgApiResponse = /** status 200 Team added to organization or team tombstoned */
+export type AddTeamToOrgApiResponse = /** status 201 Team added to organization or team tombstoned */
   | {
       page?: number;
       page_size?: number;
       total_count?: number;
-      teams_organizations_mapping?: {
-        ID?: string;
-        org_id?: string;
+      teamsOrganizationsMapping?: {
+        id?: string;
+        orgId?: string;
         team_id?: string;
         created_at?: string;
         updated_at?: string;
@@ -3421,7 +3354,7 @@ export type AddTeamToOrgApiResponse = /** status 200 Team added to organization 
       page_size?: number;
       total_count?: number;
       teams?: {
-        ID?: string;
+        id?: string;
         name?: string;
         description?: string;
         owner?: string;
@@ -3503,9 +3436,9 @@ export type RemoveTeamFromOrgApiResponse = /** status 200 Team removed from orga
   page?: number;
   page_size?: number;
   total_count?: number;
-  teams_organizations_mapping?: {
-    ID?: string;
-    org_id?: string;
+  teamsOrganizationsMapping?: {
+    id?: string;
+    orgId?: string;
     team_id?: string;
     created_at?: string;
     updated_at?: string;
@@ -3516,16 +3449,14 @@ export type RemoveTeamFromOrgApiArg = {
   orgId: string;
   teamId: string;
 };
-export type AddUserToOrgApiResponse = /** status 200 User added to organization */ {
+export type AddUserToOrgApiResponse = /** status 201 User added to organization */ {
   [key: string]: any;
 };
 export type AddUserToOrgApiArg = {
   orgId: string;
   userId: string;
 };
-export type DeleteUserFromOrgApiResponse = /** status 200 User removed from organization */ {
-  [key: string]: any;
-};
+export type DeleteUserFromOrgApiResponse = unknown;
 export type DeleteUserFromOrgApiArg = {
   orgId: string;
   userId: string;
@@ -3594,7 +3525,7 @@ export type GetTeamUsersApiResponse = /** status 200 Team users mapping */ {
   page?: number;
   page_size?: number;
   total_count?: number;
-  teams_users_mapping?: {
+  teamsUsersMapping?: {
     id?: string;
     team_id?: string;
     /** user's email or username */
@@ -3619,7 +3550,7 @@ export type GetTeamUsersApiArg = {
   /** Get responses by pagesize */
   pagesize?: string;
 };
-export type AddUserToTeamApiResponse = /** status 200 User added to team */ {
+export type AddUserToTeamApiResponse = /** status 201 User added to team */ {
   id?: string;
   team_id?: string;
   /** user's email or username */
@@ -3639,18 +3570,7 @@ export type AddUserToTeamApiArg = {
   /** User ID */
   userId: string;
 };
-export type RemoveUserFromTeamApiResponse = /** status 200 User removed from team */ {
-  id?: string;
-  team_id?: string;
-  /** user's email or username */
-  user_id?: string;
-  /** Timestamp when the resource was created. */
-  created_at?: string;
-  /** Timestamp when the resource was updated. */
-  updated_at?: string;
-  /** SQL null Timestamp to handle null values of time. */
-  deleted_at?: string;
-};
+export type RemoveUserFromTeamApiResponse = unknown;
 export type RemoveUserFromTeamApiArg = {
   /** Organization ID */
   orgId: string;
@@ -3750,7 +3670,7 @@ export type GetUsersForOrgApiResponse = /** status 200 Paginated list of organiz
       dashboardPreferences: {
         [key: string]: any;
       };
-      selectedOrganizationID: string;
+      selectedOrganizationId: string;
       selectedWorkspaceForOrganizations: {
         [key: string]: string;
       };
@@ -3886,7 +3806,7 @@ export type GetUsersApiResponse = /** status 200 Paginated list of public users 
       dashboardPreferences: {
         [key: string]: any;
       };
-      selectedOrganizationID: string;
+      selectedOrganizationId: string;
       selectedWorkspaceForOrganizations: {
         [key: string]: string;
       };
@@ -4014,7 +3934,7 @@ export type GetUserProfileByIdApiResponse = /** status 200 User profile for the 
     dashboardPreferences: {
       [key: string]: any;
     };
-    selectedOrganizationID: string;
+    selectedOrganizationId: string;
     selectedWorkspaceForOrganizations: {
       [key: string]: string;
     };
@@ -4133,7 +4053,7 @@ export type GetUserApiResponse = /** status 200 Current user profile and role co
     dashboardPreferences: {
       [key: string]: any;
     };
-    selectedOrganizationID: string;
+    selectedOrganizationId: string;
     selectedWorkspaceForOrganizations: {
       [key: string]: string;
     };

@@ -32,7 +32,7 @@ Both repositories must be locally cloned and available:
 
 | Element | Convention | Example |
 |---------|------------|---------|
-| Property names | camelCase | `roleName`, `createdAt`, `organizationId` |
+| Property names | Preserve published wire-format casing: DB-backed fields use exact snake_case db names; new non-DB fields use camelCase | `first_name`, `organization_id`, `schemaVersion` |
 | Identifier fields | camelCase + "Id" suffix | `roleId`, `userId`, `keychainId` |
 | Enums | lowercase | `admin`, `user`, `enabled` |
 | Object names | singular nouns | `role`, `keychain`, `user` |
@@ -45,7 +45,11 @@ Both repositories must be locally cloned and available:
 |---------|------------|---------|
 | Paths | `/api` + kebab-case plurals | `/api/identity/orgs/{orgId}/roles` |
 | Operations | camelCase VerbNoun | `GetAllRoles`, `UpsertRoles` |
+
+If a property has `x-oapi-codegen-extra-tags.db` and that `db` value is snake_case, the schema property name and JSON tag must use that exact snake_case name. Do not camelize DB-backed fields in-place within an existing API version. Pagination envelopes must use `page`, `page_size`, and `total_count`.
 | Non-CRUD actions | append verb | `.../keychains/{keychainId}` |
+
+Response descriptions and response message text must not include the word `successfully`. Use neutral wording such as `Role deleted`, `Webhook processed`, or `Roles response`.
 
 ## Workflow
 
@@ -281,7 +285,7 @@ Compare generated models with Layer5 Cloud models:
 **Validation Checklist:**
 
 - [ ] All fields present with matching types
-- [ ] JSON tags match (allow for casing differences: `snake_case` ↔ `camelCase`)
+- [ ] JSON tags match the schema property name exactly; do not treat `snake_case` and `camelCase` as interchangeable for DB-backed fields
 - [ ] `omitempty` behavior preserved
 - [ ] Nullable fields handled correctly
 - [ ] Array/slice types match

@@ -5,8 +5,8 @@
 
 export interface paths {
   "/api/organizations/badges/{id}": {
-    get: operations["getBadgeByID"];
-    delete: operations["deleteBadgeByID"];
+    get: operations["getBadgeById"];
+    delete: operations["deleteBadgeById"];
   };
   "/api/organizations/badges": {
     post: operations["createOrUpdateBadge"];
@@ -174,6 +174,12 @@ export interface components {
         "text/plain": string;
       };
     };
+    /** Result not found */
+    404: {
+      content: {
+        "text/plain": string;
+      };
+    };
     /** Internal server error */
     500: {
       content: {
@@ -184,7 +190,7 @@ export interface components {
 }
 
 export interface operations {
-  getBadgeByID: {
+  getBadgeById: {
     parameters: {
       path: {
         /** Unique identifier */
@@ -244,9 +250,27 @@ export interface operations {
           };
         };
       };
+      /** Expired JWT token used or insufficient privilege */
+      401: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Result not found */
+      404: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Internal server error */
+      500: {
+        content: {
+          "text/plain": string;
+        };
+      };
     };
   };
-  deleteBadgeByID: {
+  deleteBadgeById: {
     parameters: {
       path: {
         /** Unique identifier */
@@ -254,8 +278,26 @@ export interface operations {
       };
     };
     responses: {
-      /** Badge deleted successfully */
+      /** Badge deleted */
       204: never;
+      /** Expired JWT token used or insufficient privilege */
+      401: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Result not found */
+      404: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Internal server error */
+      500: {
+        content: {
+          "text/plain": string;
+        };
+      };
     };
   };
   createOrUpdateBadge: {
@@ -310,6 +352,24 @@ export interface operations {
              */
             deleted_at: string;
           };
+        };
+      };
+      /** Invalid request body or request param */
+      400: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Expired JWT token used or insufficient privilege */
+      401: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Internal server error */
+      500: {
+        content: {
+          "text/plain": string;
         };
       };
     };

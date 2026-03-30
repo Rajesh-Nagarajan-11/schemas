@@ -65,19 +65,19 @@ export interface components {
       location: string;
     };
     Logo: {
-      desktop_view: {
+      desktopView: {
         svg: string;
         location: string;
       };
-      mobile_view: {
+      mobileView: {
         svg: string;
         location: string;
       };
-      dark_desktop_view: {
+      darkDesktopView: {
         svg: string;
         location: string;
       };
-      dark_mobile_view: {
+      darkMobileView: {
         svg: string;
         location: string;
       };
@@ -85,19 +85,19 @@ export interface components {
     Theme: {
       id: string;
       logo: {
-        desktop_view: {
+        desktopView: {
           svg: string;
           location: string;
         };
-        mobile_view: {
+        mobileView: {
           svg: string;
           location: string;
         };
-        dark_desktop_view: {
+        darkDesktopView: {
           svg: string;
           location: string;
         };
-        dark_mobile_view: {
+        darkMobileView: {
           svg: string;
           location: string;
         };
@@ -110,19 +110,19 @@ export interface components {
       theme: {
         id: string;
         logo: {
-          desktop_view: {
+          desktopView: {
             svg: string;
             location: string;
           };
-          mobile_view: {
+          mobileView: {
             svg: string;
             location: string;
           };
-          dark_desktop_view: {
+          darkDesktopView: {
             svg: string;
             location: string;
           };
-          dark_mobile_view: {
+          darkMobileView: {
             svg: string;
             location: string;
           };
@@ -137,19 +137,19 @@ export interface components {
         theme: {
           id: string;
           logo: {
-            desktop_view: {
+            desktopView: {
               svg: string;
               location: string;
             };
-            mobile_view: {
+            mobileView: {
               svg: string;
               location: string;
             };
-            dark_desktop_view: {
+            darkDesktopView: {
               svg: string;
               location: string;
             };
-            dark_mobile_view: {
+            darkMobileView: {
               svg: string;
               location: string;
             };
@@ -180,19 +180,19 @@ export interface components {
           theme: {
             id: string;
             logo: {
-              desktop_view: {
+              desktopView: {
                 svg: string;
                 location: string;
               };
-              mobile_view: {
+              mobileView: {
                 svg: string;
                 location: string;
               };
-              dark_desktop_view: {
+              darkDesktopView: {
                 svg: string;
                 location: string;
               };
-              dark_mobile_view: {
+              darkMobileView: {
                 svg: string;
                 location: string;
               };
@@ -227,19 +227,19 @@ export interface components {
           theme: {
             id: string;
             logo: {
-              desktop_view: {
+              desktopView: {
                 svg: string;
                 location: string;
               };
-              mobile_view: {
+              mobileView: {
                 svg: string;
                 location: string;
               };
-              dark_desktop_view: {
+              darkDesktopView: {
                 svg: string;
                 location: string;
               };
-              dark_mobile_view: {
+              darkMobileView: {
                 svg: string;
                 location: string;
               };
@@ -277,19 +277,19 @@ export interface components {
             theme: {
               id: string;
               logo: {
-                desktop_view: {
+                desktopView: {
                   svg: string;
                   location: string;
                 };
-                mobile_view: {
+                mobileView: {
                   svg: string;
                   location: string;
                 };
-                dark_desktop_view: {
+                darkDesktopView: {
                   svg: string;
                   location: string;
                 };
-                dark_mobile_view: {
+                darkMobileView: {
                   svg: string;
                   location: string;
                 };
@@ -329,19 +329,19 @@ export interface components {
             theme: {
               id: string;
               logo: {
-                desktop_view: {
+                desktopView: {
                   svg: string;
                   location: string;
                 };
-                mobile_view: {
+                mobileView: {
                   svg: string;
                   location: string;
                 };
-                dark_desktop_view: {
+                darkDesktopView: {
                   svg: string;
                   location: string;
                 };
-                dark_mobile_view: {
+                darkMobileView: {
                   svg: string;
                   location: string;
                 };
@@ -365,24 +365,24 @@ export interface components {
       country?: string;
       region?: string;
       description?: string;
-      notify_org_update?: boolean;
+      notifyOrgUpdate?: boolean;
       preferences?: {
         theme: {
           id: string;
           logo: {
-            desktop_view: {
+            desktopView: {
               svg: string;
               location: string;
             };
-            mobile_view: {
+            mobileView: {
               svg: string;
               location: string;
             };
-            dark_desktop_view: {
+            darkDesktopView: {
               svg: string;
               location: string;
             };
-            dark_mobile_view: {
+            darkMobileView: {
               svg: string;
               location: string;
             };
@@ -395,7 +395,7 @@ export interface components {
     };
     AvailableTeam: {
       /** Format: uuid */
-      ID?: string;
+      id?: string;
       name?: string;
       description?: string;
       owner?: string;
@@ -413,7 +413,7 @@ export interface components {
       total_count?: number;
       teams?: {
         /** Format: uuid */
-        ID?: string;
+        id?: string;
         name?: string;
         description?: string;
         owner?: string;
@@ -428,9 +428,9 @@ export interface components {
     };
     TeamsOrganizationsMapping: {
       /** Format: uuid */
-      ID?: string;
+      id?: string;
       /** Format: uuid */
-      org_id?: string;
+      orgId?: string;
       /** Format: uuid */
       team_id?: string;
       /** Format: date-time */
@@ -444,11 +444,11 @@ export interface components {
       page?: number;
       page_size?: number;
       total_count?: number;
-      teams_organizations_mapping?: {
+      teamsOrganizationsMapping?: {
         /** Format: uuid */
-        ID?: string;
+        id?: string;
         /** Format: uuid */
-        org_id?: string;
+        orgId?: string;
         /** Format: uuid */
         team_id?: string;
         /** Format: date-time */
@@ -509,24 +509,24 @@ export interface components {
           country?: string;
           region?: string;
           description?: string;
-          notify_org_update?: boolean;
+          notifyOrgUpdate?: boolean;
           preferences?: {
             theme: {
               id: string;
               logo: {
-                desktop_view: {
+                desktopView: {
                   svg: string;
                   location: string;
                 };
-                mobile_view: {
+                mobileView: {
                   svg: string;
                   location: string;
                 };
-                dark_desktop_view: {
+                darkDesktopView: {
                   svg: string;
                   location: string;
                 };
-                dark_mobile_view: {
+                darkMobileView: {
                   svg: string;
                   location: string;
                 };
@@ -583,19 +583,19 @@ export interface operations {
                   theme: {
                     id: string;
                     logo: {
-                      desktop_view: {
+                      desktopView: {
                         svg: string;
                         location: string;
                       };
-                      mobile_view: {
+                      mobileView: {
                         svg: string;
                         location: string;
                       };
-                      dark_desktop_view: {
+                      darkDesktopView: {
                         svg: string;
                         location: string;
                       };
-                      dark_mobile_view: {
+                      darkMobileView: {
                         svg: string;
                         location: string;
                       };
@@ -658,282 +658,19 @@ export interface operations {
                   theme: {
                     id: string;
                     logo: {
-                      desktop_view: {
+                      desktopView: {
                         svg: string;
                         location: string;
                       };
-                      mobile_view: {
+                      mobileView: {
                         svg: string;
                         location: string;
                       };
-                      dark_desktop_view: {
+                      darkDesktopView: {
                         svg: string;
                         location: string;
                       };
-                      dark_mobile_view: {
-                        svg: string;
-                        location: string;
-                      };
-                    };
-                    vars?: { [key: string]: unknown };
-                  };
-                  /** @description Preferences specific to dashboard behavior */
-                  dashboard: { [key: string]: unknown };
-                };
-              };
-              /** Format: date-time */
-              created_at?: string;
-              /** Format: date-time */
-              updated_at?: string;
-              /** Format: date-time */
-              deleted_at?: string;
-            }[];
-          };
-        };
-      };
-      /** Expired JWT token used or insufficient privilege */
-      401: {
-        content: {
-          "text/plain": string;
-        };
-      };
-      /** Internal server error */
-      500: {
-        content: {
-          "text/plain": string;
-        };
-      };
-    };
-    /** Body for creating or updating an organization */
-    requestBody: {
-      content: {
-        "application/json": {
-          name?: string;
-          country?: string;
-          region?: string;
-          description?: string;
-          notify_org_update?: boolean;
-          preferences?: {
-            theme: {
-              id: string;
-              logo: {
-                desktop_view: {
-                  svg: string;
-                  location: string;
-                };
-                mobile_view: {
-                  svg: string;
-                  location: string;
-                };
-                dark_desktop_view: {
-                  svg: string;
-                  location: string;
-                };
-                dark_mobile_view: {
-                  svg: string;
-                  location: string;
-                };
-              };
-              vars?: { [key: string]: unknown };
-            };
-            /** @description Preferences specific to dashboard behavior */
-            dashboard: { [key: string]: unknown };
-          };
-        };
-      };
-    };
-  };
-  getOrgByDomain: {
-    parameters: {
-      query: {
-        domain: string;
-      };
-    };
-    responses: {
-      /** Successful response */
-      200: {
-        content: {
-          "application/json": {
-            /**
-             * Format: uuid
-             * @description A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.
-             */
-            id: string;
-            name: string;
-            country: string;
-            region: string;
-            description: string;
-            /**
-             * Format: uuid
-             * @description A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.
-             */
-            owner: string;
-            metadata: {
-              preferences: {
-                theme: {
-                  id: string;
-                  logo: {
-                    desktop_view: {
-                      svg: string;
-                      location: string;
-                    };
-                    mobile_view: {
-                      svg: string;
-                      location: string;
-                    };
-                    dark_desktop_view: {
-                      svg: string;
-                      location: string;
-                    };
-                    dark_mobile_view: {
-                      svg: string;
-                      location: string;
-                    };
-                  };
-                  vars?: { [key: string]: unknown };
-                };
-                /** @description Preferences specific to dashboard behavior */
-                dashboard: { [key: string]: unknown };
-              };
-            };
-            /** Format: date-time */
-            created_at: string;
-            /** Format: date-time */
-            updated_at: string;
-            /** Format: date-time */
-            deleted_at?: string;
-            domain?: string | null;
-          };
-        };
-      };
-      /** Organization not found */
-      404: unknown;
-      /** Internal server error */
-      500: unknown;
-    };
-  };
-  /** Returns the organization in the single-item page wrapper currently emitted by meshery-cloud. */
-  getOrg: {
-    parameters: {
-      path: {
-        orgId: string;
-      };
-    };
-    responses: {
-      /** Single-organization page response */
-      200: {
-        content: {
-          "application/json": {
-            page?: number;
-            page_size?: number;
-            total_count?: number;
-            organizations?: {
-              /**
-               * Format: uuid
-               * @description A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.
-               */
-              id?: string;
-              name?: string;
-              description?: string;
-              country?: string;
-              region?: string;
-              owner?: string;
-              metadata?: {
-                preferences: {
-                  theme: {
-                    id: string;
-                    logo: {
-                      desktop_view: {
-                        svg: string;
-                        location: string;
-                      };
-                      mobile_view: {
-                        svg: string;
-                        location: string;
-                      };
-                      dark_desktop_view: {
-                        svg: string;
-                        location: string;
-                      };
-                      dark_mobile_view: {
-                        svg: string;
-                        location: string;
-                      };
-                    };
-                    vars?: { [key: string]: unknown };
-                  };
-                  /** @description Preferences specific to dashboard behavior */
-                  dashboard: { [key: string]: unknown };
-                };
-              };
-              /** Format: date-time */
-              created_at?: string;
-              /** Format: date-time */
-              updated_at?: string;
-              /** Format: date-time */
-              deleted_at?: string;
-            }[];
-          };
-        };
-      };
-      /** Expired JWT token used or insufficient privilege */
-      401: {
-        content: {
-          "text/plain": string;
-        };
-      };
-      /** Internal server error */
-      500: {
-        content: {
-          "text/plain": string;
-        };
-      };
-    };
-  };
-  /** Updates the organization. */
-  handleUpdateOrg: {
-    parameters: {
-      path: {
-        orgId: string;
-      };
-    };
-    responses: {
-      /** Single-organization page response for the updated organization */
-      200: {
-        content: {
-          "application/json": {
-            page?: number;
-            page_size?: number;
-            total_count?: number;
-            organizations?: {
-              /**
-               * Format: uuid
-               * @description A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.
-               */
-              id?: string;
-              name?: string;
-              description?: string;
-              country?: string;
-              region?: string;
-              owner?: string;
-              metadata?: {
-                preferences: {
-                  theme: {
-                    id: string;
-                    logo: {
-                      desktop_view: {
-                        svg: string;
-                        location: string;
-                      };
-                      mobile_view: {
-                        svg: string;
-                        location: string;
-                      };
-                      dark_desktop_view: {
-                        svg: string;
-                        location: string;
-                      };
-                      dark_mobile_view: {
+                      darkMobileView: {
                         svg: string;
                         location: string;
                       };
@@ -981,24 +718,24 @@ export interface operations {
           country?: string;
           region?: string;
           description?: string;
-          notify_org_update?: boolean;
+          notifyOrgUpdate?: boolean;
           preferences?: {
             theme: {
               id: string;
               logo: {
-                desktop_view: {
+                desktopView: {
                   svg: string;
                   location: string;
                 };
-                mobile_view: {
+                mobileView: {
                   svg: string;
                   location: string;
                 };
-                dark_desktop_view: {
+                darkDesktopView: {
                   svg: string;
                   location: string;
                 };
-                dark_mobile_view: {
+                darkMobileView: {
                   svg: string;
                   location: string;
                 };
@@ -1012,15 +749,90 @@ export interface operations {
       };
     };
   };
-  /** Deletes the organization. */
-  deleteOrg: {
+  getOrgByDomain: {
+    parameters: {
+      query: {
+        domain: string;
+      };
+    };
+    responses: {
+      /** Successful response */
+      200: {
+        content: {
+          "application/json": {
+            /**
+             * Format: uuid
+             * @description A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.
+             */
+            id: string;
+            name: string;
+            country: string;
+            region: string;
+            description: string;
+            /**
+             * Format: uuid
+             * @description A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.
+             */
+            owner: string;
+            metadata: {
+              preferences: {
+                theme: {
+                  id: string;
+                  logo: {
+                    desktopView: {
+                      svg: string;
+                      location: string;
+                    };
+                    mobileView: {
+                      svg: string;
+                      location: string;
+                    };
+                    darkDesktopView: {
+                      svg: string;
+                      location: string;
+                    };
+                    darkMobileView: {
+                      svg: string;
+                      location: string;
+                    };
+                  };
+                  vars?: { [key: string]: unknown };
+                };
+                /** @description Preferences specific to dashboard behavior */
+                dashboard: { [key: string]: unknown };
+              };
+            };
+            /** Format: date-time */
+            created_at: string;
+            /** Format: date-time */
+            updated_at: string;
+            /** Format: date-time */
+            deleted_at?: string;
+            domain?: string | null;
+          };
+        };
+      };
+      /** Expired JWT token used or insufficient privilege */
+      401: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Organization not found */
+      404: unknown;
+      /** Internal server error */
+      500: unknown;
+    };
+  };
+  /** Returns the organization in the single-item page wrapper currently emitted by meshery-cloud. */
+  getOrg: {
     parameters: {
       path: {
         orgId: string;
       };
     };
     responses: {
-      /** Single-organization page response for the deleted organization */
+      /** Single-organization page response */
       200: {
         content: {
           "application/json": {
@@ -1043,19 +855,103 @@ export interface operations {
                   theme: {
                     id: string;
                     logo: {
-                      desktop_view: {
+                      desktopView: {
                         svg: string;
                         location: string;
                       };
-                      mobile_view: {
+                      mobileView: {
                         svg: string;
                         location: string;
                       };
-                      dark_desktop_view: {
+                      darkDesktopView: {
                         svg: string;
                         location: string;
                       };
-                      dark_mobile_view: {
+                      darkMobileView: {
+                        svg: string;
+                        location: string;
+                      };
+                    };
+                    vars?: { [key: string]: unknown };
+                  };
+                  /** @description Preferences specific to dashboard behavior */
+                  dashboard: { [key: string]: unknown };
+                };
+              };
+              /** Format: date-time */
+              created_at?: string;
+              /** Format: date-time */
+              updated_at?: string;
+              /** Format: date-time */
+              deleted_at?: string;
+            }[];
+          };
+        };
+      };
+      /** Expired JWT token used or insufficient privilege */
+      401: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Result not found */
+      404: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Internal server error */
+      500: {
+        content: {
+          "text/plain": string;
+        };
+      };
+    };
+  };
+  /** Updates the organization. */
+  handleUpdateOrg: {
+    parameters: {
+      path: {
+        orgId: string;
+      };
+    };
+    responses: {
+      /** Single-organization page response for the updated organization */
+      200: {
+        content: {
+          "application/json": {
+            page?: number;
+            page_size?: number;
+            total_count?: number;
+            organizations?: {
+              /**
+               * Format: uuid
+               * @description A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.
+               */
+              id?: string;
+              name?: string;
+              description?: string;
+              country?: string;
+              region?: string;
+              owner?: string;
+              metadata?: {
+                preferences: {
+                  theme: {
+                    id: string;
+                    logo: {
+                      desktopView: {
+                        svg: string;
+                        location: string;
+                      };
+                      mobileView: {
+                        svg: string;
+                        location: string;
+                      };
+                      darkDesktopView: {
+                        svg: string;
+                        location: string;
+                      };
+                      darkMobileView: {
                         svg: string;
                         location: string;
                       };
@@ -1101,6 +997,80 @@ export interface operations {
         };
       };
     };
+    /** Body for creating or updating an organization */
+    requestBody: {
+      content: {
+        "application/json": {
+          name?: string;
+          country?: string;
+          region?: string;
+          description?: string;
+          notifyOrgUpdate?: boolean;
+          preferences?: {
+            theme: {
+              id: string;
+              logo: {
+                desktopView: {
+                  svg: string;
+                  location: string;
+                };
+                mobileView: {
+                  svg: string;
+                  location: string;
+                };
+                darkDesktopView: {
+                  svg: string;
+                  location: string;
+                };
+                darkMobileView: {
+                  svg: string;
+                  location: string;
+                };
+              };
+              vars?: { [key: string]: unknown };
+            };
+            /** @description Preferences specific to dashboard behavior */
+            dashboard: { [key: string]: unknown };
+          };
+        };
+      };
+    };
+  };
+  /** Deletes the organization. */
+  deleteOrg: {
+    parameters: {
+      path: {
+        orgId: string;
+      };
+    };
+    responses: {
+      /** Organization deleted */
+      204: never;
+      /** Invalid request body or request param */
+      400: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Expired JWT token used or insufficient privilege */
+      401: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Result not found */
+      404: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Internal server error */
+      500: {
+        content: {
+          "text/plain": string;
+        };
+      };
+    };
   };
   /** Returns preferences for the specified organization. */
   getOrgPreferences: {
@@ -1118,19 +1088,19 @@ export interface operations {
               theme: {
                 id: string;
                 logo: {
-                  desktop_view: {
+                  desktopView: {
                     svg: string;
                     location: string;
                   };
-                  mobile_view: {
+                  mobileView: {
                     svg: string;
                     location: string;
                   };
-                  dark_desktop_view: {
+                  darkDesktopView: {
                     svg: string;
                     location: string;
                   };
-                  dark_mobile_view: {
+                  darkMobileView: {
                     svg: string;
                     location: string;
                   };
@@ -1145,6 +1115,12 @@ export interface operations {
       };
       /** Expired JWT token used or insufficient privilege */
       401: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** Result not found */
+      404: {
         content: {
           "text/plain": string;
         };
@@ -1167,18 +1143,18 @@ export interface operations {
     };
     responses: {
       /** Team added to organization or team tombstoned */
-      200: {
+      201: {
         content: {
           "application/json":
             | {
                 page?: number;
                 page_size?: number;
                 total_count?: number;
-                teams_organizations_mapping?: {
+                teamsOrganizationsMapping?: {
                   /** Format: uuid */
-                  ID?: string;
+                  id?: string;
                   /** Format: uuid */
-                  org_id?: string;
+                  orgId?: string;
                   /** Format: uuid */
                   team_id?: string;
                   /** Format: date-time */
@@ -1195,7 +1171,7 @@ export interface operations {
                 total_count?: number;
                 teams?: {
                   /** Format: uuid */
-                  ID?: string;
+                  id?: string;
                   name?: string;
                   description?: string;
                   owner?: string;
@@ -1247,11 +1223,11 @@ export interface operations {
             page?: number;
             page_size?: number;
             total_count?: number;
-            teams_organizations_mapping?: {
+            teamsOrganizationsMapping?: {
               /** Format: uuid */
-              ID?: string;
+              id?: string;
               /** Format: uuid */
-              org_id?: string;
+              orgId?: string;
               /** Format: uuid */
               team_id?: string;
               /** Format: date-time */
@@ -1283,13 +1259,25 @@ export interface operations {
     };
     responses: {
       /** User added to organization */
-      200: {
+      201: {
         content: {
           "application/json": { [key: string]: unknown };
         };
       };
+      /** Invalid request body or request param */
+      400: {
+        content: {
+          "text/plain": string;
+        };
+      };
       /** Unauthorized */
       401: unknown;
+      /** Result not found */
+      404: {
+        content: {
+          "text/plain": string;
+        };
+      };
       /** Internal server error */
       500: unknown;
     };
@@ -1303,13 +1291,15 @@ export interface operations {
     };
     responses: {
       /** User removed from organization */
-      200: {
-        content: {
-          "application/json": { [key: string]: unknown };
-        };
-      };
+      204: never;
       /** Unauthorized */
       401: unknown;
+      /** Result not found */
+      404: {
+        content: {
+          "text/plain": string;
+        };
+      };
       /** Internal server error */
       500: unknown;
     };

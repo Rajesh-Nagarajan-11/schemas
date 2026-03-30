@@ -1080,7 +1080,7 @@ const KeychainSchema: Record<string, unknown> = {
         ],
         "responses": {
           "200": {
-            "description": "Keys fetched successfully",
+            "description": "Keys response",
             "content": {
               "application/json": {
                 "schema": {

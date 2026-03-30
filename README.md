@@ -890,17 +890,62 @@ Or validate a single file:
 npx @redocly/cli lint schemas/constructs/v1beta1/pattern/api.yml
 ```
 
+### Schema Validation Modes
+
+`build/validate-schemas.js` enforces 33 rules organized into four issue tiers. Different `make` targets control which tiers are visible and whether violations block the build.
+
+| Mode | Command | Blocking | Style | Design | Contract |
+| --- | --- | --- | --- | --- | --- |
+| Build default | `make validate-schemas` | Exit 1 | Silent | Silent | Silent |
+| Advisory audit | `make audit-schemas` | Exit 0 | Silent | Visible | Visible |
+| Full advisory backlog | `make audit-schemas-full` | Exit 0 | Silent | Visible | Visible |
+| Style debt report | `make audit-schemas-style-full` | Exit 0 | Visible | Visible | Visible |
+| Full debt report | `make audit-schemas-debt-full` | Exit 0 | Visible | Visible | Visible |
+| Strict CI gate | `make validate-schemas-strict` | Exit 1 | Error | Error | Error |
+
+- **Blocking** (Rules 1-2, 5, 11-22, 27, 32-33): Always enforced. Break code generation or violate structural contracts.
+- **Style** (Rules 3-4, 6-10, 19): Naming conventions. Silent by default; visible with `--style-debt`; blocking in v1beta2-draft files and `--strict-consistency`.
+- **Design** (Rules 23-26, 30-31): API design patterns. Visible as advisories in `--warn` mode.
+- **Contract** (Rules 28-29): Published API contract checks (response codes, duplicate schemas). Visible as advisories in `--warn` mode.
+
+Run unit tests for the validation logic:
+
+```bash
+npm run test:validate-schemas
+```
+
+### Go Generation Pipeline
+
+`build/generate-golang.js` runs an 8-stage pipeline for each package. The pipeline both generates and validates Go structs to ensure schema property names, json tags, and db tags are consistent end-to-end.
+
+| Stage | Function | What it does |
+| --- | --- | --- |
+| 1 | `oapi-codegen` | Generates Go structs with `json` tags from schema property names (verbatim, no casing transform) |
+| 2 | `addYamlTags()` | Copies each `json` tag value to a `yaml` tag |
+| 3 | `addSchemaExtraTags()` | Merges `db`, `gorm`, etc. from `x-oapi-codegen-extra-tags` into struct tags |
+| 4 | `rewriteExternalRefAliases()` | Normalizes import aliases from opaque names to readable ones |
+| 5 | `validateReadableImportAliases()` | Verifies no opaque import aliases remain |
+| 6 | `addCompatibilityParameterAliases()` | Adds backward-compatible parameter type aliases |
+| 7 | `validateGeneratedDbTags()` | Verifies every `db:` tag declared in the schema is present in generated Go |
+| 8 | `validateGeneratedJsonTags()` | Verifies every `json:` tag in generated Go matches the schema property name |
+
+The **property name is the single source of truth** for the json wire format. oapi-codegen reads it verbatim (stage 1), and `validateGeneratedJsonTags` confirms it survived the pipeline unchanged (stage 8).
+
 ---
 
 ## ✅ Summary
 
-| Task                         | Command                 |
-| ---------------------------- | ----------------------- |
-| Generate everything          | `make build`            |
-| Build TypeScript dist        | `npm run build`         |
-| Generate Go code only        | `make golang-generate`  |
-| Generate TS types + schemas  | `make generate-ts`      |
-| Lint OpenAPI                 | `npx @redocly/cli lint` |
+| Task                         | Command                          |
+| ---------------------------- | -------------------------------- |
+| Generate everything          | `make build`                     |
+| Build TypeScript dist        | `npm run build`                  |
+| Generate Go code only        | `make golang-generate`           |
+| Generate TS types + schemas  | `make generate-ts`               |
+| Lint OpenAPI                 | `npx @redocly/cli lint`          |
+| Schema validation (blocking) | `make validate-schemas`          |
+| Schema audit (advisory)      | `make audit-schemas`             |
+| Full schema debt report      | `make audit-schemas-debt-full`   |
+| Validation unit tests        | `npm run test:validate-schemas`  |
 
 ### Importing Schemas
 

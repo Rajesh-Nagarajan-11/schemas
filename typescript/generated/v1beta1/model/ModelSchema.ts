@@ -19,6 +19,11 @@ const ModelSchema: Record<string, unknown> = {
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     }
   },
+  "security": [
+    {
+      "jwt": []
+    }
+  ],
   "paths": {
     "/api/meshmodels/register": {
       "post": {
@@ -164,7 +169,7 @@ const ModelSchema: Record<string, unknown> = {
           }
         },
         "responses": {
-          "200": {
+          "201": {
             "description": "Successful registration",
             "content": {
               "application/json": {
@@ -181,6 +186,16 @@ const ModelSchema: Record<string, unknown> = {
           },
           "400": {
             "description": "Invalid request format"
+          },
+          "401": {
+            "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           },
           "500": {
             "description": "Internal server error"
@@ -258,6 +273,16 @@ const ModelSchema: Record<string, unknown> = {
               }
             }
           },
+          "401": {
+            "description": "Expired JWT token used or insufficient privilege",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Internal server error"
           }
@@ -266,6 +291,25 @@ const ModelSchema: Record<string, unknown> = {
     }
   },
   "components": {
+    "responses": {
+      "401": {
+        "description": "Expired JWT token used or insufficient privilege",
+        "content": {
+          "text/plain": {
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "jwt": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
     "schemas": {
       "Model": {
         "type": "object",
@@ -277,7 +321,6 @@ const ModelSchema: Record<string, unknown> = {
           "version": {
             "description": "Version of the model as defined by the registrant.",
             "x-oapi-codegen-extra-tags": {
-              "yaml": "version",
               "json": "version"
             },
             "x-order": 1,
@@ -1279,7 +1322,6 @@ const ModelSchema: Record<string, unknown> = {
               "version": {
                 "description": "Version of the model as defined by the registrant.",
                 "x-oapi-codegen-extra-tags": {
-                  "yaml": "version",
                   "json": "version"
                 },
                 "x-order": 1,
@@ -1443,7 +1485,6 @@ const ModelSchema: Record<string, unknown> = {
               "version": {
                 "description": "Version of the model as defined by the registrant.",
                 "x-oapi-codegen-extra-tags": {
-                  "yaml": "version",
                   "json": "version"
                 },
                 "x-order": 1,
@@ -1457,7 +1498,6 @@ const ModelSchema: Record<string, unknown> = {
           "registrant": {
             "x-go-type": "RegistrantReference",
             "x-oapi-codegen-extra-tags": {
-              "yaml": "registrant",
               "json": "registrant"
             },
             "type": "object",

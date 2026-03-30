@@ -28,6 +28,8 @@ paths:
       description: Get all keys based on roles assigned to user
       parameters:
         - $ref: "#/components/parameters/orgId"
+        - $ref: "#/components/parameters/page"
+        - $ref: "#/components/parameters/pagesize"
       responses:
         "200":
           description: Returns user keys based on roles assigned to user
@@ -37,6 +39,8 @@ paths:
                 $ref: "#/components/schemas/KeyPage"
         "401":
           $ref: "#/components/responses/401"
+        "404":
+          $ref: "#/components/responses/404"
         "500":
           $ref: "#/components/responses/500"
   /api/auth/keys:
@@ -78,7 +82,7 @@ paths:
               $ref: "#/components/schemas/KeyPayload"
       responses:
         "200":
-          description: Key upserted successfully
+          description: Key upserted
           content:
             application/json:
               schema:
@@ -101,7 +105,7 @@ paths:
         - $ref: "#/components/parameters/keyId"
       responses:
         "200":
-          description: Key fetched successfully
+          description: Key response
           content:
             application/json:
               schema:
@@ -124,7 +128,7 @@ paths:
         - $ref: "#/components/parameters/keyId"
       responses:
         "204":
-          description: Key deleted successfully
+          description: Key deleted
         "400":
           $ref: "#/components/responses/400"
         "401":
@@ -137,13 +141,13 @@ paths:
 components:
   responses:
     400:
-      $ref: "../../v1alpha1/core/api.yml#/components/responses/400"
+      $ref: "../core/api.yml#/components/responses/400"
     401:
-      $ref: "../../v1alpha1/core/api.yml#/components/responses/401"
+      $ref: "../core/api.yml#/components/responses/401"
     404:
-      $ref: "../../v1alpha1/core/api.yml#/components/responses/404"
+      $ref: "../core/api.yml#/components/responses/404"
     500:
-      $ref: "../../v1alpha1/core/api.yml#/components/responses/500"
+      $ref: "../core/api.yml#/components/responses/500"
 
   parameters:
     orgId:
@@ -152,22 +156,22 @@ components:
       description: Organization ID
       required: true
       schema:
-        $ref: ../../v1alpha1/core/api.yml#/components/schemas/uuid
+        $ref: ../core/api.yml#/components/schemas/uuid
     keyId:
       name: keyId
       in: path
       description: Key ID
       required: true
       schema:
-        $ref: ../../v1alpha1/core/api.yml#/components/schemas/uuid
+        $ref: ../core/api.yml#/components/schemas/uuid
     page:
-      $ref: ../../v1alpha1/core/api.yml#/components/parameters/page
+      $ref: ../core/api.yml#/components/parameters/page
     pagesize:
-      $ref: ../../v1alpha1/core/api.yml#/components/parameters/pagesize
+      $ref: ../core/api.yml#/components/parameters/pagesize
     order:
-      $ref: ../../v1alpha1/core/api.yml#/components/parameters/order
+      $ref: ../core/api.yml#/components/parameters/order
     search:
-      $ref: ../../v1alpha1/core/api.yml#/components/parameters/search
+      $ref: ../core/api.yml#/components/parameters/search
 
   securitySchemes:
     jwt:
@@ -183,7 +187,7 @@ components:
       description: Payload for creating or updating a key.
       properties:
         id:
-          $ref: ../../v1alpha1/core/api.yml#/components/schemas/uuid
+          $ref: ../core/api.yml#/components/schemas/uuid
           description: Existing key identifier for updates.
           x-order: 1
         function:
@@ -211,13 +215,13 @@ components:
         - keys
       properties:
         page:
-          $ref: ../../v1alpha1/core/api.yml#/components/schemas/number
+          $ref: ../core/api.yml#/components/schemas/number
           x-order: 1
         page_size:
-          $ref: ../../v1alpha1/core/api.yml#/components/schemas/number
+          $ref: ../core/api.yml#/components/schemas/number
           x-order: 2
         total_count:
-          $ref: ../../v1alpha1/core/api.yml#/components/schemas/number
+          $ref: ../core/api.yml#/components/schemas/number
           x-order: 3
         keys:
           type: array
