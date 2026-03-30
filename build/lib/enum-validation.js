@@ -56,9 +56,7 @@ function findNewNonLowercaseEnumValues(doc, baselineDoc) {
     // x-enum-casing-exempt: true permanently exempts all values in this
     // enum from the lowercase rule. Use for published enum values that
     // will never change (e.g. PlanName, FeatureName).
-    if (schema["x-enum-casing-exempt"] === true && Array.isArray(schema.enum)) {
-      // Skip — all values are permanently exempt
-    } else if (Array.isArray(schema.enum)) {
+    if (Array.isArray(schema.enum) && schema["x-enum-casing-exempt"] !== true) {
       const existingValues = baselineEnumValues.get(path) ?? new Set();
 
       for (const value of schema.enum) {
