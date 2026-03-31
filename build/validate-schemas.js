@@ -46,7 +46,7 @@
  *   Rule 33 — Pagination envelopes must use page, page_size, total_count.
  *   Rule 34 — Template file values must match schema property types.
  *   Rule 35 — x-go-type alias must match x-go-type-import.name, and import path must match alias.
- *   Rule 36 — Every operation must define at least one OpenAPI tag.
+ *   Rule 36 — Every operation must define at least one OpenAPI tag; tags must be declared in document-root `tags:` section.
  *
  * USAGE:
  *   node build/validate-schemas.js          # exits 0 if no blocking violations found
@@ -2032,6 +2032,13 @@ function validateResponseCodeSemantics(filePath, doc) {
 function validateOperationTags(filePath, doc) {
   if (!doc?.paths) return;
 
+  // Build a set of declared tag names from the document-root `tags:` section.
+  // Only cross-check when the section is present; files that omit it entirely
+  // are not penalised here (the missing-tags check below handles that case).
+  const declaredTags = Array.isArray(doc.tags)
+    ? new Set(doc.tags.map((t) => t.name).filter(Boolean))
+    : null;
+
   for (const [routePath, pathItem] of Object.entries(doc.paths)) {
     for (const method of HTTP_METHODS) {
       const op = pathItem[method];
@@ -2044,6 +2051,16 @@ function validateOperationTags(filePath, doc) {
             `Every operation must have at least one tag for consistent API documentation and client generation. ` +
             `See AGENTS.md § "Checklist for Schema Changes".`,
         );
+      } else if (declaredTags !== null) {
+        for (const tag of op.tags) {
+          if (!declaredTags.has(tag)) {
+            reportDesignAdvisory(
+              filePath,
+              `${method.toUpperCase()} ${routePath} — operation tag \`${tag}\` is not declared in the document-root \`tags\` section. ` +
+                `Add \`- name: ${tag}\` under the top-level \`tags:\` list to prevent typos and ensure consistent API documentation.`,
+            );
+          }
+        }
       }
     }
   }
