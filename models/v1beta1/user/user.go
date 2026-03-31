@@ -10,6 +10,7 @@ import (
 	openapi_types "github.com/oapi-codegen/runtime/types"
 	"github.com/gofrs/uuid"
 )
+
 // Defines values for UserRoleNames.
 const (
 	UserRoleNamesAdmin             UserRoleNames = "admin"

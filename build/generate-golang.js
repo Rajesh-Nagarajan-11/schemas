@@ -67,8 +67,10 @@ function ensureRequiredImports(filePath) {
     needs.push('\t"github.com/gofrs/uuid"');
   }
   if (needs.length === 0) return;
-  // Insert at the end of the existing import block (before the closing paren)
-  content = content.replace(/^(\))\s*$/m, `${needs.join("\n")}\n$1`);
+  // Insert into the import block that follows the package declaration.
+  // Match the first "import (" ... ")" block only, not arbitrary ")".
+  const importBlockRe = /(import\s*\([\s\S]*?)(\n\))/;
+  content = content.replace(importBlockRe, `$1\n${needs.join("\n")}$2`);
   fs.writeFileSync(filePath, content);
 }
 

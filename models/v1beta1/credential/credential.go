@@ -7,6 +7,7 @@ import (
 	"github.com/meshery/schemas/models/core"
 	"github.com/gofrs/uuid"
 )
+
 // Credential Meshery Credentials store sensitive information such as API keys, tokens, and passwords used by connections to external systems.
 type Credential struct {
 	// Id A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.
