@@ -3437,7 +3437,8 @@ const ConnectionSchema: Record<string, unknown> = {
             "x-oapi-codegen-extra-tags": {
               "db": "sub_type",
               "json": "sub_type"
-            }
+            },
+            "maxLength": 255
           },
           "credentialSecret": {
             "type": "object",

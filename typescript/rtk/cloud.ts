@@ -14335,9 +14335,8 @@ export type GetSubscriptionsApiArg = {
   /** Filter subscriptions by status */
   status?: string[];
 };
-export type PostApiEntitlementSubscriptionsBySubscriptionIdCancelApiResponse = /** status 200 undefined */ {
-  /** Current page number of the result set. */
 export type CancelSubscriptionApiResponse = /** status 200 undefined */ {
+  /** Current page number of the result set. */
   page: number;
   /** Number of items per page. */
   page_size: number;
@@ -14382,9 +14381,8 @@ export type CancelSubscriptionApiArg = {
   /** Subscription ID */
   subscriptionId: string;
 };
-export type PostApiEntitlementSubscriptionsCreateApiResponse = /** status 201 A new subscription has been created */ {
-  /** ID of the associated subscription. */
 export type CreateSubscriptionApiResponse = /** status 201 A new subscription has been created */ {
+  /** ID of the associated subscription. */
   subscriptionId?: string;
   /** Client secret returned by the payment processor for the subscription checkout flow. */
   clientSecret?: string;
