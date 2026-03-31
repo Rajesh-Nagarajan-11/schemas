@@ -373,9 +373,9 @@ These patterns are deliberate. Do not suggest changes during code review:
 20. ❌ Returning 200 from a `POST` that exclusively creates a new resource — use 201
 21. ❌ Using all-lowercase `id`/`url` suffixes in parameter names — always capitalize (`workspaceId`, not `workspaceid`; `pageUrl`, not `pageurl`)
 22. ❌ Template files with wrong value types — if schema says `type: array`, use `[]` not `{}`; if `type: string`, use `""` not `{}`
+23. ❌ Adding `format: uuid` to ID properties that hold external system identifiers (Stripe IDs, etc.) — use `x-id-format: external` instead
+24. ❌ Setting `minimum: 0` on page-size properties — page size must be at least 1
 23. ❌ Omitting `tags` from operations — every operation must have at least one tag for API documentation and client generation
-24. ❌ Adding `format: uuid` to ID properties that hold external system identifiers (Stripe IDs, etc.) — use `x-id-format: external` instead
-25. ❌ Setting `minimum: 0` on page-size properties — page size must be at least 1
 
 ## Checklist for Schema Changes
 
@@ -400,11 +400,11 @@ These patterns are deliberate. Do not suggest changes during code review:
 - [ ] (New endpoint) Path parameters are camelCase with `Id` suffix (e.g., `{workspaceId}`, not `{workspaceID}`)
 - [ ] (New endpoint) No `DELETE` operation has a `requestBody` — bulk deletes use `POST .../delete`
 - [ ] (New `POST` for creation only) Response code is 201, not 200
-- [ ] (New endpoint) Operation has at least one `tags` entry matching the construct's top-level tag definition
-- [ ] (New property) String properties have `description`, `maxLength`, and where appropriate `minLength`, `pattern`, `format`, or `const`
+- [ ] (New property) String properties have `description`, `maxLength`, and where appropriate `minLength` or `pattern`
 - [ ] (New property) Numeric properties have `minimum`, `maximum`, or `const`
 - [ ] (New property) ID properties have `format: uuid` (or `$ref` to UUID type), OR `x-id-format: external` if they hold non-UUID external identifiers
 - [ ] (New property) Page-size properties have `minimum: 1`
+- [ ] (New endpoint) Operation has at least one `tags` entry matching the construct's top-level tag definition
 
 ## Questions?
 

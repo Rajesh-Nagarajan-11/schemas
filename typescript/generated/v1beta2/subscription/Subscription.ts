@@ -9,10 +9,185 @@ export interface paths {
     get: operations["getSubscriptions"];
   };
   "/api/entitlement/subscriptions/{subscriptionId}/cancel": {
-    post: operations["cancelSubscription"];
+    post: {
+      parameters: {
+        path: {
+          /** Subscription ID */
+          subscriptionId: string;
+        };
+      };
+      responses: {
+        200: {
+          content: {
+            "application/json": {
+              /** @description Current page number of the result set. */
+              page: number;
+              /** @description Number of items per page. */
+              page_size: number;
+              /** @description Total number of items available. */
+              total_count: number;
+              /** @description The subscriptions of the subscriptionpage. */
+              subscriptions: {
+                /**
+                 * Format: uuid
+                 * @description A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.
+                 */
+                id: string;
+                /**
+                 * Format: uuid
+                 * @description A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.
+                 */
+                org_id: string;
+                /**
+                 * Format: uuid
+                 * @description A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.
+                 */
+                plan_id: string;
+                /** @description Plan entity schema. */
+                plan?: {
+                  /**
+                   * Format: uuid
+                   * @description A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.
+                   */
+                  id: string;
+                  /**
+                   * @description Name of the plan
+                   * @enum {string}
+                   */
+                  name:
+                    | "Free"
+                    | "Team Designer"
+                    | "Team Operator"
+                    | "Enterprise";
+                  /** @enum {string} */
+                  cadence: "none" | "monthly" | "annually";
+                  /** @enum {string} */
+                  unit: "user" | "free";
+                  /** @description Minimum number of units required for the plan */
+                  minimum_units: number;
+                  /** @description Price per unit of the plan */
+                  price_per_unit: number;
+                  /** @enum {string} */
+                  currency: "usd";
+                };
+                /** @description number of units subscribed (eg number of users) */
+                quantity: number;
+                /** Format: date-time */
+                start_date?: string;
+                /** Format: date-time */
+                end_date?: string;
+                /**
+                 * @description Possible statuses of a Stripe subscription.
+                 * @enum {string}
+                 */
+                status:
+                  | "incomplete"
+                  | "incomplete_expired"
+                  | "trialing"
+                  | "active"
+                  | "past_due"
+                  | "canceled"
+                  | "unpaid";
+                /** Format: date-time */
+                created_at?: string;
+                /** Format: date-time */
+                updated_at?: string;
+                /** Format: date-time */
+                deleted_at?: string;
+                /** @description Billing ID of the subscription. This is the ID of the subscription in the billing system. eg Stripe */
+                billing_id: string;
+              }[];
+            };
+          };
+        };
+        /** Invalid request body or request param */
+        400: {
+          content: {
+            "text/plain": string;
+          };
+        };
+        /** Expired JWT token used or insufficient privilege */
+        401: {
+          content: {
+            "text/plain": string;
+          };
+        };
+        /** Result not found */
+        404: {
+          content: {
+            "text/plain": string;
+          };
+        };
+        /** Internal server error */
+        500: {
+          content: {
+            "text/plain": string;
+          };
+        };
+      };
+    };
   };
   "/api/entitlement/subscriptions/create": {
-    post: operations["createSubscription"];
+    post: {
+      responses: {
+        /** A new subscription has been created */
+        201: {
+          content: {
+            "application/json": {
+              /** @description ID of the associated subscription. */
+              subscriptionId?: string;
+              /** @description The client secret of the createsubscriptionresponse. */
+              clientSecret?: string;
+            };
+          };
+        };
+        /** Invalid request body or request param */
+        400: {
+          content: {
+            "text/plain": string;
+          };
+        };
+        /** Expired JWT token used or insufficient privilege */
+        401: {
+          content: {
+            "text/plain": string;
+          };
+        };
+        /** Internal server error */
+        500: {
+          content: {
+            "text/plain": string;
+          };
+        };
+      };
+      requestBody: {
+        content: {
+          "application/json": {
+            /**
+             * Format: uuid
+             * @description Organization ID
+             */
+            orgId?: string;
+            /** @description Price ID from the payment processor */
+            planId?: string;
+            /** @description Coupon ID to apply */
+            couponId?: string;
+            /** @description Number of users in the organization */
+            userCount?: number;
+            /**
+             * Format: email
+             * @description Email of the customer
+             */
+            email?: string;
+            /**
+             * @description Supported payment processors
+             * @enum {string}
+             */
+            paymentProcessor?: "stripe" | "paypal" | "braintree";
+          };
+        };
+      };
+    };
   };
   "/api/entitlement/subscriptions/{subscriptionId}/upgrade": {
     post: operations["upgradeSubscription"];

@@ -46,15 +46,15 @@
  *   Rule 33 — Pagination envelopes must use page, page_size, total_count.
  *   Rule 34 — Template file values must match schema property types.
  *   Rule 35 — x-go-type alias must match x-go-type-import.name, and import path must match alias.
- *   Rule 36 — Every operation must define at least one OpenAPI tag, and when document-root `tags:` are declared operation tags must reference one of those definitions.
- *   Rule 37 — Every schema property should have a `description` field.
+ *   Rule 36 — Every schema property should have a `description` field.
+ *   Rule 37 — Every operation must define at least one OpenAPI tag, and when document-root `tags:` are declared operation tags must reference one of those definitions.
  *   Rule 38 — String properties (without $ref or enum) should have at least one validation
- *              constraint: minLength, maxLength, pattern, format, or const.
+ *              constraint: minLength, maxLength, pattern, or format.
  *   Rule 39 — Integer/number properties should have minimum and/or maximum bounds,
  *              or use const to pin a single allowed value.
  *   Rule 40 — String properties named *id/*Id must have format: uuid or $ref to a UUID schema.
  *              Skips non-string types and properties annotated with `x-id-format: external`.
- *   Rule 41 — Page-size properties (page_size, pagesize, pageSize) must have minimum: 1.
+ *   Rule 41 — Page-size properties (page_size, pagesize) must have minimum: 1.
  *
  * USAGE:
  *   node build/validate-schemas.js          # exits 0 if no blocking violations found
@@ -82,8 +82,8 @@ const {
 } = require("./lib/consistency-policy");
 const { findNewNonLowercaseEnumValues } = require("./lib/enum-validation");
 const { detectPostCreate, isSingleResourceDelete } = require("./lib/response-code-semantics");
-const { findOperationTagIssues } = require("./lib/operation-tags");
 const { collectPropertyConstraintIssues } = require("./lib/property-constraint-validation");
+const { findOperationTagIssues } = require("./lib/operation-tags");
 
 const ROOT = path.resolve(__dirname, "..");
 const CONSTRUCTS_DIR = path.join(ROOT, "schemas", "constructs");
