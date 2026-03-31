@@ -343,6 +343,7 @@ These patterns are deliberate. Do not suggest changes during code review:
 20. ❌ Returning 200 from a `POST` that exclusively creates a new resource — use 201
 21. ❌ Using all-lowercase `id`/`url` suffixes in parameter names — always capitalize (`workspaceId`, not `workspaceid`; `pageUrl`, not `pageurl`)
 22. ❌ Template files with wrong value types — if schema says `type: array`, use `[]` not `{}`; if `type: string`, use `""` not `{}`
+23. ❌ Omitting `tags` from operations — every operation must have at least one tag for API documentation and client generation
 
 ## Checklist for Schema Changes
 
@@ -367,6 +368,7 @@ These patterns are deliberate. Do not suggest changes during code review:
 - [ ] (New endpoint) Path parameters are camelCase with `Id` suffix (e.g., `{workspaceId}`, not `{workspaceID}`)
 - [ ] (New endpoint) No `DELETE` operation has a `requestBody` — bulk deletes use `POST .../delete`
 - [ ] (New `POST` for creation only) Response code is 201, not 200
+- [ ] (New endpoint) Operation has at least one `tags` entry matching the construct's top-level tag definition
 
 ## Questions?
 
