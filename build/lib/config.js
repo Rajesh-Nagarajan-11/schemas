@@ -58,9 +58,22 @@ const packageNameOverrides = {
  * These directories will be skipped even if they contain api.yml
  */
 const excludePackages = [
-  // Deprecated v1beta1 constructs that have circular $ref in api.yml
-  // (re-exports from relationship.yaml). Use v1alpha3 Go models instead.
+  // Deprecated v1beta1/relationship has circular $ref aliases in api.yml.
+  // Use v1alpha3 Go models instead.
   "v1beta1/relationship",
+];
+
+/**
+ * Packages to EXCLUDE from Go code generation only.
+ * These are still discovered and available for bundling/$ref resolution,
+ * but oapi-codegen is not run on them.
+ */
+const excludeFromGoGeneration = [
+  // Core is a bundled base schema. The v1alpha1/core Go package provides
+  // the generated types. v1beta1/core and v1beta2/core schemas exist for
+  // $ref resolution but don't need their own Go packages.
+  "v1beta1/core",
+  "v1beta2/core",
 ];
 
 /**
@@ -234,6 +247,7 @@ module.exports = {
   packageNameOverrides,
   excludePackages,
   excludeFromMerge,
+  excludeFromGoGeneration,
   getProjectRoot,
   discoverSchemaPackages,
   getSchemaPackages,

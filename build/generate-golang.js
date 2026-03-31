@@ -1484,7 +1484,12 @@ async function main() {
             .filter(Boolean),
         )
       : null;
+    const excludeFromGo = new Set(config.excludeFromGoGeneration || []);
     const schemaPackages = config.getSchemaPackages().filter((pkg) => {
+      const packageKey = `${pkg.version}/${pkg.dirName}`;
+      if (excludeFromGo.has(packageKey)) {
+        return false;
+      }
       if (!packageFilter) {
         return true;
       }
@@ -1492,7 +1497,7 @@ async function main() {
       return (
         packageFilter.has(pkg.name) ||
         packageFilter.has(pkg.dirName) ||
-        packageFilter.has(`${pkg.version}/${pkg.dirName}`)
+        packageFilter.has(packageKey)
       );
     });
     logger.info(`Discovered ${schemaPackages.length} schema packages`);
