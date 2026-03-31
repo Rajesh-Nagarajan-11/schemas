@@ -401,6 +401,7 @@ function loadBaselineYamlDoc(filePath) {
     const source = execFileSync("git", ["show", `${enumBaselineRef}:${relativeFile}`], {
       cwd: ROOT,
       encoding: "utf8",
+      stdio: ["pipe", "pipe", "ignore"],
     });
     doc = yaml.load(source);
   } catch (e) {
