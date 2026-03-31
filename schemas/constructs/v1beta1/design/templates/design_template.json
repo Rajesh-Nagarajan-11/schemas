@@ -19,8 +19,8 @@
     }
   },
   "resolvedAliases": {},
-  "components": [
-    {
+  "components": {
+    "items": {
       "id": "00000000-0000-0000-0000-000000000000",
       "schemaVersion": "components.meshery.io/v1beta1",
       "version": "v0.0.1",
@@ -290,7 +290,7 @@
         "schema": ""
       }
     }
-  ],
+  },
   "model": {},
   "registrant": {},
   "category": {},
@@ -302,8 +302,8 @@
   "component": {},
   "preferences": {},
   "layers": {},
-  "relationships": [
-    {
+  "relationships": {
+    "items": {
       "id": "",
       "schemaVersion": "relationships.meshery.io/v1beta1",
       "version": "v0.0.1",
@@ -985,7 +985,7 @@
         }
       }
     }
-  ],
+  },
   "deny": {},
   "match": {},
   "allow": {}

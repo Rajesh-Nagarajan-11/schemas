@@ -448,7 +448,7 @@ export interface components {
        * Format: uuid
        * @description A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.
        */
-      model_id?: string;
+      modelId?: string;
       /** @description Visualization styles for a component */
       styles?: ({
         /** @description Primary color of the component used for UI representation. */

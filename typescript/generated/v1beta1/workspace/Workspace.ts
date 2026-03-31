@@ -898,7 +898,7 @@ export interface components {
              * Format: uuid
              * @description A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.
              */
-            model_id?: string;
+            modelId?: string;
             /** @description Visualization styles for a component */
             styles?: ({
               /** @description Primary color of the component used for UI representation. */
@@ -1540,7 +1540,7 @@ export interface components {
              * Format: uuid
              * @description A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.
              */
-            model_id?: string;
+            modelId?: string;
             /** @description Optional. Assigns the policy to be used for the evaluation of the relationship. Deprecation Notice: In the future, this property is either to be removed or to it is to be an array of optional policy $refs. */
             evaluationQuery?: string;
             /** @description Selectors are organized as an array, with each item containing a distinct set of selectors that share a common functionality. This structure allows for flexibility in defining relationships, even when different components are involved. */
@@ -3367,7 +3367,7 @@ export interface operations {
                    * Format: uuid
                    * @description A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.
                    */
-                  model_id?: string;
+                  modelId?: string;
                   /** @description Visualization styles for a component */
                   styles?: ({
                     /** @description Primary color of the component used for UI representation. */
@@ -4019,7 +4019,7 @@ export interface operations {
                    * Format: uuid
                    * @description A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.
                    */
-                  model_id?: string;
+                  modelId?: string;
                   /** @description Optional. Assigns the policy to be used for the evaluation of the relationship. Deprecation Notice: In the future, this property is either to be removed or to it is to be an array of optional policy $refs. */
                   evaluationQuery?: string;
                   /** @description Selectors are organized as an array, with each item containing a distinct set of selectors that share a common functionality. This structure allows for flexibility in defining relationships, even when different components are involved. */

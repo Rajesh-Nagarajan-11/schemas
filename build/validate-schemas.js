@@ -2118,9 +2118,11 @@ function walk(dir) {
 
       const constructDir = path.join(versionDir, construct.name);
 
-      // Skip deprecated constructs in strict mode. They are superseded
-      // by a newer API version and kept only for backward compatibility.
-      if (strictConsistency) {
+      // Skip deprecated constructs entirely. They are superseded by a
+      // newer API version and frozen for backward compatibility. Validating
+      // them would surface pre-existing issues that must NOT be fixed
+      // (fixing them would break the v1beta1 wire format).
+      {
         const checkDoc = loadYamlDoc(path.join(constructDir, "api.yml"));
         if (checkDoc?.info?.["x-deprecated"] === true) {
           continue;

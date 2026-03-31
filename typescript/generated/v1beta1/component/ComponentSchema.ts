@@ -1302,7 +1302,7 @@ const ComponentSchema: Record<string, unknown> = {
               }
             }
           },
-          "model_id": {
+          "modelId": {
             "type": "string",
             "format": "uuid",
             "description": "A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas.",

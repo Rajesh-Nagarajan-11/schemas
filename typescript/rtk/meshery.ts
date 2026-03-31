@@ -839,7 +839,7 @@ export type PostEvaluateApiResponse = /** status 200 Successful evaluation */ {
         };
       };
       /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
-      model_id?: string;
+      modelId?: string;
       /** Visualization styles for a component */
       styles?: {
         /** Primary color of the component used for UI representation. */
@@ -1229,7 +1229,7 @@ export type PostEvaluateApiResponse = /** status 200 Successful evaluation */ {
         };
       };
       /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
-      model_id?: string;
+      modelId?: string;
       /** Optional. Assigns the policy to be used for the evaluation of the relationship. Deprecation Notice: In the future, this property is either to be removed or to it is to be an array of optional policy $refs. */
       evaluationQuery?: string;
       /** Selectors are organized as an array, with each item containing a distinct set of selectors that share a common functionality. This structure allows for flexibility in defining relationships, even when different components are involved. */
@@ -1814,7 +1814,7 @@ export type PostEvaluateApiArg = {
           };
         };
         /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
-        model_id?: string;
+        modelId?: string;
         /** Visualization styles for a component */
         styles?: {
           /** Primary color of the component used for UI representation. */
@@ -2204,7 +2204,7 @@ export type PostEvaluateApiArg = {
           };
         };
         /** A Universally Unique Identifier used to uniquely identify entities in Meshery. The UUID core definition is used across different schemas. */
-        model_id?: string;
+        modelId?: string;
         /** Optional. Assigns the policy to be used for the evaluation of the relationship. Deprecation Notice: In the future, this property is either to be removed or to it is to be an array of optional policy $refs. */
         evaluationQuery?: string;
         /** Selectors are organized as an array, with each item containing a distinct set of selectors that share a common functionality. This structure allows for flexibility in defining relationships, even when different components are involved. */

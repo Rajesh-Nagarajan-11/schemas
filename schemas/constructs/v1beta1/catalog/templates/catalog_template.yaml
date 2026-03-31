@@ -1,7 +1,8 @@
 publishedVersion: ''
-class: ''
-compatibility: []
+class: {}
+compatibility: {}
 pattern_caveats: ''
 pattern_info: ''
 type: Deployment
-snapshotURL: []
+snapshotURL: {}
+

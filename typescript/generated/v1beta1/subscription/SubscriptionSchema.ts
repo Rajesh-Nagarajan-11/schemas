@@ -198,7 +198,6 @@ const SubscriptionSchema: Record<string, unknown> = {
                                   "csv": "name"
                                 },
                                 "description": "Name of the plan",
-                                "x-enum-casing-exempt": true,
                                 "enum": [
                                   "Free",
                                   "Team Designer",
@@ -530,7 +529,6 @@ const SubscriptionSchema: Record<string, unknown> = {
                                   "csv": "name"
                                 },
                                 "description": "Name of the plan",
-                                "x-enum-casing-exempt": true,
                                 "enum": [
                                   "Free",
                                   "Team Designer",
@@ -985,7 +983,6 @@ const SubscriptionSchema: Record<string, unknown> = {
                             "csv": "name"
                           },
                           "description": "Name of the plan",
-                          "x-enum-casing-exempt": true,
                           "enum": [
                             "Free",
                             "Team Designer",
@@ -1667,7 +1664,6 @@ const SubscriptionSchema: Record<string, unknown> = {
                         "csv": "name"
                       },
                       "description": "Name of the plan",
-                      "x-enum-casing-exempt": true,
                       "enum": [
                         "Free",
                         "Team Designer",
@@ -1915,7 +1911,6 @@ const SubscriptionSchema: Record<string, unknown> = {
                   "csv": "name"
                 },
                 "description": "Name of the plan",
-                "x-enum-casing-exempt": true,
                 "enum": [
                   "Free",
                   "Team Designer",

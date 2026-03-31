@@ -147,6 +147,8 @@ const ConnectionSchema: Record<string, unknown> = {
             "content": {
               "application/json": {
                 "schema": {
+                  "$id": "https://schemas.meshery.io/connection_page.yaml",
+                  "$schema": "http://json-schema.org/draft-07/schema#",
                   "description": "Represents a page of connections with meta information about connections count",
                   "additionalProperties": false,
                   "type": "object",
@@ -653,10 +655,7 @@ const ConnectionSchema: Record<string, unknown> = {
                   },
                   "sub_type": {
                     "type": "string",
-                    "description": "Connection sub-type",
-                    "x-oapi-codegen-extra-tags": {
-                      "json": "sub_type"
-                    }
+                    "description": "Connection sub-type"
                   },
                   "credentialSecret": {
                     "type": "object",
@@ -1622,10 +1621,7 @@ const ConnectionSchema: Record<string, unknown> = {
                   },
                   "sub_type": {
                     "type": "string",
-                    "description": "Connection sub-type",
-                    "x-oapi-codegen-extra-tags": {
-                      "json": "sub_type"
-                    }
+                    "description": "Connection sub-type"
                   },
                   "credentialSecret": {
                     "type": "object",
@@ -2922,6 +2918,8 @@ const ConnectionSchema: Record<string, unknown> = {
         }
       },
       "ConnectionPage": {
+        "$id": "https://schemas.meshery.io/connection_page.yaml",
+        "$schema": "http://json-schema.org/draft-07/schema#",
         "description": "Represents a page of connections with meta information about connections count",
         "additionalProperties": false,
         "type": "object",
@@ -3407,10 +3405,7 @@ const ConnectionSchema: Record<string, unknown> = {
           },
           "sub_type": {
             "type": "string",
-            "description": "Connection sub-type",
-            "x-oapi-codegen-extra-tags": {
-              "json": "sub_type"
-            }
+            "description": "Connection sub-type"
           },
           "credentialSecret": {
             "type": "object",

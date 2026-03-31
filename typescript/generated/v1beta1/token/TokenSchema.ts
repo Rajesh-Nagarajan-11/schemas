@@ -10,7 +10,6 @@ const TokenSchema: Record<string, unknown> = {
     "description": "Documentation for Meshery Cloud REST APIs for user tokens and sessions",
     "x-deprecated": true,
     "x-superseded-by": "v1beta2",
-    "version": "v1beta1",
     "contact": {
       "name": "Meshery Maintainers",
       "email": "maintainers@meshery.io",
@@ -19,7 +18,8 @@ const TokenSchema: Record<string, unknown> = {
     "license": {
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
-    }
+    },
+    "version": "v1beta1"
   },
   "servers": [
     {

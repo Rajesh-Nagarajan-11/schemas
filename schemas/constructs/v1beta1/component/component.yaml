@@ -75,9 +75,9 @@ properties:
     description: Reference to the specific registered model to which the component belongs and from which model version, category, and other properties may be referenced. Learn more at https://docs.meshery.io/concepts/models
     x-oapi-codegen-extra-tags:
       gorm: "-"
-  model_id:
+  modelId:
     $ref: ../core/api.yml#/components/schemas/uuid
-    description: Foreign key to the model to which the component belongs.
+    description: ModelId is the foreign key to the model to which the component belongs.
     x-oapi-codegen-extra-tags:
       gorm: index:idx_component_definition_dbs_model_id,column:model_id
       yaml: "-"

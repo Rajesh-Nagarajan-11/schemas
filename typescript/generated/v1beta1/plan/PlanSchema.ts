@@ -76,7 +76,6 @@ const PlanSchema: Record<string, unknown> = {
                           "csv": "name"
                         },
                         "description": "Name of the plan",
-                        "x-enum-casing-exempt": true,
                         "enum": [
                           "Free",
                           "Team Designer",
@@ -277,7 +276,6 @@ const PlanSchema: Record<string, unknown> = {
                     "csv": "name"
                   },
                   "description": "Name of the plan",
-                  "x-enum-casing-exempt": true,
                   "enum": [
                     "Free",
                     "Team Designer",
@@ -383,7 +381,6 @@ const PlanSchema: Record<string, unknown> = {
               "csv": "name"
             },
             "description": "Name of the plan",
-            "x-enum-casing-exempt": true,
             "enum": [
               "Free",
               "Team Designer",
@@ -462,7 +459,6 @@ const PlanSchema: Record<string, unknown> = {
       "PlanName": {
         "type": "string",
         "description": "Name of the plan",
-        "x-enum-casing-exempt": true,
         "enum": [
           "Free",
           "Team Designer",
