@@ -422,7 +422,8 @@ const RelationshipSchema: Record<string, unknown> = {
                     "x-oapi-codegen-extra-tags": {
                       "json": "textOpacity,omitempty"
                     },
-                    "minimum": 0
+                    "minimum": 0,
+                    "maximum": 1
                   },
                   "fontFamily": {
                     "type": "string",
@@ -481,7 +482,8 @@ const RelationshipSchema: Record<string, unknown> = {
                     "x-oapi-codegen-extra-tags": {
                       "json": "opacity,omitempty"
                     },
-                    "minimum": 0
+                    "minimum": 0,
+                    "maximum": 1
                   },
                   "zIndex": {
                     "type": "integer",
@@ -569,7 +571,8 @@ const RelationshipSchema: Record<string, unknown> = {
                     "x-oapi-codegen-extra-tags": {
                       "json": "lineOpacity,omitempty"
                     },
-                    "minimum": 0
+                    "minimum": 0,
+                    "maximum": 1
                   },
                   "targetArrowColor": {
                     "type": "string",
@@ -785,7 +788,9 @@ const RelationshipSchema: Record<string, unknown> = {
                 ],
                 "properties": {
                   "kind": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "Kind of the registrant.",
+                    "maxLength": 255
                   }
                 }
               }
@@ -1124,7 +1129,9 @@ const RelationshipSchema: Record<string, unknown> = {
                                 ],
                                 "properties": {
                                   "kind": {
-                                    "type": "string"
+                                    "type": "string",
+                                    "description": "Kind of the registrant.",
+                                    "maxLength": 255
                                   }
                                 }
                               }
@@ -1467,7 +1474,9 @@ const RelationshipSchema: Record<string, unknown> = {
                                 ],
                                 "properties": {
                                   "kind": {
-                                    "type": "string"
+                                    "type": "string",
+                                    "description": "Kind of the registrant.",
+                                    "maxLength": 255
                                   }
                                 }
                               }
@@ -1824,7 +1833,9 @@ const RelationshipSchema: Record<string, unknown> = {
                                 ],
                                 "properties": {
                                   "kind": {
-                                    "type": "string"
+                                    "type": "string",
+                                    "description": "Kind of the registrant.",
+                                    "maxLength": 255
                                   }
                                 }
                               }
@@ -2167,7 +2178,9 @@ const RelationshipSchema: Record<string, unknown> = {
                                 ],
                                 "properties": {
                                   "kind": {
-                                    "type": "string"
+                                    "type": "string",
+                                    "description": "Kind of the registrant.",
+                                    "maxLength": 255
                                   }
                                 }
                               }
@@ -2803,7 +2816,9 @@ const RelationshipSchema: Record<string, unknown> = {
                 ],
                 "properties": {
                   "kind": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "Kind of the registrant.",
+                    "maxLength": 255
                   }
                 }
               }
@@ -3150,7 +3165,9 @@ const RelationshipSchema: Record<string, unknown> = {
                       ],
                       "properties": {
                         "kind": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "Kind of the registrant.",
+                          "maxLength": 255
                         }
                       }
                     }
@@ -3493,7 +3510,9 @@ const RelationshipSchema: Record<string, unknown> = {
                       ],
                       "properties": {
                         "kind": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "Kind of the registrant.",
+                          "maxLength": 255
                         }
                       }
                     }
@@ -3857,7 +3876,9 @@ const RelationshipSchema: Record<string, unknown> = {
                           ],
                           "properties": {
                             "kind": {
-                              "type": "string"
+                              "type": "string",
+                              "description": "Kind of the registrant.",
+                              "maxLength": 255
                             }
                           }
                         }
@@ -4200,7 +4221,9 @@ const RelationshipSchema: Record<string, unknown> = {
                           ],
                           "properties": {
                             "kind": {
-                              "type": "string"
+                              "type": "string",
+                              "description": "Kind of the registrant.",
+                              "maxLength": 255
                             }
                           }
                         }
@@ -4557,7 +4580,9 @@ const RelationshipSchema: Record<string, unknown> = {
                           ],
                           "properties": {
                             "kind": {
-                              "type": "string"
+                              "type": "string",
+                              "description": "Kind of the registrant.",
+                              "maxLength": 255
                             }
                           }
                         }
@@ -4900,7 +4925,9 @@ const RelationshipSchema: Record<string, unknown> = {
                           ],
                           "properties": {
                             "kind": {
-                              "type": "string"
+                              "type": "string",
+                              "description": "Kind of the registrant.",
+                              "maxLength": 255
                             }
                           }
                         }
@@ -5273,7 +5300,9 @@ const RelationshipSchema: Record<string, unknown> = {
                             ],
                             "properties": {
                               "kind": {
-                                "type": "string"
+                                "type": "string",
+                                "description": "Kind of the registrant.",
+                                "maxLength": 255
                               }
                             }
                           }
@@ -5616,7 +5645,9 @@ const RelationshipSchema: Record<string, unknown> = {
                             ],
                             "properties": {
                               "kind": {
-                                "type": "string"
+                                "type": "string",
+                                "description": "Kind of the registrant.",
+                                "maxLength": 255
                               }
                             }
                           }
@@ -5973,7 +6004,9 @@ const RelationshipSchema: Record<string, unknown> = {
                             ],
                             "properties": {
                               "kind": {
-                                "type": "string"
+                                "type": "string",
+                                "description": "Kind of the registrant.",
+                                "maxLength": 255
                               }
                             }
                           }
@@ -6316,7 +6349,9 @@ const RelationshipSchema: Record<string, unknown> = {
                             ],
                             "properties": {
                               "kind": {
-                                "type": "string"
+                                "type": "string",
+                                "description": "Kind of the registrant.",
+                                "maxLength": 255
                               }
                             }
                           }
@@ -6561,7 +6596,8 @@ const RelationshipSchema: Record<string, unknown> = {
             "x-oapi-codegen-extra-tags": {
               "json": "textOpacity,omitempty"
             },
-            "minimum": 0
+            "minimum": 0,
+            "maximum": 1
           },
           "fontFamily": {
             "type": "string",
@@ -6620,7 +6656,8 @@ const RelationshipSchema: Record<string, unknown> = {
             "x-oapi-codegen-extra-tags": {
               "json": "opacity,omitempty"
             },
-            "minimum": 0
+            "minimum": 0,
+            "maximum": 1
           },
           "zIndex": {
             "type": "integer",
@@ -6708,7 +6745,8 @@ const RelationshipSchema: Record<string, unknown> = {
             "x-oapi-codegen-extra-tags": {
               "json": "lineOpacity,omitempty"
             },
-            "minimum": 0
+            "minimum": 0,
+            "maximum": 1
           },
           "targetArrowColor": {
             "type": "string",
@@ -6912,7 +6950,8 @@ const RelationshipSchema: Record<string, unknown> = {
                 "x-oapi-codegen-extra-tags": {
                   "json": "textOpacity,omitempty"
                 },
-                "minimum": 0
+                "minimum": 0,
+                "maximum": 1
               },
               "fontFamily": {
                 "type": "string",
@@ -6971,7 +7010,8 @@ const RelationshipSchema: Record<string, unknown> = {
                 "x-oapi-codegen-extra-tags": {
                   "json": "opacity,omitempty"
                 },
-                "minimum": 0
+                "minimum": 0,
+                "maximum": 1
               },
               "zIndex": {
                 "type": "integer",
@@ -7059,7 +7099,8 @@ const RelationshipSchema: Record<string, unknown> = {
                 "x-oapi-codegen-extra-tags": {
                   "json": "lineOpacity,omitempty"
                 },
-                "minimum": 0
+                "minimum": 0,
+                "maximum": 1
               },
               "targetArrowColor": {
                 "type": "string",

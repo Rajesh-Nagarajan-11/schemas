@@ -405,6 +405,7 @@ export interface components {
       updated_at?: string;
     };
     RegistrantReference: {
+      /** @description Kind of the registrant. */
       kind: string;
     };
     /** @description Reference to the specific registered model to which the component belongs and from which model version, category, and other properties may be referenced. Learn more at https://docs.meshery.io/concepts/models */
@@ -426,6 +427,7 @@ export interface components {
         version: string;
       };
       registrant: {
+        /** @description Kind of the registrant. */
         kind: string;
       };
     };

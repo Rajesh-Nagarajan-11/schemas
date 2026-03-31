@@ -241,12 +241,12 @@ components:
           type: string
           description: Price ID from the payment processor
           maxLength: 500
-          format: uuid
+          pattern: '^[A-Za-z0-9_\-]+$'
         couponId:
           type: string
           description: Coupon ID to apply
           maxLength: 500
-          format: uuid
+          pattern: '^[A-Za-z0-9_\-]+$'
         userCount:
           type: integer
           description: Number of users in the organization
@@ -273,7 +273,7 @@ components:
           type: string
           description: ID of the associated subscription.
           maxLength: 500
-          format: uuid
+          pattern: '^[A-Za-z0-9_\-]+$'
         clientSecret:
           type: string
           description: The client secret of the createsubscriptionresponse.
@@ -290,7 +290,7 @@ components:
           type: string
           description: Subscription ID from the payment processor
           maxLength: 500
-          format: uuid
+          pattern: '^[A-Za-z0-9_\-]+$'
         paymentProcessor:
           $ref: '#/components/schemas/PaymentProcessor'
     WebhookEvent:

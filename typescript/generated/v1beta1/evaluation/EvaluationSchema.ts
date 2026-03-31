@@ -1473,7 +1473,9 @@ const EvaluationSchema: Record<string, unknown> = {
                                       ],
                                       "properties": {
                                         "kind": {
-                                          "type": "string"
+                                          "type": "string",
+                                          "description": "Kind of the registrant.",
+                                          "maxLength": 255
                                         }
                                       }
                                     }
@@ -3142,7 +3144,9 @@ const EvaluationSchema: Record<string, unknown> = {
                                       ],
                                       "properties": {
                                         "kind": {
-                                          "type": "string"
+                                          "type": "string",
+                                          "description": "Kind of the registrant.",
+                                          "maxLength": 255
                                         }
                                       }
                                     }
@@ -3488,7 +3492,9 @@ const EvaluationSchema: Record<string, unknown> = {
                                                       ],
                                                       "properties": {
                                                         "kind": {
-                                                          "type": "string"
+                                                          "type": "string",
+                                                          "description": "Kind of the registrant.",
+                                                          "maxLength": 255
                                                         }
                                                       }
                                                     }
@@ -3842,7 +3848,9 @@ const EvaluationSchema: Record<string, unknown> = {
                                                       ],
                                                       "properties": {
                                                         "kind": {
-                                                          "type": "string"
+                                                          "type": "string",
+                                                          "description": "Kind of the registrant.",
+                                                          "maxLength": 255
                                                         }
                                                       }
                                                     }
@@ -4211,7 +4219,9 @@ const EvaluationSchema: Record<string, unknown> = {
                                                       ],
                                                       "properties": {
                                                         "kind": {
-                                                          "type": "string"
+                                                          "type": "string",
+                                                          "description": "Kind of the registrant.",
+                                                          "maxLength": 255
                                                         }
                                                       }
                                                     }
@@ -4565,7 +4575,9 @@ const EvaluationSchema: Record<string, unknown> = {
                                                       ],
                                                       "properties": {
                                                         "kind": {
-                                                          "type": "string"
+                                                          "type": "string",
+                                                          "description": "Kind of the registrant.",
+                                                          "maxLength": 255
                                                         }
                                                       }
                                                     }
@@ -6124,7 +6136,9 @@ const EvaluationSchema: Record<string, unknown> = {
                                         ],
                                         "properties": {
                                           "kind": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "description": "Kind of the registrant.",
+                                            "maxLength": 255
                                           }
                                         }
                                       }
@@ -7793,7 +7807,9 @@ const EvaluationSchema: Record<string, unknown> = {
                                         ],
                                         "properties": {
                                           "kind": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "description": "Kind of the registrant.",
+                                            "maxLength": 255
                                           }
                                         }
                                       }
@@ -8139,7 +8155,9 @@ const EvaluationSchema: Record<string, unknown> = {
                                                         ],
                                                         "properties": {
                                                           "kind": {
-                                                            "type": "string"
+                                                            "type": "string",
+                                                            "description": "Kind of the registrant.",
+                                                            "maxLength": 255
                                                           }
                                                         }
                                                       }
@@ -8493,7 +8511,9 @@ const EvaluationSchema: Record<string, unknown> = {
                                                         ],
                                                         "properties": {
                                                           "kind": {
-                                                            "type": "string"
+                                                            "type": "string",
+                                                            "description": "Kind of the registrant.",
+                                                            "maxLength": 255
                                                           }
                                                         }
                                                       }
@@ -8862,7 +8882,9 @@ const EvaluationSchema: Record<string, unknown> = {
                                                         ],
                                                         "properties": {
                                                           "kind": {
-                                                            "type": "string"
+                                                            "type": "string",
+                                                            "description": "Kind of the registrant.",
+                                                            "maxLength": 255
                                                           }
                                                         }
                                                       }
@@ -9216,7 +9238,9 @@ const EvaluationSchema: Record<string, unknown> = {
                                                         ],
                                                         "properties": {
                                                           "kind": {
-                                                            "type": "string"
+                                                            "type": "string",
+                                                            "description": "Kind of the registrant.",
+                                                            "maxLength": 255
                                                           }
                                                         }
                                                       }
@@ -9319,7 +9343,7 @@ const EvaluationSchema: Record<string, unknown> = {
                     },
                     "actions": {
                       "type": "array",
-                      "item": {
+                      "items": {
                         "type": "object",
                         "required": [
                           "op",
@@ -10830,7 +10854,9 @@ const EvaluationSchema: Record<string, unknown> = {
                               ],
                               "properties": {
                                 "kind": {
-                                  "type": "string"
+                                  "type": "string",
+                                  "description": "Kind of the registrant.",
+                                  "maxLength": 255
                                 }
                               }
                             }
@@ -12499,7 +12525,9 @@ const EvaluationSchema: Record<string, unknown> = {
                               ],
                               "properties": {
                                 "kind": {
-                                  "type": "string"
+                                  "type": "string",
+                                  "description": "Kind of the registrant.",
+                                  "maxLength": 255
                                 }
                               }
                             }
@@ -12845,7 +12873,9 @@ const EvaluationSchema: Record<string, unknown> = {
                                               ],
                                               "properties": {
                                                 "kind": {
-                                                  "type": "string"
+                                                  "type": "string",
+                                                  "description": "Kind of the registrant.",
+                                                  "maxLength": 255
                                                 }
                                               }
                                             }
@@ -13199,7 +13229,9 @@ const EvaluationSchema: Record<string, unknown> = {
                                               ],
                                               "properties": {
                                                 "kind": {
-                                                  "type": "string"
+                                                  "type": "string",
+                                                  "description": "Kind of the registrant.",
+                                                  "maxLength": 255
                                                 }
                                               }
                                             }
@@ -13568,7 +13600,9 @@ const EvaluationSchema: Record<string, unknown> = {
                                               ],
                                               "properties": {
                                                 "kind": {
-                                                  "type": "string"
+                                                  "type": "string",
+                                                  "description": "Kind of the registrant.",
+                                                  "maxLength": 255
                                                 }
                                               }
                                             }
@@ -13922,7 +13956,9 @@ const EvaluationSchema: Record<string, unknown> = {
                                               ],
                                               "properties": {
                                                 "kind": {
-                                                  "type": "string"
+                                                  "type": "string",
+                                                  "description": "Kind of the registrant.",
+                                                  "maxLength": 255
                                                 }
                                               }
                                             }
@@ -15473,7 +15509,9 @@ const EvaluationSchema: Record<string, unknown> = {
                               ],
                               "properties": {
                                 "kind": {
-                                  "type": "string"
+                                  "type": "string",
+                                  "description": "Kind of the registrant.",
+                                  "maxLength": 255
                                 }
                               }
                             }
@@ -17142,7 +17180,9 @@ const EvaluationSchema: Record<string, unknown> = {
                               ],
                               "properties": {
                                 "kind": {
-                                  "type": "string"
+                                  "type": "string",
+                                  "description": "Kind of the registrant.",
+                                  "maxLength": 255
                                 }
                               }
                             }
@@ -17488,7 +17528,9 @@ const EvaluationSchema: Record<string, unknown> = {
                                               ],
                                               "properties": {
                                                 "kind": {
-                                                  "type": "string"
+                                                  "type": "string",
+                                                  "description": "Kind of the registrant.",
+                                                  "maxLength": 255
                                                 }
                                               }
                                             }
@@ -17842,7 +17884,9 @@ const EvaluationSchema: Record<string, unknown> = {
                                               ],
                                               "properties": {
                                                 "kind": {
-                                                  "type": "string"
+                                                  "type": "string",
+                                                  "description": "Kind of the registrant.",
+                                                  "maxLength": 255
                                                 }
                                               }
                                             }
@@ -18211,7 +18255,9 @@ const EvaluationSchema: Record<string, unknown> = {
                                               ],
                                               "properties": {
                                                 "kind": {
-                                                  "type": "string"
+                                                  "type": "string",
+                                                  "description": "Kind of the registrant.",
+                                                  "maxLength": 255
                                                 }
                                               }
                                             }
@@ -18565,7 +18611,9 @@ const EvaluationSchema: Record<string, unknown> = {
                                               ],
                                               "properties": {
                                                 "kind": {
-                                                  "type": "string"
+                                                  "type": "string",
+                                                  "description": "Kind of the registrant.",
+                                                  "maxLength": 255
                                                 }
                                               }
                                             }
@@ -18668,7 +18716,7 @@ const EvaluationSchema: Record<string, unknown> = {
           },
           "actions": {
             "type": "array",
-            "item": {
+            "items": {
               "type": "object",
               "required": [
                 "op",

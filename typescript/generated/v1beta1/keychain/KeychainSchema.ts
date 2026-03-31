@@ -135,6 +135,8 @@ const KeychainSchema: Record<string, unknown> = {
                           "name": {
                             "type": "string",
                             "description": "Name of the keychain.",
+                            "minLength": 1,
+                            "maxLength": 255,
                             "x-oapi-codegen-extra-tags": {
                               "db": "name"
                             },
@@ -312,6 +314,8 @@ const KeychainSchema: Record<string, unknown> = {
                     "name": {
                       "type": "string",
                       "description": "Name of the keychain.",
+                      "minLength": 1,
+                      "maxLength": 255,
                       "x-oapi-codegen-extra-tags": {
                         "db": "name"
                       },
@@ -470,6 +474,8 @@ const KeychainSchema: Record<string, unknown> = {
                     "name": {
                       "type": "string",
                       "description": "Name of the keychain.",
+                      "minLength": 1,
+                      "maxLength": 255,
                       "x-oapi-codegen-extra-tags": {
                         "db": "name"
                       },
@@ -669,6 +675,8 @@ const KeychainSchema: Record<string, unknown> = {
                     "name": {
                       "type": "string",
                       "description": "Name of the keychain.",
+                      "minLength": 1,
+                      "maxLength": 255,
                       "x-oapi-codegen-extra-tags": {
                         "db": "name"
                       },
@@ -1432,6 +1440,8 @@ const KeychainSchema: Record<string, unknown> = {
           "name": {
             "type": "string",
             "description": "Name of the keychain.",
+            "minLength": 1,
+            "maxLength": 255,
             "x-oapi-codegen-extra-tags": {
               "db": "name"
             },
@@ -1574,6 +1584,8 @@ const KeychainSchema: Record<string, unknown> = {
                 "name": {
                   "type": "string",
                   "description": "Name of the keychain.",
+                  "minLength": 1,
+                  "maxLength": 255,
                   "x-oapi-codegen-extra-tags": {
                     "db": "name"
                   },

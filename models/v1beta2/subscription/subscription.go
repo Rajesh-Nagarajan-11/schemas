@@ -69,13 +69,13 @@ type CancelSubscriptionRequest struct {
 	PaymentProcessor *PaymentProcessor `json:"paymentProcessor,omitempty" yaml:"paymentProcessor,omitempty"`
 
 	// SubscriptionId Subscription ID from the payment processor
-	SubscriptionId *openapi_types.UUID `json:"subscriptionId,omitempty" yaml:"subscriptionId,omitempty"`
+	SubscriptionId *string `json:"subscriptionId,omitempty" yaml:"subscriptionId,omitempty"`
 }
 
 // CreateSubscriptionRequest defines model for CreateSubscriptionRequest.
 type CreateSubscriptionRequest struct {
 	// CouponId Coupon ID to apply
-	CouponId *openapi_types.UUID `json:"couponId,omitempty" yaml:"couponId,omitempty"`
+	CouponId *string `json:"couponId,omitempty" yaml:"couponId,omitempty"`
 
 	// Email Email of the customer
 	Email *openapi_types.Email `json:"email,omitempty" yaml:"email,omitempty"`
@@ -87,7 +87,7 @@ type CreateSubscriptionRequest struct {
 	PaymentProcessor *PaymentProcessor `json:"paymentProcessor,omitempty" yaml:"paymentProcessor,omitempty"`
 
 	// PlanId Price ID from the payment processor
-	PlanId *openapi_types.UUID `json:"planId,omitempty" yaml:"planId,omitempty"`
+	PlanId *string `json:"planId,omitempty" yaml:"planId,omitempty"`
 
 	// UserCount Number of users in the organization
 	UserCount *int `json:"userCount,omitempty" yaml:"userCount,omitempty"`
@@ -99,7 +99,7 @@ type CreateSubscriptionResponse struct {
 	ClientSecret *string `json:"clientSecret,omitempty" yaml:"clientSecret,omitempty"`
 
 	// SubscriptionId ID of the associated subscription.
-	SubscriptionId *openapi_types.UUID `json:"subscriptionId,omitempty" yaml:"subscriptionId,omitempty"`
+	SubscriptionId *string `json:"subscriptionId,omitempty" yaml:"subscriptionId,omitempty"`
 }
 
 // PaymentProcessor Supported payment processors
@@ -108,7 +108,7 @@ type PaymentProcessor string
 // Subscription Subscription entity schema.
 type Subscription struct {
 	// BillingId Billing ID of the subscription. This is the ID of the subscription in the billing system. eg Stripe
-	BillingId openapi_types.UUID       `db:"billing_id" json:"billing_id" yaml:"billing_id"`
+	BillingId string                   `db:"billing_id" json:"billing_id" yaml:"billing_id"`
 	CreatedAt core.Time        `db:"created_at" json:"created_at,omitempty" yaml:"created_at,omitempty"`
 	DeletedAt core.SqlNullTime `db:"deleted_at" json:"deleted_at,omitempty" yaml:"deleted_at,omitempty"`
 	EndDate   core.Time        `db:"end_date" json:"end_date,omitempty" yaml:"end_date,omitempty"`

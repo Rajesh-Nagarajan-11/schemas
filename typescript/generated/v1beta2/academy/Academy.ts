@@ -3519,10 +3519,7 @@ export interface components {
          * @description ID of the associated question.
          */
         questionId: string;
-        /**
-         * Format: uuid
-         * @description ID of the associated selectedOption.
-         */
+        /** @description Map of selected option IDs to a boolean value indicating if it was selected. */
         selectedOptionId: { [key: string]: boolean };
         /** @description The answer text of the submittedanswer. */
         answerText: string;
@@ -3534,10 +3531,7 @@ export interface components {
        * @description ID of the associated question.
        */
       questionId: string;
-      /**
-       * Format: uuid
-       * @description ID of the associated selectedOption.
-       */
+      /** @description Map of selected option IDs to a boolean value indicating if it was selected. */
       selectedOptionId: { [key: string]: boolean };
       /** @description The answer text of the submittedanswer. */
       answerText: string;
@@ -3607,10 +3601,7 @@ export interface components {
            * @description ID of the associated question.
            */
           questionId: string;
-          /**
-           * Format: uuid
-           * @description ID of the associated selectedOption.
-           */
+          /** @description Map of selected option IDs to a boolean value indicating if it was selected. */
           selectedOptionId: { [key: string]: boolean };
           /** @description The answer text of the submittedanswer. */
           answerText: string;
@@ -7534,10 +7525,7 @@ export interface operations {
              * @description ID of the associated question.
              */
             questionId: string;
-            /**
-             * Format: uuid
-             * @description ID of the associated selectedOption.
-             */
+            /** @description Map of selected option IDs to a boolean value indicating if it was selected. */
             selectedOptionId: { [key: string]: boolean };
             /** @description The answer text of the submittedanswer. */
             answerText: string;

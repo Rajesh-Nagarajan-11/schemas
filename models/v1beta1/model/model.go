@@ -257,6 +257,7 @@ type ModelReference struct {
 
 // RegistrantReference defines model for RegistrantReference.
 type RegistrantReference struct {
+	// Kind Kind of the registrant.
 	Kind string `json:"kind" yaml:"kind"`
 }
 

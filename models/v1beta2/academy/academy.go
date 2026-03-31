@@ -768,7 +768,7 @@ type SubmittedAnswer struct {
 	// QuestionId ID of the associated question.
 	QuestionId openapi_types.UUID `json:"questionId" yaml:"questionId"`
 
-	// SelectedOptionId ID of the associated selectedOption.
+	// SelectedOptionId Map of selected option IDs to a boolean value indicating if it was selected.
 	SelectedOptionId map[string]bool `json:"selectedOptionId" yaml:"selectedOptionId"`
 }
 

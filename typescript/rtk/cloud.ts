@@ -4396,6 +4396,7 @@ export type GetDesignsOfWorkspaceApiResponse = /** status 200 Designs */ {
             version: string;
           };
           registrant: {
+            /** Kind of the registrant. */
             kind: string;
           };
         };
@@ -4786,6 +4787,7 @@ export type GetDesignsOfWorkspaceApiResponse = /** status 200 Designs */ {
             version: string;
           };
           registrant: {
+            /** Kind of the registrant. */
             kind: string;
           };
         };
@@ -4840,6 +4842,7 @@ export type GetDesignsOfWorkspaceApiResponse = /** status 200 Designs */ {
                   version: string;
                 };
                 registrant: {
+                  /** Kind of the registrant. */
                   kind: string;
                 };
               };
@@ -4905,6 +4908,7 @@ export type GetDesignsOfWorkspaceApiResponse = /** status 200 Designs */ {
                   version: string;
                 };
                 registrant: {
+                  /** Kind of the registrant. */
                   kind: string;
                 };
               };
@@ -4973,6 +4977,7 @@ export type GetDesignsOfWorkspaceApiResponse = /** status 200 Designs */ {
                   version: string;
                 };
                 registrant: {
+                  /** Kind of the registrant. */
                   kind: string;
                 };
               };
@@ -5038,6 +5043,7 @@ export type GetDesignsOfWorkspaceApiResponse = /** status 200 Designs */ {
                   version: string;
                 };
                 registrant: {
+                  /** Kind of the registrant. */
                   kind: string;
                 };
               };
@@ -6842,7 +6848,7 @@ export type SubmitQuizApiArg = {
     answers: {
       /** ID of the associated question. */
       questionId: string;
-      /** ID of the associated selectedOption. */
+      /** Map of selected option IDs to a boolean value indicating if it was selected. */
       selectedOptionId: {
         [key: string]: boolean;
       };
@@ -7621,6 +7627,7 @@ export type GetPatternsApiResponse = /** status 200 Designs response */ {
             version: string;
           };
           registrant: {
+            /** Kind of the registrant. */
             kind: string;
           };
         };
@@ -8011,6 +8018,7 @@ export type GetPatternsApiResponse = /** status 200 Designs response */ {
             version: string;
           };
           registrant: {
+            /** Kind of the registrant. */
             kind: string;
           };
         };
@@ -8071,6 +8079,7 @@ export type GetPatternsApiResponse = /** status 200 Designs response */ {
                   version: string;
                 };
                 registrant: {
+                  /** Kind of the registrant. */
                   kind: string;
                 };
               };
@@ -8141,6 +8150,7 @@ export type GetPatternsApiResponse = /** status 200 Designs response */ {
                   version: string;
                 };
                 registrant: {
+                  /** Kind of the registrant. */
                   kind: string;
                 };
               };
@@ -8214,6 +8224,7 @@ export type GetPatternsApiResponse = /** status 200 Designs response */ {
                   version: string;
                 };
                 registrant: {
+                  /** Kind of the registrant. */
                   kind: string;
                 };
               };
@@ -8284,6 +8295,7 @@ export type GetPatternsApiResponse = /** status 200 Designs response */ {
                   version: string;
                 };
                 registrant: {
+                  /** Kind of the registrant. */
                   kind: string;
                 };
               };
@@ -8672,6 +8684,7 @@ export type UpsertPatternApiResponse = /** status 200 Design saved */ {
           version: string;
         };
         registrant: {
+          /** Kind of the registrant. */
           kind: string;
         };
       };
@@ -9062,6 +9075,7 @@ export type UpsertPatternApiResponse = /** status 200 Design saved */ {
           version: string;
         };
         registrant: {
+          /** Kind of the registrant. */
           kind: string;
         };
       };
@@ -9122,6 +9136,7 @@ export type UpsertPatternApiResponse = /** status 200 Design saved */ {
                 version: string;
               };
               registrant: {
+                /** Kind of the registrant. */
                 kind: string;
               };
             };
@@ -9192,6 +9207,7 @@ export type UpsertPatternApiResponse = /** status 200 Design saved */ {
                 version: string;
               };
               registrant: {
+                /** Kind of the registrant. */
                 kind: string;
               };
             };
@@ -9265,6 +9281,7 @@ export type UpsertPatternApiResponse = /** status 200 Design saved */ {
                 version: string;
               };
               registrant: {
+                /** Kind of the registrant. */
                 kind: string;
               };
             };
@@ -9335,6 +9352,7 @@ export type UpsertPatternApiResponse = /** status 200 Design saved */ {
                 version: string;
               };
               registrant: {
+                /** Kind of the registrant. */
                 kind: string;
               };
             };
@@ -9701,6 +9719,7 @@ export type UpsertPatternApiArg = {
               version: string;
             };
             registrant: {
+              /** Kind of the registrant. */
               kind: string;
             };
           };
@@ -10091,6 +10110,7 @@ export type UpsertPatternApiArg = {
               version: string;
             };
             registrant: {
+              /** Kind of the registrant. */
               kind: string;
             };
           };
@@ -10151,6 +10171,7 @@ export type UpsertPatternApiArg = {
                     version: string;
                   };
                   registrant: {
+                    /** Kind of the registrant. */
                     kind: string;
                   };
                 };
@@ -10221,6 +10242,7 @@ export type UpsertPatternApiArg = {
                     version: string;
                   };
                   registrant: {
+                    /** Kind of the registrant. */
                     kind: string;
                   };
                 };
@@ -10294,6 +10316,7 @@ export type UpsertPatternApiArg = {
                     version: string;
                   };
                   registrant: {
+                    /** Kind of the registrant. */
                     kind: string;
                   };
                 };
@@ -10364,6 +10387,7 @@ export type UpsertPatternApiArg = {
                     version: string;
                   };
                   registrant: {
+                    /** Kind of the registrant. */
                     kind: string;
                   };
                 };
@@ -10768,6 +10792,7 @@ export type GetPatternApiResponse = /** status 200 Design response */ {
           version: string;
         };
         registrant: {
+          /** Kind of the registrant. */
           kind: string;
         };
       };
@@ -11158,6 +11183,7 @@ export type GetPatternApiResponse = /** status 200 Design response */ {
           version: string;
         };
         registrant: {
+          /** Kind of the registrant. */
           kind: string;
         };
       };
@@ -11218,6 +11244,7 @@ export type GetPatternApiResponse = /** status 200 Design response */ {
                 version: string;
               };
               registrant: {
+                /** Kind of the registrant. */
                 kind: string;
               };
             };
@@ -11288,6 +11315,7 @@ export type GetPatternApiResponse = /** status 200 Design response */ {
                 version: string;
               };
               registrant: {
+                /** Kind of the registrant. */
                 kind: string;
               };
             };
@@ -11361,6 +11389,7 @@ export type GetPatternApiResponse = /** status 200 Design response */ {
                 version: string;
               };
               registrant: {
+                /** Kind of the registrant. */
                 kind: string;
               };
             };
@@ -11431,6 +11460,7 @@ export type GetPatternApiResponse = /** status 200 Design response */ {
                 version: string;
               };
               registrant: {
+                /** Kind of the registrant. */
                 kind: string;
               };
             };
@@ -11803,6 +11833,7 @@ export type ClonePatternApiResponse = /** status 200 Design cloned */ {
           version: string;
         };
         registrant: {
+          /** Kind of the registrant. */
           kind: string;
         };
       };
@@ -12193,6 +12224,7 @@ export type ClonePatternApiResponse = /** status 200 Design cloned */ {
           version: string;
         };
         registrant: {
+          /** Kind of the registrant. */
           kind: string;
         };
       };
@@ -12253,6 +12285,7 @@ export type ClonePatternApiResponse = /** status 200 Design cloned */ {
                 version: string;
               };
               registrant: {
+                /** Kind of the registrant. */
                 kind: string;
               };
             };
@@ -12323,6 +12356,7 @@ export type ClonePatternApiResponse = /** status 200 Design cloned */ {
                 version: string;
               };
               registrant: {
+                /** Kind of the registrant. */
                 kind: string;
               };
             };
@@ -12396,6 +12430,7 @@ export type ClonePatternApiResponse = /** status 200 Design cloned */ {
                 version: string;
               };
               registrant: {
+                /** Kind of the registrant. */
                 kind: string;
               };
             };
@@ -12466,6 +12501,7 @@ export type ClonePatternApiResponse = /** status 200 Design cloned */ {
                 version: string;
               };
               registrant: {
+                /** Kind of the registrant. */
                 kind: string;
               };
             };
@@ -12876,6 +12912,7 @@ export type GetCatalogContentApiResponse = /** status 200 Catalog content page *
             version: string;
           };
           registrant: {
+            /** Kind of the registrant. */
             kind: string;
           };
         };
@@ -13266,6 +13303,7 @@ export type GetCatalogContentApiResponse = /** status 200 Catalog content page *
             version: string;
           };
           registrant: {
+            /** Kind of the registrant. */
             kind: string;
           };
         };
@@ -13326,6 +13364,7 @@ export type GetCatalogContentApiResponse = /** status 200 Catalog content page *
                   version: string;
                 };
                 registrant: {
+                  /** Kind of the registrant. */
                   kind: string;
                 };
               };
@@ -13396,6 +13435,7 @@ export type GetCatalogContentApiResponse = /** status 200 Catalog content page *
                   version: string;
                 };
                 registrant: {
+                  /** Kind of the registrant. */
                   kind: string;
                 };
               };
@@ -13469,6 +13509,7 @@ export type GetCatalogContentApiResponse = /** status 200 Catalog content page *
                   version: string;
                 };
                 registrant: {
+                  /** Kind of the registrant. */
                   kind: string;
                 };
               };
@@ -13539,6 +13580,7 @@ export type GetCatalogContentApiResponse = /** status 200 Catalog content page *
                   version: string;
                 };
                 registrant: {
+                  /** Kind of the registrant. */
                   kind: string;
                 };
               };

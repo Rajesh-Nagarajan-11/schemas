@@ -509,6 +509,7 @@ export interface paths {
                       version: string;
                     };
                     registrant: {
+                      /** @description Kind of the registrant. */
                       kind: string;
                     };
                   };
@@ -1161,6 +1162,7 @@ export interface paths {
                       version: string;
                     };
                     registrant: {
+                      /** @description Kind of the registrant. */
                       kind: string;
                     };
                   };
@@ -1230,6 +1232,7 @@ export interface paths {
                             version: string;
                           };
                           registrant: {
+                            /** @description Kind of the registrant. */
                             kind: string;
                           };
                         };
@@ -1317,6 +1320,7 @@ export interface paths {
                             version: string;
                           };
                           registrant: {
+                            /** @description Kind of the registrant. */
                             kind: string;
                           };
                         };
@@ -1407,6 +1411,7 @@ export interface paths {
                             version: string;
                           };
                           registrant: {
+                            /** @description Kind of the registrant. */
                             kind: string;
                           };
                         };
@@ -1494,6 +1499,7 @@ export interface paths {
                             version: string;
                           };
                           registrant: {
+                            /** @description Kind of the registrant. */
                             kind: string;
                           };
                         };
@@ -1541,7 +1547,22 @@ export interface paths {
                */
               timestamp?: string;
               /** @description The actions of the evaluationresponse. */
-              actions: unknown[];
+              actions: {
+                /**
+                 * @description The op of the action.
+                 * @enum {string}
+                 */
+                op:
+                  | "update_component"
+                  | "update_component_configuration"
+                  | "add_component"
+                  | "delete_component"
+                  | "add_relationship"
+                  | "update_relationship"
+                  | "delete_relationship";
+                /** @description The value of the action. */
+                value: { [key: string]: unknown };
+              }[];
             };
           };
         };
@@ -2054,6 +2075,7 @@ export interface paths {
                     version: string;
                   };
                   registrant: {
+                    /** @description Kind of the registrant. */
                     kind: string;
                   };
                 };
@@ -2706,6 +2728,7 @@ export interface paths {
                     version: string;
                   };
                   registrant: {
+                    /** @description Kind of the registrant. */
                     kind: string;
                   };
                 };
@@ -2775,6 +2798,7 @@ export interface paths {
                           version: string;
                         };
                         registrant: {
+                          /** @description Kind of the registrant. */
                           kind: string;
                         };
                       };
@@ -2862,6 +2886,7 @@ export interface paths {
                           version: string;
                         };
                         registrant: {
+                          /** @description Kind of the registrant. */
                           kind: string;
                         };
                       };
@@ -2952,6 +2977,7 @@ export interface paths {
                           version: string;
                         };
                         registrant: {
+                          /** @description Kind of the registrant. */
                           kind: string;
                         };
                       };
@@ -3039,6 +3065,7 @@ export interface paths {
                           version: string;
                         };
                         registrant: {
+                          /** @description Kind of the registrant. */
                           kind: string;
                         };
                       };
@@ -3587,6 +3614,7 @@ export interface components {
               version: string;
             };
             registrant: {
+              /** @description Kind of the registrant. */
               kind: string;
             };
           };
@@ -4229,6 +4257,7 @@ export interface components {
               version: string;
             };
             registrant: {
+              /** @description Kind of the registrant. */
               kind: string;
             };
           };
@@ -4298,6 +4327,7 @@ export interface components {
                     version: string;
                   };
                   registrant: {
+                    /** @description Kind of the registrant. */
                     kind: string;
                   };
                 };
@@ -4385,6 +4415,7 @@ export interface components {
                     version: string;
                   };
                   registrant: {
+                    /** @description Kind of the registrant. */
                     kind: string;
                   };
                 };
@@ -4475,6 +4506,7 @@ export interface components {
                     version: string;
                   };
                   registrant: {
+                    /** @description Kind of the registrant. */
                     kind: string;
                   };
                 };
@@ -4562,6 +4594,7 @@ export interface components {
                     version: string;
                   };
                   registrant: {
+                    /** @description Kind of the registrant. */
                     kind: string;
                   };
                 };
@@ -5105,6 +5138,7 @@ export interface components {
               version: string;
             };
             registrant: {
+              /** @description Kind of the registrant. */
               kind: string;
             };
           };
@@ -5747,6 +5781,7 @@ export interface components {
               version: string;
             };
             registrant: {
+              /** @description Kind of the registrant. */
               kind: string;
             };
           };
@@ -5816,6 +5851,7 @@ export interface components {
                     version: string;
                   };
                   registrant: {
+                    /** @description Kind of the registrant. */
                     kind: string;
                   };
                 };
@@ -5903,6 +5939,7 @@ export interface components {
                     version: string;
                   };
                   registrant: {
+                    /** @description Kind of the registrant. */
                     kind: string;
                   };
                 };
@@ -5993,6 +6030,7 @@ export interface components {
                     version: string;
                   };
                   registrant: {
+                    /** @description Kind of the registrant. */
                     kind: string;
                   };
                 };
@@ -6080,6 +6118,7 @@ export interface components {
                     version: string;
                   };
                   registrant: {
+                    /** @description Kind of the registrant. */
                     kind: string;
                   };
                 };
@@ -6127,7 +6166,22 @@ export interface components {
        */
       timestamp?: string;
       /** @description The actions of the evaluationresponse. */
-      actions: unknown[];
+      actions: {
+        /**
+         * @description The op of the action.
+         * @enum {string}
+         */
+        op:
+          | "update_component"
+          | "update_component_configuration"
+          | "add_component"
+          | "delete_component"
+          | "add_relationship"
+          | "update_relationship"
+          | "delete_relationship";
+        /** @description The value of the action. */
+        value: { [key: string]: unknown };
+      }[];
     };
     Action: {
       /**

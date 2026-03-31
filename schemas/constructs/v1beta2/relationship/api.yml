@@ -378,6 +378,7 @@ components:
           x-oapi-codegen-extra-tags:
             json: "textOpacity,omitempty"
           minimum: 0
+          maximum: 1
         fontFamily:
           type: string
           description: A comma-separated list of font names to use on the label text.
@@ -420,6 +421,7 @@ components:
           x-oapi-codegen-extra-tags:
             json: "opacity,omitempty"
           minimum: 0
+          maximum: 1
         zIndex:
           type: integer
           description: An integer value that affects the relative draw order of elements. In general, an element with a higher z-index will be drawn on top of an element with a lower z-index. Note that edges are under nodes despite z-index.
@@ -471,6 +473,7 @@ components:
           x-oapi-codegen-extra-tags:
             json: "lineOpacity,omitempty"
           minimum: 0
+          maximum: 1
         targetArrowColor:
           type: string
           description: The colour of the edge's source arrow. Colours may be specified by name (e.g. red), hex (e.g. #ff0000 or #f00), RGB (e.g. rgb(255, 0, 0)), or HSL (e.g. hsl(0, 100%, 50%)).

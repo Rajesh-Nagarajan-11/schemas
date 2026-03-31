@@ -7376,8 +7376,7 @@ const AcademySchema: Record<string, unknown> = {
                           "additionalProperties": {
                             "type": "boolean"
                           },
-                          "description": "ID of the associated selectedOption.",
-                          "format": "uuid"
+                          "description": "Map of selected option IDs to a boolean value indicating if it was selected."
                         },
                         "answerText": {
                           "type": "string",
@@ -15115,8 +15114,7 @@ const AcademySchema: Record<string, unknown> = {
                   "additionalProperties": {
                     "type": "boolean"
                   },
-                  "description": "ID of the associated selectedOption.",
-                  "format": "uuid"
+                  "description": "Map of selected option IDs to a boolean value indicating if it was selected."
                 },
                 "answerText": {
                   "type": "string",
@@ -15148,8 +15146,7 @@ const AcademySchema: Record<string, unknown> = {
             "additionalProperties": {
               "type": "boolean"
             },
-            "description": "ID of the associated selectedOption.",
-            "format": "uuid"
+            "description": "Map of selected option IDs to a boolean value indicating if it was selected."
           },
           "answerText": {
             "type": "string",
@@ -15324,8 +15321,7 @@ const AcademySchema: Record<string, unknown> = {
                       "additionalProperties": {
                         "type": "boolean"
                       },
-                      "description": "ID of the associated selectedOption.",
-                      "format": "uuid"
+                      "description": "Map of selected option IDs to a boolean value indicating if it was selected."
                     },
                     "answerText": {
                       "type": "string",
@@ -16667,7 +16663,7 @@ const AcademySchema: Record<string, unknown> = {
           "pagesize": {
             "type": "integer",
             "description": "The pagesize of the curricularegistrationsfilter.",
-            "minimum": 0
+            "minimum": 1
           },
           "page": {
             "type": "integer",

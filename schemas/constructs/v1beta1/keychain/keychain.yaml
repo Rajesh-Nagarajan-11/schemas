@@ -18,6 +18,8 @@ properties:
   name:
     type: string
     description: Name of the keychain.
+    minLength: 1
+    maxLength: 255
     x-oapi-codegen-extra-tags:
       db: name
     x-order: 2

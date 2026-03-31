@@ -1652,8 +1652,7 @@ components:
           type: object
           additionalProperties:
             type: boolean
-          description: ID of the associated selectedOption.
-          format: uuid
+          description: Map of selected option IDs to a boolean value indicating if it was selected.
         answerText:
           type: string
           description: The answer text of the submittedanswer.
@@ -1894,7 +1893,7 @@ components:
         pagesize:
           type: integer
           description: The pagesize of the curricularegistrationsfilter.
-          minimum: 0
+          minimum: 1
         page:
           type: integer
           description: Current page number of the result set.

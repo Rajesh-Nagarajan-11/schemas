@@ -94,10 +94,7 @@ export interface paths {
                 updated_at?: string;
                 /** Format: date-time */
                 deleted_at?: string;
-                /**
-                 * Format: uuid
-                 * @description Billing ID of the subscription. This is the ID of the subscription in the billing system. eg Stripe
-                 */
+                /** @description Billing ID of the subscription. This is the ID of the subscription in the billing system. eg Stripe */
                 billing_id: string;
               }[];
             };
@@ -137,10 +134,7 @@ export interface paths {
         201: {
           content: {
             "application/json": {
-              /**
-               * Format: uuid
-               * @description ID of the associated subscription.
-               */
+              /** @description ID of the associated subscription. */
               subscriptionId?: string;
               /** @description The client secret of the createsubscriptionresponse. */
               clientSecret?: string;
@@ -174,15 +168,9 @@ export interface paths {
              * @description Organization ID
              */
             orgId?: string;
-            /**
-             * Format: uuid
-             * @description Price ID from the payment processor
-             */
+            /** @description Price ID from the payment processor */
             planId?: string;
-            /**
-             * Format: uuid
-             * @description Coupon ID to apply
-             */
+            /** @description Coupon ID to apply */
             couponId?: string;
             /** @description Number of users in the organization */
             userCount?: number;
@@ -275,10 +263,7 @@ export interface paths {
               updated_at?: string;
               /** Format: date-time */
               deleted_at?: string;
-              /**
-               * Format: uuid
-               * @description Billing ID of the subscription. This is the ID of the subscription in the billing system. eg Stripe
-               */
+              /** @description Billing ID of the subscription. This is the ID of the subscription in the billing system. eg Stripe */
               billing_id: string;
             };
           };
@@ -430,15 +415,9 @@ export interface components {
        * @description Organization ID
        */
       orgId?: string;
-      /**
-       * Format: uuid
-       * @description Price ID from the payment processor
-       */
+      /** @description Price ID from the payment processor */
       planId?: string;
-      /**
-       * Format: uuid
-       * @description Coupon ID to apply
-       */
+      /** @description Coupon ID to apply */
       couponId?: string;
       /** @description Number of users in the organization */
       userCount?: number;
@@ -466,10 +445,7 @@ export interface components {
       newPlanId?: string;
     };
     CreateSubscriptionResponse: {
-      /**
-       * Format: uuid
-       * @description ID of the associated subscription.
-       */
+      /** @description ID of the associated subscription. */
       subscriptionId?: string;
       /** @description The client secret of the createsubscriptionresponse. */
       clientSecret?: string;
@@ -482,10 +458,7 @@ export interface components {
       paymentProcessor?: "stripe" | "paypal" | "braintree";
     };
     CancelSubscriptionRequest: {
-      /**
-       * Format: uuid
-       * @description Subscription ID from the payment processor
-       */
+      /** @description Subscription ID from the payment processor */
       subscriptionId?: string;
       /**
        * @description Supported payment processors
@@ -566,10 +539,7 @@ export interface components {
         updated_at?: string;
         /** Format: date-time */
         deleted_at?: string;
-        /**
-         * Format: uuid
-         * @description Billing ID of the subscription. This is the ID of the subscription in the billing system. eg Stripe
-         */
+        /** @description Billing ID of the subscription. This is the ID of the subscription in the billing system. eg Stripe */
         billing_id: string;
       }[];
     };
@@ -637,10 +607,7 @@ export interface components {
       updated_at?: string;
       /** Format: date-time */
       deleted_at?: string;
-      /**
-       * Format: uuid
-       * @description Billing ID of the subscription. This is the ID of the subscription in the billing system. eg Stripe
-       */
+      /** @description Billing ID of the subscription. This is the ID of the subscription in the billing system. eg Stripe */
       billing_id: string;
     };
     /**
@@ -786,10 +753,7 @@ export interface operations {
               updated_at?: string;
               /** Format: date-time */
               deleted_at?: string;
-              /**
-               * Format: uuid
-               * @description Billing ID of the subscription. This is the ID of the subscription in the billing system. eg Stripe
-               */
+              /** @description Billing ID of the subscription. This is the ID of the subscription in the billing system. eg Stripe */
               billing_id: string;
             }[];
           };

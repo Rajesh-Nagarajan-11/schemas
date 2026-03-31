@@ -114,6 +114,8 @@ components:
       "properties":
         "kind":
           "type": "string"
+          description: Kind of the registrant.
+          maxLength: 255
 
     ModelReference:
       type: "object"

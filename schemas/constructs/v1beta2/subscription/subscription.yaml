@@ -69,4 +69,4 @@ properties:
     x-oapi-codegen-extra-tags:
       db: billing_id
     maxLength: 500
-    format: uuid
+    pattern: '^[A-Za-z0-9_\-]+$'

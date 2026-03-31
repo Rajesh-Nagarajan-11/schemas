@@ -112,7 +112,7 @@ components:
 
         actions:
           type: array
-          item:
+          items:
             $ref: "#/components/schemas/Action"
           description: The actions of the evaluationresponse.
 

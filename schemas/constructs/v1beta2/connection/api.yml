@@ -586,21 +586,21 @@ components:
           x-oapi-codegen-extra-tags:
             json: "created_at,omitempty"
             db: "created_at"
-          maxLength: 500
+          format: date-time
         updated_at:
           type: string
           description: Last update timestamp
           x-oapi-codegen-extra-tags:
             json: "updated_at,omitempty"
             db: "updated_at"
-          maxLength: 500
+          format: date-time
         deleted_at:
           type: string
           description: Deletion timestamp
           x-oapi-codegen-extra-tags:
             json: "deleted_at,omitempty"
             db: "deleted_at"
-          maxLength: 500
+          format: date-time
 
     MesheryInstancePage:
       type: object

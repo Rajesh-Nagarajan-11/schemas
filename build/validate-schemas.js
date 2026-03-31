@@ -46,6 +46,12 @@
  *   Rule 33 — Pagination envelopes must use page, page_size, total_count.
  *   Rule 34 — Template file values must match schema property types.
  *   Rule 35 — x-go-type alias must match x-go-type-import.name, and import path must match alias.
+ *   Rule 36 — Every schema property should have a `description` field.
+ *   Rule 37 — String properties (without $ref or enum) should have at least one validation
+ *              constraint: minLength, maxLength, pattern, or format.
+ *   Rule 38 — Integer/number properties should have minimum and/or maximum bounds.
+ *   Rule 39 — String properties named *id/*Id must have format: uuid or $ref to a UUID schema.
+ *              Skips non-string types and known external ID fields (e.g. payment processor IDs).
  *
  * USAGE:
  *   node build/validate-schemas.js          # exits 0 if no blocking violations found
@@ -2205,6 +2211,142 @@ function validateResponseText(filePath, doc) {
   }
 }
 
+// ─── Rule 36: property descriptions ─────────────────────────────────────────
+
+function validatePropertyDescriptions(filePath, properties, schemaName) {
+  if (!properties || typeof properties !== "object") return;
+
+  for (const [propName, propDef] of Object.entries(properties)) {
+    if (!propDef || typeof propDef !== "object") continue;
+
+    // Skip $ref-only properties — they inherit description from the referenced schema.
+    const ownKeys = Object.keys(propDef).filter(
+      (k) => !k.startsWith("x-") && k !== "$ref" && k !== "default",
+    );
+    if (propDef.$ref && ownKeys.length === 0) continue;
+
+    if (!propDef.description) {
+      const context = schemaName ? `Schema "${schemaName}" — ` : "";
+      reportDesignAdvisory(
+        filePath,
+        `${context}property "${propName}" is missing a \`description\`.`,
+      );
+    }
+  }
+}
+
+// ─── Rule 37: string validation constraints ──────────────────────────────────
+
+function validateStringConstraints(filePath, properties, schemaName) {
+  if (!properties || typeof properties !== "object") return;
+
+  for (const [propName, propDef] of Object.entries(properties)) {
+    if (!propDef || typeof propDef !== "object") continue;
+    if (propDef.type !== "string") continue;
+    if (propDef.$ref || propDef.enum) continue;
+
+    const hasConstraint =
+      propDef.minLength !== undefined ||
+      propDef.maxLength !== undefined ||
+      propDef.pattern !== undefined ||
+      propDef.format !== undefined;
+
+    if (!hasConstraint) {
+      const context = schemaName ? `Schema "${schemaName}" — ` : "";
+      reportDesignAdvisory(
+        filePath,
+        `${context}string property "${propName}" has no validation constraint (minLength, maxLength, pattern, or format). ` +
+          `Add at least one to prevent unbounded input.`,
+      );
+    }
+  }
+}
+
+// ─── Rule 38: numeric bounds ─────────────────────────────────────────────────
+
+function validateNumericBounds(filePath, properties, schemaName) {
+  if (!properties || typeof properties !== "object") return;
+
+  for (const [propName, propDef] of Object.entries(properties)) {
+    if (!propDef || typeof propDef !== "object") continue;
+    if (propDef.type !== "integer" && propDef.type !== "number") continue;
+
+    const hasBound =
+      propDef.minimum !== undefined ||
+      propDef.maximum !== undefined ||
+      propDef.exclusiveMinimum !== undefined ||
+      propDef.exclusiveMaximum !== undefined ||
+      propDef.enum !== undefined;
+
+    if (!hasBound) {
+      const context = schemaName ? `Schema "${schemaName}" — ` : "";
+      reportDesignAdvisory(
+        filePath,
+        `${context}${propDef.type} property "${propName}" has no bounds (minimum/maximum). ` +
+          `Add at least one to prevent unbounded values.`,
+      );
+    }
+  }
+}
+
+// ─── Rule 39: string ID properties must use format: uuid or $ref ─────────────
+
+const ID_PROPERTY_PATTERN = /(?:^id$|_id$|Id$)/;
+
+// Known external-system ID fields that are NOT UUIDs (e.g. payment processor IDs).
+const EXTERNAL_ID_FIELDS = new Set([
+  "planId",
+  "couponId",
+  "subscriptionId",
+  "billing_id",
+]);
+
+function validateIdFormat(filePath, properties, schemaName) {
+  if (!properties || typeof properties !== "object") return;
+
+  for (const [propName, propDef] of Object.entries(properties)) {
+    if (!propDef || typeof propDef !== "object") continue;
+    if (!ID_PROPERTY_PATTERN.test(propName)) continue;
+    // Only applies to string-type properties
+    if (propDef.type && propDef.type !== "string") continue;
+    if (propDef.$ref) continue; // $ref to UUID schema is fine
+    if (propDef.format === "uuid") continue;
+    // Skip known external ID fields
+    if (EXTERNAL_ID_FIELDS.has(propName)) continue;
+    // Check allOf wrappers that may contain a $ref
+    if (propDef.allOf?.some((entry) => entry.$ref)) continue;
+
+    const context = schemaName ? `Schema "${schemaName}" — ` : "";
+    reportDesignAdvisory(
+      filePath,
+      `${context}ID property "${propName}" should have \`format: uuid\` or use a \`$ref\` to a UUID schema.`,
+    );
+  }
+}
+
+// ─── Rules 36–39: run property-level validation on all schema properties ─────
+
+function validatePropertyConstraints(filePath, doc) {
+  // Entity-level schemas (top-level properties in .yaml files)
+  if (doc.properties && doc.type === "object") {
+    validatePropertyDescriptions(filePath, doc.properties, null);
+    validateStringConstraints(filePath, doc.properties, null);
+    validateNumericBounds(filePath, doc.properties, null);
+    validateIdFormat(filePath, doc.properties, null);
+  }
+
+  // Component schemas in api.yml
+  if (doc.components?.schemas) {
+    for (const [schemaName, schema] of Object.entries(doc.components.schemas)) {
+      if (!schema?.properties) continue;
+      validatePropertyDescriptions(filePath, schema.properties, schemaName);
+      validateStringConstraints(filePath, schema.properties, schemaName);
+      validateNumericBounds(filePath, schema.properties, schemaName);
+      validateIdFormat(filePath, schema.properties, schemaName);
+    }
+  }
+}
+
 // ─── Walk constructs directory ────────────────────────────────────────────────
 
 function shouldValidateVersion(version) {
@@ -2269,6 +2411,8 @@ function walk(dir) {
             if (entityDoc.components?.schemas) {
               validateGoTypeImportConsistency(entityPath, entityDoc);
             }
+            // Rules 36–39: property-level validation constraints
+            validatePropertyConstraints(entityPath, entityDoc);
           }
         }
       }
@@ -2319,6 +2463,8 @@ function walk(dir) {
           collectSchemaFingerprints(apiYml, doc);
           validateResponseSchemaRefs(apiYml, doc);
           validateResponseText(apiYml, doc);
+          // Rules 36–39: property-level validation constraints
+          validatePropertyConstraints(apiYml, doc);
         }
       }
     }

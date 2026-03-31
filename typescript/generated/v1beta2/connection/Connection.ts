@@ -360,11 +360,20 @@ export interface components {
       server_location?: string;
       /** @description Server build SHA */
       server_build_sha?: string;
-      /** @description Creation timestamp */
+      /**
+       * Format: date-time
+       * @description Creation timestamp
+       */
       created_at?: string;
-      /** @description Last update timestamp */
+      /**
+       * Format: date-time
+       * @description Last update timestamp
+       */
       updated_at?: string;
-      /** @description Deletion timestamp */
+      /**
+       * Format: date-time
+       * @description Deletion timestamp
+       */
       deleted_at?: string;
     };
     /** @description Paginated list of Meshery instances */
@@ -389,11 +398,20 @@ export interface components {
         server_location?: string;
         /** @description Server build SHA */
         server_build_sha?: string;
-        /** @description Creation timestamp */
+        /**
+         * Format: date-time
+         * @description Creation timestamp
+         */
         created_at?: string;
-        /** @description Last update timestamp */
+        /**
+         * Format: date-time
+         * @description Last update timestamp
+         */
         updated_at?: string;
-        /** @description Deletion timestamp */
+        /**
+         * Format: date-time
+         * @description Deletion timestamp
+         */
         deleted_at?: string;
       }[];
       /** @description Current page number */

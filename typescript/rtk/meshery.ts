@@ -844,6 +844,7 @@ export type PostEvaluateApiResponse = /** status 200 Successful evaluation */ {
           version: string;
         };
         registrant: {
+          /** Kind of the registrant. */
           kind: string;
         };
       };
@@ -1234,6 +1235,7 @@ export type PostEvaluateApiResponse = /** status 200 Successful evaluation */ {
           version: string;
         };
         registrant: {
+          /** Kind of the registrant. */
           kind: string;
         };
       };
@@ -1288,6 +1290,7 @@ export type PostEvaluateApiResponse = /** status 200 Successful evaluation */ {
                 version: string;
               };
               registrant: {
+                /** Kind of the registrant. */
                 kind: string;
               };
             };
@@ -1353,6 +1356,7 @@ export type PostEvaluateApiResponse = /** status 200 Successful evaluation */ {
                 version: string;
               };
               registrant: {
+                /** Kind of the registrant. */
                 kind: string;
               };
             };
@@ -1421,6 +1425,7 @@ export type PostEvaluateApiResponse = /** status 200 Successful evaluation */ {
                 version: string;
               };
               registrant: {
+                /** Kind of the registrant. */
                 kind: string;
               };
             };
@@ -1486,6 +1491,7 @@ export type PostEvaluateApiResponse = /** status 200 Successful evaluation */ {
                 version: string;
               };
               registrant: {
+                /** Kind of the registrant. */
                 kind: string;
               };
             };
@@ -1517,7 +1523,19 @@ export type PostEvaluateApiResponse = /** status 200 Successful evaluation */ {
   /** ISO 8601 formatted timestamp of when the evaluation was completed. */
   timestamp?: string;
   /** The actions of the evaluationresponse. */
-  actions: any;
+  actions: {
+    /** The op of the action. */
+    op:
+      | "update_component"
+      | "update_component_configuration"
+      | "add_component"
+      | "delete_component"
+      | "add_relationship"
+      | "update_relationship"
+      | "delete_relationship";
+    /** The value of the action. */
+    value: object;
+  }[];
 };
 export type PostEvaluateApiArg = {
   body: {
@@ -1822,6 +1840,7 @@ export type PostEvaluateApiArg = {
             version: string;
           };
           registrant: {
+            /** Kind of the registrant. */
             kind: string;
           };
         };
@@ -2212,6 +2231,7 @@ export type PostEvaluateApiArg = {
             version: string;
           };
           registrant: {
+            /** Kind of the registrant. */
             kind: string;
           };
         };
@@ -2266,6 +2286,7 @@ export type PostEvaluateApiArg = {
                   version: string;
                 };
                 registrant: {
+                  /** Kind of the registrant. */
                   kind: string;
                 };
               };
@@ -2331,6 +2352,7 @@ export type PostEvaluateApiArg = {
                   version: string;
                 };
                 registrant: {
+                  /** Kind of the registrant. */
                   kind: string;
                 };
               };
@@ -2399,6 +2421,7 @@ export type PostEvaluateApiArg = {
                   version: string;
                 };
                 registrant: {
+                  /** Kind of the registrant. */
                   kind: string;
                 };
               };
@@ -2464,6 +2487,7 @@ export type PostEvaluateApiArg = {
                   version: string;
                 };
                 registrant: {
+                  /** Kind of the registrant. */
                   kind: string;
                 };
               };

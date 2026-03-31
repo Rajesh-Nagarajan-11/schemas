@@ -236,6 +236,7 @@ export interface components {
           version: string;
         };
         registrant: {
+          /** @description Kind of the registrant. */
           kind: string;
         };
       };
@@ -311,6 +312,7 @@ export interface components {
                 version: string;
               };
               registrant: {
+                /** @description Kind of the registrant. */
                 kind: string;
               };
             };
@@ -403,6 +405,7 @@ export interface components {
                 version: string;
               };
               registrant: {
+                /** @description Kind of the registrant. */
                 kind: string;
               };
             };
@@ -498,6 +501,7 @@ export interface components {
                 version: string;
               };
               registrant: {
+                /** @description Kind of the registrant. */
                 kind: string;
               };
             };
@@ -590,6 +594,7 @@ export interface components {
                 version: string;
               };
               registrant: {
+                /** @description Kind of the registrant. */
                 kind: string;
               };
             };
@@ -780,6 +785,7 @@ export interface components {
           version: string;
         };
         registrant: {
+          /** @description Kind of the registrant. */
           kind: string;
         };
       };
@@ -874,6 +880,7 @@ export interface components {
             version: string;
           };
           registrant: {
+            /** @description Kind of the registrant. */
             kind: string;
           };
         };
@@ -966,6 +973,7 @@ export interface components {
             version: string;
           };
           registrant: {
+            /** @description Kind of the registrant. */
             kind: string;
           };
         };
@@ -1063,6 +1071,7 @@ export interface components {
               version: string;
             };
             registrant: {
+              /** @description Kind of the registrant. */
               kind: string;
             };
           };
@@ -1155,6 +1164,7 @@ export interface components {
               version: string;
             };
             registrant: {
+              /** @description Kind of the registrant. */
               kind: string;
             };
           };
@@ -1250,6 +1260,7 @@ export interface components {
               version: string;
             };
             registrant: {
+              /** @description Kind of the registrant. */
               kind: string;
             };
           };
@@ -1342,6 +1353,7 @@ export interface components {
               version: string;
             };
             registrant: {
+              /** @description Kind of the registrant. */
               kind: string;
             };
           };
@@ -1440,6 +1452,7 @@ export interface components {
               version: string;
             };
             registrant: {
+              /** @description Kind of the registrant. */
               kind: string;
             };
           };
@@ -1532,6 +1545,7 @@ export interface components {
               version: string;
             };
             registrant: {
+              /** @description Kind of the registrant. */
               kind: string;
             };
           };
@@ -1627,6 +1641,7 @@ export interface components {
               version: string;
             };
             registrant: {
+              /** @description Kind of the registrant. */
               kind: string;
             };
           };
@@ -1719,6 +1734,7 @@ export interface components {
               version: string;
             };
             registrant: {
+              /** @description Kind of the registrant. */
               kind: string;
             };
           };

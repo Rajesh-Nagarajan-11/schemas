@@ -3656,7 +3656,7 @@ const ConnectionSchema: Record<string, unknown> = {
               "json": "created_at,omitempty",
               "db": "created_at"
             },
-            "maxLength": 500
+            "format": "date-time"
           },
           "updated_at": {
             "type": "string",
@@ -3665,7 +3665,7 @@ const ConnectionSchema: Record<string, unknown> = {
               "json": "updated_at,omitempty",
               "db": "updated_at"
             },
-            "maxLength": 500
+            "format": "date-time"
           },
           "deleted_at": {
             "type": "string",
@@ -3674,7 +3674,7 @@ const ConnectionSchema: Record<string, unknown> = {
               "json": "deleted_at,omitempty",
               "db": "deleted_at"
             },
-            "maxLength": 500
+            "format": "date-time"
           }
         }
       },
@@ -3755,7 +3755,7 @@ const ConnectionSchema: Record<string, unknown> = {
                     "json": "created_at,omitempty",
                     "db": "created_at"
                   },
-                  "maxLength": 500
+                  "format": "date-time"
                 },
                 "updated_at": {
                   "type": "string",
@@ -3764,7 +3764,7 @@ const ConnectionSchema: Record<string, unknown> = {
                     "json": "updated_at,omitempty",
                     "db": "updated_at"
                   },
-                  "maxLength": 500
+                  "format": "date-time"
                 },
                 "deleted_at": {
                   "type": "string",
@@ -3773,7 +3773,7 @@ const ConnectionSchema: Record<string, unknown> = {
                     "json": "deleted_at,omitempty",
                     "db": "deleted_at"
                   },
-                  "maxLength": 500
+                  "format": "date-time"
                 }
               }
             },

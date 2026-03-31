@@ -790,7 +790,9 @@ const RelationshipSchema: Record<string, unknown> = {
                 ],
                 "properties": {
                   "kind": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "Kind of the registrant.",
+                    "maxLength": 255
                   }
                 }
               }
@@ -1136,7 +1138,9 @@ const RelationshipSchema: Record<string, unknown> = {
                                 ],
                                 "properties": {
                                   "kind": {
-                                    "type": "string"
+                                    "type": "string",
+                                    "description": "Kind of the registrant.",
+                                    "maxLength": 255
                                   }
                                 }
                               }
@@ -1490,7 +1494,9 @@ const RelationshipSchema: Record<string, unknown> = {
                                 ],
                                 "properties": {
                                   "kind": {
-                                    "type": "string"
+                                    "type": "string",
+                                    "description": "Kind of the registrant.",
+                                    "maxLength": 255
                                   }
                                 }
                               }
@@ -1859,7 +1865,9 @@ const RelationshipSchema: Record<string, unknown> = {
                                 ],
                                 "properties": {
                                   "kind": {
-                                    "type": "string"
+                                    "type": "string",
+                                    "description": "Kind of the registrant.",
+                                    "maxLength": 255
                                   }
                                 }
                               }
@@ -2213,7 +2221,9 @@ const RelationshipSchema: Record<string, unknown> = {
                                 ],
                                 "properties": {
                                   "kind": {
-                                    "type": "string"
+                                    "type": "string",
+                                    "description": "Kind of the registrant.",
+                                    "maxLength": 255
                                   }
                                 }
                               }
@@ -2836,7 +2846,9 @@ const RelationshipSchema: Record<string, unknown> = {
                 ],
                 "properties": {
                   "kind": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "Kind of the registrant.",
+                    "maxLength": 255
                   }
                 }
               }
@@ -3193,7 +3205,9 @@ const RelationshipSchema: Record<string, unknown> = {
                       ],
                       "properties": {
                         "kind": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "Kind of the registrant.",
+                          "maxLength": 255
                         }
                       }
                     }
@@ -3547,7 +3561,9 @@ const RelationshipSchema: Record<string, unknown> = {
                       ],
                       "properties": {
                         "kind": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "Kind of the registrant.",
+                          "maxLength": 255
                         }
                       }
                     }
@@ -3923,7 +3939,9 @@ const RelationshipSchema: Record<string, unknown> = {
                           ],
                           "properties": {
                             "kind": {
-                              "type": "string"
+                              "type": "string",
+                              "description": "Kind of the registrant.",
+                              "maxLength": 255
                             }
                           }
                         }
@@ -4277,7 +4295,9 @@ const RelationshipSchema: Record<string, unknown> = {
                           ],
                           "properties": {
                             "kind": {
-                              "type": "string"
+                              "type": "string",
+                              "description": "Kind of the registrant.",
+                              "maxLength": 255
                             }
                           }
                         }
@@ -4646,7 +4666,9 @@ const RelationshipSchema: Record<string, unknown> = {
                           ],
                           "properties": {
                             "kind": {
-                              "type": "string"
+                              "type": "string",
+                              "description": "Kind of the registrant.",
+                              "maxLength": 255
                             }
                           }
                         }
@@ -5000,7 +5022,9 @@ const RelationshipSchema: Record<string, unknown> = {
                           ],
                           "properties": {
                             "kind": {
-                              "type": "string"
+                              "type": "string",
+                              "description": "Kind of the registrant.",
+                              "maxLength": 255
                             }
                           }
                         }
@@ -5384,7 +5408,9 @@ const RelationshipSchema: Record<string, unknown> = {
                             ],
                             "properties": {
                               "kind": {
-                                "type": "string"
+                                "type": "string",
+                                "description": "Kind of the registrant.",
+                                "maxLength": 255
                               }
                             }
                           }
@@ -5738,7 +5764,9 @@ const RelationshipSchema: Record<string, unknown> = {
                             ],
                             "properties": {
                               "kind": {
-                                "type": "string"
+                                "type": "string",
+                                "description": "Kind of the registrant.",
+                                "maxLength": 255
                               }
                             }
                           }
@@ -6107,7 +6135,9 @@ const RelationshipSchema: Record<string, unknown> = {
                             ],
                             "properties": {
                               "kind": {
-                                "type": "string"
+                                "type": "string",
+                                "description": "Kind of the registrant.",
+                                "maxLength": 255
                               }
                             }
                           }
@@ -6461,7 +6491,9 @@ const RelationshipSchema: Record<string, unknown> = {
                             ],
                             "properties": {
                               "kind": {
-                                "type": "string"
+                                "type": "string",
+                                "description": "Kind of the registrant.",
+                                "maxLength": 255
                               }
                             }
                           }

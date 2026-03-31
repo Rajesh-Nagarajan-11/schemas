@@ -377,7 +377,7 @@ const SubscriptionSchema: Record<string, unknown> = {
                               "db": "billing_id"
                             },
                             "maxLength": 500,
-                            "format": "uuid"
+                            "pattern": "^[A-Za-z0-9_\\-]+$"
                           }
                         }
                       },
@@ -725,7 +725,7 @@ const SubscriptionSchema: Record<string, unknown> = {
                               "db": "billing_id"
                             },
                             "maxLength": 500,
-                            "format": "uuid"
+                            "pattern": "^[A-Za-z0-9_\\-]+$"
                           }
                         }
                       },
@@ -807,13 +807,13 @@ const SubscriptionSchema: Record<string, unknown> = {
                     "type": "string",
                     "description": "Price ID from the payment processor",
                     "maxLength": 500,
-                    "format": "uuid"
+                    "pattern": "^[A-Za-z0-9_\\-]+$"
                   },
                   "couponId": {
                     "type": "string",
                     "description": "Coupon ID to apply",
                     "maxLength": 500,
-                    "format": "uuid"
+                    "pattern": "^[A-Za-z0-9_\\-]+$"
                   },
                   "userCount": {
                     "type": "integer",
@@ -851,7 +851,7 @@ const SubscriptionSchema: Record<string, unknown> = {
                       "type": "string",
                       "description": "ID of the associated subscription.",
                       "maxLength": 500,
-                      "format": "uuid"
+                      "pattern": "^[A-Za-z0-9_\\-]+$"
                     },
                     "clientSecret": {
                       "type": "string",
@@ -1202,7 +1202,7 @@ const SubscriptionSchema: Record<string, unknown> = {
                         "db": "billing_id"
                       },
                       "maxLength": 500,
-                      "format": "uuid"
+                      "pattern": "^[A-Za-z0-9_\\-]+$"
                     }
                   }
                 }
@@ -1530,13 +1530,13 @@ const SubscriptionSchema: Record<string, unknown> = {
             "type": "string",
             "description": "Price ID from the payment processor",
             "maxLength": 500,
-            "format": "uuid"
+            "pattern": "^[A-Za-z0-9_\\-]+$"
           },
           "couponId": {
             "type": "string",
             "description": "Coupon ID to apply",
             "maxLength": 500,
-            "format": "uuid"
+            "pattern": "^[A-Za-z0-9_\\-]+$"
           },
           "userCount": {
             "type": "integer",
@@ -1589,7 +1589,7 @@ const SubscriptionSchema: Record<string, unknown> = {
             "type": "string",
             "description": "ID of the associated subscription.",
             "maxLength": 500,
-            "format": "uuid"
+            "pattern": "^[A-Za-z0-9_\\-]+$"
           },
           "clientSecret": {
             "type": "string",
@@ -1619,7 +1619,7 @@ const SubscriptionSchema: Record<string, unknown> = {
             "type": "string",
             "description": "Subscription ID from the payment processor",
             "maxLength": 500,
-            "format": "uuid"
+            "pattern": "^[A-Za-z0-9_\\-]+$"
           },
           "paymentProcessor": {
             "type": "string",
@@ -1913,7 +1913,7 @@ const SubscriptionSchema: Record<string, unknown> = {
                     "db": "billing_id"
                   },
                   "maxLength": 500,
-                  "format": "uuid"
+                  "pattern": "^[A-Za-z0-9_\\-]+$"
                 }
               }
             },
@@ -2171,7 +2171,7 @@ const SubscriptionSchema: Record<string, unknown> = {
               "db": "billing_id"
             },
             "maxLength": 500,
-            "format": "uuid"
+            "pattern": "^[A-Za-z0-9_\\-]+$"
           }
         }
       },

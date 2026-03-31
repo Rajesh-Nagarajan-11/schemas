@@ -272,7 +272,7 @@ type EvaluationRequest struct {
 // EvaluationResponse Schema for the response of a relationship evaluation process in Meshery
 type EvaluationResponse struct {
 	// Actions The actions of the evaluationresponse.
-	Actions []interface{} `json:"actions" yaml:"actions"`
+	Actions []Action `json:"actions" yaml:"actions"`
 
 	// Design Designs are your primary tool for collaborative authorship of your infrastructure, workflow, and processes.
 	Design patternv1beta1.PatternFile `json:"design" yaml:"design"`

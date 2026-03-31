@@ -4,6 +4,8 @@
 package connection
 
 import (
+	"time"
+
 	"github.com/meshery/schemas/models/core"
 	environmentv1beta1 "github.com/meshery/schemas/models/v1beta1/environment"
 	openapi_types "github.com/oapi-codegen/runtime/types"
@@ -212,10 +214,10 @@ type MesheryCompatibility struct {
 // MesheryInstance Meshery server instance information
 type MesheryInstance struct {
 	// CreatedAt Creation timestamp
-	CreatedAt *string `db:"created_at" json:"created_at,omitempty" yaml:"created_at,omitempty"`
+	CreatedAt *time.Time `db:"created_at" json:"created_at,omitempty" yaml:"created_at,omitempty"`
 
 	// DeletedAt Deletion timestamp
-	DeletedAt *string `db:"deleted_at" json:"deleted_at,omitempty" yaml:"deleted_at,omitempty"`
+	DeletedAt *time.Time `db:"deleted_at" json:"deleted_at,omitempty" yaml:"deleted_at,omitempty"`
 
 	// Id Instance ID
 	ID *openapi_types.UUID `db:"id" json:"id,omitempty" yaml:"id,omitempty"`
@@ -236,7 +238,7 @@ type MesheryInstance struct {
 	ServerVersion *string `db:"server_version" json:"server_version,omitempty" yaml:"server_version,omitempty"`
 
 	// UpdatedAt Last update timestamp
-	UpdatedAt *string `db:"updated_at" json:"updated_at,omitempty" yaml:"updated_at,omitempty"`
+	UpdatedAt *time.Time `db:"updated_at" json:"updated_at,omitempty" yaml:"updated_at,omitempty"`
 }
 
 // MesheryInstancePage Paginated list of Meshery instances
