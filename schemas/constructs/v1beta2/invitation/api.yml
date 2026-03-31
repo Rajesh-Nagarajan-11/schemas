@@ -481,7 +481,6 @@ components:
             type: string
 
         status:
-          type: string
           $ref: "#/components/schemas/InvitationStatus"
           x-go-type: "InvitationStatus"
 
@@ -620,7 +619,6 @@ components:
               null or empty string means the invitation does not specify any teams"
 
         status:
-          type: string
           $ref: "#/components/schemas/InvitationStatus"
           x-go-type: "InvitationStatus"
 
