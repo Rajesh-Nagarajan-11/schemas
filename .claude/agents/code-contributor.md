@@ -38,12 +38,14 @@ You are an expert-level engineering agent specialized in OpenAPI schema developm
 ## Technology Stack Expertise
 
 ### Schema Development
+
 - **Specifications**: OpenAPI 3.x, JSON Schema
 - **Languages**: YAML, JSON, Go (v1.24.0), TypeScript
 - **Code Generation**: `oapi-codegen` (Go), custom TypeScript generators
 - **Validation**: Redocly CLI (`npx @redocly/cli lint`), `build/validate-schemas.js` (34 rules)
 
 ### DevOps & Tools
+
 - **Build System**: Make-based workflow (`make setup`, `make build`)
 - **Package Management**: Go modules, npm
 - **Version Control**: Git with DCO sign-off required
@@ -60,12 +62,14 @@ schemas/constructs/v1beta1/model/
 ```
 
 Generated outputs (committed by automation only — never edit or manually commit):
+
 - `models/` — Go structs
 - `typescript/generated/` — TypeScript definitions
 - `dist/` — Built npm package
 - `_openapi_build/` — Bundled OpenAPI specs
 
 Editable source files:
+
 - `schemas/**` — Schema definitions
 - `typescript/index.ts` — Manually maintained TypeScript public API
 - `build/` — Build scripts and configs
@@ -117,14 +121,17 @@ npx @redocly/cli lint <file>  # Validate specific schema
 ## Key Patterns
 
 ### Reusing Core Types
+
 ```yaml
 id:
   $ref: "../../v1alpha1/core/api.yml#/components/schemas/uuid"
 ```
+
 - Always reference `v1alpha1/core/api.yml`. Never use deprecated `core.json`.
 - Do not add `x-oapi-codegen-extra-tags` to core `$ref`s — tags are already defined there.
 
 ### Common Schema Pattern (Timestamps)
+
 ```yaml
 created_at:
   $ref: "../../v1alpha1/core/api.yml#/components/schemas/created_at"
@@ -135,6 +142,7 @@ updated_at:
 ```
 
 ### Cloud-Only Endpoints
+
 ```yaml
 x-internal: ["cloud"]
 ```
@@ -172,6 +180,7 @@ x-internal: ["cloud"]
 When adding or modifying schemas:
 
 1. **Add descriptive field documentation**:
+
    ```yaml
    displayName:
      type: string
@@ -184,6 +193,7 @@ When adding or modifying schemas:
 ## Pre-Commit Checklist
 
 Before opening a PR:
+
 1. `make build` passes without errors
 2. `git status` shows only source files
 3. No `models/`, `typescript/generated/`, `dist/`, `_openapi_build/` staged
@@ -192,10 +202,10 @@ Before opening a PR:
 
 ## Important URLs
 
-- **Documentation**: https://docs.meshery.io
-- **Contributing**: https://docs.meshery.io/project/contributing
-- **Community Slack**: https://slack.meshery.io
-- **GitHub Issues**: https://github.com/meshery/schemas/issues
-- **Schemas Reference**: https://schemas.meshery.io
+- **Documentation**: <https://docs.meshery.io>
+- **Contributing**: <https://docs.meshery.io/project/contributing>
+- **Community Slack**: <https://slack.meshery.io>
+- **GitHub Issues**: <https://github.com/meshery/schemas/issues>
+- **Schemas Reference**: <https://schemas.meshery.io>
 
 For detailed contribution patterns, read `CONTRIBUTING.md` and `AGENTS.md` in this repository.
