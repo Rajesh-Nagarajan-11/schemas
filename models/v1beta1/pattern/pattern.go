@@ -8,9 +8,9 @@ import (
 	"fmt"
 
 	core "github.com/meshery/schemas/models/core"
-	relationship "github.com/meshery/schemas/models/v1alpha3/relationship"
 	catalogv1beta1 "github.com/meshery/schemas/models/v1beta1/catalog"
 	component "github.com/meshery/schemas/models/v1beta1/component"
+	relationship "github.com/meshery/schemas/models/v1beta2/relationship"
 )
 
 // DesignPreferences Design-level preferences

@@ -4132,10 +4132,10 @@ const WorkspaceSchema: Record<string, unknown> = {
                                           "type": "array",
                                           "description": "Meshery manages components in accordance with their specific capabilities. This field explicitly identifies those capabilities largely by what actions a given component supports; e.g. metric-scrape, sub-interface, and so on. This field is extensible. ComponentDefinitions may define a broad array of capabilities, which are in-turn dynamically interpretted by Meshery for full lifecycle management.",
                                           "items": {
-                                            "x-go-type": "capabilityv1alpha1.Capability",
+                                            "x-go-type": "capabilityv1beta1.Capability",
                                             "x-go-type-import": {
-                                              "path": "github.com/meshery/schemas/models/v1alpha1/capability",
-                                              "name": "capabilityv1alpha1"
+                                              "path": "github.com/meshery/schemas/models/v1beta1/capability",
+                                              "name": "capabilityv1beta1"
                                             },
                                             "$id": "https://schemas.meshery.io/capability.yaml",
                                             "$schema": "http://json-schema.org/draft-07/schema#",
@@ -4618,7 +4618,7 @@ const WorkspaceSchema: Record<string, unknown> = {
                                 "x-order": 8,
                                 "x-go-type": "[]*relationship.RelationshipDefinition",
                                 "x-go-type-import": {
-                                  "path": "github.com/meshery/schemas/models/v1alpha3/relationship",
+                                  "path": "github.com/meshery/schemas/models/v1beta2/relationship",
                                   "name": "relationship"
                                 },
                                 "items": {
@@ -11032,10 +11032,10 @@ const WorkspaceSchema: Record<string, unknown> = {
                                 "type": "array",
                                 "description": "Meshery manages components in accordance with their specific capabilities. This field explicitly identifies those capabilities largely by what actions a given component supports; e.g. metric-scrape, sub-interface, and so on. This field is extensible. ComponentDefinitions may define a broad array of capabilities, which are in-turn dynamically interpretted by Meshery for full lifecycle management.",
                                 "items": {
-                                  "x-go-type": "capabilityv1alpha1.Capability",
+                                  "x-go-type": "capabilityv1beta1.Capability",
                                   "x-go-type-import": {
-                                    "path": "github.com/meshery/schemas/models/v1alpha1/capability",
-                                    "name": "capabilityv1alpha1"
+                                    "path": "github.com/meshery/schemas/models/v1beta1/capability",
+                                    "name": "capabilityv1beta1"
                                   },
                                   "$id": "https://schemas.meshery.io/capability.yaml",
                                   "$schema": "http://json-schema.org/draft-07/schema#",
@@ -11518,7 +11518,7 @@ const WorkspaceSchema: Record<string, unknown> = {
                       "x-order": 8,
                       "x-go-type": "[]*relationship.RelationshipDefinition",
                       "x-go-type-import": {
-                        "path": "github.com/meshery/schemas/models/v1alpha3/relationship",
+                        "path": "github.com/meshery/schemas/models/v1beta2/relationship",
                         "name": "relationship"
                       },
                       "items": {
