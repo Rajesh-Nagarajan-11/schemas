@@ -6,6 +6,7 @@ This is the central schema repository for the Meshery platform. Schemas here dri
 
 ```bash
 make build       # generate Go structs + TypeScript types + RTK clients
+make validate-schemas  # run repository schema validation rules
 npm run build    # build TypeScript distribution (dist/)
 ```
 
