@@ -358,7 +358,7 @@ const WorkspaceSchema: Record<string, unknown> = {
                   "organization_id": {
                     "type": "string",
                     "description": "Organization ID.",
-                    "maxLength": 500,
+                    "maxLength": 36,
                     "format": "uuid",
                     "x-go-type-skip-optional-pointer": true,
                     "x-go-name": "OrganizationID",
@@ -820,7 +820,7 @@ const WorkspaceSchema: Record<string, unknown> = {
                   "organization_id": {
                     "type": "string",
                     "description": "Organization ID.",
-                    "maxLength": 500,
+                    "maxLength": 36,
                     "format": "uuid",
                     "x-go-type-skip-optional-pointer": true,
                     "x-go-name": "OrganizationID",
@@ -7629,29 +7629,65 @@ const WorkspaceSchema: Record<string, unknown> = {
                           },
                           "name": {
                             "type": "string",
-                            "x-go-type-skip-optional-pointer": true
+                            "description": "Name of the view.",
+                            "maxLength": 255,
+                            "x-go-type-skip-optional-pointer": true,
+                            "x-oapi-codegen-extra-tags": {
+                              "db": "name",
+                              "json": "name,omitempty"
+                            }
                           },
                           "filters": {
                             "type": "object",
-                            "additionalProperties": {
-                              "type": "string"
+                            "description": "Filter configuration for this view.",
+                            "x-go-type": "core.Map",
+                            "x-go-type-import": {
+                              "path": "github.com/meshery/schemas/models/core",
+                              "name": "core"
                             },
-                            "x-go-type-skip-optional-pointer": true
+                            "x-go-type-skip-optional-pointer": true,
+                            "x-oapi-codegen-extra-tags": {
+                              "db": "filters",
+                              "json": "filters,omitempty"
+                            }
                           },
                           "visibility": {
                             "type": "string",
-                            "x-go-type-skip-optional-pointer": true
+                            "description": "Visibility of the view.",
+                            "maxLength": 100,
+                            "x-go-type-skip-optional-pointer": true,
+                            "x-oapi-codegen-extra-tags": {
+                              "db": "visibility",
+                              "json": "visibility"
+                            }
                           },
                           "metadata": {
                             "type": "object",
-                            "additionalProperties": {
-                              "type": "string"
+                            "description": "Metadata associated with the view.",
+                            "x-go-type": "core.Map",
+                            "x-go-type-import": {
+                              "path": "github.com/meshery/schemas/models/core",
+                              "name": "core"
                             },
-                            "x-go-type-skip-optional-pointer": true
+                            "x-go-type-skip-optional-pointer": true,
+                            "x-oapi-codegen-extra-tags": {
+                              "db": "metadata",
+                              "json": "metadata"
+                            }
                           },
                           "user_id": {
                             "type": "string",
-                            "x-go-type-skip-optional-pointer": true
+                            "format": "uuid",
+                            "description": "User ID of the view creator.",
+                            "x-go-type": "uuid.UUID",
+                            "x-go-type-import": {
+                              "path": "github.com/gofrs/uuid"
+                            },
+                            "x-go-type-skip-optional-pointer": true,
+                            "x-oapi-codegen-extra-tags": {
+                              "db": "user_id",
+                              "json": "user_id,omitempty"
+                            }
                           },
                           "created_at": {
                             "description": "Timestamp when the resource was created.",
@@ -8566,7 +8602,7 @@ const WorkspaceSchema: Record<string, unknown> = {
           "organization_id": {
             "type": "string",
             "description": "Organization ID.",
-            "maxLength": 500,
+            "maxLength": 36,
             "format": "uuid",
             "x-go-type-skip-optional-pointer": true,
             "x-go-name": "OrganizationID",
@@ -8614,7 +8650,7 @@ const WorkspaceSchema: Record<string, unknown> = {
           "organization_id": {
             "type": "string",
             "description": "Organization ID.",
-            "maxLength": 500,
+            "maxLength": 36,
             "format": "uuid",
             "x-go-type-skip-optional-pointer": true,
             "x-go-name": "OrganizationID",
@@ -14386,29 +14422,65 @@ const WorkspaceSchema: Record<string, unknown> = {
           },
           "name": {
             "type": "string",
-            "x-go-type-skip-optional-pointer": true
+            "description": "Name of the view.",
+            "maxLength": 255,
+            "x-go-type-skip-optional-pointer": true,
+            "x-oapi-codegen-extra-tags": {
+              "db": "name",
+              "json": "name,omitempty"
+            }
           },
           "filters": {
             "type": "object",
-            "additionalProperties": {
-              "type": "string"
+            "description": "Filter configuration for this view.",
+            "x-go-type": "core.Map",
+            "x-go-type-import": {
+              "path": "github.com/meshery/schemas/models/core",
+              "name": "core"
             },
-            "x-go-type-skip-optional-pointer": true
+            "x-go-type-skip-optional-pointer": true,
+            "x-oapi-codegen-extra-tags": {
+              "db": "filters",
+              "json": "filters,omitempty"
+            }
           },
           "visibility": {
             "type": "string",
-            "x-go-type-skip-optional-pointer": true
+            "description": "Visibility of the view.",
+            "maxLength": 100,
+            "x-go-type-skip-optional-pointer": true,
+            "x-oapi-codegen-extra-tags": {
+              "db": "visibility",
+              "json": "visibility"
+            }
           },
           "metadata": {
             "type": "object",
-            "additionalProperties": {
-              "type": "string"
+            "description": "Metadata associated with the view.",
+            "x-go-type": "core.Map",
+            "x-go-type-import": {
+              "path": "github.com/meshery/schemas/models/core",
+              "name": "core"
             },
-            "x-go-type-skip-optional-pointer": true
+            "x-go-type-skip-optional-pointer": true,
+            "x-oapi-codegen-extra-tags": {
+              "db": "metadata",
+              "json": "metadata"
+            }
           },
           "user_id": {
             "type": "string",
-            "x-go-type-skip-optional-pointer": true
+            "format": "uuid",
+            "description": "User ID of the view creator.",
+            "x-go-type": "uuid.UUID",
+            "x-go-type-import": {
+              "path": "github.com/gofrs/uuid"
+            },
+            "x-go-type-skip-optional-pointer": true,
+            "x-oapi-codegen-extra-tags": {
+              "db": "user_id",
+              "json": "user_id,omitempty"
+            }
           },
           "created_at": {
             "description": "Timestamp when the resource was created.",
@@ -14488,29 +14560,65 @@ const WorkspaceSchema: Record<string, unknown> = {
                 },
                 "name": {
                   "type": "string",
-                  "x-go-type-skip-optional-pointer": true
+                  "description": "Name of the view.",
+                  "maxLength": 255,
+                  "x-go-type-skip-optional-pointer": true,
+                  "x-oapi-codegen-extra-tags": {
+                    "db": "name",
+                    "json": "name,omitempty"
+                  }
                 },
                 "filters": {
                   "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
+                  "description": "Filter configuration for this view.",
+                  "x-go-type": "core.Map",
+                  "x-go-type-import": {
+                    "path": "github.com/meshery/schemas/models/core",
+                    "name": "core"
                   },
-                  "x-go-type-skip-optional-pointer": true
+                  "x-go-type-skip-optional-pointer": true,
+                  "x-oapi-codegen-extra-tags": {
+                    "db": "filters",
+                    "json": "filters,omitempty"
+                  }
                 },
                 "visibility": {
                   "type": "string",
-                  "x-go-type-skip-optional-pointer": true
+                  "description": "Visibility of the view.",
+                  "maxLength": 100,
+                  "x-go-type-skip-optional-pointer": true,
+                  "x-oapi-codegen-extra-tags": {
+                    "db": "visibility",
+                    "json": "visibility"
+                  }
                 },
                 "metadata": {
                   "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
+                  "description": "Metadata associated with the view.",
+                  "x-go-type": "core.Map",
+                  "x-go-type-import": {
+                    "path": "github.com/meshery/schemas/models/core",
+                    "name": "core"
                   },
-                  "x-go-type-skip-optional-pointer": true
+                  "x-go-type-skip-optional-pointer": true,
+                  "x-oapi-codegen-extra-tags": {
+                    "db": "metadata",
+                    "json": "metadata"
+                  }
                 },
                 "user_id": {
                   "type": "string",
-                  "x-go-type-skip-optional-pointer": true
+                  "format": "uuid",
+                  "description": "User ID of the view creator.",
+                  "x-go-type": "uuid.UUID",
+                  "x-go-type-import": {
+                    "path": "github.com/gofrs/uuid"
+                  },
+                  "x-go-type-skip-optional-pointer": true,
+                  "x-oapi-codegen-extra-tags": {
+                    "db": "user_id",
+                    "json": "user_id,omitempty"
+                  }
                 },
                 "created_at": {
                   "description": "Timestamp when the resource was created.",
@@ -14591,7 +14699,7 @@ const WorkspaceSchema: Record<string, unknown> = {
                 "organization_id": {
                   "type": "string",
                   "description": "Organization ID.",
-                  "maxLength": 500,
+                  "maxLength": 36,
                   "format": "uuid",
                   "x-go-type-skip-optional-pointer": true,
                   "x-go-name": "OrganizationID",
@@ -14647,7 +14755,7 @@ const WorkspaceSchema: Record<string, unknown> = {
                 "organization_id": {
                   "type": "string",
                   "description": "Organization ID.",
-                  "maxLength": 500,
+                  "maxLength": 36,
                   "format": "uuid",
                   "x-go-type-skip-optional-pointer": true,
                   "x-go-name": "OrganizationID",

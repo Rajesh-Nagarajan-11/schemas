@@ -2010,10 +2010,18 @@ export interface components {
     MesheryView: {
       /** Format: uuid */
       id?: string;
+      /** @description Name of the view. */
       name?: string;
-      filters?: { [key: string]: string };
+      /** @description Filter configuration for this view. */
+      filters?: { [key: string]: unknown };
+      /** @description Visibility of the view. */
       visibility?: string;
-      metadata?: { [key: string]: string };
+      /** @description Metadata associated with the view. */
+      metadata?: { [key: string]: unknown };
+      /**
+       * Format: uuid
+       * @description User ID of the view creator.
+       */
       user_id?: string;
       /**
        * Format: date-time
@@ -2040,10 +2048,18 @@ export interface components {
       views?: {
         /** Format: uuid */
         id?: string;
+        /** @description Name of the view. */
         name?: string;
-        filters?: { [key: string]: string };
+        /** @description Filter configuration for this view. */
+        filters?: { [key: string]: unknown };
+        /** @description Visibility of the view. */
         visibility?: string;
-        metadata?: { [key: string]: string };
+        /** @description Metadata associated with the view. */
+        metadata?: { [key: string]: unknown };
+        /**
+         * Format: uuid
+         * @description User ID of the view creator.
+         */
         user_id?: string;
         /**
          * Format: date-time
@@ -4716,10 +4732,18 @@ export interface operations {
             views?: {
               /** Format: uuid */
               id?: string;
+              /** @description Name of the view. */
               name?: string;
-              filters?: { [key: string]: string };
+              /** @description Filter configuration for this view. */
+              filters?: { [key: string]: unknown };
+              /** @description Visibility of the view. */
               visibility?: string;
-              metadata?: { [key: string]: string };
+              /** @description Metadata associated with the view. */
+              metadata?: { [key: string]: unknown };
+              /**
+               * Format: uuid
+               * @description User ID of the view creator.
+               */
               user_id?: string;
               /**
                * Format: date-time

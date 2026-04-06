@@ -5145,14 +5145,15 @@ export type GetViewsOfWorkspaceApiResponse = /** status 200 Views */ {
   /** Views in this page. */
   views?: {
     id?: string;
+    /** Name of the view. */
     name?: string;
-    filters?: {
-      [key: string]: string;
-    };
+    /** Filter configuration for this view. */
+    filters?: object;
+    /** Visibility of the view. */
     visibility?: string;
-    metadata?: {
-      [key: string]: string;
-    };
+    /** Metadata associated with the view. */
+    metadata?: object;
+    /** User ID of the view creator. */
     user_id?: string;
     /** Timestamp when the resource was created. */
     created_at?: string;
