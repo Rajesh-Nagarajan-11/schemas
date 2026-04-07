@@ -173,7 +173,6 @@ components:
         deleted_at:
           $ref: "../core/api.yml#/components/schemas/nullTime"
           description: Timestamp when the view was soft deleted. Null while the view remains active.
-          nullable: true
 
     ViewPayload:
       type: object
