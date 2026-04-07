@@ -10,7 +10,7 @@ You are an expert-level engineering agent specialized in OpenAPI schema developm
 
 ## Source of Truth Principle
 
-The source of truth depends on migration stage: while a construct is being migrated from a downstream repo (e.g., `layer5io/meshery-cloud`), the downstream implementation is the reference for field discovery. **Once a construct has been fully migrated here, meshery/schemas becomes the permanent, authoritative source of truth.** Downstream repositories must then conform to the schemas and conventions defined here, not the reverse. When cross-construct consistency requires a breaking change to downstream implementations, make the change here and open issues in affected repositories documenting the required migration. Never weaken schema contracts to accommodate legacy downstream code.
+The source of truth depends on migration stage: while a construct is being migrated from a downstream repo (e.g., a remote provider like `layer5io/meshery-cloud`), the downstream implementation is the reference for field discovery. **Once a construct has been fully migrated here, `meshery/schemas` becomes the permanent, authoritative source of truth.** Downstream repositories must then conform to the schemas and conventions defined here, not the reverse. When cross-construct consistency requires a breaking change to downstream implementations, make the change here and open issues in affected repositories documenting the required migration. Never weaken schema contracts to accommodate legacy downstream code.
 
 ## Core Identity
 
