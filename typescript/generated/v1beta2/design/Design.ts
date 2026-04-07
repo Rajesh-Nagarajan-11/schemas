@@ -65,13 +65,6 @@ export interface paths {
   "/api/content/filters/clone/{id}": {
     post: operations["cloneFilter"];
   };
-  "/api/content/views/{viewId}": {
-    get: operations["getViewById"];
-    put: operations["updateView"];
-  };
-  "/api/content/views": {
-    get: operations["getViews"];
-  };
   "/api/resource/{resourceType}/share/{resourceId}": {
     post: operations["handleResourceShare"];
   };
@@ -8134,17 +8127,6 @@ export interface components {
       description?: string;
     } & { [key: string]: unknown };
     MesheryFilter: { [key: string]: unknown };
-    MesheryView: { [key: string]: unknown };
-    MesheryViewPage: {
-      /** @description Current page number of the result set. */
-      page?: number;
-      /** @description Number of items per page. */
-      page_size?: number;
-      /** @description Total number of items available. */
-      total_count?: number;
-      /** @description The views of the mesheryviewpage. */
-      views?: { [key: string]: unknown }[];
-    };
     ResourceAccessMapping: { [key: string]: unknown };
     ResourceAccessActorsResponse: {
       /** @description The users of the resourceaccessactorsresponse. */
@@ -8191,11 +8173,6 @@ export interface components {
   };
   requestBodies: {
     catalogContentPayload: {
-      content: {
-        "application/json": { [key: string]: unknown };
-      };
-    };
-    viewUpdatePayload: {
       content: {
         "application/json": { [key: string]: unknown };
       };
@@ -18691,137 +18668,6 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": { [key: string]: unknown };
-      };
-    };
-  };
-  getViewById: {
-    parameters: {
-      path: {
-        viewId: string;
-      };
-    };
-    responses: {
-      /** View */
-      200: {
-        content: {
-          "application/json": { [key: string]: unknown };
-        };
-      };
-      /** Invalid request body or request param */
-      400: {
-        content: {
-          "text/plain": string;
-        };
-      };
-      /** Expired JWT token used or insufficient privilege */
-      401: {
-        content: {
-          "text/plain": string;
-        };
-      };
-      /** Result not found */
-      404: {
-        content: {
-          "text/plain": string;
-        };
-      };
-      /** Internal server error */
-      500: {
-        content: {
-          "text/plain": string;
-        };
-      };
-    };
-  };
-  updateView: {
-    parameters: {
-      path: {
-        viewId: string;
-      };
-    };
-    responses: {
-      /** Updated view */
-      200: {
-        content: {
-          "application/json": { [key: string]: unknown };
-        };
-      };
-      /** Invalid request body or request param */
-      400: {
-        content: {
-          "text/plain": string;
-        };
-      };
-      /** Expired JWT token used or insufficient privilege */
-      401: {
-        content: {
-          "text/plain": string;
-        };
-      };
-      /** Result not found */
-      404: {
-        content: {
-          "text/plain": string;
-        };
-      };
-      /** Internal server error */
-      500: {
-        content: {
-          "text/plain": string;
-        };
-      };
-    };
-    requestBody: {
-      content: {
-        "application/json": { [key: string]: unknown };
-      };
-    };
-  };
-  getViews: {
-    parameters: {
-      query: {
-        /** Get responses that match search param value */
-        search?: string;
-        /** Get ordered responses */
-        order?: string;
-        /** Get responses by page */
-        page?: string;
-        /** Get responses by pagesize */
-        pagesize?: string;
-        filter?: string;
-        shared?: boolean;
-        visibility?: string;
-        orgId?: string;
-        userId?: string;
-      };
-    };
-    responses: {
-      /** Views page */
-      200: {
-        content: {
-          "application/json": {
-            /** @description Current page number of the result set. */
-            page?: number;
-            /** @description Number of items per page. */
-            page_size?: number;
-            /** @description Total number of items available. */
-            total_count?: number;
-            /** @description The views of the mesheryviewpage. */
-            views?: { [key: string]: unknown }[];
-          };
-        };
-      };
-      /** Expired JWT token used or insufficient privilege */
-      401: {
-        content: {
-          "text/plain": string;
-        };
-      };
-      /** Internal server error */
-      500: {
-        content: {
-          "text/plain": string;
-        };
       };
     };
   };

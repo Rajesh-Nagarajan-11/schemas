@@ -3863,16 +3863,16 @@ export type GetViewsApiResponse = /** status 200 Views page */ {
     /** Name of the workspace this view belongs to. */
     workspace_name?: string;
     /** ID of the workspace this view belongs to. */
-    workspace_id?: string;
+    workspace_id: string;
     /** ID of the organization this view belongs to. */
-    organization_id?: string;
+    organization_id: string;
     /** Name of the organization this view belongs to. */
     organization_name?: string;
     /** Timestamp when the resource was created. */
     created_at?: string;
     /** Timestamp when the resource was updated. */
     updated_at?: string;
-    /** Timestamp when the resource was deleted. */
+    /** Timestamp when the view was soft deleted. Null while the view remains active. */
     deleted_at?: string;
   }[];
 };
@@ -5317,16 +5317,16 @@ export type GetViewsOfWorkspaceApiResponse = /** status 200 Views */ {
     /** Name of the workspace this view belongs to. */
     workspace_name?: string;
     /** ID of the workspace this view belongs to. */
-    workspace_id?: string;
+    workspace_id: string;
     /** ID of the organization this view belongs to. */
-    organization_id?: string;
+    organization_id: string;
     /** Name of the organization this view belongs to. */
     organization_name?: string;
     /** Timestamp when the resource was created. */
     created_at?: string;
     /** Timestamp when the resource was updated. */
     updated_at?: string;
-    /** Timestamp when the resource was deleted. */
+    /** Timestamp when the view was soft deleted. Null while the view remains active. */
     deleted_at?: string;
   }[];
 };

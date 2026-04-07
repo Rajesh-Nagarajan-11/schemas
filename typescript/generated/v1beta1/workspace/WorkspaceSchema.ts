@@ -7591,7 +7591,7 @@ const WorkspaceSchema: Record<string, unknown> = {
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "description": "Paginated list of views.",
+                  "description": "Paginated list of views with location enrichment.",
                   "properties": {
                     "page": {
                       "type": "integer",
@@ -7609,9 +7609,13 @@ const WorkspaceSchema: Record<string, unknown> = {
                       "type": "array",
                       "x-go-type-skip-optional-pointer": true,
                       "items": {
-                        "x-go-type": "MesheryView",
+                        "x-go-type": "MesheryViewWithLocation",
                         "type": "object",
-                        "description": "A saved view with filters and metadata.",
+                        "description": "A view enriched with the workspace and organization it belongs to.",
+                        "required": [
+                          "workspace_id",
+                          "organization_id"
+                        ],
                         "properties": {
                           "id": {
                             "type": "string",
@@ -7629,12 +7633,22 @@ const WorkspaceSchema: Record<string, unknown> = {
                           },
                           "name": {
                             "type": "string",
-                            "description": "Name of the view.",
+                            "description": "Display name of the view.",
                             "maxLength": 255,
                             "x-go-type-skip-optional-pointer": true,
                             "x-oapi-codegen-extra-tags": {
                               "db": "name",
                               "json": "name,omitempty"
+                            }
+                          },
+                          "visibility": {
+                            "type": "string",
+                            "description": "Visibility level of the view.",
+                            "maxLength": 255,
+                            "x-go-type-skip-optional-pointer": true,
+                            "x-oapi-codegen-extra-tags": {
+                              "db": "visibility",
+                              "json": "visibility,omitempty"
                             }
                           },
                           "filters": {
@@ -7651,16 +7665,6 @@ const WorkspaceSchema: Record<string, unknown> = {
                               "json": "filters,omitempty"
                             }
                           },
-                          "visibility": {
-                            "type": "string",
-                            "description": "Visibility of the view.",
-                            "maxLength": 100,
-                            "x-go-type-skip-optional-pointer": true,
-                            "x-oapi-codegen-extra-tags": {
-                              "db": "visibility",
-                              "json": "visibility"
-                            }
-                          },
                           "metadata": {
                             "type": "object",
                             "description": "Metadata associated with the view.",
@@ -7672,21 +7676,72 @@ const WorkspaceSchema: Record<string, unknown> = {
                             "x-go-type-skip-optional-pointer": true,
                             "x-oapi-codegen-extra-tags": {
                               "db": "metadata",
-                              "json": "metadata"
+                              "json": "metadata,omitempty"
                             }
                           },
                           "user_id": {
                             "type": "string",
                             "format": "uuid",
-                            "description": "User ID of the view creator.",
+                            "description": "ID of the user who created the view.",
                             "x-go-type": "uuid.UUID",
                             "x-go-type-import": {
                               "path": "github.com/gofrs/uuid"
                             },
+                            "x-go-name": "UserID",
                             "x-go-type-skip-optional-pointer": true,
                             "x-oapi-codegen-extra-tags": {
                               "db": "user_id",
                               "json": "user_id,omitempty"
+                            }
+                          },
+                          "workspace_name": {
+                            "type": "string",
+                            "description": "Name of the workspace this view belongs to.",
+                            "maxLength": 255,
+                            "x-go-type-skip-optional-pointer": true,
+                            "x-oapi-codegen-extra-tags": {
+                              "db": "workspace_name",
+                              "json": "workspace_name,omitempty"
+                            }
+                          },
+                          "workspace_id": {
+                            "type": "string",
+                            "format": "uuid",
+                            "description": "ID of the workspace this view belongs to.",
+                            "x-go-type": "uuid.UUID",
+                            "x-go-type-import": {
+                              "path": "github.com/gofrs/uuid"
+                            },
+                            "x-go-name": "WorkspaceID",
+                            "x-go-type-skip-optional-pointer": true,
+                            "x-oapi-codegen-extra-tags": {
+                              "db": "workspace_id",
+                              "json": "workspace_id"
+                            }
+                          },
+                          "organization_id": {
+                            "type": "string",
+                            "format": "uuid",
+                            "description": "ID of the organization this view belongs to.",
+                            "x-go-type": "uuid.UUID",
+                            "x-go-type-import": {
+                              "path": "github.com/gofrs/uuid"
+                            },
+                            "x-go-name": "OrganizationID",
+                            "x-go-type-skip-optional-pointer": true,
+                            "x-oapi-codegen-extra-tags": {
+                              "db": "organization_id",
+                              "json": "organization_id"
+                            }
+                          },
+                          "organization_name": {
+                            "type": "string",
+                            "description": "Name of the organization this view belongs to.",
+                            "maxLength": 255,
+                            "x-go-type-skip-optional-pointer": true,
+                            "x-oapi-codegen-extra-tags": {
+                              "db": "organization_name",
+                              "json": "organization_name,omitempty"
                             }
                           },
                           "created_at": {
@@ -7714,20 +7769,19 @@ const WorkspaceSchema: Record<string, unknown> = {
                             "x-go-type-skip-optional-pointer": true
                           },
                           "deleted_at": {
-                            "description": "Timestamp when the resource was deleted.",
-                            "x-go-type": "NullTime",
+                            "description": "Timestamp when the view was soft deleted. Null while the view remains active.",
+                            "x-go-type": "meshcore.NullTime",
+                            "x-go-type-import": {
+                              "name": "meshcore",
+                              "path": "github.com/meshery/schemas/models/core"
+                            },
                             "type": "string",
                             "format": "date-time",
-                            "x-go-name": "DeletedAt",
-                            "x-oapi-codegen-extra-tags": {
-                              "db": "deleted_at",
-                              "yaml": "deleted_at"
-                            },
                             "x-go-type-skip-optional-pointer": true
                           }
                         }
                       },
-                      "description": "Views in this page."
+                      "description": "Views in this page, enriched with workspace and organization context."
                     }
                   }
                 }
@@ -14404,7 +14458,11 @@ const WorkspaceSchema: Record<string, unknown> = {
       },
       "MesheryView": {
         "type": "object",
-        "description": "A saved view with filters and metadata.",
+        "description": "A view enriched with the workspace and organization it belongs to.",
+        "required": [
+          "workspace_id",
+          "organization_id"
+        ],
         "properties": {
           "id": {
             "type": "string",
@@ -14422,12 +14480,22 @@ const WorkspaceSchema: Record<string, unknown> = {
           },
           "name": {
             "type": "string",
-            "description": "Name of the view.",
+            "description": "Display name of the view.",
             "maxLength": 255,
             "x-go-type-skip-optional-pointer": true,
             "x-oapi-codegen-extra-tags": {
               "db": "name",
               "json": "name,omitempty"
+            }
+          },
+          "visibility": {
+            "type": "string",
+            "description": "Visibility level of the view.",
+            "maxLength": 255,
+            "x-go-type-skip-optional-pointer": true,
+            "x-oapi-codegen-extra-tags": {
+              "db": "visibility",
+              "json": "visibility,omitempty"
             }
           },
           "filters": {
@@ -14444,16 +14512,6 @@ const WorkspaceSchema: Record<string, unknown> = {
               "json": "filters,omitempty"
             }
           },
-          "visibility": {
-            "type": "string",
-            "description": "Visibility of the view.",
-            "maxLength": 100,
-            "x-go-type-skip-optional-pointer": true,
-            "x-oapi-codegen-extra-tags": {
-              "db": "visibility",
-              "json": "visibility"
-            }
-          },
           "metadata": {
             "type": "object",
             "description": "Metadata associated with the view.",
@@ -14465,21 +14523,72 @@ const WorkspaceSchema: Record<string, unknown> = {
             "x-go-type-skip-optional-pointer": true,
             "x-oapi-codegen-extra-tags": {
               "db": "metadata",
-              "json": "metadata"
+              "json": "metadata,omitempty"
             }
           },
           "user_id": {
             "type": "string",
             "format": "uuid",
-            "description": "User ID of the view creator.",
+            "description": "ID of the user who created the view.",
             "x-go-type": "uuid.UUID",
             "x-go-type-import": {
               "path": "github.com/gofrs/uuid"
             },
+            "x-go-name": "UserID",
             "x-go-type-skip-optional-pointer": true,
             "x-oapi-codegen-extra-tags": {
               "db": "user_id",
               "json": "user_id,omitempty"
+            }
+          },
+          "workspace_name": {
+            "type": "string",
+            "description": "Name of the workspace this view belongs to.",
+            "maxLength": 255,
+            "x-go-type-skip-optional-pointer": true,
+            "x-oapi-codegen-extra-tags": {
+              "db": "workspace_name",
+              "json": "workspace_name,omitempty"
+            }
+          },
+          "workspace_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID of the workspace this view belongs to.",
+            "x-go-type": "uuid.UUID",
+            "x-go-type-import": {
+              "path": "github.com/gofrs/uuid"
+            },
+            "x-go-name": "WorkspaceID",
+            "x-go-type-skip-optional-pointer": true,
+            "x-oapi-codegen-extra-tags": {
+              "db": "workspace_id",
+              "json": "workspace_id"
+            }
+          },
+          "organization_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID of the organization this view belongs to.",
+            "x-go-type": "uuid.UUID",
+            "x-go-type-import": {
+              "path": "github.com/gofrs/uuid"
+            },
+            "x-go-name": "OrganizationID",
+            "x-go-type-skip-optional-pointer": true,
+            "x-oapi-codegen-extra-tags": {
+              "db": "organization_id",
+              "json": "organization_id"
+            }
+          },
+          "organization_name": {
+            "type": "string",
+            "description": "Name of the organization this view belongs to.",
+            "maxLength": 255,
+            "x-go-type-skip-optional-pointer": true,
+            "x-oapi-codegen-extra-tags": {
+              "db": "organization_name",
+              "json": "organization_name,omitempty"
             }
           },
           "created_at": {
@@ -14507,22 +14616,21 @@ const WorkspaceSchema: Record<string, unknown> = {
             "x-go-type-skip-optional-pointer": true
           },
           "deleted_at": {
-            "description": "Timestamp when the resource was deleted.",
-            "x-go-type": "NullTime",
+            "description": "Timestamp when the view was soft deleted. Null while the view remains active.",
+            "x-go-type": "meshcore.NullTime",
+            "x-go-type-import": {
+              "name": "meshcore",
+              "path": "github.com/meshery/schemas/models/core"
+            },
             "type": "string",
             "format": "date-time",
-            "x-go-name": "DeletedAt",
-            "x-oapi-codegen-extra-tags": {
-              "db": "deleted_at",
-              "yaml": "deleted_at"
-            },
             "x-go-type-skip-optional-pointer": true
           }
         }
       },
       "MesheryViewPage": {
         "type": "object",
-        "description": "Paginated list of views.",
+        "description": "Paginated list of views with location enrichment.",
         "properties": {
           "page": {
             "type": "integer",
@@ -14540,9 +14648,13 @@ const WorkspaceSchema: Record<string, unknown> = {
             "type": "array",
             "x-go-type-skip-optional-pointer": true,
             "items": {
-              "x-go-type": "MesheryView",
+              "x-go-type": "MesheryViewWithLocation",
               "type": "object",
-              "description": "A saved view with filters and metadata.",
+              "description": "A view enriched with the workspace and organization it belongs to.",
+              "required": [
+                "workspace_id",
+                "organization_id"
+              ],
               "properties": {
                 "id": {
                   "type": "string",
@@ -14560,12 +14672,22 @@ const WorkspaceSchema: Record<string, unknown> = {
                 },
                 "name": {
                   "type": "string",
-                  "description": "Name of the view.",
+                  "description": "Display name of the view.",
                   "maxLength": 255,
                   "x-go-type-skip-optional-pointer": true,
                   "x-oapi-codegen-extra-tags": {
                     "db": "name",
                     "json": "name,omitempty"
+                  }
+                },
+                "visibility": {
+                  "type": "string",
+                  "description": "Visibility level of the view.",
+                  "maxLength": 255,
+                  "x-go-type-skip-optional-pointer": true,
+                  "x-oapi-codegen-extra-tags": {
+                    "db": "visibility",
+                    "json": "visibility,omitempty"
                   }
                 },
                 "filters": {
@@ -14582,16 +14704,6 @@ const WorkspaceSchema: Record<string, unknown> = {
                     "json": "filters,omitempty"
                   }
                 },
-                "visibility": {
-                  "type": "string",
-                  "description": "Visibility of the view.",
-                  "maxLength": 100,
-                  "x-go-type-skip-optional-pointer": true,
-                  "x-oapi-codegen-extra-tags": {
-                    "db": "visibility",
-                    "json": "visibility"
-                  }
-                },
                 "metadata": {
                   "type": "object",
                   "description": "Metadata associated with the view.",
@@ -14603,21 +14715,72 @@ const WorkspaceSchema: Record<string, unknown> = {
                   "x-go-type-skip-optional-pointer": true,
                   "x-oapi-codegen-extra-tags": {
                     "db": "metadata",
-                    "json": "metadata"
+                    "json": "metadata,omitempty"
                   }
                 },
                 "user_id": {
                   "type": "string",
                   "format": "uuid",
-                  "description": "User ID of the view creator.",
+                  "description": "ID of the user who created the view.",
                   "x-go-type": "uuid.UUID",
                   "x-go-type-import": {
                     "path": "github.com/gofrs/uuid"
                   },
+                  "x-go-name": "UserID",
                   "x-go-type-skip-optional-pointer": true,
                   "x-oapi-codegen-extra-tags": {
                     "db": "user_id",
                     "json": "user_id,omitempty"
+                  }
+                },
+                "workspace_name": {
+                  "type": "string",
+                  "description": "Name of the workspace this view belongs to.",
+                  "maxLength": 255,
+                  "x-go-type-skip-optional-pointer": true,
+                  "x-oapi-codegen-extra-tags": {
+                    "db": "workspace_name",
+                    "json": "workspace_name,omitempty"
+                  }
+                },
+                "workspace_id": {
+                  "type": "string",
+                  "format": "uuid",
+                  "description": "ID of the workspace this view belongs to.",
+                  "x-go-type": "uuid.UUID",
+                  "x-go-type-import": {
+                    "path": "github.com/gofrs/uuid"
+                  },
+                  "x-go-name": "WorkspaceID",
+                  "x-go-type-skip-optional-pointer": true,
+                  "x-oapi-codegen-extra-tags": {
+                    "db": "workspace_id",
+                    "json": "workspace_id"
+                  }
+                },
+                "organization_id": {
+                  "type": "string",
+                  "format": "uuid",
+                  "description": "ID of the organization this view belongs to.",
+                  "x-go-type": "uuid.UUID",
+                  "x-go-type-import": {
+                    "path": "github.com/gofrs/uuid"
+                  },
+                  "x-go-name": "OrganizationID",
+                  "x-go-type-skip-optional-pointer": true,
+                  "x-oapi-codegen-extra-tags": {
+                    "db": "organization_id",
+                    "json": "organization_id"
+                  }
+                },
+                "organization_name": {
+                  "type": "string",
+                  "description": "Name of the organization this view belongs to.",
+                  "maxLength": 255,
+                  "x-go-type-skip-optional-pointer": true,
+                  "x-oapi-codegen-extra-tags": {
+                    "db": "organization_name",
+                    "json": "organization_name,omitempty"
                   }
                 },
                 "created_at": {
@@ -14645,20 +14808,19 @@ const WorkspaceSchema: Record<string, unknown> = {
                   "x-go-type-skip-optional-pointer": true
                 },
                 "deleted_at": {
-                  "description": "Timestamp when the resource was deleted.",
-                  "x-go-type": "NullTime",
+                  "description": "Timestamp when the view was soft deleted. Null while the view remains active.",
+                  "x-go-type": "meshcore.NullTime",
+                  "x-go-type-import": {
+                    "name": "meshcore",
+                    "path": "github.com/meshery/schemas/models/core"
+                  },
                   "type": "string",
                   "format": "date-time",
-                  "x-go-name": "DeletedAt",
-                  "x-oapi-codegen-extra-tags": {
-                    "db": "deleted_at",
-                    "yaml": "deleted_at"
-                  },
                   "x-go-type-skip-optional-pointer": true
                 }
               }
             },
-            "description": "Views in this page."
+            "description": "Views in this page, enriched with workspace and organization context."
           }
         }
       }

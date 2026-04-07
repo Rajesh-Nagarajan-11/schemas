@@ -65,13 +65,6 @@ export interface paths {
   "/api/content/filters/clone/{id}": {
     post: operations["cloneFilter"];
   };
-  "/api/content/views/{viewId}": {
-    get: operations["getViewById"];
-    put: operations["updateView"];
-  };
-  "/api/content/views": {
-    get: operations["getViews"];
-  };
   "/api/resource/{resourceType}/share/{resourceId}": {
     post: operations["handleResourceShare"];
   };
@@ -7905,13 +7898,6 @@ export interface components {
       description?: string;
     } & { [key: string]: unknown };
     MesheryFilter: { [key: string]: unknown };
-    MesheryView: { [key: string]: unknown };
-    MesheryViewPage: {
-      page?: number;
-      page_size?: number;
-      total_count?: number;
-      views?: { [key: string]: unknown }[];
-    };
     ResourceAccessMapping: { [key: string]: unknown };
     ResourceAccessActorsResponse: {
       users?: { [key: string]: unknown }[];
@@ -7957,11 +7943,6 @@ export interface components {
   };
   requestBodies: {
     catalogContentPayload: {
-      content: {
-        "application/json": { [key: string]: unknown };
-      };
-    };
-    viewUpdatePayload: {
       content: {
         "application/json": { [key: string]: unknown };
       };
@@ -18191,133 +18172,6 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": { [key: string]: unknown };
-      };
-    };
-  };
-  getViewById: {
-    parameters: {
-      path: {
-        viewId: string;
-      };
-    };
-    responses: {
-      /** View */
-      200: {
-        content: {
-          "application/json": { [key: string]: unknown };
-        };
-      };
-      /** Invalid request body or request param */
-      400: {
-        content: {
-          "text/plain": string;
-        };
-      };
-      /** Expired JWT token used or insufficient privilege */
-      401: {
-        content: {
-          "text/plain": string;
-        };
-      };
-      /** Result not found */
-      404: {
-        content: {
-          "text/plain": string;
-        };
-      };
-      /** Internal server error */
-      500: {
-        content: {
-          "text/plain": string;
-        };
-      };
-    };
-  };
-  updateView: {
-    parameters: {
-      path: {
-        viewId: string;
-      };
-    };
-    responses: {
-      /** Updated view */
-      200: {
-        content: {
-          "application/json": { [key: string]: unknown };
-        };
-      };
-      /** Invalid request body or request param */
-      400: {
-        content: {
-          "text/plain": string;
-        };
-      };
-      /** Expired JWT token used or insufficient privilege */
-      401: {
-        content: {
-          "text/plain": string;
-        };
-      };
-      /** Result not found */
-      404: {
-        content: {
-          "text/plain": string;
-        };
-      };
-      /** Internal server error */
-      500: {
-        content: {
-          "text/plain": string;
-        };
-      };
-    };
-    requestBody: {
-      content: {
-        "application/json": { [key: string]: unknown };
-      };
-    };
-  };
-  getViews: {
-    parameters: {
-      query: {
-        /** Get responses that match search param value */
-        search?: string;
-        /** Get ordered responses */
-        order?: string;
-        /** Get responses by page */
-        page?: string;
-        /** Get responses by pagesize */
-        pagesize?: string;
-        filter?: string;
-        shared?: boolean;
-        visibility?: string;
-        orgId?: string;
-        userId?: string;
-      };
-    };
-    responses: {
-      /** Views page */
-      200: {
-        content: {
-          "application/json": {
-            page?: number;
-            page_size?: number;
-            total_count?: number;
-            views?: { [key: string]: unknown }[];
-          };
-        };
-      };
-      /** Expired JWT token used or insufficient privilege */
-      401: {
-        content: {
-          "text/plain": string;
-        };
-      };
-      /** Internal server error */
-      500: {
-        content: {
-          "text/plain": string;
-        };
       };
     };
   };

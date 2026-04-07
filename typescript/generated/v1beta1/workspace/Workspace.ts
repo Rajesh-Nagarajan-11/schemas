@@ -2006,23 +2006,37 @@ export interface components {
         visibility?: string;
       }[];
     };
-    /** @description A saved view with filters and metadata. */
+    /** @description A view enriched with the workspace and organization it belongs to. */
     MesheryView: {
       /** Format: uuid */
       id?: string;
-      /** @description Name of the view. */
+      /** @description Display name of the view. */
       name?: string;
+      /** @description Visibility level of the view. */
+      visibility?: string;
       /** @description Filter configuration for this view. */
       filters?: { [key: string]: unknown };
-      /** @description Visibility of the view. */
-      visibility?: string;
       /** @description Metadata associated with the view. */
       metadata?: { [key: string]: unknown };
       /**
        * Format: uuid
-       * @description User ID of the view creator.
+       * @description ID of the user who created the view.
        */
       user_id?: string;
+      /** @description Name of the workspace this view belongs to. */
+      workspace_name?: string;
+      /**
+       * Format: uuid
+       * @description ID of the workspace this view belongs to.
+       */
+      workspace_id: string;
+      /**
+       * Format: uuid
+       * @description ID of the organization this view belongs to.
+       */
+      organization_id: string;
+      /** @description Name of the organization this view belongs to. */
+      organization_name?: string;
       /**
        * Format: date-time
        * @description Timestamp when the resource was created.
@@ -2035,32 +2049,46 @@ export interface components {
       updated_at?: string;
       /**
        * Format: date-time
-       * @description Timestamp when the resource was deleted.
+       * @description Timestamp when the view was soft deleted. Null while the view remains active.
        */
       deleted_at?: string;
     };
-    /** @description Paginated list of views. */
+    /** @description Paginated list of views with location enrichment. */
     MesheryViewPage: {
       page?: number;
       page_size?: number;
       total_count?: number;
-      /** @description Views in this page. */
+      /** @description Views in this page, enriched with workspace and organization context. */
       views?: {
         /** Format: uuid */
         id?: string;
-        /** @description Name of the view. */
+        /** @description Display name of the view. */
         name?: string;
+        /** @description Visibility level of the view. */
+        visibility?: string;
         /** @description Filter configuration for this view. */
         filters?: { [key: string]: unknown };
-        /** @description Visibility of the view. */
-        visibility?: string;
         /** @description Metadata associated with the view. */
         metadata?: { [key: string]: unknown };
         /**
          * Format: uuid
-         * @description User ID of the view creator.
+         * @description ID of the user who created the view.
          */
         user_id?: string;
+        /** @description Name of the workspace this view belongs to. */
+        workspace_name?: string;
+        /**
+         * Format: uuid
+         * @description ID of the workspace this view belongs to.
+         */
+        workspace_id: string;
+        /**
+         * Format: uuid
+         * @description ID of the organization this view belongs to.
+         */
+        organization_id: string;
+        /** @description Name of the organization this view belongs to. */
+        organization_name?: string;
         /**
          * Format: date-time
          * @description Timestamp when the resource was created.
@@ -2073,7 +2101,7 @@ export interface components {
         updated_at?: string;
         /**
          * Format: date-time
-         * @description Timestamp when the resource was deleted.
+         * @description Timestamp when the view was soft deleted. Null while the view remains active.
          */
         deleted_at?: string;
       }[];
@@ -4728,23 +4756,37 @@ export interface operations {
             page?: number;
             page_size?: number;
             total_count?: number;
-            /** @description Views in this page. */
+            /** @description Views in this page, enriched with workspace and organization context. */
             views?: {
               /** Format: uuid */
               id?: string;
-              /** @description Name of the view. */
+              /** @description Display name of the view. */
               name?: string;
+              /** @description Visibility level of the view. */
+              visibility?: string;
               /** @description Filter configuration for this view. */
               filters?: { [key: string]: unknown };
-              /** @description Visibility of the view. */
-              visibility?: string;
               /** @description Metadata associated with the view. */
               metadata?: { [key: string]: unknown };
               /**
                * Format: uuid
-               * @description User ID of the view creator.
+               * @description ID of the user who created the view.
                */
               user_id?: string;
+              /** @description Name of the workspace this view belongs to. */
+              workspace_name?: string;
+              /**
+               * Format: uuid
+               * @description ID of the workspace this view belongs to.
+               */
+              workspace_id: string;
+              /**
+               * Format: uuid
+               * @description ID of the organization this view belongs to.
+               */
+              organization_id: string;
+              /** @description Name of the organization this view belongs to. */
+              organization_name?: string;
               /**
                * Format: date-time
                * @description Timestamp when the resource was created.
@@ -4757,7 +4799,7 @@ export interface operations {
               updated_at?: string;
               /**
                * Format: date-time
-               * @description Timestamp when the resource was deleted.
+               * @description Timestamp when the view was soft deleted. Null while the view remains active.
                */
               deleted_at?: string;
             }[];
