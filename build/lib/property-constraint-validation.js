@@ -4,6 +4,35 @@ const ID_PROPERTY_PATTERN = /(?:^id$|_id$|Id$|ID$)/;
 const PAGE_SIZE_NAMES = new Set(["page_size", "pagesize", "pageSize"]);
 const COMBINERS = ["allOf", "oneOf", "anyOf"];
 
+// Known format values from OpenAPI 3.0 / JSON Schema.
+const KNOWN_FORMATS = new Set([
+  "date-time",
+  "date",
+  "time",
+  "email",
+  "idn-email",
+  "uri",
+  "uri-reference",
+  "iri",
+  "iri-reference",
+  "uuid",
+  "ipv4",
+  "ipv6",
+  "hostname",
+  "idn-hostname",
+  "byte",
+  "binary",
+  "password",
+  "int32",
+  "int64",
+  "float",
+  "double",
+  "duration",
+  "json-pointer",
+  "relative-json-pointer",
+  "regex",
+]);
+
 function formatContext(scope) {
   return scope ? `Schema "${scope}" — ` : "";
 }
@@ -110,6 +139,23 @@ function validatePageSizeMinimum(issues, properties, scope) {
   }
 }
 
+function validateFormatValues(issues, properties, scope) {
+  if (!properties || typeof properties !== "object") return;
+
+  for (const [propName, propDef] of Object.entries(properties)) {
+    if (!propDef || typeof propDef !== "object") continue;
+    if (propDef.$ref) continue;
+    if (propDef.format === undefined) continue;
+
+    if (!KNOWN_FORMATS.has(propDef.format)) {
+      issues.push(
+        `${formatContext(scope)}property "${propName}" uses unknown format "${propDef.format}". ` +
+          `Known formats: ${[...KNOWN_FORMATS].join(", ")}.`,
+      );
+    }
+  }
+}
+
 function nextScope(scope, suffix) {
   return scope ? `${scope}.${suffix}` : suffix;
 }
@@ -123,6 +169,7 @@ function walkPropertyConstraintTree(schema, scope, issues) {
     validateNumericBounds(issues, schema.properties, scope);
     validateIdFormat(issues, schema.properties, scope);
     validatePageSizeMinimum(issues, schema.properties, scope);
+    validateFormatValues(issues, schema.properties, scope);
 
     for (const [propName, propDef] of Object.entries(schema.properties)) {
       walkPropertyConstraintTree(propDef, nextScope(scope, propName), issues);

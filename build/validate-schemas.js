@@ -55,6 +55,8 @@
  *   Rule 40 — String properties named *id/*Id must have format: uuid or $ref to a UUID schema.
  *              Skips non-string types and properties annotated with `x-id-format: external`.
  *   Rule 41 — Page-size properties (page_size, pagesize) must have minimum: 1.
+ *   Rule 42 — String `format` values must be from the known OpenAPI 3.0 / JSON Schema set
+ *              (date-time, date, email, uri, uuid, ipv4, ipv6, hostname, byte, binary, password, etc.).
  *
  * USAGE:
  *   node build/validate-schemas.js          # exits 0 if no blocking violations found
