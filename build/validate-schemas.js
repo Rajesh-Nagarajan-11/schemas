@@ -2242,7 +2242,7 @@ function validateResponseText(filePath, doc) {
   }
 }
 
-// ─── Rules 37–41: property-level validation constraints ─────────────────────
+// ─── Rules 37–42: property-level validation constraints ─────────────────────
 
 function validatePropertyConstraints(filePath, doc) {
   for (const issue of collectPropertyConstraintIssues(doc)) {
@@ -2314,7 +2314,7 @@ function walk(dir) {
             if (entityDoc.components?.schemas) {
               validateGoTypeImportConsistency(entityPath, entityDoc);
             }
-            // Rules 37–41: property-level validation constraints
+            // Rules 37–42: property-level validation constraints
             validatePropertyConstraints(entityPath, entityDoc);
           }
         }
@@ -2367,7 +2367,7 @@ function walk(dir) {
           collectSchemaFingerprints(apiYml, doc);
           validateResponseSchemaRefs(apiYml, doc);
           validateResponseText(apiYml, doc);
-          // Rules 37–41: property-level validation constraints
+          // Rules 37–42: property-level validation constraints
           validatePropertyConstraints(apiYml, doc);
         }
       }

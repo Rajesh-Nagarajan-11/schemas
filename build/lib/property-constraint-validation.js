@@ -13,6 +13,7 @@ const KNOWN_FORMATS = new Set([
   "idn-email",
   "uri",
   "uri-reference",
+  "uri-template",
   "iri",
   "iri-reference",
   "uuid",
@@ -32,6 +33,7 @@ const KNOWN_FORMATS = new Set([
   "relative-json-pointer",
   "regex",
 ]);
+const KNOWN_FORMATS_LIST = [...KNOWN_FORMATS].join(", ");
 
 function formatContext(scope) {
   return scope ? `Schema "${scope}" — ` : "";
@@ -150,7 +152,7 @@ function validateFormatValues(issues, properties, scope) {
     if (!KNOWN_FORMATS.has(propDef.format)) {
       issues.push(
         `${formatContext(scope)}property "${propName}" uses unknown format "${propDef.format}". ` +
-          `Known formats: ${[...KNOWN_FORMATS].join(", ")}.`,
+          `Known formats: ${KNOWN_FORMATS_LIST}.`,
       );
     }
   }
