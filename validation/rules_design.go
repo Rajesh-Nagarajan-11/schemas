@@ -293,7 +293,7 @@ func checkRule25(filePath string, doc *openapi3.T, opts AuditOptions) []Violatio
 		if len(missing) > 0 {
 			out = append(out, Violation{
 				File: filePath,
-				Message: fmt.Sprintf("GET %s — list endpoint is missing pagination parameter(s): %s. Reference the shared parameters from v1alpha1/core/api.yml.",
+				Message: fmt.Sprintf("GET %s — list endpoint (returns array or paged response) is missing pagination parameter(s): %s. Reference the shared parameters from v1alpha1/core/api.yml for consistent pagination across all list endpoints.",
 					path, strings.Join(missing, ", ")),
 				Severity: classifyDesignIssue(opts), RuleNumber: 25,
 			})
@@ -361,9 +361,14 @@ func checkRule28(filePath string, doc *openapi3.T, opts AuditOptions) []Violatio
 			if isCreatePost(item.Post, path) {
 				codes := collectResponseCodes(item.Post)
 				if codes["200"] && !codes["201"] {
+					desc := createResponseDescription(item.Post)
+					msg := fmt.Sprintf("POST %s —", path)
+					if desc != "" {
+						msg += fmt.Sprintf(" response description %q", desc)
+					}
+					msg += " appears to create a resource but uses 200 instead of 201 (Created). Use 201 for POST endpoints that exclusively create new resources."
 					out = append(out, Violation{File: filePath,
-						Message:  fmt.Sprintf("POST %s — appears to create a resource but uses 200 instead of 201 (Created).", path),
-						Severity: *sev, RuleNumber: 28})
+						Message: msg, Severity: *sev, RuleNumber: 28})
 				}
 			}
 		}
@@ -518,6 +523,24 @@ func isExplicitlyPublic(op *openapi3.Operation, doc *openapi3.T) bool {
 		return true
 	}
 	return false
+}
+
+// createResponseDescription returns the response description that triggered the
+// "create" heuristic, or "" if detection was based on operationID alone.
+func createResponseDescription(op *openapi3.Operation) string {
+	if op.Responses == nil {
+		return ""
+	}
+	for _, resp := range op.Responses.Map() {
+		if resp != nil && resp.Value != nil && resp.Value.Description != nil {
+			desc := *resp.Value.Description
+			lower := strings.ToLower(desc)
+			if strings.Contains(lower, "created") || strings.Contains(lower, "new") {
+				return desc
+			}
+		}
+	}
+	return ""
 }
 
 func isCreatePost(op *openapi3.Operation, path string) bool {
