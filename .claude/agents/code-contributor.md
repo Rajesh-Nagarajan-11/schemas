@@ -46,7 +46,7 @@ The source of truth depends on migration stage: while a construct is being migra
 - **Specifications**: OpenAPI 3.x, JSON Schema
 - **Languages**: YAML, JSON, Go (v1.24.0), TypeScript
 - **Code Generation**: `oapi-codegen` (Go), custom TypeScript generators
-- **Validation**: Redocly CLI (`npx @redocly/cli lint`), `validation/` Go package (41 rules, using kin-openapi)
+- **Validation**: `validation/` Go package (41 rules, using kin-openapi) — run via `go run ./cmd/validate-schemas` or `make validate-schemas`
 
 ### DevOps & Tools
 
