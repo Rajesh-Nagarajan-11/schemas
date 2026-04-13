@@ -4,6 +4,7 @@ import (
 	"go/ast"
 	"go/parser"
 	"go/token"
+	"strconv"
 	"strings"
 )
 
@@ -238,13 +239,9 @@ func stringLit(expr ast.Expr) string {
 	return v
 }
 
-// unquote handles both interpreted and raw string literals.
+// unquote handles both interpreted and raw string literals. It defers to
+// strconv.Unquote so standard Go escape sequences (\n, \t, \\, hex/octal,
+// etc.) are decoded correctly and invalid literals surface as errors.
 func unquote(value string) (string, error) {
-	if len(value) >= 2 && value[0] == '`' && value[len(value)-1] == '`' {
-		return value[1 : len(value)-1], nil
-	}
-	if len(value) >= 2 && value[0] == '"' && value[len(value)-1] == '"' {
-		return strings.ReplaceAll(value[1:len(value)-1], `\"`, `"`), nil
-	}
-	return value, nil
+	return strconv.Unquote(value)
 }

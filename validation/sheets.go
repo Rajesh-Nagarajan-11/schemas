@@ -43,7 +43,7 @@ func keyOf(r ConsumerAuditRow) reconcileKey {
 // view from Google Sheets and produces tracked endpoints with
 // state transitions. It is pure logic — no I/O — so it is fully testable.
 func reconcile(current []ConsumerAuditRow, previous [][]string) []TrackedEndpoint {
-	today := time.Now().Format("2006-01-02")
+	today := time.Now().UTC().Format("2006-01-02")
 
 	prevRows := parseSheetRows(previous)
 	prevByKey := make(map[reconcileKey]ConsumerAuditRow, len(prevRows))

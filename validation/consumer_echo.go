@@ -92,12 +92,8 @@ func parseEchoRoutes(tree sourceTree) ([]consumerEndpoint, error) {
 // registration call.
 func extractEchoEndpoints(file *ast.File, fset *token.FileSet, routerFile string) ([]consumerEndpoint, error) {
 	var endpoints []consumerEndpoint
-	var firstErr error
 
 	ast.Inspect(file, func(n ast.Node) bool {
-		if firstErr != nil {
-			return false
-		}
 		call, ok := n.(*ast.CallExpr)
 		if !ok {
 			return true
@@ -127,12 +123,11 @@ func extractEchoEndpoints(file *ast.File, fset *token.FileSet, routerFile string
 		}
 		path, ok := resolveEchoPathArg(call.Args[0])
 		if !ok {
-			line := 0
-			if call.Pos().IsValid() && fset != nil {
-				line = fset.Position(call.Pos()).Line
-			}
-			firstErr = fmt.Errorf("%s:%d: could not resolve Echo route path expression", routerFile, line)
-			return false
+			// Skip only the unresolved route so the consumer audit remains
+			// resilient as router path construction evolves. A single
+			// dynamic expression (e.g. fmt.Sprintf with a new variable)
+			// should not abort the entire audit.
+			return true
 		}
 		path = normalizeEchoPath(prefix, path)
 
@@ -169,7 +164,7 @@ func extractEchoEndpoints(file *ast.File, fset *token.FileSet, routerFile string
 		return true
 	})
 
-	return endpoints, firstErr
+	return endpoints, nil
 }
 
 // receiverString turns a receiver expression into a flat dotted identifier

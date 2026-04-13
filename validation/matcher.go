@@ -359,10 +359,18 @@ func assessConsumer(c *consumerEndpoint, requestShape, responseShape *schemaShap
 
 	var hadComparable, sawDiff, sawUnverified bool
 	var drift []string
-	for side, assessment := range map[string]shapeAssessment{
-		"request":  reqAssessment,
-		"response": respAssessment,
-	} {
+	// Iterate in a fixed order (request, then response) so Notes/Drift
+	// output is deterministic across runs and reconciliation stays stable.
+	sides := []struct {
+		name       string
+		assessment shapeAssessment
+	}{
+		{"request", reqAssessment},
+		{"response", respAssessment},
+	}
+	for _, entry := range sides {
+		side := entry.name
+		assessment := entry.assessment
 		if assessment.status == 0 && len(assessment.diffs) == 0 && assessment.reason == "" {
 			continue
 		}
