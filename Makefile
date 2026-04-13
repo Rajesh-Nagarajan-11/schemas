@@ -113,6 +113,35 @@ audit-schemas-debt-full:
 	go run ./cmd/validate-schemas --warn --no-baseline --style-debt --contract-debt
 
 #-----------------------------------------------------------------------------
+# API audit (schema vs. consumer repos)
+#-----------------------------------------------------------------------------
+.PHONY: api-audit api-audit-update
+
+# Override via: make api-audit MESHERY_REPO=../meshery CLOUD_REPO=../meshery-cloud
+MESHERY_REPO ?=
+CLOUD_REPO   ?=
+SHEET_ID     ?=
+CREDENTIALS  ?=
+
+## Dry-run the API audit. Diffs against local .api-audit-cache.csv; emits CSV on stdout.
+api-audit:
+	@go run ./cmd/api-audit \
+		$(if $(MESHERY_REPO),--meshery-repo=$(MESHERY_REPO)) \
+		$(if $(CLOUD_REPO),--cloud-repo=$(CLOUD_REPO)) \
+		--dry-run
+
+## Push the audit result to the canonical Google Sheet. Requires SHEET_ID and CREDENTIALS.
+api-audit-update:
+	@if [ -z "$(SHEET_ID)" ] || [ -z "$(CREDENTIALS)" ]; then \
+		echo "api-audit-update: SHEET_ID and CREDENTIALS are required"; exit 1; \
+	fi
+	@go run ./cmd/api-audit \
+		$(if $(MESHERY_REPO),--meshery-repo=$(MESHERY_REPO)) \
+		$(if $(CLOUD_REPO),--cloud-repo=$(CLOUD_REPO)) \
+		--sheet-id=$(SHEET_ID) \
+		--credentials=$(CREDENTIALS)
+
+#-----------------------------------------------------------------------------
 # Schema information
 #-----------------------------------------------------------------------------
 .PHONY: schemas-versions schemas-versions-latest

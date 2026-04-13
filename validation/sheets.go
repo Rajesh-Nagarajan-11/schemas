@@ -12,12 +12,12 @@ import (
 )
 
 // auditedColumns is the set of cells whose change between two runs causes
-// the row to be marked stateChanged. The other columns (Notes, Change Log,
+// the row to be marked StateChanged. The other columns (Notes, Change Log,
 // Schema Source) are derived/metadata and never trigger reconciliation.
-var auditedColumns = map[string]func(auditRow) string{
-	"Schema-Backed":           func(r auditRow) string { return r.SchemaBacked },
-	"Schema-Driven (Meshery)": func(r auditRow) string { return r.SchemaDrivenMeshery },
-	"Schema-Driven (Cloud)":   func(r auditRow) string { return r.SchemaDrivenCloud },
+var auditedColumns = map[string]func(AuditRow) string{
+	"Schema-Backed":           func(r AuditRow) string { return r.SchemaBacked },
+	"Schema-Driven (Meshery)": func(r AuditRow) string { return r.SchemaDrivenMeshery },
+	"Schema-Driven (Cloud)":   func(r AuditRow) string { return r.SchemaDrivenCloud },
 }
 
 // reconcileKey for reconciliation: (Endpoint, Method) per architecture §10.2.
@@ -26,23 +26,23 @@ type reconcileKey struct {
 	Method   string
 }
 
-func keyOf(r auditRow) reconcileKey {
+func keyOf(r AuditRow) reconcileKey {
 	return reconcileKey{Endpoint: r.Endpoint, Method: r.Method}
 }
 
 // reconcile compares the current audit rows against a previous serialized
 // view (sheet rows or local CSV cache) and produces tracked endpoints with
 // state transitions. It is pure logic — no I/O — so it is fully testable.
-func reconcile(current []auditRow, previous [][]string) []trackedEndpoint {
+func reconcile(current []AuditRow, previous [][]string) []TrackedEndpoint {
 	today := time.Now().Format("2006-01-02")
 
 	prevRows := parsePreviousRows(previous)
-	prevByKey := make(map[reconcileKey]auditRow, len(prevRows))
+	prevByKey := make(map[reconcileKey]AuditRow, len(prevRows))
 	for _, r := range prevRows {
 		prevByKey[keyOf(r)] = r
 	}
 
-	tracked := make([]trackedEndpoint, 0, len(current)+len(prevRows))
+	tracked := make([]TrackedEndpoint, 0, len(current)+len(prevRows))
 	seen := make(map[reconcileKey]bool, len(current))
 
 	for _, cur := range current {
@@ -50,26 +50,26 @@ func reconcile(current []auditRow, previous [][]string) []trackedEndpoint {
 		seen[key] = true
 		prev, exists := prevByKey[key]
 		if !exists {
-			tracked = append(tracked, trackedEndpoint{
+			tracked = append(tracked, TrackedEndpoint{
 				Row:       withChangeLog(cur, fmt.Sprintf("+added %s", today)),
-				State:     stateNew,
+				State:     StateNew,
 				ChangeLog: fmt.Sprintf("+added %s", today),
 			})
 			continue
 		}
 		changed := changedColumns(prev, cur)
 		if len(changed) == 0 {
-			tracked = append(tracked, trackedEndpoint{
+			tracked = append(tracked, TrackedEndpoint{
 				Row:       withChangeLog(cur, prev.ChangeLog),
-				State:     stateExisting,
+				State:     StateExisting,
 				ChangeLog: prev.ChangeLog,
 			})
 			continue
 		}
 		log := fmt.Sprintf("~changed %s: %s", today, strings.Join(changed, ", "))
-		tracked = append(tracked, trackedEndpoint{
+		tracked = append(tracked, TrackedEndpoint{
 			Row:       withChangeLog(cur, log),
-			State:     stateChanged,
+			State:     StateChanged,
 			ChangeLog: log,
 		})
 	}
@@ -80,9 +80,9 @@ func reconcile(current []auditRow, previous [][]string) []trackedEndpoint {
 			continue
 		}
 		log := fmt.Sprintf("-removed %s", today)
-		tracked = append(tracked, trackedEndpoint{
+		tracked = append(tracked, TrackedEndpoint{
 			Row:       withChangeLog(r, log),
-			State:     stateDeleted,
+			State:     StateDeleted,
 			ChangeLog: log,
 		})
 	}
@@ -92,8 +92,8 @@ func reconcile(current []auditRow, previous [][]string) []trackedEndpoint {
 
 // parsePreviousRows accepts the raw [][]string we received from a sheet read
 // or CSV file. It strips a header row if present (first column == "Category"
-// is the canonical header) and converts each row into an auditRow.
-func parsePreviousRows(rows [][]string) []auditRow {
+// is the canonical header) and converts each row into an AuditRow.
+func parsePreviousRows(rows [][]string) []AuditRow {
 	if len(rows) == 0 {
 		return nil
 	}
@@ -101,7 +101,7 @@ func parsePreviousRows(rows [][]string) []auditRow {
 	if len(rows[0]) > 0 && rows[0][0] == "Category" {
 		start = 1
 	}
-	out := make([]auditRow, 0, len(rows)-start)
+	out := make([]AuditRow, 0, len(rows)-start)
 	for _, r := range rows[start:] {
 		if len(r) == 0 {
 			continue
@@ -113,7 +113,7 @@ func parsePreviousRows(rows [][]string) []auditRow {
 
 // changedColumns compares the audited columns of two rows and returns the
 // names of any that differ.
-func changedColumns(a, b auditRow) []string {
+func changedColumns(a, b AuditRow) []string {
 	var changed []string
 	for name, f := range auditedColumns {
 		if f(a) != f(b) {
@@ -123,14 +123,14 @@ func changedColumns(a, b auditRow) []string {
 	return changed
 }
 
-func withChangeLog(r auditRow, log string) auditRow {
+func withChangeLog(r AuditRow, log string) AuditRow {
 	r.ChangeLog = log
 	return r
 }
 
-// trackedToCSV converts a slice of trackedEndpoints back into the [][]string
+// trackedToCSV converts a slice of TrackedEndpoints back into the [][]string
 // shape that downstream sheet/CSV writers expect (header + rows).
-func trackedToCSV(tracked []trackedEndpoint) [][]string {
+func trackedToCSV(tracked []TrackedEndpoint) [][]string {
 	rows := make([][]string, 0, len(tracked)+1)
 	rows = append(rows, append([]string(nil), auditCSVHeader...))
 	for _, t := range tracked {
@@ -141,7 +141,7 @@ func trackedToCSV(tracked []trackedEndpoint) [][]string {
 
 // rowsToCSV converts plain audit rows (no reconciliation) into the
 // header+rows shape used by CSV/sheet writers.
-func rowsToCSV(rows []auditRow) [][]string {
+func rowsToCSV(rows []AuditRow) [][]string {
 	out := make([][]string, 0, len(rows)+1)
 	out = append(out, append([]string(nil), auditCSVHeader...))
 	for _, r := range rows {
@@ -202,7 +202,7 @@ func readSheet(ctx context.Context, sheetID string, creds []byte) ([][]string, e
 // writeSheet clears the destination sheet and writes the reconciled rows to
 // it. Deleted rows are preserved with a "-removed" change log so the sheet
 // retains historical state.
-func writeSheet(ctx context.Context, sheetID string, creds []byte, tracked []trackedEndpoint) error {
+func writeSheet(ctx context.Context, sheetID string, creds []byte, tracked []TrackedEndpoint) error {
 	srv, err := newSheetsService(ctx, creds)
 	if err != nil {
 		return err

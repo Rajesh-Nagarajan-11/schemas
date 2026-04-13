@@ -46,18 +46,18 @@ type APIAuditResult struct {
 	Match       *matchResult
 
 	// Reconciled state (nil if no previous state was provided).
-	Tracked []trackedEndpoint
+	Tracked []TrackedEndpoint
 
 	// Output rows for CSV/sheet (sorted, deterministic).
-	Rows []auditRow
+	Rows []AuditRow
 
 	// Summary counts for terminal display.
 	Summary auditSummary
 }
 
-// auditRow is one row of the audit output, matching the sheet column schema
+// AuditRow is one row of the audit output, matching the sheet column schema
 // exactly. See section 11.1 of the architecture doc.
-type auditRow struct {
+type AuditRow struct {
 	Category            string
 	SubCategory         string
 	Endpoint            string
@@ -85,7 +85,7 @@ var auditCSVHeader = []string{
 }
 
 // toRow converts the audit row to its serialized string slice.
-func (r auditRow) toRow() []string {
+func (r AuditRow) toRow() []string {
 	return []string{
 		r.Category,
 		r.SubCategory,
@@ -100,16 +100,16 @@ func (r auditRow) toRow() []string {
 	}
 }
 
-// rowFromStrings reconstructs an auditRow from a serialized string slice.
+// rowFromStrings reconstructs an AuditRow from a serialized string slice.
 // Missing trailing columns are tolerated.
-func rowFromStrings(cols []string) auditRow {
+func rowFromStrings(cols []string) AuditRow {
 	get := func(i int) string {
 		if i < len(cols) {
 			return cols[i]
 		}
 		return ""
 	}
-	return auditRow{
+	return AuditRow{
 		Category:            get(0),
 		SubCategory:         get(1),
 		Endpoint:            get(2),
@@ -123,22 +123,23 @@ func rowFromStrings(cols []string) auditRow {
 	}
 }
 
-// endpointState enumerates the four reconciliation states an audit row can
+// EndpointState enumerates the four reconciliation states an audit row can
 // be in. The full reconciliation logic lives in sheets.go (Session 2);
 // declaring the type here keeps APIAuditResult self-contained.
-type endpointState int
+type EndpointState int
 
 const (
-	stateNew endpointState = iota
-	stateExisting
-	stateChanged
-	stateDeleted
+	StateNew EndpointState = iota
+	StateExisting
+	StateChanged
+	StateDeleted
 )
 
-// trackedEndpoint is one reconciled row with state transition.
-type trackedEndpoint struct {
-	Row       auditRow
-	State     endpointState
+// TrackedEndpoint is one reconciled row with state transition. The CLI
+// consumes this to render the diff section; fields are intentionally simple.
+type TrackedEndpoint struct {
+	Row       AuditRow
+	State     EndpointState
 	ChangeLog string
 }
 
@@ -165,6 +166,20 @@ type auditSummary struct {
 	CloudDrivenPartial   int
 	CloudDrivenFalse     int
 	CloudDrivenNotAud    int
+}
+
+// CSVRows returns the audit output as a header-plus-rows [][]string suitable
+// for csv.Writer.WriteAll. When reconciliation has run, the reconciled rows
+// are used so the emitted Change Log column reflects state transitions;
+// otherwise the plain analysis rows are returned.
+func (r *APIAuditResult) CSVRows() [][]string {
+	if r == nil {
+		return [][]string{append([]string(nil), auditCSVHeader...)}
+	}
+	if len(r.Tracked) > 0 {
+		return trackedToCSV(r.Tracked)
+	}
+	return rowsToCSV(r.Rows)
 }
 
 // RunAPIAudit is the single entry point for the API audit pipeline.
@@ -239,7 +254,7 @@ func runAPIAudit(opts APIAuditOptions, mesheryTree, cloudTree sourceTree) (*APIA
 	return result, nil
 }
 
-// buildAuditRows materializes one auditRow per endpoint, joining schema and
+// buildAuditRows materializes one AuditRow per endpoint, joining schema and
 // consumer info. The result is unsorted; sortAuditRows is the canonical
 // ordering used everywhere downstream.
 func buildAuditRows(
@@ -247,8 +262,8 @@ func buildAuditRows(
 	match *matchResult,
 	mesheryEndpoints, cloudEndpoints []consumerEndpoint,
 	mesheryProvided, cloudProvided bool,
-) []auditRow {
-	rows := make([]auditRow, 0, len(idx.Endpoints)+len(match.ConsumerOnly))
+) []AuditRow {
+	rows := make([]AuditRow, 0, len(idx.Endpoints)+len(match.ConsumerOnly))
 
 	// Schema-defined endpoints (matched + schema-only).
 	for _, ep := range idx.Endpoints {
@@ -272,8 +287,8 @@ func buildAuditRows(
 	return rows
 }
 
-func newSchemaRow(ep schemaEndpoint, consumers []consumerEndpoint, mesheryProvided, cloudProvided bool) auditRow {
-	row := auditRow{
+func newSchemaRow(ep schemaEndpoint, consumers []consumerEndpoint, mesheryProvided, cloudProvided bool) AuditRow {
+	row := AuditRow{
 		Category:     categoryFromTags(ep.Tags),
 		SubCategory:  ep.Construct,
 		Endpoint:     ep.Path,
@@ -304,8 +319,8 @@ func newSchemaRow(ep schemaEndpoint, consumers []consumerEndpoint, mesheryProvid
 	return row
 }
 
-func newConsumerOnlyRow(c consumerEndpoint, mesheryProvided, cloudProvided bool) auditRow {
-	row := auditRow{
+func newConsumerOnlyRow(c consumerEndpoint, mesheryProvided, cloudProvided bool) AuditRow {
+	row := AuditRow{
 		Category:     "Uncategorized",
 		SubCategory:  "(consumer-only)",
 		Endpoint:     c.Path,
@@ -410,7 +425,7 @@ func uniqueStrings(in []string) []string {
 }
 
 // sortAuditRows orders rows by (Category, SubCategory, Endpoint, Method).
-func sortAuditRows(rows []auditRow) {
+func sortAuditRows(rows []AuditRow) {
 	sort.Slice(rows, func(i, j int) bool {
 		if rows[i].Category != rows[j].Category {
 			return rows[i].Category < rows[j].Category
@@ -429,7 +444,7 @@ func computeSummary(
 	idx *schemaIndex,
 	meshery, cloud []consumerEndpoint,
 	match *matchResult,
-	rows []auditRow,
+	rows []AuditRow,
 	mesheryProvided, cloudProvided bool,
 ) auditSummary {
 	s := auditSummary{

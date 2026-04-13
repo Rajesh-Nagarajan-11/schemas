@@ -11,6 +11,9 @@ main
 # api-audit local binary (built via `go build ./cmd/api-audit`)
 /api-audit
 
+# api-audit dry-run diff cache (refreshed by api-audit-update, never committed)
+.api-audit-cache.csv
+
 
 # Binaries for programs and plugins
 *.exe
