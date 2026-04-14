@@ -247,20 +247,6 @@ func classifySchemaNote(ep schemaEndpoint) string {
 	return strings.Join(notes, "; ")
 }
 
-// classifySchemaDriven returns the Schema-Driven value for a single consumer
-// endpoint and the matched schema shapes. It is intentionally conservative:
-// any tooling limitation falls back to Not Audited, while Partial is reserved
-// for concrete verified drift.
-func classifySchemaDriven(consumerProvided bool, c *consumerEndpoint, requestShape, responseShape *schemaShape) string {
-	if !consumerProvided {
-		return "N/A"
-	}
-	if c == nil {
-		return "Not Audited"
-	}
-	return assessConsumers(true, c.Repo, []consumerEndpoint{*c}, requestShape, responseShape).Status
-}
-
 // shapeStatus is the per-side outcome of verifyShape.
 type shapeStatus int
 
@@ -274,10 +260,6 @@ const (
 	// shapeDiff means we compared and found at least one diff.
 	shapeDiff
 )
-
-func verifyShape(shape *schemaShape, info *goTypeInfo, requestSide bool) shapeStatus {
-	return verifyShapeDetailed(shape, info, requestSide).status
-}
 
 func verifyShapeDetailed(shape *schemaShape, info *goTypeInfo, requestSide bool) shapeAssessment {
 	sideLabel := "response"
