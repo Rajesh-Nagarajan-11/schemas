@@ -215,7 +215,7 @@ func rowFromStrings(cols []string) ConsumerAuditRow {
 		Category:            get(0),
 		SubCategory:         get(1),
 		Endpoint:            get(2),
-		Method:               get(3),
+		Method:              get(3),
 		EndpointStatus:      get(4),
 		XAnnotated:          get(5),
 		SchemaBackedMeshery: get(6),
@@ -309,24 +309,18 @@ type TrackedEndpoint struct {
 
 // auditSummary captures the high-level counts shown in the terminal table.
 type auditSummary struct {
-	SchemaEndpoints      int
-	MesheryEndpoints     int
-	CloudEndpoints       int
-	Matched              int
-	SchemaOnly           int
-	SchemaOnlyMeshery    int
-	SchemaOnlyCloud      int
-	ConsumerOnly         int
-	ConsumerOnlyMeshery  int
-	ConsumerOnlyCloud    int
-	Meshery repoTally
-	Cloud   repoTally
-
-	// Action-item counters surfaced in the terminal action-items table.
-	// "Not Schema Driven" comes from repoTally.DriftTrue; only annotation
-	// mismatches need their own dedicated counters.
-	AnnotationMismatchMeshery int
-	AnnotationMismatchCloud   int
+	SchemaEndpoints     int
+	MesheryEndpoints    int
+	CloudEndpoints      int
+	Matched             int
+	SchemaOnly          int
+	SchemaOnlyMeshery   int
+	SchemaOnlyCloud     int
+	ConsumerOnly        int
+	ConsumerOnlyMeshery int
+	ConsumerOnlyCloud   int
+	Meshery             repoTally
+	Cloud               repoTally
 }
 
 // SheetRows returns the audit output as header-plus-rows [][]string suitable
@@ -782,29 +776,17 @@ func sortAuditRows(rows []ConsumerAuditRow) {
 	})
 }
 
-// repoTally holds the per-repo counts surfaced in the terminal tables:
-// handlers known to import the schema package (BackedTrue), handlers whose
-// request/response shape diverges from the schema (DriftTrue, == Schema-
-// Driven == FALSE), and handlers we couldn't audit (DrivenNotAud).
+// repoTally holds the per-repo counts surfaced in the terminal report.
 type repoTally struct {
-	BackedTrue   int
-	DriftTrue    int
-	DrivenNotAud int
+	BackedTrue int
 }
 
-// tallyRepo derives a repoTally directly from row cells, so the action-item
-// counts cannot drift from what the sheet displays.
-func tallyRepo(rows []ConsumerAuditRow, backed, driven func(ConsumerAuditRow) string) repoTally {
+// tallyRepo derives a repoTally directly from row cells.
+func tallyRepo(rows []ConsumerAuditRow, backed func(ConsumerAuditRow) string) repoTally {
 	var t repoTally
 	for _, r := range rows {
 		if backed(r) == "TRUE" {
 			t.BackedTrue++
-		}
-		switch driven(r) {
-		case "FALSE":
-			t.DriftTrue++
-		case "Not Audited":
-			t.DrivenNotAud++
 		}
 	}
 	return t
@@ -835,23 +817,13 @@ func computeSummary(
 			s.SchemaOnlyCloud++
 		}
 	}
-	for _, r := range rows {
-		if r.XAnnotated == "Cloud only" && r.SchemaBackedMeshery != "" {
-			s.AnnotationMismatchMeshery++
-		}
-		if r.XAnnotated == "Meshery" && r.SchemaBackedCloud != "" {
-			s.AnnotationMismatchCloud++
-		}
-	}
 	if mesheryProvided {
 		s.Meshery = tallyRepo(rows,
-			func(r ConsumerAuditRow) string { return r.SchemaBackedMeshery },
-			func(r ConsumerAuditRow) string { return r.SchemaDrivenMeshery })
+			func(r ConsumerAuditRow) string { return r.SchemaBackedMeshery })
 	}
 	if cloudProvided {
 		s.Cloud = tallyRepo(rows,
-			func(r ConsumerAuditRow) string { return r.SchemaBackedCloud },
-			func(r ConsumerAuditRow) string { return r.SchemaDrivenCloud })
+			func(r ConsumerAuditRow) string { return r.SchemaBackedCloud })
 	}
 	return s
 }
