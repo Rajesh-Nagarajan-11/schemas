@@ -111,8 +111,7 @@ type ConsumerAuditOptions struct {
 // ConsumerAuditResult is the output of RunConsumerAudit.
 type ConsumerAuditResult struct {
 	// Analysis results.
-	SchemaIndex *schemaIndex
-	Match       *matchResult
+	Match *matchResult
 
 	// Reconciled state (nil if no previous state was provided).
 	Tracked []TrackedEndpoint
@@ -313,29 +312,13 @@ type auditSummary struct {
 	SchemaEndpoints     int
 	MesheryEndpoints    int
 	CloudEndpoints      int
-	Matched             int
 	SchemaOnly          int
 	SchemaOnlyMeshery   int
 	SchemaOnlyCloud     int
-	ConsumerOnly        int
 	ConsumerOnlyMeshery int
 	ConsumerOnlyCloud   int
 	Meshery             repoTally
 	Cloud               repoTally
-}
-
-// SheetRows returns the audit output as header-plus-rows [][]string suitable
-// for Google Sheets writes. When reconciliation has run, the reconciled rows
-// are used so the emitted Change Log column reflects state transitions;
-// otherwise the plain analysis rows are returned.
-func (r *ConsumerAuditResult) SheetRows() [][]string {
-	if r == nil {
-		return [][]string{append([]string(nil), auditHeader...)}
-	}
-	if len(r.Tracked) > 0 {
-		return trackedToSheetRows(r.Tracked, r.DeletionLedger)
-	}
-	return rowsToSheetRows(r.Rows, r.DeletionLedger)
 }
 
 // RunConsumerAudit is the single entry point for the consumer audit pipeline.
@@ -385,16 +368,15 @@ func runConsumerAudit(opts ConsumerAuditOptions, mesheryTree, cloudTree sourceTr
 	mesheryProvided := mesheryTree != nil
 	cloudProvided := cloudTree != nil
 
-	rows := buildAuditRows(idx, match, mesheryEndpoints, cloudEndpoints, mesheryProvided, cloudProvided)
+	rows := buildAuditRows(idx, match, mesheryProvided, cloudProvided)
 	sortAuditRows(rows)
 
 	summary := computeSummary(idx, mesheryEndpoints, cloudEndpoints, match, rows, mesheryProvided, cloudProvided)
 
 	result := &ConsumerAuditResult{
-		SchemaIndex: idx,
-		Match:       match,
-		Rows:        rows,
-		Summary:     summary,
+		Match:   match,
+		Rows:    rows,
+		Summary: summary,
 	}
 
 	if err := reconcileFromOpts(opts, result); err != nil {
@@ -410,7 +392,6 @@ func runConsumerAudit(opts ConsumerAuditOptions, mesheryTree, cloudTree sourceTr
 func buildAuditRows(
 	idx *schemaIndex,
 	match *matchResult,
-	mesheryEndpoints, cloudEndpoints []consumerEndpoint,
 	mesheryProvided, cloudProvided bool,
 ) []ConsumerAuditRow {
 	rows := make([]AuditRow, 0, len(idx.Endpoints)+len(match.ConsumerOnly))
@@ -490,10 +471,10 @@ func newSchemaRow(ep schemaEndpoint, consumers []consumerEndpoint, mesheryProvid
 	// schema itself has neither a comparable request nor response shape.
 	bothShapesMissing := ep.RequestShape == nil && ep.ResponseShape == nil
 	if row.SchemaBackedMeshery == "TRUE" && !bothShapesMissing {
-		row.SchemaDrivenMeshery = normalizeDrivenStatus(mesheryAssessment.Status)
+		row.SchemaDrivenMeshery = mesheryAssessment.Status
 	}
 	if row.SchemaBackedCloud == "TRUE" && !bothShapesMissing {
-		row.SchemaDrivenCloud = normalizeDrivenStatus(cloudAssessment.Status)
+		row.SchemaDrivenCloud = cloudAssessment.Status
 	}
 
 	row.Notes = buildLabeledNotes(schemaNote, mesheryAssessment, cloudAssessment)
@@ -613,16 +594,6 @@ func schemaBackedFor(provided, applies bool, repoConsumers []consumerEndpoint) s
 		}
 	}
 	return "FALSE"
-}
-
-// normalizeDrivenStatus folds internal assessment statuses into the small set
-// surfaced to the sheet: TRUE, FALSE, or Not Audited. Partial drift is treated
-// as FALSE; the diff details live in Notes.
-func normalizeDrivenStatus(s string) string {
-	if s == "Partial" {
-		return "FALSE"
-	}
-	return s
 }
 
 func filterConsumersByRepo(consumers []consumerEndpoint, repo string) []consumerEndpoint {
@@ -804,9 +775,7 @@ func computeSummary(
 		SchemaEndpoints:     len(idx.Endpoints),
 		MesheryEndpoints:    len(meshery),
 		CloudEndpoints:      len(cloud),
-		Matched:             len(match.Matched),
 		SchemaOnly:          len(match.SchemaOnly),
-		ConsumerOnly:        len(match.ConsumerOnly),
 		ConsumerOnlyMeshery: len(filterConsumersByRepo(match.ConsumerOnly, "meshery")),
 		ConsumerOnlyCloud:   len(filterConsumersByRepo(match.ConsumerOnly, "meshery-cloud")),
 	}

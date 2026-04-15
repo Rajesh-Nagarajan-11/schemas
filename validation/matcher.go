@@ -46,6 +46,12 @@ type consumerAssessment struct {
 	Notes  []string
 }
 
+const (
+	auditStatusTrue       = "TRUE"
+	auditStatusFalse      = "FALSE"
+	auditStatusNotAudited = "Not Audited"
+)
+
 type shapeAssessment struct {
 	status shapeStatus
 	diffs  []fieldDiff
@@ -321,21 +327,19 @@ func assessConsumers(consumerProvided bool, repo string, consumers []consumerEnd
 	}
 	if len(consumers) == 0 {
 		return consumerAssessment{
-			Status: "Not Audited",
+			Status: auditStatusNotAudited,
 			Notes:  []string{fmt.Sprintf("handler not found in %s", repo)},
 		}
 	}
 
-	combined := consumerAssessment{Status: "TRUE"}
+	combined := consumerAssessment{Status: auditStatusTrue}
 	statusRank := func(status string) int {
 		switch status {
-		case "Not Audited":
-			return 4
-		case "Partial":
+		case auditStatusNotAudited:
 			return 3
-		case "FALSE":
+		case auditStatusFalse:
 			return 2
-		case "TRUE":
+		case auditStatusTrue:
 			return 1
 		default:
 			return 0
@@ -366,32 +370,32 @@ func assessConsumers(consumerProvided bool, repo string, consumers []consumerEnd
 
 func assessConsumer(c *consumerEndpoint, requestShape, responseShape *schemaShape) consumerAssessment {
 	if c == nil {
-		return consumerAssessment{Status: "Not Audited"}
+		return consumerAssessment{Status: auditStatusNotAudited}
 	}
 
 	var notes []string
 	notes = append(notes, c.Notes...)
 	if c.HandlerName == "" {
 		return consumerAssessment{
-			Status: "Not Audited",
+			Status: auditStatusNotAudited,
 			Notes:  append(notes, fmt.Sprintf("%s handler could not be resolved from route registration", c.Repo)),
 		}
 	}
 	if c.HandlerName == "(anonymous)" {
 		return consumerAssessment{
-			Status: "Not Audited",
+			Status: auditStatusNotAudited,
 			Notes:  append(notes, fmt.Sprintf("%s handler is anonymous and could not be audited", c.Repo)),
 		}
 	}
 	if c.HandlerFile == "" {
 		return consumerAssessment{
-			Status: "Not Audited",
+			Status: auditStatusNotAudited,
 			Notes:  append(notes, fmt.Sprintf("%s handler %q could not be joined to a source file", c.Repo, c.HandlerName)),
 		}
 	}
 	if !c.ImportsSchemas {
 		return consumerAssessment{
-			Status: "FALSE",
+			Status: auditStatusFalse,
 			Notes:  append(notes, fmt.Sprintf("%s handler %s does not import github.com/meshery/schemas/models", c.Repo, describeHandler(*c))),
 		}
 	}
@@ -435,20 +439,20 @@ func assessConsumer(c *consumerEndpoint, requestShape, responseShape *schemaShap
 
 	if !hadComparable {
 		return consumerAssessment{
-			Status: "Not Audited",
+			Status: auditStatusNotAudited,
 			Notes:  append(notes, fmt.Sprintf("%s handler %s had no comparable request or response schema", c.Repo, describeHandler(*c))),
 		}
 	}
 	if sawUnverified {
 		return consumerAssessment{
-			Status: "Not Audited",
+			Status: auditStatusNotAudited,
 			Drift:  uniqueStrings(drift),
 			Notes:  uniqueStrings(notes),
 		}
 	}
 	if sawDiff {
 		return consumerAssessment{
-			Status: "Partial",
+			Status: auditStatusFalse,
 			Drift:  uniqueStrings(drift),
 			Notes:  uniqueStrings(notes),
 		}
@@ -457,14 +461,14 @@ func assessConsumer(c *consumerEndpoint, requestShape, responseShape *schemaShap
 	for _, assessment := range assessments {
 		if assessment.status == shapeOK {
 			return consumerAssessment{
-				Status: "TRUE",
+				Status: auditStatusTrue,
 				Notes:  uniqueStrings(notes),
 			}
 		}
 	}
 
 	return consumerAssessment{
-		Status: "Not Audited",
+		Status: auditStatusNotAudited,
 		Notes:  append(uniqueStrings(notes), fmt.Sprintf("%s handler %s could not be compared", c.Repo, describeHandler(*c))),
 	}
 }
