@@ -488,23 +488,17 @@ func newSchemaRow(
 
 	mesheryConsumers := filterConsumersByRepo(consumers, "meshery")
 	cloudConsumers := filterConsumersByRepo(consumers, "meshery-cloud")
-	mesheryAssessment := assessConsumers(mesheryProvided && mesheryAllowed, "meshery", mesheryConsumers, ep.RequestShape, ep.ResponseShape)
-	cloudAssessment := assessConsumers(cloudProvided && cloudAllowed, "meshery-cloud", cloudConsumers, ep.RequestShape, ep.ResponseShape)
+	mesheryAssessment := assessConsumers(mesheryProvided && mesheryAllowed, "meshery", mesheryConsumers, ep.RequestShape, ep.ResponseShape, ep.QueryParams)
+	cloudAssessment := assessConsumers(cloudProvided && cloudAllowed, "meshery-cloud", cloudConsumers, ep.RequestShape, ep.ResponseShape, ep.QueryParams)
 
 	row.EndpointStatus = computeEndpointStatus(true, mesheryAllowed, cloudAllowed, len(mesheryConsumers) > 0, len(cloudConsumers) > 0)
 	row.SchemaBackedMeshery = schemaBackedFor(mesheryProvided, mesheryAllowed, mesheryConsumers)
 	row.SchemaBackedCloud = schemaBackedFor(cloudProvided, cloudAllowed, cloudConsumers)
 
-	// Schema-Driven is only meaningful when the handler actually imports
-	// the schema (Schema-Backed == TRUE). If the handler doesn't, the
-	// "drift" is just that it was never wired to the schema — nothing for
-	// an auditor to act on in this column. Also blank the cell when the
-	// schema itself has neither a comparable request nor response shape.
-	bothShapesMissing := ep.RequestShape == nil && ep.ResponseShape == nil
-	if row.SchemaBackedMeshery == "TRUE" && !bothShapesMissing {
+	if row.SchemaBackedMeshery != "" {
 		row.SchemaDrivenMeshery = mesheryAssessment.Status
 	}
-	if row.SchemaBackedCloud == "TRUE" && !bothShapesMissing {
+	if row.SchemaBackedCloud != "" {
 		row.SchemaDrivenCloud = cloudAssessment.Status
 	}
 
@@ -613,7 +607,10 @@ func computeEndpointStatus(schemaPresent, mApplies, cApplies, mActive, cActive b
 // schemaBackedFor returns the per-consumer Schema-Backed column value for a
 // schema-backed row. Blank means the column does not apply (the consumer was
 // not scanned, or the spec does not target that consumer and no handler was
-// found). TRUE means the registered handler imports the shared schema types.
+// found). TRUE means the schema defines a contract for this consumer — either
+// the endpoint is unimplemented (schema exists, no handler yet) or the
+// registered handler imports the shared schema types. FALSE means a handler
+// was found but none of its consumers import the schema package.
 func schemaBackedFor(provided, applies bool, repoConsumers []consumerEndpoint) string {
 	if !provided {
 		return ""
@@ -622,7 +619,10 @@ func schemaBackedFor(provided, applies bool, repoConsumers []consumerEndpoint) s
 		return ""
 	}
 	if len(repoConsumers) == 0 {
-		return "FALSE"
+		// applies is always true here (the !applies && len==0 branch above
+		// returned "" already). The schema targets this consumer even though no
+		// handler has been registered yet, so the endpoint is schema-backed.
+		return "TRUE"
 	}
 	for _, c := range repoConsumers {
 		if c.ImportsSchemas {

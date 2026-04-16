@@ -22,10 +22,17 @@ type schemaEndpoint struct {
 	Public        bool         // true if explicitly security: []
 	HasSuccessRef bool         // true if a 2xx response has a $ref schema
 	Has2xx        bool         // true if there is a 2xx response at all
-	RequestBody   bool         // true if the operation declares a requestBody
-	Construct     string       // "connection" — from extractConstructName
+	RequestBody   bool               // true if the operation declares a requestBody
+	QueryParams   []schemaQueryParam // query parameters declared on the operation
+	Construct     string             // "connection" — from extractConstructName
 	Version       string       // "v1beta1"
 	SourceFile    string       // "schemas/constructs/v1beta1/connection/api.yml"
+}
+
+// schemaQueryParam describes one query parameter declared in an OpenAPI spec.
+type schemaQueryParam struct {
+	Name     string
+	Required bool
 }
 
 // schemaShape is a structural summary of a schema component.
@@ -106,6 +113,7 @@ func buildEndpointIndex(rootDir string) (*schemaIndex, error) {
 				}
 
 				ep.ResponseShape, ep.HasSuccessRef, ep.Has2xx = pickResponseShape(op)
+				ep.QueryParams = mergeQueryParams(pathItem.Parameters, op.Parameters)
 
 				index.Endpoints = append(index.Endpoints, ep)
 			}
@@ -123,6 +131,37 @@ func buildEndpointIndex(rootDir string) (*schemaIndex, error) {
 	})
 
 	return index, nil
+}
+
+// mergeQueryParams collects query parameters from path-level and
+// operation-level parameter lists. Operation-level parameters override
+// path-level parameters with the same name, per the OpenAPI 3 spec.
+func mergeQueryParams(pathLevel, opLevel openapi3.Parameters) []schemaQueryParam {
+	// Use a map to deduplicate by name, with op-level winning.
+	byName := make(map[string]schemaQueryParam)
+	for _, ref := range pathLevel {
+		if ref == nil || ref.Value == nil || ref.Value.In != openapi3.ParameterInQuery {
+			continue
+		}
+		p := ref.Value
+		byName[p.Name] = schemaQueryParam{Name: p.Name, Required: p.Required}
+	}
+	for _, ref := range opLevel {
+		if ref == nil || ref.Value == nil || ref.Value.In != openapi3.ParameterInQuery {
+			continue
+		}
+		p := ref.Value
+		byName[p.Name] = schemaQueryParam{Name: p.Name, Required: p.Required}
+	}
+	if len(byName) == 0 {
+		return nil
+	}
+	out := make([]schemaQueryParam, 0, len(byName))
+	for _, qp := range byName {
+		out = append(out, qp)
+	}
+	sort.Slice(out, func(i, j int) bool { return out[i].Name < out[j].Name })
+	return out
 }
 
 // parseXInternal extracts x-internal target list from operation extensions.

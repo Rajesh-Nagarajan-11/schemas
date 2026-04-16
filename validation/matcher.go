@@ -3,6 +3,7 @@ package validation
 import (
 	"fmt"
 	"regexp"
+	"sort"
 	"strings"
 )
 
@@ -300,7 +301,7 @@ func verifyShapeDetailed(shape *schemaShape, info *goTypeInfo, requestSide bool)
 	return shapeAssessment{status: shapeOK}
 }
 
-func assessConsumers(consumerProvided bool, repo string, consumers []consumerEndpoint, requestShape, responseShape *schemaShape) consumerAssessment {
+func assessConsumers(consumerProvided bool, repo string, consumers []consumerEndpoint, requestShape, responseShape *schemaShape, specQueryParams []schemaQueryParam) consumerAssessment {
 	if !consumerProvided {
 		return consumerAssessment{}
 	}
@@ -334,7 +335,7 @@ func assessConsumers(consumerProvided bool, repo string, consumers []consumerEnd
 	}
 
 	for i := range consumers {
-		assessment := assessConsumer(&consumers[i], requestShape, responseShape)
+		assessment := assessConsumer(&consumers[i], requestShape, responseShape, specQueryParams)
 		combined.Drift = append(combined.Drift, assessment.Drift...)
 		combined.Notes = append(combined.Notes, assessment.Notes...)
 		if statusRank(assessment.Status) > statusRank(combined.Status) {
@@ -347,7 +348,59 @@ func assessConsumers(consumerProvided bool, repo string, consumers []consumerEnd
 	return combined
 }
 
-func assessConsumer(c *consumerEndpoint, requestShape, responseShape *schemaShape) consumerAssessment {
+// assessQueryParams compares the query parameter names declared in the spec
+// against the names read by the handler body. Discrepancies are returned as
+// plain-text notes (not drift) so they appear in the Notes column without
+// affecting Schema-Driven status, since query-param coverage is a new signal.
+//
+// The comparison uses a case-folded, separator-stripped canonical form so that
+// "orgId" and "org_id" are recognized as referring to the same parameter, and
+// the note reports the actual names rather than silently ignoring the mismatch.
+func assessQueryParams(specParams []schemaQueryParam, handlerParams []string) []string {
+	if len(specParams) == 0 && len(handlerParams) == 0 {
+		return nil
+	}
+
+	normalize := func(s string) string {
+		return strings.ToLower(strings.NewReplacer("_", "", "-", "").Replace(s))
+	}
+
+	specByCanon := make(map[string]string, len(specParams)) // canon → original spec name
+	for _, p := range specParams {
+		specByCanon[normalize(p.Name)] = p.Name
+	}
+
+	handlerByCanon := make(map[string]string, len(handlerParams)) // canon → original handler name
+	for _, name := range handlerParams {
+		handlerByCanon[normalize(name)] = name
+	}
+
+	var notes []string
+
+	// Spec params that the handler never reads.
+	for canon, specName := range specByCanon {
+		if _, ok := handlerByCanon[canon]; !ok {
+			notes = append(notes, fmt.Sprintf("query param %q declared in spec but not read by handler", specName))
+			continue
+		}
+		handlerName := handlerByCanon[canon]
+		if handlerName != specName {
+			notes = append(notes, fmt.Sprintf("query param name differs: handler reads %q, spec defines %q", handlerName, specName))
+		}
+	}
+
+	// Handler params not declared in the spec.
+	for canon, handlerName := range handlerByCanon {
+		if _, ok := specByCanon[canon]; !ok {
+			notes = append(notes, fmt.Sprintf("query param %q read by handler but not declared in spec", handlerName))
+		}
+	}
+
+	sort.Strings(notes)
+	return notes
+}
+
+func assessConsumer(c *consumerEndpoint, requestShape, responseShape *schemaShape, specQueryParams []schemaQueryParam) consumerAssessment {
 	if c == nil {
 		return consumerAssessment{Status: auditStatusNotAudited}
 	}
@@ -377,6 +430,23 @@ func assessConsumer(c *consumerEndpoint, requestShape, responseShape *schemaShap
 			Status: auditStatusFalse,
 			Notes:  append(notes, fmt.Sprintf("%s handler %s does not import github.com/meshery/schemas/models", c.Repo, describeHandler(*c))),
 		}
+	}
+
+	// For methods that carry no body by HTTP semantics (DELETE, HEAD),
+	// having no request or response shape in the spec is correct by design.
+	// The handler conforms by definition — return TRUE rather than Not Audited.
+	// For other methods (POST, PUT, PATCH, GET), absent shapes indicate an
+	// incomplete schema; those stay Not Audited so the gap is visible.
+	if requestShape == nil && responseShape == nil && bodylessMethod(c.Method) {
+		return consumerAssessment{
+			Status: auditStatusTrue,
+			Notes:  uniqueStrings(notes),
+		}
+	}
+
+	// Query param comparison — advisory notes only, does not affect status.
+	for _, qpNote := range assessQueryParams(specQueryParams, c.QueryParams) {
+		notes = append(notes, fmt.Sprintf("%s: %s", c.Repo, qpNote))
 	}
 
 	reqAssessment := verifyShapeDetailed(requestShape, c.RequestType, true)
@@ -547,6 +617,17 @@ func typesCompatible(openapiType, goType string) bool {
 		return strings.Contains(goType, "map") || strings.Contains(goType, "struct") || !isPrimitive(goType)
 	}
 	return openapiType == goType
+}
+
+// bodylessMethod returns true for HTTP methods that carry no body by
+// semantics. A DELETE or HEAD endpoint with no request/response shape in the
+// spec is correct by design and should be reported as TRUE, not Not Audited.
+func bodylessMethod(method string) bool {
+	switch strings.ToUpper(method) {
+	case "DELETE", "HEAD":
+		return true
+	}
+	return false
 }
 
 func isPrimitive(goType string) bool {

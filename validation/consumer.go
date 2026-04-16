@@ -24,6 +24,7 @@ type consumerEndpoint struct {
 	ImportsSchemas bool        // handler file imports github.com/meshery/schemas/models/*
 	RequestType    *goTypeInfo // nil if not inferable
 	ResponseType   *goTypeInfo // nil if not inferable
+	QueryParams    []string    // query param names read by the handler (e.g. "orgId", "page")
 	Notes          []string    // parser-side notes (e.g. "anonymous handler")
 }
 
@@ -41,6 +42,7 @@ type handlerInfo struct {
 	ImportsSchemas bool
 	RequestType    *goTypeInfo
 	ResponseType   *goTypeInfo
+	QueryParams    []string
 	// DelegatesTo is the name of a same-package method this handler forwards
 	// (res, req, ...) to when its own body contains no req/resp evidence.
 	// Resolved in a post-pass so the delegate's types propagate here.
@@ -233,12 +235,13 @@ func indexHandlers(tree sourceTree, endpoints []consumerEndpoint) []consumerEndp
 				continue
 			}
 			name := fn.Name.Name
-			req, resp, delegate := scanHandlerBody(fn, c.imports, localPkgTypes[c.dir], funcReturns[c.dir], allFuncReturns, pkgTypes, pkgAliases)
+			req, resp, delegate, qps := scanHandlerBody(fn, c.imports, localPkgTypes[c.dir], funcReturns[c.dir], allFuncReturns, pkgTypes, pkgAliases)
 			handlers[name] = append(handlers[name], handlerInfo{
 				File:           c.path,
 				ImportsSchemas: importsSchemas,
 				RequestType:    req,
 				ResponseType:   resp,
+				QueryParams:    qps,
 				DelegatesTo:    delegate,
 			})
 		}
@@ -272,6 +275,9 @@ func indexHandlers(tree sourceTree, endpoints []consumerEndpoint) []consumerEndp
 		}
 		if ep.ResponseType == nil {
 			ep.ResponseType = info.ResponseType
+		}
+		if len(ep.QueryParams) == 0 {
+			ep.QueryParams = info.QueryParams
 		}
 	}
 
@@ -537,9 +543,9 @@ func scanHandlerBody(
 	allFuncReturns map[string]*goTypeInfo,
 	pkgTypes map[string]map[string]map[string]string,
 	pkgAliases map[string]map[string]string,
-) (*goTypeInfo, *goTypeInfo, string) {
+) (*goTypeInfo, *goTypeInfo, string, []string) {
 	if fn == nil || fn.Body == nil {
-		return nil, nil, ""
+		return nil, nil, "", nil
 	}
 
 	locals := collectLocalVars(fn, funcReturns, allFuncReturns)
@@ -555,6 +561,8 @@ func scanHandlerBody(
 	}
 
 	var req, resp *goTypeInfo
+	qpSeen := make(map[string]bool)
+	var queryParams []string
 
 	ast.Inspect(fn.Body, func(n ast.Node) bool {
 		call, ok := n.(*ast.CallExpr)
@@ -591,11 +599,44 @@ func scanHandlerBody(
 			if resp == nil && len(call.Args) >= 2 {
 				resp = resolve(call.Args[1])
 			}
+		case "QueryParam":
+			// Echo: c.QueryParam("name")
+			if len(call.Args) == 1 {
+				if name := stringLit(call.Args[0]); name != "" && !qpSeen[name] {
+					qpSeen[name] = true
+					queryParams = append(queryParams, name)
+				}
+			}
+		case "Get":
+			// Stdlib: r.URL.Query().Get("name")
+			// The receiver of Get must itself be a call ending in "Query".
+			if len(call.Args) == 1 && receiverIsQueryValues(sel.X) {
+				if name := stringLit(call.Args[0]); name != "" && !qpSeen[name] {
+					qpSeen[name] = true
+					queryParams = append(queryParams, name)
+				}
+			}
 		}
 		return true
 	})
 
-	return req, resp, delegate
+	return req, resp, delegate, queryParams
+}
+
+// receiverIsQueryValues reports whether an expression is a call chain ending
+// in .Query() — the pattern that produces a url.Values from an http.Request.
+// It matches both the direct form (r.URL.Query()) and any deeper chain like
+// req.URL.Query().
+func receiverIsQueryValues(expr ast.Expr) bool {
+	call, ok := expr.(*ast.CallExpr)
+	if !ok {
+		return false
+	}
+	sel, ok := call.Fun.(*ast.SelectorExpr)
+	if !ok || sel.Sel == nil {
+		return false
+	}
+	return sel.Sel.Name == "Query"
 }
 
 // detectDelegation reports the name of a same-package method the handler
