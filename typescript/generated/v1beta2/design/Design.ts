@@ -73,11 +73,11 @@ export interface paths {
   };
   "/api/content/design/share": {
     /**
-     * Shares a design (pattern) or filter with a list of email addresses. When
-     * `share` is true, the content's visibility is flipped to public and an
-     * invitation email is sent to each recipient. When `share` is false,
-     * visibility is reverted to private. Only the owner of the content may
-     * change its sharing mode.
+     * Shares a design (pattern), view, or filter with a list of email
+     * addresses. When `share` is true, the content's visibility is flipped to
+     * public and an invitation email is sent to each recipient. When `share`
+     * is false, visibility is reverted to private. Only the owner of the
+     * content may change its sharing mode.
      */
     post: operations["shareDesign"];
   };
@@ -18820,11 +18820,11 @@ export interface operations {
     };
   };
   /**
-   * Shares a design (pattern) or filter with a list of email addresses. When
-   * `share` is true, the content's visibility is flipped to public and an
-   * invitation email is sent to each recipient. When `share` is false,
-   * visibility is reverted to private. Only the owner of the content may
-   * change its sharing mode.
+   * Shares a design (pattern), view, or filter with a list of email
+   * addresses. When `share` is true, the content's visibility is flipped to
+   * public and an invitation email is sent to each recipient. When `share`
+   * is false, visibility is reverted to private. Only the owner of the
+   * content may change its sharing mode.
    */
   shareDesign: {
     responses: {

@@ -30803,9 +30803,9 @@ const DesignSchema: Record<string, unknown> = {
         "tags": [
           "designs"
         ],
-        "summary": "Share a design or filter by email",
+        "summary": "Share a design, view, or filter by email",
         "operationId": "shareDesign",
-        "description": "Shares a design (pattern) or filter with a list of email addresses. When\n`share` is true, the content's visibility is flipped to public and an\ninvitation email is sent to each recipient. When `share` is false,\nvisibility is reverted to private. Only the owner of the content may\nchange its sharing mode.\n",
+        "description": "Shares a design (pattern), view, or filter with a list of email\naddresses. When `share` is true, the content's visibility is flipped to\npublic and an invitation email is sent to each recipient. When `share`\nis false, visibility is reverted to private. Only the owner of the\ncontent may change its sharing mode.\n",
         "requestBody": {
           "description": "Body for sharing a design, filter, or view with recipients by email.",
           "required": true,
