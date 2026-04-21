@@ -301,15 +301,27 @@ paths:
         - designs
       summary: Upload design source content
       operationId: upsertPatternSourceContent
-      description: Uploads or replaces the source content for a design.
+      description: |
+        Replaces the raw source content blob stored alongside a design.
+        The server (meshery-cloud's UpsertPatternSourceContent handler)
+        reads the entire request body as opaque bytes via io.ReadAll and
+        persists them without interpretation, so the content-type is
+        whatever the uploader sent — `application/octet-stream` is the
+        canonical choice. The previous declaration reused
+        MesheryPatternImportRequestBody under multipart/form-data, which
+        the handler never parses; it remained wired up solely to share
+        a schema ref with /api/pattern/import. See meshery/schemas#771
+        for the drift analysis.
       parameters:
         - $ref: "#/components/parameters/id"
       requestBody:
         required: true
         content:
-          multipart/form-data:
+          application/octet-stream:
             schema:
-              $ref: "#/components/schemas/MesheryPatternImportRequestBody"
+              type: string
+              format: binary
+              description: Opaque design source bytes (yaml, tarball, etc.)
       responses:
         "200":
           description: Design source content uploaded
